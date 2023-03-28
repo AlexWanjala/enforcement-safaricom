@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetLayout"
+    android:background="@drawable/bg_fill_white_curved"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linear"
+        android:orientation="vertical"
+        android:layout_marginTop="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20sp"
+            android:layout_gravity="center"
+            android:id="@+id/button_drag_rod"
+            android:src="@drawable/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="20sp"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:text="@string/clamp_vehicle"
+            android:layout_width="290sp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text="@string/clamp_vehicle_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:layout_marginTop="20sp"
+            android:text="@string/town"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:layout_marginTop="20sp"
+            android:text="@string/reason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:padding="10dp"
+            android:elevation="10dp"
+            android:layout_marginTop="5sp"
+            android:background="@drawable/bg_outline_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:elevation="5dp"
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="30sp" />
+        </LinearLayout>
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:layout_marginTop="10sp"
+            android:text="@string/padlockNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <EditText
+            android:id="@+id/padlockNumber"
+            android:paddingStart="10sp"
+            android:hint="@string/padlockNumber"
+            android:layout_marginTop="5sp"
+            android:background="@drawable/bg_outline_white"
+            android:layout_width="match_parent"
+            android:layout_height="55sp"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:elevation="10dp"
+                android:id="@+id/closeit"
+                android:backgroundTint="@color/black"
+                android:textColor="@color/black"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/bg_outline_white"
+                android:text="@string/close"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/buttonClamp"
+                android:layout_gravity="right"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/bg_fill_primary"
+                android:text="@string/clamp"
+                android:layout_width="150sp"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

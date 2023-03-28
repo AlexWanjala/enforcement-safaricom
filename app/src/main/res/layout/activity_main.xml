@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/bg"
+    android:layout_height="match_parent"
+    tools:context=".tabs.Home">
+    <FrameLayout
+        android:id="@+id/toolBar"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="80sp">
+            <TextView
+                android:id="@+id/nameTag"
+                android:layout_marginStart="10sp"
+                android:text="@string/px"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_fill_primary_circle"
+                android:layout_width="50sp"
+                android:layout_height="50sp"/>
+
+            <LinearLayout
+                android:layout_marginStart="10dp"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color"
+                    android:text="@string/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="@string/county"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </TextView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_marginTop="10sp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="right"
+            android:src="@drawable/logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:visibility="gone"
+        android:id="@+id/header_title"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="40sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/black"
+            android:text="@string/county"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:text="@string/enforcement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/receipt"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+                <ImageView
+                    app:tint="@color/primay_color"
+                    android:src="@drawable/invoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/black"
+                    android:text="@string/market_fees"
+                    android:textSize="12sp"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:visibility="visible"
+                android:id="@+id/business"
+                android:layout_marginEnd="20sp"
+                android:layout_marginStart="20sp"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+
+                <ImageView
+                    android:id="@+id/addBusiness"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:elevation="5dp"
+                    android:src="@drawable/add" />
+
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_gravity="center"
+                        app:tint="@color/primay_color"
+                        android:src="@drawable/suitcase"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
+                        android:text="@string/business"
+                        android:textSize="12sp"
+                        android:layout_width="150sp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20sp"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:visibility="visible"
+                android:id="@+id/cess"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+                <ImageView
+                    app:tint="@color/primay_color"
+                    android:src="@drawable/pickupcar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/cess"
+                    android:textSize="12sp"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/parking"
+                android:layout_marginEnd="20sp"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/parking"
+                    app:tint="@color/primay_color" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/parking"
+                    android:textSize="12sp"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20sp"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/streetParking"
+                android:layout_marginEnd="20sp"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+                <ImageView
+                    app:tint="@color/primay_color"
+                    android:src="@drawable/parking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/offstreet"
+                    android:textSize="12sp"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/transaction"
+                android:layout_marginEnd="20sp"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="150sp">
+                <ImageView
+                    android:src="@drawable/invoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:tint="@color/primay_color" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/payments"
+                    android:textSize="12sp"
+                    android:layout_width="150sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+ <include
+     layout="@layout/bottom_nav"
+     />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/bottom_sheet" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

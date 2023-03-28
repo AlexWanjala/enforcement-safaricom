@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:background="#F6F6FA"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:visibility="visible"
+            android:id="@+id/cameraView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+            <TextView
+                android:layout_marginTop="3dp"
+                android:textColor="#FFFF00"
+                android:gravity="center"
+                android:elevation="1dp"
+                android:text="Place Number Plate In Between The Boundaries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/ImageCamera"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="22dp"
+                android:elevation="1dp"
+                android:layout_gravity="center"
+                android:src="@drawable/view_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ImageCamera2"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="22dp"
+                android:elevation="1dp"
+                android:layout_gravity="center"
+                android:src="@drawable/view_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.aw.forcement.ocr.camera.CameraSourcePreview
+                android:id="@+id/preview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+
+                <com.aw.forcement.ocr.camera.GraphicOverlay
+                    android:elevation="5dp"
+                    android:id="@+id/graphicOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" >
+                </com.aw.forcement.ocr.camera.GraphicOverlay>
+
+
+            </com.aw.forcement.ocr.camera.CameraSourcePreview>
+
+        </FrameLayout>
+
+
+        <Switch
+            android:textSize="18dp"
+            android:layout_gravity="right"
+            android:checked="false"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:padding="5dp"
+            android:id="@+id/switchCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Camera" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edPlate"
+                    android:hint="Enter Plate"
+                    android:padding="7dp"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_weight="0.7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tvSubmit"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:padding="9dp"
+                    android:background="#00632C"
+                    android:text="Submit"
+                    android:textColor="#FFFF"
+                    android:layout_weight="0.3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+
+
+            <androidx.cardview.widget.CardView
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/card_view"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                card_view:cardCornerRadius="4dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                <!--    <com.github.ybq.android.spinkit.SpinKitView
+                        android:elevation="5dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        app:SpinKit_Color="@color/colorPrimaryDark"
+                        style="@style/SpinKitView"
+                        android:id="@+id/progressbar"
+                        android:layout_width="130dp"
+                        android:layout_height="130dp" />-->
+
+                    <ImageView
+                        android:id="@+id/display_img"
+                        android:src="@drawable/display_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" />
+
+
+                    <LinearLayout
+                        android:id="@+id/display_data"
+                        android:visibility="visible"
+                        android:padding="15dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tvHeader"
+                            android:textColor="@android:color/black"
+                            android:layout_gravity="center"
+                            android:text="Scanning..."
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Plate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/plate"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"
+                            tools:text="KCC 358Y"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Vehicle Category"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/vehicleCategory"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"
+                            tools:text="Lorry"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="Zone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/zone"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"
+                            tools:text="CBD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:visibility="visible"
+                            android:text="Street"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:visibility="visible"
+                            android:id="@+id/street"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"
+                            tools:text="Moi Aveneu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:layout_marginTop="3dp"
+                            android:text="Duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/duration"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/black"
+                            tools:text="Daily"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+
+                        <TextView
+                            android:layout_marginTop="4dp"
+                            android:text="status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:layout_marginBottom="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:id="@+id/status"
+                                android:textAllCaps="true"
+                                android:textSize="18dp"
+                                android:textColor="@android:color/holo_red_dark"
+                                tools:text="UNPAID"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+
+
+                            <ImageView
+                                android:id="@+id/imageStatus"
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="25dp"
+                                android:layout_height="25dp" />
+
+                            <TextView
+                                android:layout_marginLeft="10dp"
+                                android:visibility="visible"
+                                android:id="@+id/description"
+                                android:textSize="18dp"
+                                android:textColor="@android:color/black"
+                                tools:text="description"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                </FrameLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <RadioGroup
+        android:elevation="5dp"
+        android:padding="3dp"
+        android:background="@android:color/white"
+        android:weightSum="3"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/LView"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/radio0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/view_ianactive" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/radio01"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/scan_icon" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:visibility="gone"
+                android:id="@+id/radio02"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true" />
+
+            <ImageView
+                android:id="@+id/logout"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/log_out" />
+        </LinearLayout>
+    </RadioGroup>
+
+
+</FrameLayout>

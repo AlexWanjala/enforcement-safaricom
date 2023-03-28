@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottomSheetLayout"
+    android:background="@drawable/bg_fill_white_curved"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    >
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:gravity="center"
+        android:id="@+id/linear"
+        android:orientation="vertical"
+        android:layout_marginTop="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="350sp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="10sp"
+            android:layout_marginEnd="20sp"
+            android:layout_gravity="center"
+            android:id="@+id/button_drag_rod"
+            android:src="@drawable/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:padding="10dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:src="@drawable/close"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                app:tint="@color/black" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:textAllCaps="true"
+                android:textSize="18dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:text="@string/query_title"
+                android:layout_width="290sp"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:src="@drawable/checked"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                app:tint="@color/text_color" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/tvEnter"
+            android:layout_gravity="center"
+            android:text="@string/query_des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <include layout="@layout/progressbar"/>
+
+        <include layout="@layout/message"/>
+
+        <EditText
+            android:id="@+id/edSearch"
+            android:paddingStart="10dp"
+            android:background="@drawable/bg_outline_white"
+            android:textColor="@color/black"
+            android:layout_marginTop="10sp"
+            android:layout_width="280sp"
+            android:layout_height="45sp"/>
+
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_marginTop="20sp"
+            android:background="@drawable/bg_fill_primary"
+            android:text="@string/search"
+            android:layout_width="280sp"
+            android:layout_height="wrap_content"/>
+
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

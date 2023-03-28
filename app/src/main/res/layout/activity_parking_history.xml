@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".history.ParkingHistory"
+    >
+
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:textSize="16dp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="10sp"
+            android:text="@string/parking_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <RadioGroup
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:checked="true"
+                android:id="@+id/allParking"
+                android:textSize="10sp"
+                android:text="@string/all_queries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:visibility="visible"
+                android:id="@+id/toNonCompliant"
+                android:textSize="10sp"
+                android:text="@string/non_compliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/compliant"
+                android:textSize="10sp"
+                android:text="@string/compliant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/clamped"
+                android:textSize="10sp"
+                android:text="@string/clamped"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </RadioGroup>
+
+        <EditText
+            android:padding="15dp"
+            android:drawableEnd="@android:drawable/ic_menu_search"
+            android:background="@color/white"
+            android:importantForAutofill="no"
+            android:inputType="textFilter|textMultiLine"
+            android:textColorHint="@color/text_color"
+            android:textStyle="bold"
+            android:textColor="@color/text_color"
+            android:id="@+id/et_search_bar"
+            android:textSize="15sp"
+            android:hint="@string/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/recycler_view"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:layout_margin="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/outline_date_range_white_24"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

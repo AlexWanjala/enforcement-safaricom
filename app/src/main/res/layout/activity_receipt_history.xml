@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".history.ParkingHistory"
+    android:background="@color/bg"
+    >
+
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="100sp">
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:textSize="16dp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="10sp"
+            android:text="@string/receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <RadioGroup
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/allReceipt"
+                android:textSize="10sp"
+                android:text="@string/all_queries"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <RadioButton
+                android:id="@+id/receiptValid"
+                android:textSize="10sp"
+                android:text="@string/valid"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <RadioButton
+                android:id="@+id/receiptInvalid"
+                android:textSize="10sp"
+                android:text="@string/invalid"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <include layout="@layout/recycler_view"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

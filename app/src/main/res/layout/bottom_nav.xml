@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:id="@+id/imagePay"
+        android:layout_marginStart="20dp"
+        android:padding="15dp"
+        android:layout_marginBottom="40sp"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:background="@drawable/indicator_state_background_round"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="@string/pay"
+        android:layout_width="64sp"
+        android:layout_height="64sp"
+      />
+
+
+    <ImageView
+        android:id="@+id/imageScan"
+        android:layout_marginEnd="20sp"
+        android:background="@drawable/indicator_state_background_round"
+        android:padding="15dp"
+        android:layout_marginBottom="40sp"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/scan"
+        android:layout_width="60sp"
+        android:layout_height="60sp"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:weightSum="3"
+        android:id="@+id/bottomBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50sp">
+
+        <LinearLayout
+            android:id="@+id/home"
+            android:layout_marginStart="40sp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageHome"
+                android:src="@drawable/menu"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+            <TextView
+                android:text="@string/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/history"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageHistory"
+                android:src="@drawable/history"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:tint="@color/black" />
+
+            <TextView
+                android:text="@string/history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/profile"
+            android:layout_marginEnd="70sp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageProfile"
+                android:src="@drawable/user"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:tint="@color/black" />
+
+            <TextView
+                android:text="@string/profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

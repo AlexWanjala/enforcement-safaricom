@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NarokEnforcement"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustResize"
+        tools:targetApi="31" >
+        <activity
+            android:name=".others.AddBusiness"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".others.CessPayments"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Pay"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Transactions"
+            android:exported="false" >
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Offstreet"
+            android:exported="false" />
+
+        <receiver
+            android:name=".SMSReceiver"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ScanClass"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ScanOptions"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".tabs.Profile"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".history.CessHistory"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".history.ReceiptHistory"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".history.BusinessHistoty"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".history.ParkingHistory"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".tabs.History"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".others.Parking"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".others.Cess"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".others.Business"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".others.Receipt"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".tabs.Home"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity android:name=".others.Street" />
+        <activity
+            android:name=".Login"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.NarokEnforcement.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

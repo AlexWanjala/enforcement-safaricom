@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.CessPayments">
+
+
+    <TextView
+        android:textColor="@color/bg_button"
+        android:textStyle="bold"
+        android:text="@string/income_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+       <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:layout_marginStart="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinnerIncomeType"
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:textColor="@color/bg_button"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="@string/cess_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:layout_marginStart="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinnerFeeAndCharges"
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:textColor="@color/bg_button"
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:inputType="number"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/edQuantity"
+        android:hint="@string/quantity"
+        android:padding="15dp"
+        android:background="@drawable/rectangle_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <FrameLayout
+        android:padding="20dp"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_gravity="left"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:text="@string/total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvUnits"
+                tools:text="50 X 100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tvAmount"
+            android:gravity="center"
+            android:layout_gravity="right"
+            tools:text="@string/bill_amount_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:textStyle="italic"
+            android:textSize="10sp"
+            android:text="@string/payment_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="15sp"
+            android:textColor="@color/primay_color"
+            android:textStyle="bold"
+            tools:text="Waiting for Payments..."
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:text="@string/mpesa_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:inputType="phone"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/edPhoneNumber"
+            android:hint="@string/mpesa_"
+            android:padding="15dp"
+            android:background="@drawable/bg_fill_gay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tvSendPayment"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/indicator_state_background_button"
+            android:textColor="@drawable/indicator_state_color_button"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/send_payment"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_marginTop="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.CessPayments">
+
+
+    <TextView
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:text="@string/income_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_marginStart="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinnerIncomeType"
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        android:text="@string/cess_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:visibility="gone"
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Spinner
+            android:layout_marginStart="10sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinnerFeeAndCharges"
+            android:layout_width="match_parent"
+            android:layout_height="50sp" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10dp"
+        android:text="F"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:inputType="number"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/edAmount"
+        android:hint="Fare Amount"
+        android:padding="15dp"
+        android:background="@drawable/rectangle_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="10dp"
+        android:text="Number of People"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:inputType="number"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/edQuantity"
+        android:hint="Number of People"
+        android:padding="15dp"
+        android:background="@drawable/rectangle_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+
+    <FrameLayout
+        android:padding="20dp"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_gravity="left"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textStyle="bold"
+                android:text="@string/total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvUnits"
+                tools:text="50 X 100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/tvAmount"
+            android:gravity="center"
+            android:layout_gravity="right"
+            tools:text="@string/bill_amount_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:textStyle="italic"
+            android:textSize="10sp"
+            android:text="@string/payment_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textSize="15sp"
+            android:textColor="@color/primay_color"
+            android:textStyle="bold"
+            tools:text="Waiting for Payments..."
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:textColor="@color/text_color"
+            android:textStyle="bold"
+            android:layout_marginTop="20sp"
+            android:text="@string/mpesa_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:inputType="phone"
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/edPhoneNumber"
+            android:hint="@string/mpesa_"
+            android:padding="15dp"
+            android:background="@drawable/bg_fill_gay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tvSendPayment"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/indicator_state_background_button"
+            android:textColor="@drawable/indicator_state_color_button"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/send_payment"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
+
+-->
