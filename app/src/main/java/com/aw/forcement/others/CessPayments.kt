@@ -76,7 +76,7 @@ class CessPayments : AppCompatActivity() {
     private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
-            "function" to "generateBill",
+            "function" to "generateBill2",
             "feeId" to feeId.toString(),
             "amount" to (amount.toString().toInt() *edQuantity.text.toString().toInt()).toString(),
             "customer" to edPhoneNumber.text.toString()

@@ -53,7 +53,7 @@ class AddBusiness : AppCompatActivity() {
     private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounties",
-            "countyID" to "43"
+            "countyID" to "3"
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {

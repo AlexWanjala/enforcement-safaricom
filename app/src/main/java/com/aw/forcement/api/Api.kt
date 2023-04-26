@@ -14,6 +14,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import java.io.ByteArrayOutputStream
@@ -21,6 +22,8 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLSocketFactory
 
 const val URL ="https://api.paysol.co.ke/"
 var parking = "parking/"
@@ -35,19 +38,32 @@ interface CallBack {
 }
 
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
+
+    FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
+    FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
+
     println("##Request ${formData.toString()}")
-    Fuel.post(URL+stream,formData).authentication().responseString {
+    Fuel.post(URL+stream, formData)
+        .timeout(0)
+        .authentication()
+        .responseString { _, _, result ->
+            println("##Response$result")
+            callback.onSuccess(result.get())
+        }
+
+   /* println("##Request ${formData.toString()}")
+    Fuel.post(URL+stream,formData).timeout(0).authentication().responseString {
             _, _, result ->
         println("##Response$result")
         callback.onSuccess(result.get())
-    }
+    }*/
 
 }
 
 
 fun executeJsonRequest(json: String, function: String, callback: CallBack) {
     println("##Request ${json.toString()}")
-    Fuel.post(URL+function).jsonBody(json).responseString {
+    Fuel.post(URL+function).timeout(0).jsonBody(json).responseString {
             _, _, result ->
         println("##Response$result")
         callback.onSuccess(result.get())
