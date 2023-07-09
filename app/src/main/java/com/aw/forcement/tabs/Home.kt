@@ -18,14 +18,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aw.forcement.*
-import com.aw.forcement.ocr.OcrCaptureActivity
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
+import com.aw.passanger.api.parking
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.bottom_nav.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.message.*
@@ -41,7 +42,7 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_page)
 
         addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
         imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
@@ -65,8 +66,7 @@ class Home : AppCompatActivity() {
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
         closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
         streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
-
-
+        imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
 
 
     }
@@ -107,8 +107,8 @@ class Home : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        name.text = getValue(this,"username")
-        nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
+        //name.text = getValue(this,"username")
+     //   nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
 
         locationPermission()
 
@@ -298,10 +298,11 @@ class Home : AppCompatActivity() {
                         // Set the map's camera position to the current location of the device.
                         val lastKnownLocation = task.result
                         if (lastKnownLocation != null) {
-                            println("## lastKnownLocation lat{$lastKnownLocation.longitude} long{$lastKnownLocation.longitude}")
+                            println("## lastKnownLocation lat{${lastKnownLocation.latitude}} long{${lastKnownLocation.longitude}}")
                             save(this,"latitude", lastKnownLocation.latitude.toString())
                             save(this,"longitude", lastKnownLocation.longitude.toString())
                             val address = getAddress(lastKnownLocation.latitude,lastKnownLocation.longitude)
+                            println("## address lat{${address}}")
                         }else{
                             println("## lastKnownLocation null ")
                         }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Safaricom Enforcement</string>
+    <string name="app_name">Homabay Enforcement</string>
   <!--  <string name="app_name">Namata</string>-->
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -14,7 +14,6 @@
     <string name="login">Login</string>
     <string name="username">Username or email</string>
     <string name="password">Password</string>
-    <string name="submit">Submit</string>
     <string name="search">Search</string>
     <string name="name">Alex Wanjala</string>
     <string name="px">AL</string>
@@ -39,7 +38,7 @@
     <string name="receipt_details">Receipt Details</string>
     <string name="receipt_no">Receipt No</string>
     <string name="income_type">Income type</string>
-    <string name="market_fees">Market Fees</string>
+    <string name="market_fees">Cess/Markets</string>
     <string name="billing_date">Billing Date</string>
     <string name="billing_date_">10 Oct 2021 11:22 PM</string>
     <string name="payment_date">Payment date</string>
@@ -54,7 +53,7 @@
     <string name="outstanding_balance_">KES 0.00</string>
     <string name="paid_fully">Fully Paid</string>
 
-    <string name="business_certificate">Business Certificate details</string>
+    <string name="business_certificate">Certificate details</string>
     <string name="business_id">Business Id 888S88S</string>
     <string name="business_name">Business Name</string>
     <string name="business_community">Kavakali Business Community</string>
@@ -139,6 +138,7 @@
     <string name="select_scan">Select Document to Scan</string>
     <string name="scan_receipt">Scan a Receipt</string>
     <string name="scan_trade">Scan Trade License</string>
+    <string name="scan_liquor">Scan Liquor License</string>
 
     <string name="start">Start Date</string>
     <string name="end">Expiry Date</string>
@@ -190,5 +190,11 @@
     <string name="last_business_information">Last Business information</string>
     <string name="business_activity_description">Business Activity Description*</string>
     <string name="email">Email</string>
+    <string name="submit">Submit</string>
+    <string name="request">Request Sent Successfully</string>
+    <string name="payment_request_sent">Payment request sent to </string>
+    <string name="payment_request_sent_">Kindly check your phone and follow the instructions.</string>
+    <string name="payment_received">Payment Received</string>
+    <string name="your_payment">Your payment has been received and your order is being worked on. Press the button below to check on the progress.</string>
 
 </resources>

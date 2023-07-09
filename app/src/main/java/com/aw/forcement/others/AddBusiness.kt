@@ -53,7 +53,7 @@ class AddBusiness : AppCompatActivity() {
     private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounties",
-            "countyID" to "3"
+            "countyID" to "43"
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -237,7 +237,7 @@ class AddBusiness : AppCompatActivity() {
             "town" to edPostalTown.text.toString(),
             "telephone1" to edPhoneNumber.text.toString() ,
             "telephone2" to edPhoneNumber2.text.toString(),
-            "countyID" to "36",
+            "countyID" to "43",
             "subCountyID" to subCountyID ,
             "wardID" to wardID,
             "address" to edEmail.text.toString(),
@@ -263,6 +263,8 @@ class AddBusiness : AppCompatActivity() {
                        "4087493",
                         response.data.billDetails.detailAmount
                     )
+                    response.data.billInfo
+
 
                 }
                 else{
@@ -311,7 +313,7 @@ class AddBusiness : AppCompatActivity() {
             "phoneNumber" to edPhoneNumber.text.toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
@@ -338,7 +340,7 @@ class AddBusiness : AppCompatActivity() {
             "accNo" to accountReference,
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 

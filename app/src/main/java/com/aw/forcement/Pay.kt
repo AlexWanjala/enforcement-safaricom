@@ -8,6 +8,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.aw.passanger.api.CallBack
+import com.aw.passanger.api.executePaysolRequest
 import com.aw.passanger.api.executeRequest
 import com.aw.passanger.api.paysol
 import com.google.gson.Gson
@@ -44,7 +45,7 @@ class Pay : AppCompatActivity() {
             "phoneNumber" to edPhone.text.toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
@@ -73,7 +74,7 @@ class Pay : AppCompatActivity() {
             "accNo" to accNo,
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 
@@ -123,7 +124,7 @@ class Pay : AppCompatActivity() {
             "keyword" to "",
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                  runOnUiThread {  progressBar1.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)

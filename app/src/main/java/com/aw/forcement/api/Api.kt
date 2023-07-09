@@ -25,13 +25,19 @@ import java.net.URL
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 
-const val URL ="https://api.paysol.co.ke/"
+
+const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
+
+//const val URL ="https://api.paysol.co.ke/"
+const val URL ="https://api.craftcollect.africa/homabay/"
 var parking = "parking/"
+var rent = "rent/"
 var trade = "trade/"
-var paysol ="paysol/"
 var biller ="biller/"
+var liquor ="liquor/"
+var authentication ="authentication/"
 
-
+//Your have created as a system user. Your username: 32783823 and password: 9227. Download the app from here. https://shorturl.at/acvT3
 
 interface CallBack {
     fun onSuccess(result: String?)
@@ -42,11 +48,11 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
 
-    println("##Request ${formData.toString()}")
     Fuel.post(URL+stream, formData)
         .timeout(0)
-        .authentication()
-        .responseString { _, _, result ->
+        .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
+        .responseString {request, response, result ->
+            println("##Request$request")
             println("##Response$result")
             callback.onSuccess(result.get())
         }
@@ -57,6 +63,28 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
         println("##Response$result")
         callback.onSuccess(result.get())
     }*/
+
+}
+fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
+
+    FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
+    FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
+
+    Fuel.post(paysol, formData)
+        .timeout(0)
+        .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
+        .responseString { request, response, result ->
+            println("##Request$request")
+            println("##Response$response")
+            callback.onSuccess(result.get())
+        }
+
+    /* println("##Request ${formData.toString()}")
+     Fuel.post(URL+stream,formData).timeout(0).authentication().responseString {
+             _, _, result ->
+         println("##Response$result")
+         callback.onSuccess(result.get())
+     }*/
 
 }
 
@@ -71,9 +99,8 @@ fun executeJsonRequest(json: String, function: String, callback: CallBack) {
 
 }
 
-
 fun executeGetRequest(function:String,callback: CallBack) {
-    Fuel.get(URL+function).authentication().responseString {
+    Fuel.get(URL+function).authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==").responseString {
             _, _, result ->
         println("##Response$result")
         callback.onSuccess(result.get())

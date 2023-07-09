@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#159f4a</color>
-    <color name="purple_500">#159f4a</color>
-    <color name="purple_700">#159f4a</color>
+    <color name="purple_200">#0c5192</color>
+    <color name="purple_500">#0c5192</color>
+    <color name="purple_700">#0c5192</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="text_color">#159f4a</color>
-    <color name="color_button">#159f4a</color>
+    <color name="text_color">#0c5192</color>
+    <color name="color_button">#0c5192</color>
     <color name="bg">#CBCBD5</color>
     <color name="line_color">#AEA6A5A8</color>
     <color name="selector">#80A6A5A8</color>
-    <color name="primay_color">#159f4a</color>
-    <color name="circle_color">#159f4a</color>
-    <color name="bg_button">#159f4a</color>
+    <color name="primay_color">#0c5192</color>
+    <color name="circle_color">#0c5192</color>
+    <color name="bg_button">#0c5192</color>
     <color name="red">#AC4A4A</color>
     <color name="colorPrimary">#F5F5F5</color>
     <color name="colorPrimaryDark">#F5F5F5</color>
-    <color name="colorAccent">#159f4a</color>
+    <color name="colorAccent">#0c5192</color>
     <color name="yellow">#B7DD2631</color>
     <color name="colorText">#6a0dad</color>
     <color name="grey">#3693C5F4</color>
     <color name="edit_text">#8DC6D2DD</color>
-    <color name="green_zuku">#159f4a</color>
-    <color name="blue_zuku">#159f4a</color>
+    <color name="green_zuku">#0c5192</color>
+    <color name="blue_zuku">#0c5192</color>
+    <color name="text_color_grey">#6E6E6E</color>
+    <color name="blue_disabled">#8B0C5192</color>
+
 </resources>

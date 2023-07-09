@@ -24,6 +24,8 @@ data class Data (
 	@SerializedName("wards") val wards : List<Wards>,
 	@SerializedName("subCounties") val subCounties : List<SubCounties>,
 	@SerializedName("tradeCategories") val tradeCategories : List<TradeCategories>,
-	@SerializedName("tradeSubCategories") val tradeSubCategories : List<TradeSubCategories>
+	@SerializedName("tradeSubCategories") val tradeSubCategories : List<TradeSubCategories>,
+	@SerializedName("user") val user : User,
+	@SerializedName("transaction") val transaction : Transaction
 
 )

@@ -1,3 +1,4 @@
+import android.app.AlertDialog
 import android.content.Context
 import android.net.ParseException
 import android.util.Log
@@ -5,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
+import com.aw.passanger.api.save
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
 
 
 /**
@@ -21,6 +23,7 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 	private var mList: List<Transactions> = ArrayList<Transactions>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+		var layoutView: ConstraintLayout = itemView.findViewById<View>(R.id.layoutView) as ConstraintLayout
 		var tvNameTag_: TextView = itemView.findViewById<View>(R.id.tvNameTag_) as TextView
 		var tvHeader: TextView = itemView.findViewById<View>(R.id.tvHeader) as TextView
 		var tvItem: TextView = itemView.findViewById<View>(R.id.tvItem) as TextView
@@ -48,6 +51,34 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 		holder.tvItem.text = list.ref + "# "+list.names
 		holder.tvDate.text = covertTimeToText(list.date)
 		holder.tvStatus_.text = "KES "+ list.amount
+
+		holder.layoutView.setOnClickListener {
+
+			val builder = AlertDialog.Builder(context)
+			builder.setTitle("Print Receipt")
+			builder.setMessage("Print receipt for ${list.names}")
+			builder.setPositiveButton("PRINT") { dialog, which ->
+				dialog.dismiss()
+
+				save(context,"transaction_code",list.transaction_code)
+				save(context,"amount",list.amount)
+				save(context,"phone",list.account_from)
+				save(context,"ref",list.ref)
+				save(context,"names",list.names)
+				save(context,"date",list.date)
+
+				if (context is com.aw.forcement.Transactions) {
+					(context as com.aw.forcement.Transactions).getBillPrint()
+				}
+			}
+			builder.setNegativeButton(android.R.string.no) { dialog, which ->
+				dialog.dismiss()
+			}
+
+			builder.show()
+
+
+		}
 
 	}
 

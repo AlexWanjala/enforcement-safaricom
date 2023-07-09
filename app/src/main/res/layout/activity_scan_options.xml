@@ -89,6 +89,28 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/scan_liquor"
+            android:layout_marginTop="20sp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@drawable/suitcase"
+                android:layout_width="30sp"
+                android:layout_height="30sp"/>
+            <TextView
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:text="@string/scan_liquor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
     </LinearLayout>
 

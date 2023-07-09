@@ -40,7 +40,7 @@ import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_cess_payments.*
+
 import kotlinx.android.synthetic.main.activity_offstreet.*
 import kotlinx.android.synthetic.main.activity_offstreet.edPhone
 import kotlinx.android.synthetic.main.activity_offstreet.edPlate
@@ -77,6 +77,8 @@ class Offstreet : AppCompatActivity(){
                 if(edPhone.text.isEmpty()){
                     Toast.makeText(this,"Please input Number Plate",Toast.LENGTH_LONG).show()
                 }else{
+                    tvSendPush.visibility = View.GONE
+                    tvSendPushDisabled.visibility = View.VISIBLE
                     matatuPayment()
                 }
             }
@@ -88,6 +90,10 @@ class Offstreet : AppCompatActivity(){
     }
 
 
+    override fun onBackPressed() {
+        finish()
+        super.onBackPressed()
+    }
 
 
     private fun getCategory(){
@@ -155,7 +161,7 @@ class Offstreet : AppCompatActivity(){
 
     }
     private fun matatuPayment(){
-        tv_message.text ="Generating bill please wait.."
+        tv_message.text ="Generating bill please wait..$zone_code $category_code"
         val formData = listOf(
             "function" to "matatuPayment",
             "numberPlate" to edPlate.text.toString(),
@@ -198,7 +204,7 @@ class Offstreet : AppCompatActivity(){
             "phoneNumber" to edPhone.text.toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
@@ -226,7 +232,7 @@ class Offstreet : AppCompatActivity(){
             "accNo" to accountReference,
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executeRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 
@@ -235,6 +241,9 @@ class Offstreet : AppCompatActivity(){
                     if(response.data.push.callback_returned=="PAID"){
 
                         runOnUiThread {
+
+                            tvSendPush.visibility = View.VISIBLE
+                            tvSendPushDisabled.visibility = View.GONE
 
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
 /*
@@ -251,7 +260,12 @@ class Offstreet : AppCompatActivity(){
                         TimeUnit.SECONDS.sleep(2L)
                         checkPayment(accountReference)
                     }else{
-                        runOnUiThread { tv_message.text = response.data.push.message}
+                        runOnUiThread {
+                            tv_message.text = response.data.push.message
+                            tvSendPush.visibility = View.VISIBLE
+                            tvSendPushDisabled.visibility = View.GONE
+
+                        }
                     }
 
                 }

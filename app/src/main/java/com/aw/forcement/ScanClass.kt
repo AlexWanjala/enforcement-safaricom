@@ -113,6 +113,11 @@ class ScanClass : AppCompatActivity() {
 
                         if(intent.getStringExtra("type").toString() == "receipt"){
                             queryReceiptNumber(scannedValue)
+                        }else if(intent.getStringExtra("type").toString() == "liquor"){
+                            if(scannedValue.length>4)
+                                checkLiquor( scannedValue.split(":")[1].split(" ")[1])
+                            else
+                                checkLiquor( scannedValue)
                         }else{
 
                             if(scannedValue.length>4)
@@ -189,6 +194,29 @@ class ScanClass : AppCompatActivity() {
             "addressString" to getValue(this,"addressString").toString()
         )
         executeRequest(formData, trade,object : CallBack{
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+                    startActivity(Intent(this@ScanClass,Business::class.java).putExtra("result",result))
+                }else{
+                    runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG) }
+                }
+            }
+        })
+
+    }
+    private fun checkLiquor(businessID: String){
+
+        val formData = listOf(
+            "function" to "printTradePermit",
+            "businessID" to businessID,
+            "latitude" to getValue(this,"latitude").toString(),
+            "longitude" to getValue(this,"longitude").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "addressString" to getValue(this,"addressString").toString()
+        )
+        executeRequest(formData, liquor,object : CallBack{
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){

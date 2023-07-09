@@ -12,6 +12,7 @@
     tools:context=".others.CessPayments">
 
 
+
     <TextView
         android:textColor="@color/bg_button"
         android:textStyle="bold"
@@ -144,7 +145,7 @@
 
         <TextView
             android:textSize="15sp"
-            android:textColor="@color/primay_color"
+            android:textColor="@android:color/holo_green_dark"
             android:textStyle="bold"
             tools:text="Waiting for Payments..."
             android:id="@+id/tv_message"
@@ -184,6 +185,22 @@
             android:layout_width="match_parent"
             android:layout_height="40sp"
             />
+
+        <TextView
+            android:visibility="gone"
+            android:enabled="false"
+            android:id="@+id/tvSendPushDisabled"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@color/blue_disabled"
+            android:textColor="@drawable/indicator_state_color_button"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:text="@string/send_payment"
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            />
+
 
 
 

@@ -13,5 +13,6 @@ class ScanOptions : AppCompatActivity() {
         imageClose.setOnClickListener { finish() }
         scanReceipt.setOnClickListener { startActivity(Intent(this,ScanClass::class.java).putExtra("type","receipt")) }
         scanTrade.setOnClickListener { startActivity(Intent(this,ScanClass::class.java).putExtra("type","trade")) }
+        scan_liquor.setOnClickListener { startActivity(Intent(this,ScanClass::class.java).putExtra("type","liquor")) }
     }
 }
