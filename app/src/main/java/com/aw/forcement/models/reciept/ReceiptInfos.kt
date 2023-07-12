@@ -27,12 +27,19 @@ data class ReceiptInfos (
 	@SerializedName("printCount") val printCount : String,
 	@SerializedName("wardID") val wardID : String,
 	@SerializedName("subCountyID") val subCountyID : String,
+	@SerializedName("subCountyName") val subCountyName : String,
+	@SerializedName("wardName") val wardName : String,
 	@SerializedName("dateCreated") val dateCreated : String,
 	@SerializedName("dateModified") val dateModified : String,
 	@SerializedName("createdBy") val createdBy : String,
 	@SerializedName("modifiedBy") val modifiedBy : String,
 	@SerializedName("printedBy") val printedBy : String,
 	@SerializedName("updated") val updated : String,
-	@SerializedName("isActive") val isActive : String,
-	@SerializedName("status") val status : String
+	@SerializedName("isActive") val isActive : Int,
+	@SerializedName("status") val status : String,
+	@SerializedName("zone") val zone : String,
+	@SerializedName("departmentID") val departmentID : String,
+	@SerializedName("idNo") val idNo : String,
+	@SerializedName("phoneNumber") val phoneNumber : String,
+	@SerializedName("names") val names : String
 )

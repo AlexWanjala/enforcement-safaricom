@@ -91,16 +91,17 @@ class Transactions : AppCompatActivity() {
 
     }
 
-    private fun getQueries (keyword: String,range: String){
+    fun getQueries (keyword: String,range: String){
 
         // progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getTransactions",
             "keyword" to keyword,
             "range" to range,
+            "idNo" to getValue(this,"idNo").toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executePaysolRequest(formData, paysol,object : CallBack {
+        executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)

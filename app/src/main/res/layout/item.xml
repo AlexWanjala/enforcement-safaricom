@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/layoutView"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/layoutView"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10sp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <FrameLayout
         android:id="@+id/toolBar"
         app:layout_constraintTop_toTopOf="parent"
@@ -81,6 +81,15 @@
                 android:textStyle="bold"
                 android:textColor="@color/primay_color"
                 android:text="@string/paid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvVerified"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:text="@string/verified"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

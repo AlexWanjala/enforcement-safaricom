@@ -26,10 +26,11 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 
 
-const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
-
+//const val paysol ="https://api.paysol.co.ke/paysol/index.php"
 //const val URL ="https://api.paysol.co.ke/"
+
 const val URL ="https://api.craftcollect.africa/homabay/"
+const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
 var parking = "parking/"
 var rent = "rent/"
 var trade = "trade/"

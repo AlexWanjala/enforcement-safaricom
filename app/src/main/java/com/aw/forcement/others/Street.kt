@@ -368,7 +368,7 @@ class Street : AppCompatActivity() {
             }
         }
     }
-
+//Probox
     /**
      * onTap is called to speak the tapped TextBlock, if any, out loud.
      *
@@ -390,7 +390,7 @@ class Street : AppCompatActivity() {
 
                     val name:String =  text.value.toString().replace("","")
                     edPlate.setText(name)
-                    getParking(name)
+                    getParking(edPlate.text.toString())
 
                 }
             } else {

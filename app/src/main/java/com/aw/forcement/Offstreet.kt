@@ -59,7 +59,7 @@ class Offstreet : AppCompatActivity(){
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
     lateinit var category_code: String
-    lateinit var zone_code: String
+    lateinit var duration : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -114,8 +114,8 @@ class Offstreet : AppCompatActivity(){
                             arrayList.add(data.category)
                         }
 
-                        for(data in response.data.zones){
-                            arrayList2.add(data.zoneCode)
+                        for(data in response.data.durations){
+                            arrayList2.add(data.duration)
                         }
 
                         //Spinner
@@ -139,7 +139,7 @@ class Offstreet : AppCompatActivity(){
                         spinner_zone.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
 
-                                zone_code = response.data.zones[postion].zoneCode
+                                duration = response.data.durations[postion].duration
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -160,13 +160,53 @@ class Offstreet : AppCompatActivity(){
 
 
     }
+
+    private fun getRate(){
+        val formData = listOf(
+            "function" to "getRate",
+            "category" to category_code,
+            "duration" to duration,
+            "zone" to zone.toString(),
+        )
+        executeRequest(formData, parking,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+                    runOnUiThread {tv_message.text ="Bill generated success.." }
+
+                    customerPayBillOnline(
+                        response.data.billGenerated.billNo,
+                        response.data.billGenerated.payBillNo,
+                        response.data.billGenerated.amount
+                    )
+
+                }
+                else{
+                    Toast.makeText(this@Offstreet,response.message,Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+        })
+
+
+    }
     private fun matatuPayment(){
-        tv_message.text ="Generating bill please wait..$zone_code $category_code"
+        tv_message.text ="Generating bill please wait..$duration $category_code"
         val formData = listOf(
             "function" to "matatuPayment",
             "numberPlate" to edPlate.text.toString(),
             "category" to category_code,
-            "zone_code" to zone_code,
+            "duration" to duration,
+            "zone" to getValue(this,"zone").toString(),
+            "names" to getValue(this,"names").toString(),
+            "phoneNumber" to getValue(this,"phoneNumber").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "subCountyID" to getValue(this,"subCountyID").toString(),
+            "subCountyName" to getValue(this,"subCountyName").toString(),
+            "wardID" to getValue(this,"wardID").toString(),
+            "wardName" to getValue(this,"wardName").toString(),
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {

@@ -26,6 +26,8 @@ data class ReceiptDetails (
 	@SerializedName("feeID") val feeID : String,
 	@SerializedName("wardID") val wardID : String,
 	@SerializedName("subCountyID") val subCountyID : String,
+	@SerializedName("subCountyName") val subCountyName : String,
+	@SerializedName("wardName") val wardName : String,
 	@SerializedName("currency") val currency : String,
 	@SerializedName("source") val source : String,
 	@SerializedName("transactionCode") val transactionCode : String,
@@ -35,5 +37,10 @@ data class ReceiptDetails (
 	@SerializedName("createdBy") val createdBy : String,
 	@SerializedName("modifiedBy") val modifiedBy : String,
 	@SerializedName("isActive") val isActive : String,
-	@SerializedName("status") val status : String
+	@SerializedName("status") val status : String,
+	@SerializedName("zone") val zone : String,
+	@SerializedName("departmentID") val departmentID : String,
+	@SerializedName("idNo") val idNo : String,
+	@SerializedName("phoneNumber") val phoneNumber : String,
+	@SerializedName("names") val names : String
 )

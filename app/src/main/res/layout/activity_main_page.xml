@@ -120,7 +120,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
                 <ImageView
                     app:tint="@color/primay_color"
                     android:src="@drawable/invoice"
@@ -132,7 +132,7 @@
                     android:textColor="@color/black"
                     android:text="@string/market_fees"
                     android:textSize="12sp"
-                    android:layout_width="150sp"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"/>
 
 
@@ -147,7 +147,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
 
                 <ImageView
                     android:id="@+id/addBusiness"
@@ -178,7 +178,7 @@
                         android:textColor="@color/black"
                         android:text="@string/business"
                         android:textSize="12sp"
-                        android:layout_width="150sp"
+                        android:layout_width="100sp"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -204,7 +204,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
                 <ImageView
                     app:tint="@color/primay_color"
                     android:src="@drawable/pickupcar"
@@ -216,14 +216,14 @@
                     android:textColor="@color/black"
                     android:text="@string/cess"
                     android:textSize="12sp"
-                    android:layout_width="150sp"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"/>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/parking"
+                android:id="@+id/matatusStageCess"
                 android:layout_marginEnd="20sp"
                 android:layout_marginStart="20sp"
                 android:gravity="center"
@@ -231,7 +231,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -242,9 +242,9 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:text="@string/parking"
+                    android:text="@string/matatu_stage"
                     android:textSize="12sp"
-                    android:layout_width="150sp"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"/>
 
 
@@ -267,7 +267,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
                 <ImageView
                     app:tint="@color/primay_color"
                     android:src="@drawable/parking"
@@ -277,9 +277,9 @@
                     android:layout_marginTop="10dp"
                     android:gravity="center"
                     android:textColor="@color/black"
-                    android:text="@string/offstreet"
+                    android:text="@string/verify_vehicle"
                     android:textSize="12sp"
-                    android:layout_width="150sp"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"/>
 
 
@@ -294,7 +294,7 @@
                 android:background="@drawable/bg_fill_white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="150sp">
+                android:layout_height="100sp">
                 <ImageView
                     android:src="@drawable/invoice"
                     android:layout_width="wrap_content"
@@ -306,7 +306,44 @@
                     android:textColor="@color/black"
                     android:text="@string/payments"
                     android:textSize="12sp"
-                    android:layout_width="150sp"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20sp"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/streetDailyParking"
+                android:layout_marginEnd="20sp"
+                android:layout_marginStart="20sp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:background="@drawable/bg_fill_white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="100sp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/parking"
+                    app:tint="@color/primay_color" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="@string/parking_"
+                    android:textSize="12sp"
+                    android:layout_width="100sp"
                     android:layout_height="wrap_content"/>
 
 

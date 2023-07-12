@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homabay Enforcement</string>
+    <string name="app_name">Homabay County Revenue System</string>
   <!--  <string name="app_name">Namata</string>-->
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -27,7 +27,9 @@
     <string name="cess">Query Cess Plate Number</string>
     <string name="parking">Matatu Parking</string>
     <string name="offstreet">Street Parking</string>
-    <string name="parking_">Parking</string>
+    <string name="verify_vehicle">Scan Vehicle</string>
+    <string name="verified">verified</string>
+    <string name="parking_">Parking/Motorbikes</string>
     <string name="home">HOME</string>
     <string name="history">HISTORY</string>
     <string name="history_">History</string>
@@ -158,6 +160,7 @@
     <string name="enter_receipt">Enter the receipt number below</string>
     <string name="enter_business">Enter the business ID below</string>
     <string name="enter_number_plate">Enter the number plate below</string>
+    <string name="number_plate">Number Plate</string>
 
     <string name="sbp_fee">Amount</string>
     <string name="select_street">Select Street</string>
@@ -196,5 +199,6 @@
     <string name="payment_request_sent_">Kindly check your phone and follow the instructions.</string>
     <string name="payment_received">Payment Received</string>
     <string name="your_payment">Your payment has been received and your order is being worked on. Press the button below to check on the progress.</string>
+    <string name="matatu_stage">Matatu Stage Cess</string>
 
 </resources>

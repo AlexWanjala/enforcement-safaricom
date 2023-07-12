@@ -58,6 +58,8 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity android:name=".others.CessPaymentsMatatus"/>
         <activity
             android:name=".Offstreet"
             android:exported="false" />

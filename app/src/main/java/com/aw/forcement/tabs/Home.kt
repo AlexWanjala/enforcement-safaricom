@@ -59,7 +59,8 @@ class Home : AppCompatActivity() {
         receipt.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","MKT")) }
         business.setOnClickListener { toggleBottomSheet("business") }
         cess.setOnClickListener { toggleBottomSheet("cess") }
-        parking.setOnClickListener { startActivity(Intent(this, Offstreet::class.java)) }
+       // parking.setOnClickListener { startActivity(Intent(this, Offstreet::class.java)) }
+        matatusStageCess.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java)) }
 
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Offstreet::class.java)) }
         transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
@@ -67,6 +68,7 @@ class Home : AppCompatActivity() {
         closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
         streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
+      //  imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
 
 
     }
@@ -97,7 +99,8 @@ class Home : AppCompatActivity() {
             tvTitle.text = getString(R.string.cess_query)
             tvEnter.text = getString(R.string.enter_number_plate)
             buttonSearch.setOnClickListener {
-                enforceByPlateNumber() }
+                enforceByPlateNumber()
+            }
         }
         if(type=="parking"){
             tvTitle.text = getString(R.string.parking)
@@ -221,17 +224,18 @@ class Home : AppCompatActivity() {
          }
          progress_circular.visibility = View.VISIBLE
          val formData = listOf(
-             "PlateNumber" to edSearch.text.toString(),
-             "UserID" to getValue(this,"UserID").toString(),
+             "function" to "enforceByPlateNumber",
+             "customer" to edSearch.text.toString(),
+             "idNo" to getValue(this,"idNo").toString(),
              "latitude" to getValue(this,"latitude").toString(),
              "longitude" to getValue(this,"longitude").toString(),
              "TownId" to getValue(this,"TownId").toString()
          )
-         executeRequest(formData,"enforcebyplatenumber",object : CallBack {
+         executeRequest(formData, biller,object : CallBack {
              override fun onSuccess(result: String?) {
                  runOnUiThread {  progress_circular.visibility = View.GONE }
                  val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                 if(response.status==1){
+                 if(response.success){
                      runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
                      startActivity(Intent(this@Home,Cess::class.java).putExtra("result",result))
                      runOnUiThread {   tvMessage.text = ""}

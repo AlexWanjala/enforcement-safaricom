@@ -469,7 +469,7 @@ class CessPayments : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val message2 ="\n\nFor: Parking Services\nCode: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate"
+        val message2 ="Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate"
 
 
         val qr: Bitmap = QRCode.from(message2)

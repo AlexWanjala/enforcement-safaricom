@@ -143,11 +143,21 @@
 
             </LinearLayout>
 
+            <TextView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="12dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:text="@string/parking_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
                 android:padding="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/rectangle_background"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"
@@ -162,11 +172,23 @@
 
             </LinearLayout>
 
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textSize="12dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:text="@string/vehicle_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
                 android:padding="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/rectangle_background"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="1dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_width="match_parent"

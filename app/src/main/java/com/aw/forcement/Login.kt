@@ -154,7 +154,11 @@ class Login : AppCompatActivity() {
 
         }else{
 
-            val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+
+            login()
+            GetLocationTask(this).execute()
+
+        /*    val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
 
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
@@ -164,7 +168,7 @@ class Login : AppCompatActivity() {
 
             } else {
                 showGPSDisabledAlertToUser()
-            }
+            }*/
 
 
         }
@@ -258,6 +262,8 @@ class Login : AppCompatActivity() {
        // edUsername.setText(AppSignatureHashHelper(this@Login).appSignatures.toString())
        // getLocation()
         GetLocationTask(this).execute()
+
+
     }
     private fun initBroadCast() {
         intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
