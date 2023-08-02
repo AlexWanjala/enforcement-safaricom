@@ -23,13 +23,6 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
-import kotlinx.android.synthetic.main.activity_cess_payments.edPhoneNumber
-import kotlinx.android.synthetic.main.activity_cess_payments.spinnerFeeAndCharges
-import kotlinx.android.synthetic.main.activity_cess_payments.spinnerIncomeType
-import kotlinx.android.synthetic.main.activity_cess_payments.tvAmount
-import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPayment
-import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPushDisabled
-import kotlinx.android.synthetic.main.activity_cess_payments.tv_message
 import kotlinx.android.synthetic.main.activity_cess_payments_matatus.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
@@ -51,6 +44,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cess_payments_matatus)
+
+        imageClose.setOnClickListener { finish() }
 
 
         tvSendPayment.setOnClickListener {
@@ -88,7 +83,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "wardName" to getValue(this,"wardName").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
-            "names" to getValue(this,"names").toString()
+            "names" to getValue(this,"names").toString(),
+            "customerPhoneNumber" to edPhoneNumber.text.toString(),
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -189,7 +185,10 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
 
-                                runOnUiThread {  tvAmount.text ="KES $amount" }
+                                runOnUiThread {
+                                    tvVehicleType.text =  response.data.feesAndCharges[postion].feeDescription
+                                    tvAmount.text ="KES $amount"
+                                }
 
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -256,7 +255,6 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     if(response.data.push.callback_returned=="PAID"){
 
                         runOnUiThread {
-
 
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
                             save(this@CessPaymentsMatatus,"transaction_code",response.data.push.transaction_code)

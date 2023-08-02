@@ -27,6 +27,7 @@
     <string name="cess_query">Query By Number Plate</string>
     <string name="business">Check SBP Validity</string>
     <string name="cess">Cess</string>
+    <string name="markets">Market Fees</string>
     <string name="receipt_inspection">Receipt inspection</string>
      <string name="plate_verification">No. Plate Verification</string>
     <string name="plate_verification_des">Verify compliance for parking,Cess, bus station taxes etc..</string>
@@ -41,16 +42,18 @@
     <string name="street_des">Parking Charges for motorbikes, personal vehicles and more.</string>
     <string name="document_verification">Document Verification</string>
     <string name="document_verification_des">Validate county documents such as receipts, permits, stickers etc</string>
-    <string name="violation">Bus Park Violation Reporting</string>
-    <string name="history">HISTORY</string>
+    <string name="violation">Violation Reporting</string>
+    <string name="history">My History</string>
     <string name="history_">History</string>
-    <string name="profile">PROFILE</string>
+    <string name="profile">My Profile</string>
     <string name="query_title">Query by receipt Number</string>
     <string name="query_des">Enter the receipt number below</string>
     <string name="back">Back</string>
     <string name="receipt_details">Receipt Details</string>
     <string name="receipt_no">Receipt No</string>
     <string name="income_type">Income type</string>
+    <string name="market_income_type">Market Income Type</string>
+    <string name="cess_income_type">Cess Income Type</string>
     <string name="market_fees">Markets</string>
    <string name="market_fees_des">Taxes for vendors on items sold at our markets.</string>
     <string name="billing_date">Billing Date</string>
@@ -119,6 +122,8 @@
     <string name="unit_price">Unit price</string>
     <string name="unit_price_">150 per Bag</string>
     <string name="quantity">Quantity</string>
+    <string name="details">Transaction Details</string>
+    <string name="details_hint">Enter more details e.g item description</string>
     <string name="quantity_">50 Bags</string>
     <string name="total">Total</string>
     <string name="total_">kes 7,500</string>
@@ -139,6 +144,7 @@
     <string name="valid">Valid</string>
     <string name="invalid">Invalid</string>
     <string name="change_password">Change Password</string>
+    <string name="chargeable"> Chargeable Items and Quantity Ranges</string>
     <string name="help">Help</string>
     <string name="logout">Logout</string>
 
@@ -190,6 +196,8 @@
     <string name="status">Status</string>
     <string name="phone">MPESA Phone Number</string>
     <string name="cess_item">Fees and charges</string>
+    <string name="cessable"> Cessable Quantity Range</string>
+    <string name="psv">PSV Type</string>
     <string name="total_amount">Total Amount</string>
     <string name="payment_desc">Enter the cutsomer\'s phone number to send the, a payment request for the above bill</string>
     <string name="mpesa_">Mpesa Phone Number</string>
@@ -219,5 +227,6 @@
     <string name="home">Home</string>
     <string name="contact">Contact Support</string>
     <string name="collected_today">Collected Today</string>
+    <string name="matatu">Matatu/Bus Park</string>
 
 </resources>

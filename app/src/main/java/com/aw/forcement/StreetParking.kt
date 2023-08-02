@@ -40,18 +40,9 @@ import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-
-import kotlinx.android.synthetic.main.activity_offstreet.*
-import kotlinx.android.synthetic.main.activity_offstreet.edPhone
-import kotlinx.android.synthetic.main.activity_offstreet.edPlate
-import kotlinx.android.synthetic.main.activity_offstreet.progressBar1
-import kotlinx.android.synthetic.main.activity_offstreet.spinner_search2
-import kotlinx.android.synthetic.main.activity_offstreet.spinner_zone
-import kotlinx.android.synthetic.main.activity_offstreet.tvSendPush
-import kotlinx.android.synthetic.main.activity_offstreet.tvSendPushDisabled
-import kotlinx.android.synthetic.main.activity_offstreet.tv_message
-import kotlinx.android.synthetic.main.activity_street.*
 import kotlinx.android.synthetic.main.activity_street_parking.*
+
+
 import java.io.IOException
 import java.lang.NullPointerException
 import java.util.*
@@ -62,7 +53,7 @@ import kotlin.collections.ArrayList
 class StreetParking : AppCompatActivity(){
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-    private val arrayList3 = ArrayList<String>()
+
     lateinit var category_code: String
     lateinit var duration : String
     lateinit var payer : String
@@ -86,34 +77,16 @@ class StreetParking : AppCompatActivity(){
             }
         }
 
-            arrayList3.add("Primary Payer")
-            arrayList3.add("Secondary Payer")
+        imageClose.setOnClickListener { finish() }
 
-        //Spinner
-        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList3)
-        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-        spinner_payer.adapter = adapters
-        spinner_payer.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
 
-                if (p0 != null) {
-                    payer = p0.getItemAtPosition(postion).toString()
-                }
-            }
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-        }
 
     }
-
 
     override fun onBackPressed() {
         finish()
         super.onBackPressed()
     }
-
-
     private fun getCategory(){
         progressBar1.visibility = View.VISIBLE
         val formData = listOf(
@@ -144,7 +117,7 @@ class StreetParking : AppCompatActivity(){
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
 
                                 category_code = response.data.categories[postion].category
-                                getRate()
+                                getParkingCharges()
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -180,9 +153,10 @@ class StreetParking : AppCompatActivity(){
 
 
     }
-    private fun getRate(){
+    private fun getParkingCharges(){
+        tv_message.text =""
         val formData = listOf(
-            "function" to "getRate",
+            "function" to "getParkingCharges",
             "category" to category_code,
             "duration" to duration,
             "zone" to getValue(this,"zone").toString(),
@@ -191,17 +165,13 @@ class StreetParking : AppCompatActivity(){
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-                    runOnUiThread {tv_message.text ="Bill generated success.." }
 
-                    customerPayBillOnline(
-                        response.data.billGenerated.billNo,
-                        response.data.billGenerated.payBillNo,
-                        response.data.billGenerated.amount
-                    )
-
+                    runOnUiThread { tvAmount.text = "KES "+response.data.feesAndCharge.unitFeeAmount }
                 }
                 else{
-                    Toast.makeText(this@StreetParking,response.message,Toast.LENGTH_LONG).show()
+                   runOnUiThread {
+                       tv_message.text = response.message
+                   }
                 }
 
             }
@@ -226,6 +196,7 @@ class StreetParking : AppCompatActivity(){
             "subCountyName" to getValue(this,"subCountyName").toString(),
             "wardID" to getValue(this,"wardID").toString(),
             "wardName" to getValue(this,"wardName").toString(),
+            "customerPhoneNumber" to edPhone.text.toString(),
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {

@@ -14,6 +14,7 @@ data class Data (
 	@SerializedName("Push") val push : Push,
 	@SerializedName("incomeTypes") val incomeTypes : List<IncomeTypes>,
 	@SerializedName("feesAndCharges") val feesAndCharges : List<FeesAndCharges>,
+	@SerializedName("feesAndCharge") val feesAndCharge : FeesAndCharges,
 	@SerializedName("billGenerated") val billGenerated : BillGenerated,
 	@SerializedName("zones") val zones : List<Zones>,
 	@SerializedName("categories") val categories : List<Categories>,

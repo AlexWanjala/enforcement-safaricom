@@ -49,32 +49,21 @@ class CessPayments : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cess_payments)
 
-
-        edQuantity.addTextChangedListener(object :TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-                amountDisplay()
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-        })
         tvSendPayment.setOnClickListener {
-            if(edQuantity.text.isEmpty()){
-                Toast.makeText(this,"Quantity Required",Toast.LENGTH_LONG).show()
+
+            if(edPlate.text.isEmpty()){
+                Toast.makeText(this,"Enter Number Plate",Toast.LENGTH_LONG).show()
             }else{
                 if(edPhoneNumber.text.isEmpty()){
                     Toast.makeText(this,"Phone Required",Toast.LENGTH_LONG).show()
                 }else{
+
+                    //edPlate
                     generateBill()
                 }
+
             }
+
         }
         getIncomeTypes()
 
@@ -84,23 +73,15 @@ class CessPayments : AppCompatActivity() {
         initListeners()
     }
 
-    fun amountDisplay(){
-        if(edQuantity.text.isNotEmpty()){
-            tvUnits.text = "${edQuantity.text} x $amount"
-            tvAmount.text = "KES "+  edQuantity.text.toString().toInt() * amount.toString().toInt()
-        }else{
-            tvUnits.text =""
-            tvAmount.text ="KES 0"
-        }
-    }
+
 
     private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
-            "amount" to (amount.toString().toInt() *edQuantity.text.toString().toInt()).toString(),
-            "customer" to edPhoneNumber.text.toString(),
+            "amount" to amount.toString(),
+            "customer" to edPlate.text.toString(),
             "zone" to getValue(this,"zone").toString(),
             "subCountyID" to getValue(this,"subCountyID").toString(),
             "subCountyName" to getValue(this,"subCountyName").toString(),
@@ -108,6 +89,7 @@ class CessPayments : AppCompatActivity() {
             "wardName" to getValue(this,"wardName").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
+            "customerPhoneNumber" to edPhoneNumber.text.toString(),
             "names" to getValue(this,"names").toString()
         )
         executeRequest(formData, biller,object : CallBack {
@@ -147,6 +129,7 @@ class CessPayments : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
+            "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString()
 
         )
         executeRequest(formData, biller,object : CallBack {
@@ -208,7 +191,10 @@ class CessPayments : AppCompatActivity() {
                               //  response.data.feesAndCharges[postion].feeId
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
-                                amountDisplay()
+                               runOnUiThread {
+                                   tvItem.text =  response.data.feesAndCharges[postion].feeDescription
+                                   tvAmount.text ="KES "+amount
+                               }
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 

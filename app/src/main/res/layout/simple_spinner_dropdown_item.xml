@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<CheckedTextView
+    android:fontFamily="@font/montserrat"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@android:id/text1"
     android:background="@android:color/white"
     style="?android:attr/spinnerDropDownItemStyle"

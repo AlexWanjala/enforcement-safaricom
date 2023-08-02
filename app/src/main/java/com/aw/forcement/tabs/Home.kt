@@ -58,7 +58,7 @@ class Home : AppCompatActivity() {
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
 
-        cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","MKT")) }
+        cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","CESS")) }
         markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
 
        // business.setOnClickListener { toggleBottomSheet("business") }
@@ -246,7 +246,6 @@ class Home : AppCompatActivity() {
                  }else{
                      runOnUiThread {   tvMessage.text = response.message }
                  }
-
              }
 
          })

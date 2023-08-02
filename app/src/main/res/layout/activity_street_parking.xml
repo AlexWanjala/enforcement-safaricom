@@ -32,7 +32,8 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
-                    android:layout_marginTop="10dp"
+                    android:id="@+id/imageClose"
+                    android:padding="10dp"
                     android:gravity="center"
                     android:layout_gravity="right"
                     android:src="@drawable/close_image"
@@ -136,39 +137,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:fontFamily="@font/montserrat"
-                    android:textColor="@color/labels"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/being"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <LinearLayout
-                    android:padding="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/rectangle_background"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                        android:gravity="center"
-                        android:elevation="5dp"
-                        android:id="@+id/spinner_payer"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp" />
-
-                </LinearLayout>
-
-
 
 
             </LinearLayout>
-
-
-
-
 
 
 
@@ -210,6 +181,7 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tvAmount"
                         android:gravity="center"
                         android:layout_gravity="right"
                         android:textSize="18dp"
@@ -234,7 +206,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/montserrat"
                     android:textSize="12dp"
-                    android:textColor="@android:color/holo_green_light"
+                    android:textColor="@android:color/holo_red_dark"
                     android:textStyle="bold"
                     tools:text="Waiting for Payments..."
                     android:id="@+id/tv_message"

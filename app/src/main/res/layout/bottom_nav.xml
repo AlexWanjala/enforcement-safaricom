@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:elevation="5dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <LinearLayout
-        android:gravity="center"
-        android:weightSum="3"
+    <FrameLayout
+        android:padding="15dp"
         android:id="@+id/bottomBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -16,25 +16,29 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50sp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:layout_gravity="left"
             android:id="@+id/home"
-            android:layout_marginStart="40sp"
+            android:layout_marginStart="20sp"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageHome"
                 android:src="@drawable/menu"
-                android:layout_width="20dp"
-                android:layout_height="20dp"/>
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                app:tint="@color/bg_button" />
 
             <TextView
-                android:textColor="@color/labels"
+                android:layout_marginTop="8dp"
+                android:textStyle="bold"
+                android:textSize="11dp"
+                android:textColor="@color/bg_button"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/home"
                 android:layout_width="wrap_content"
@@ -44,21 +48,23 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_gravity="center"
             android:id="@+id/history"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageHistory"
                 android:src="@drawable/history"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 app:tint="@color/black" />
 
             <TextView
+                android:layout_marginTop="8dp"
+                android:textSize="11dp"
                 android:textColor="@color/labels"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/history"
@@ -69,22 +75,24 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="right"
             android:id="@+id/profile"
-            android:layout_marginEnd="70sp"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageProfile"
                 android:src="@drawable/user"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 app:tint="@color/black" />
 
             <TextView
+                android:layout_marginTop="8dp"
+                android:textSize="11dp"
                 android:textColor="@color/labels"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/profile"
@@ -94,7 +102,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

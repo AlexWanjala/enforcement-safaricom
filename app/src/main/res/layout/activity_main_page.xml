@@ -569,6 +569,7 @@
     </LinearLayout>
 
     <include
+        android:elevation="5dp"
         android:id="@+id/nav"
         layout="@layout/bottom_nav" />
 
