@@ -24,7 +24,6 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
-import kotlinx.android.synthetic.main.activity_parking_history.*
 import kotlinx.android.synthetic.main.activity_transactions.*
 import kotlinx.android.synthetic.main.activity_transactions.et_search_bar
 import kotlinx.android.synthetic.main.recycler_view.*
@@ -225,7 +224,7 @@ class Transactions : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\n\n#GenowaEnDongruok\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF KISII\n\n#\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -233,7 +232,7 @@ class Transactions : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_pirnt)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_print)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -259,7 +258,7 @@ class Transactions : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at Homabay Town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at Kisii town\n"
 
         add(
             TextPrintable.Builder()
@@ -268,7 +267,7 @@ class Transactions : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val message2 ="\n\nFor: $description\nCode: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate"
+        val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
 
 
         val qr: Bitmap = QRCode.from(message2)
@@ -278,7 +277,7 @@ class Transactions : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge Homabay\n\n#EndlessPotential\n\n\n\n\n\n\n"
+        val footer ="\nLipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n\n"
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)

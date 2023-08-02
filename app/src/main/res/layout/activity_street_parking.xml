@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="@string/street_parking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/close_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="vertical"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+
+
+                <ProgressBar
+                    android:visibility="gone"
+                    android:id="@+id/progressBar1"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"/>
+
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:text="@string/parking_duration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:gravity="center"
+                        android:elevation="5dp"
+                        android:id="@+id/spinner_zone"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/vehicle_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:gravity="center"
+                        android:elevation="5dp"
+                        android:id="@+id/spinner_search2"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/number_plate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:textColorHint="@color/hint"
+                    android:maxLength="8"
+                    android:lines="1"
+                    android:textSize="12dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/edPlate"
+                    android:hint="@string/enter_number_plate"
+                    android:padding="15dp"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/being"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                        android:gravity="center"
+                        android:elevation="5dp"
+                        android:id="@+id/spinner_payer"
+                        android:layout_width="match_parent"
+                        android:layout_height="24dp" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:padding="20dp"
+                android:background="@color/bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_gravity="left"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="14dp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:text="@string/billing_totals"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tvDuration"
+                            android:textSize="12dp"
+                            android:textColor="@color/labels"
+                            tools:text="Daily Parking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:gravity="center"
+                        android:layout_gravity="right"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        tools:text="KES 20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+
+                </FrameLayout>
+
+
+                <View
+                    android:layout_marginTop="10dp"
+                    android:background="@color/line_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"/>
+
+
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="12dp"
+                    android:textColor="@android:color/holo_green_light"
+                    android:textStyle="bold"
+                    tools:text="Waiting for Payments..."
+                    android:id="@+id/tv_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="12dp"
+                    android:textColor="@color/labels"
+                    android:textStyle="bold"
+                    android:layout_marginTop="10sp"
+                    android:text="@string/mpesa_"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:fontFamily="@font/montserrat"
+                    android:textColorHint="@color/hint"
+                    android:textSize="12dp"
+                    android:inputType="phone"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/edPhone"
+                    android:hint="@string/mpesa_"
+                    android:padding="15dp"
+                    android:background="@drawable/bg_fill_gay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:id="@+id/tvSendPush"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/indicator_state_background_button"
+                    android:textColor="@drawable/indicator_state_color_button"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="@string/send_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40sp"
+                    />
+
+                <TextView
+                    android:visibility="gone"
+                    android:enabled="false"
+                    android:id="@+id/tvSendPushDisabled"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@color/blue_disabled"
+                    android:textColor="@drawable/indicator_state_color_button"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="@string/send_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40sp"
+                    />
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+</ScrollView>

@@ -13,6 +13,7 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.aw.forcement.BuildConfig
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
@@ -26,8 +27,10 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 
 
-//const val paysol ="https://api.paysol.co.ke/paysol/index.php"
-//const val URL ="https://api.paysol.co.ke/"
+/*
+const val paysol ="https://api.paysol.co.ke/paysol/index.php"
+const val URL ="https://api.paysol.co.ke/"
+*/
 
 const val URL ="https://api.craftcollect.africa/homabay/"
 const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
@@ -49,21 +52,19 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
 
-    Fuel.post(URL+stream, formData)
+    // get the version code from BuildConfig
+    val versionCode = BuildConfig.VERSION_CODE
+
+    val newFormData = formData + Pair("versionCode", versionCode.toString())
+    Fuel.post(URL+stream, newFormData)
         .timeout(0)
-        .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
+                .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
         .responseString {request, response, result ->
             println("##Request$request")
             println("##Response$result")
             callback.onSuccess(result.get())
         }
 
-   /* println("##Request ${formData.toString()}")
-    Fuel.post(URL+stream,formData).timeout(0).authentication().responseString {
-            _, _, result ->
-        println("##Response$result")
-        callback.onSuccess(result.get())
-    }*/
 
 }
 fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {

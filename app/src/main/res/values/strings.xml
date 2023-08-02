@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homabay County Revenue System</string>
+    <string name="app_name">County Revenue System</string>
   <!--  <string name="app_name">Namata</string>-->
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
@@ -9,28 +9,39 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="welcome">Welcome Back</string>
-    <string name="login_des">Login to continue</string>
+    <string name="welcome">System Login</string>
+    <string name="login_des">Enter your correct credentials to continue.</string>
     <string name="login">Login</string>
-    <string name="username">Username or email</string>
+    <string name="username">Enter your ID No./User name</string>
+    <string name="version">County Revenue System App</string>
     <string name="password">Password</string>
     <string name="search">Search</string>
     <string name="name">Alex Wanjala</string>
     <string name="px">AL</string>
     <string name="county">County Government</string>
     <string name="enforcement">Enforcement</string>
+    <string name="collections">My Collections Overview</string>
     <string name="receipt_query">Query By Receipt Number</string>
     <string name="business_query">Query By Business ID</string>
     <string name="vehicle_query">Query By Number Plate</string>
     <string name="cess_query">Query By Number Plate</string>
     <string name="business">Check SBP Validity</string>
-    <string name="cess">Query Cess Plate Number</string>
+    <string name="cess">Cess</string>
+    <string name="receipt_inspection">Receipt inspection</string>
+     <string name="plate_verification">No. Plate Verification</string>
+    <string name="plate_verification_des">Verify compliance for parking,Cess, bus station taxes etc..</string>
+    <string name="receipt_inspection_des">Check for valid receipt and enforce compliance.</string>
+    <string name="cess_des">Drivers pay for materials like ballast, sand etc ...</string>
     <string name="parking">Matatu Parking</string>
     <string name="offstreet">Street Parking</string>
     <string name="verify_vehicle">Scan Vehicle</string>
     <string name="verified">verified</string>
     <string name="parking_">Parking/Motorbikes</string>
-    <string name="home">HOME</string>
+    <string name="street">Street Parking</string>
+    <string name="street_des">Parking Charges for motorbikes, personal vehicles and more.</string>
+    <string name="document_verification">Document Verification</string>
+    <string name="document_verification_des">Validate county documents such as receipts, permits, stickers etc</string>
+    <string name="violation">Bus Park Violation Reporting</string>
     <string name="history">HISTORY</string>
     <string name="history_">History</string>
     <string name="profile">PROFILE</string>
@@ -40,7 +51,8 @@
     <string name="receipt_details">Receipt Details</string>
     <string name="receipt_no">Receipt No</string>
     <string name="income_type">Income type</string>
-    <string name="market_fees">Cess/Markets</string>
+    <string name="market_fees">Markets</string>
+   <string name="market_fees_des">Taxes for vendors on items sold at our markets.</string>
     <string name="billing_date">Billing Date</string>
     <string name="billing_date_">10 Oct 2021 11:22 PM</string>
     <string name="payment_date">Payment date</string>
@@ -159,8 +171,10 @@
     <string name="currentState">Current State</string>
     <string name="enter_receipt">Enter the receipt number below</string>
     <string name="enter_business">Enter the business ID below</string>
-    <string name="enter_number_plate">Enter the number plate below</string>
-    <string name="number_plate">Number Plate</string>
+    <string name="enter_number_plate">Enter The No. Plate</string>
+    <string name="number_plate">Car Plate Number</string>
+    <string name="being">Being Paid By?</string>
+   <string name="billing_totals">Billing Totals</string>
 
     <string name="sbp_fee">Amount</string>
     <string name="select_street">Select Street</string>
@@ -179,9 +193,10 @@
     <string name="total_amount">Total Amount</string>
     <string name="payment_desc">Enter the cutsomer\'s phone number to send the, a payment request for the above bill</string>
     <string name="mpesa_">Mpesa Phone Number</string>
+    <string name="street_parking">Street Parking</string>
     <string name="phone_number_hint">Enter phone Number i.e 07..</string>
     <string name="phone_number_hint_2">Enter second phone Number i.e 07..</string>
-    <string name="send_payment">Send Payment Request</string>
+    <string name="send_payment">SEND PAYMENT REQUEST</string>
     <string name="business_information">Business information</string>
     <string name="certificate_of_incorporation">Certificate of incorporation</string>
     <string name="vat_number">VAT Number</string>
@@ -199,6 +214,10 @@
     <string name="payment_request_sent_">Kindly check your phone and follow the instructions.</string>
     <string name="payment_received">Payment Received</string>
     <string name="your_payment">Your payment has been received and your order is being worked on. Press the button below to check on the progress.</string>
-    <string name="matatu_stage">Matatu Stage Cess</string>
+    <string name="matatu_stage">Matatu/Bus Park</string>
+    <string name="matatu_stage_des">A fee applied to matatus/buses at a stage.</string>
+    <string name="home">Home</string>
+    <string name="contact">Contact Support</string>
+    <string name="collected_today">Collected Today</string>
 
 </resources>

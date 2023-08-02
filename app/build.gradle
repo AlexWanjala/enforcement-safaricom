@@ -24,8 +24,8 @@ android {
         applicationId "com.aw.forcement"
         minSdk 21
         targetSdk 33
-        versionCode 15
-        versionName "17"
+        versionCode 24
+        versionName "24"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

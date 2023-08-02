@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.View
 import android.view.animation.Animation
@@ -92,14 +93,11 @@ class ScanClass : AppCompatActivity() {
                 cameraSource.stop()
             }
         })
-
-
         barcodeDetector.setProcessor(object : Detector.Processor<Barcode> {
             override fun release() {
                 Toast.makeText(applicationContext, "Scanner has been closed", Toast.LENGTH_SHORT)
                     .show()
             }
-
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() == 1) {
@@ -110,7 +108,6 @@ class ScanClass : AppCompatActivity() {
                     runOnUiThread {
                         cameraSource.stop()
                         //Toast.makeText(this@ScanClass, "valuejjj- $scannedValue", Toast.LENGTH_SHORT).show()
-
                         if(intent.getStringExtra("type").toString() == "receipt"){
                             queryReceiptNumber(scannedValue)
                         }else if(intent.getStringExtra("type").toString() == "liquor"){
@@ -126,11 +123,10 @@ class ScanClass : AppCompatActivity() {
                                 checkBusiness( scannedValue)
                         }
 
-
                     }
                 }else
                 {
-                    Toast.makeText(this@ScanClass, "value- else", Toast.LENGTH_SHORT).show()
+                  runOnUiThread {   Toast.makeText(this@ScanClass, "value- else", Toast.LENGTH_SHORT).show() }
 
                 }
             }
@@ -166,17 +162,21 @@ class ScanClass : AppCompatActivity() {
     }
 
     private fun queryReceiptNumber(ReceiptNo: String){
-        val formData = listOf(
+        Log.e("########",ReceiptNo)
+        Log.i("########MPESACODE",ReceiptNo.split(",")[0].replace(" ","").split(":")[1])
+
+
+       val formData = listOf(
             "function" to "getReceipt",
-            "receiptNo" to ReceiptNo
+            "receiptNo" to ReceiptNo.split(",")[0].replace(" ","").split(":")[1] //RGG1PKMB2L
         )
-        executeRequest(formData, parking,object : CallBack{
+        executeRequest(formData, biller,object : CallBack{
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-                    startActivity(Intent(this@ScanClass, Receipt::class.java).putExtra("result",result))
+                    startActivity(Intent(this@ScanClass, Receipt::class.java).putExtra("result",result).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
                 }else{
-                    runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG) }
+                    runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG).show() }
                 }
             }
         })

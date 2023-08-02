@@ -62,7 +62,16 @@ class Login : AppCompatActivity() {
         }
 
 
-        tvForgot.setOnClickListener {
+        tvPrivacy.setOnClickListener {
+            val openURL = Intent(Intent.ACTION_VIEW)
+            openURL.data = Uri.parse("https://levetot.co.ke/privacy_policy.html")
+            startActivity(openURL)
+        }
+
+
+
+
+    /*    tvForgot.setOnClickListener {
             if(edUsername.text.isEmpty()){
                 Toast.makeText(this@Login,"Enter your email or username",Toast.LENGTH_LONG).show()
                 edPassword.visibility = View.GONE
@@ -75,7 +84,7 @@ class Login : AppCompatActivity() {
                 forgetPassword()
 
             }
-        }
+        }*/
 
         initBroadCast()
 
@@ -217,7 +226,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"names", response.data.user.names)
                     save(this@Login,"phoneNumber", response.data.user.phoneNumber)
                     save(this@Login,"idNo", response.data.user.idNo)
-                    save(this@Login,"username",response.data.user.email)
+                    save(this@Login,"username",response.data.user.names)
                     save(this@Login,"subCountyID",response.data.user.subCountyID)
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
@@ -262,7 +271,11 @@ class Login : AppCompatActivity() {
        // edUsername.setText(AppSignatureHashHelper(this@Login).appSignatures.toString())
        // getLocation()
         GetLocationTask(this).execute()
+        val versionCode = BuildConfig.VERSION_CODE
+        tvVersion.setText("Version: $versionCode")
 
+         //MPESA	254729994994	RGH7QP68R5	KES 50.00  JAMES
+         //MPESA	254729994994	RGH1QP6M4N	KES 20.00 Queenter
 
     }
     private fun initBroadCast() {
@@ -292,13 +305,9 @@ class Login : AppCompatActivity() {
         smsReceiver = null
     }
 
-//Get location
-
-
+    //Get location
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
-
-
     class GetLocationTask(private val context: Context) : AsyncTask<Void, Void, Location?>() {
 
         @SuppressLint("MissingPermission")
@@ -336,8 +345,6 @@ class Login : AppCompatActivity() {
             }
         }
     }
-
-
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun isLocationEnabled(): Boolean {

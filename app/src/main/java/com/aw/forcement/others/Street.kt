@@ -9,6 +9,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.hardware.Camera
 import android.net.Uri
 import android.os.Bundle
@@ -71,7 +72,7 @@ class Street : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getParking",
-            "numberPlate" to plateNumbe,
+            "numberPlate" to plateNumbe.trim(),
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
@@ -85,12 +86,18 @@ class Street : AppCompatActivity() {
                 if(response.success){
 
                     runOnUiThread {
-                        plate.text = response.data.parking.numberPlate
-                        vehicleCategory.text = response.data.parking.category
-                        zone.text = "HomaBay Town"
-                        street.text = getValue(this@Street,"addressString").toString()
-                        duration.text = response.data.parking.duration
-                        status.text = response.data.parking.status
+                        plate.text = response.data.parking.numberPlate.trim()
+                        vehicleCategory.text = response.data.parking.category.trim()
+                        zone.text =  response.data.parking.zone.trim()
+                        street.text = getValue(this@Street,"addressString").toString().trim()
+                        duration.text = response.data.parking.duration.trim()
+                        status.text = response.data.parking.status.trim()
+                        if(response.data.parking.status.trim()=="PAID"){
+                            status.setTextColor(Color.parseColor("#12a637"))
+                        }else{
+                            status.setTextColor(Color.RED)
+                        }
+
 
                         tts!!.speak(response.message, TextToSpeech.QUEUE_ADD, null, "DEFAULT")
                     }

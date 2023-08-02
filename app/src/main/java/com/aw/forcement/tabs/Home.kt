@@ -44,9 +44,11 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page)
 
-        addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
-        imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
-        imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
+        tvName.text = "Hello "+getValue(this,"names").toString()
+
+        //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
+       // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
+       // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
         imageHome.setColorFilter(ContextCompat.getColor(this, R.color.selector))
 
         history.setOnClickListener {  startActivity(Intent(this, History::class.java))
@@ -56,19 +58,21 @@ class Home : AppCompatActivity() {
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
 
-        receipt.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","MKT")) }
-        business.setOnClickListener { toggleBottomSheet("business") }
-        cess.setOnClickListener { toggleBottomSheet("cess") }
+        cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","MKT")) }
+        markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
+
+       // business.setOnClickListener { toggleBottomSheet("business") }
+       // cess.setOnClickListener { toggleBottomSheet("cess") }
        // parking.setOnClickListener { startActivity(Intent(this, Offstreet::class.java)) }
         matatusStageCess.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java)) }
 
-      //  offstreet.setOnClickListener {  startActivity(Intent(this, Offstreet::class.java)) }
-        transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
+        streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
+       // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
         closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-        streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
-        imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
-      //  imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
+       // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
+        //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
+       // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
 
 
     }

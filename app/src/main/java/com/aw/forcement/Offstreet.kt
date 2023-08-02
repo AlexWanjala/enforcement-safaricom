@@ -161,7 +161,7 @@ class Offstreet : AppCompatActivity(){
 
     }
 
-    private fun getRate(){
+    private fun x(){
         val formData = listOf(
             "function" to "getRate",
             "category" to category_code,
@@ -222,7 +222,9 @@ class Offstreet : AppCompatActivity(){
 
                 }
                 else{
-                    Toast.makeText(this@Offstreet,response.message,Toast.LENGTH_LONG).show()
+                    runOnUiThread {
+                        tv_message.text = response.message
+                    }
                 }
 
             }
@@ -256,7 +258,11 @@ class Offstreet : AppCompatActivity(){
                     }
 
                 }else{
-                    runOnUiThread {  Toast.makeText(this@Offstreet,response.message, Toast.LENGTH_LONG).show()}
+                    runOnUiThread {
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
+                        tv_message.text = response.message
+                    }
 
                 }
 

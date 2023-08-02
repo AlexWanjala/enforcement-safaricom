@@ -25,7 +25,7 @@ class History : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
 
-        imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
+        //imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
         imageHistory.setColorFilter(ContextCompat.getColor(this, R.color.selector))
 
         home.setOnClickListener {  startActivity(Intent(this, Home::class.java))

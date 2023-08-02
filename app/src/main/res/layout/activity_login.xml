@@ -18,21 +18,24 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:background="@color/green_zuku"
-            android:src="@drawable/county_logo"
+            android:src="@drawable/banner"
             android:layout_width="match_parent"
-            android:layout_height="150sp"/>
+            android:layout_height="wrap_content"/>
 
         <TextView
+            android:fontFamily="@font/montserrat"
+            android:textAllCaps="true"
+            android:textStyle="bold"
             android:layout_marginTop="20dp"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:textColor="@color/black"
-            android:text="Welcome"
+            android:text="@string/welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
         <TextView
+            android:fontFamily="@font/montserrat"
             android:text="@string/login_des"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
@@ -40,6 +43,7 @@
         <include layout="@layout/progressbar"/>
 
         <TextView
+            android:fontFamily="@font/montserrat"
             android:visibility="gone"
             android:layout_marginTop="1sp"
             android:layout_gravity="center"
@@ -74,17 +78,20 @@
 
 
         <TextView
-            android:textColor="@color/text_color"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/labels"
             android:layout_marginTop="20dp"
             android:text="@string/username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText
+            android:fontFamily="@font/montserrat"
             android:elevation="20dp"
             android:drawablePadding="10dp"
-            android:drawableStart="@drawable/email"
+            android:drawableStart="@drawable/user"
             android:id="@+id/edUsername"
+            android:textColorHint="@color/hint"
             android:textColor="@color/text_color"
             android:paddingStart="10dp"
             android:layout_marginTop="5sp"
@@ -95,19 +102,22 @@
 
 
         <TextView
+            android:fontFamily="@font/montserrat"
             android:id="@+id/tvPasswordLable"
-            android:textColor="@color/text_color"
+            android:textColor="@color/labels"
             android:layout_marginTop="20dp"
             android:text="@string/password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
         <EditText
+            android:fontFamily="@font/montserrat"
             android:elevation="20dp"
             android:inputType="textPassword"
             android:drawablePadding="10dp"
-            android:drawableStart="@drawable/unlock"
+            android:drawableStart="@drawable/secured"
             android:id="@+id/edPassword"
+            android:textColorHint="@color/hint"
             android:textColor="@color/text_color"
             android:paddingStart="10dp"
             android:layout_marginTop="5dp"
@@ -117,7 +127,7 @@
             android:layout_height="55sp"/>
 
         <Button
-            android:elevation="20dp"
+            android:fontFamily="@font/montserrat"
             android:background="@drawable/bg_fill_primary"
             android:id="@+id/login"
             android:layout_gravity="right"
@@ -126,6 +136,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_marginTop="20sp"
             android:orientation="horizontal"
@@ -133,17 +145,19 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:fontFamily="@font/montserrat"
                 android:textColor="@color/text_color"
-                android:text="@string/forgot"
+                tools:text="@string/forgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/tvForgot"
+                android:fontFamily="@font/montserrat"
+                android:id="@+id/tvPrivacy"
                 android:padding="10sp"
                 android:textStyle="bold"
                 android:textColor="@color/primay_color"
-                android:text="@string/click_here"
+                android:text="Privacy Policy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -151,5 +165,39 @@
 
 
     </LinearLayout>
+
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="@string/version"
+            android:textColor="@color/hint"
+            tools:text="County Revenue System"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:layout_marginStart="5dp"
+            android:id="@+id/tvVersion"
+            android:textStyle="bold"
+            android:textColor="@color/labels"
+            tools:text="Version 1.09.60"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

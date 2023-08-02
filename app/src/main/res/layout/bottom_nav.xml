@@ -1,43 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <TextView
-        android:id="@+id/imagePay"
-        android:layout_marginStart="20dp"
-        android:padding="15dp"
-        android:layout_marginBottom="40sp"
-        android:elevation="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:textSize="12sp"
-        android:background="@drawable/indicator_state_background_round"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:text="@string/pay"
-        android:layout_width="64sp"
-        android:layout_height="64sp"
-      />
-
-
-    <ImageView
-        android:id="@+id/imageScan"
-        android:layout_marginEnd="20sp"
-        android:background="@drawable/indicator_state_background_round"
-        android:padding="15dp"
-        android:layout_marginBottom="40sp"
-        android:elevation="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/scan"
-        android:layout_width="60sp"
-        android:layout_height="60sp"/>
 
     <LinearLayout
         android:gravity="center"
@@ -67,6 +34,8 @@
                 android:layout_height="20dp"/>
 
             <TextView
+                android:textColor="@color/labels"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -90,6 +59,8 @@
                 app:tint="@color/black" />
 
             <TextView
+                android:textColor="@color/labels"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -114,6 +85,8 @@
                 app:tint="@color/black" />
 
             <TextView
+                android:textColor="@color/labels"
+                android:fontFamily="@font/montserrat"
                 android:text="@string/profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

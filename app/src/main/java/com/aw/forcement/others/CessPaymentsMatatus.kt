@@ -7,40 +7,32 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.graphics.drawable.toBitmap
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
 import com.mazenrashed.printooth.data.printable.ImagePrintable
 import com.mazenrashed.printooth.data.printable.Printable
-import com.mazenrashed.printooth.data.printable.RawPrintable
 import com.mazenrashed.printooth.data.printable.TextPrintable
 import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
-import kotlinx.android.synthetic.main.activity_cess_payments.*
 import kotlinx.android.synthetic.main.activity_cess_payments.edPhoneNumber
 import kotlinx.android.synthetic.main.activity_cess_payments.spinnerFeeAndCharges
 import kotlinx.android.synthetic.main.activity_cess_payments.spinnerIncomeType
 import kotlinx.android.synthetic.main.activity_cess_payments.tvAmount
 import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPayment
 import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPushDisabled
-import kotlinx.android.synthetic.main.activity_cess_payments.tvUnits
 import kotlinx.android.synthetic.main.activity_cess_payments.tv_message
 import kotlinx.android.synthetic.main.activity_cess_payments_matatus.*
-import kotlinx.android.synthetic.main.activity_main.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
-import java.time.temporal.TemporalAmount
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -412,7 +404,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF KISII\nGenowa En Dongruok\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -420,7 +412,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_pirnt)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_print)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -446,7 +438,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @Homabay Town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @Kisii Town\n"
 
         add(
             TextPrintable.Builder()
@@ -465,7 +457,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge Homabay\n#Endless Potential\n\n\n\n\n"
+        val footer ="\nLipa Ushuru Tujenge \n#Endless Potential\n\n\n\n\n"
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
