@@ -46,10 +46,24 @@ class Home : AppCompatActivity() {
 
         tvName.text = "Hello "+getValue(this,"names").toString()
 
+        //Street Parking
+        streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
+        //Matatu/Bus Park
+        matatusStageCess.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java)) }
+        //Cess
+        cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","CESS")) }
+        //Markets
+        markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
+        //Receipt inspection
+        receipt_inspection.setOnClickListener { toggleBottomSheet("cess") }
+
+
         //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
         imageHome.setColorFilter(ContextCompat.getColor(this, R.color.selector))
+
+
 
         history.setOnClickListener {  startActivity(Intent(this, History::class.java))
             finish()}
@@ -58,23 +72,20 @@ class Home : AppCompatActivity() {
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
 
-        cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","CESS")) }
-        markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
+
 
        // business.setOnClickListener { toggleBottomSheet("business") }
        // cess.setOnClickListener { toggleBottomSheet("cess") }
        // parking.setOnClickListener { startActivity(Intent(this, Offstreet::class.java)) }
-        matatusStageCess.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java)) }
 
-        streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
+
+
        // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
         closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
        // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
-
-
     }
 
     private fun toggleBottomSheet(type: String){
@@ -87,40 +98,57 @@ class Home : AppCompatActivity() {
         } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
-        if(type=="receipt"){
-            tvTitle.text = getString(R.string.receipt_query)
-            tvEnter.text = getString(R.string.enter_receipt)
-            buttonSearch.setOnClickListener {
-                queryReceiptNumber()
-            }
+        buttonSearch.setOnClickListener {
+            getTransactions()
         }
-        if(type=="business"){
-            tvTitle.text = getString(R.string.business_query)
-            tvEnter.text = getString(R.string.enter_business)
-            buttonSearch.setOnClickListener { checkBusiness() }
-        }
-        if(type=="cess"){
-            tvTitle.text = getString(R.string.cess_query)
-            tvEnter.text = getString(R.string.enter_number_plate)
-            buttonSearch.setOnClickListener {
-                enforceByPlateNumber()
-            }
-        }
-        if(type=="parking"){
-            tvTitle.text = getString(R.string.parking)
-            tvEnter.text = getString(R.string.enter_number_plate)
-            buttonSearch.setOnClickListener {  getParking() }
-        }
+
     }
     override fun onResume() {
         super.onResume()
         //name.text = getValue(this,"username")
-     //   nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
+        //nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
 
         locationPermission()
 
     }
-     private fun queryReceiptNumber(){
+     private fun getTransactions(){
+
+         if(edSearch.text.toString().isEmpty()){
+             Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
+             return
+         }
+
+         tvMessage.text =""
+
+         progress_circular.visibility = View.VISIBLE
+         val formData = listOf(
+             "function" to "getTransactions",
+             "keyword" to edSearch.text.toString().trim(),
+             "latitude" to getValue(this,"latitude").toString(),
+             "longitude" to getValue(this,"longitude").toString(),
+             "idNo" to getValue(this,"idNo").toString(),
+             "username" to getValue(this,"username").toString(),
+             "addressString" to getValue(this,"addressString").toString()
+         )
+         executeRequest(formData, biller,object : CallBack{
+             override fun onSuccess(result: String?) {
+                 runOnUiThread {  progress_circular.visibility = View.GONE }
+                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+
+                 if(response.success){
+                   // runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+                     startActivity(Intent(this@Home,TransactionsResults::class.java).putExtra("result",result))
+                 }else{
+                     runOnUiThread {
+                         tvMessage.text = response.message }
+                 }
+             }
+
+         })
+
+
+     }
+    private fun queryReceiptNumber(){
 
          if(edSearch.text.toString().isEmpty()){
              Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()

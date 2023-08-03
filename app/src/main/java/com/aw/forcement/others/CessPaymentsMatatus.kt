@@ -402,7 +402,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF KISII\nGenowa En Dongruok\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -410,7 +410,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_print)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -436,7 +436,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @Kisii Town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
 
         add(
             TextPrintable.Builder()

@@ -40,6 +40,7 @@
                     android:layout_height="wrap_content"/>
 
                 <ImageView
+                    android:elevation="5dp"
                     android:id="@+id/imageClose"
                     android:padding="10dp"
                     android:gravity="center"
@@ -49,7 +50,6 @@
                     android:layout_height="wrap_content"/>
 
             </FrameLayout>
-
 
 
             <TextView

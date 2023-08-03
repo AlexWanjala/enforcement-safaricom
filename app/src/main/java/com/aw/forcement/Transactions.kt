@@ -224,7 +224,7 @@ class Transactions : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF KISII\n\n#\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -248,6 +248,7 @@ class Transactions : AppCompatActivity() {
           val username = getValue(this@Transactions,"username")
           val names = getValue(this@Transactions,"names")
           val phone = getValue(this@Transactions,"phone")
+          val zone = getValue(this@Transactions,"zone")
           val incomeTypeDescription = getValue(this@Transactions,"incomeTypeDescription")?.capitalize()
           val description = getValue(this@Transactions,"description")
 
@@ -258,7 +259,7 @@ class Transactions : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at Kisii town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()

@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">County Revenue System</string>
-  <!--  <string name="app_name">Namata</string>-->
+    <!--  <string name="app_name">Namata</string>-->
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -15,7 +15,8 @@
     <string name="username">Enter your ID No./User name</string>
     <string name="version">County Revenue System App</string>
     <string name="password">Password</string>
-    <string name="search">Search</string>
+    <string name="search">Search..</string>
+    <string name="search_des">search for transaction</string>
     <string name="name">Alex Wanjala</string>
     <string name="px">AL</string>
     <string name="county">County Government</string>
@@ -29,7 +30,7 @@
     <string name="cess">Cess</string>
     <string name="markets">Market Fees</string>
     <string name="receipt_inspection">Receipt inspection</string>
-     <string name="plate_verification">No. Plate Verification</string>
+    <string name="plate_verification">No. Plate Verification</string>
     <string name="plate_verification_des">Verify compliance for parking,Cess, bus station taxes etc..</string>
     <string name="receipt_inspection_des">Check for valid receipt and enforce compliance.</string>
     <string name="cess_des">Drivers pay for materials like ballast, sand etc ...</string>
@@ -55,7 +56,7 @@
     <string name="market_income_type">Market Income Type</string>
     <string name="cess_income_type">Cess Income Type</string>
     <string name="market_fees">Markets</string>
-   <string name="market_fees_des">Taxes for vendors on items sold at our markets.</string>
+    <string name="market_fees_des">Taxes for vendors on items sold at our markets.</string>
     <string name="billing_date">Billing Date</string>
     <string name="billing_date_">10 Oct 2021 11:22 PM</string>
     <string name="payment_date">Payment date</string>
@@ -180,7 +181,7 @@
     <string name="enter_number_plate">Enter The No. Plate</string>
     <string name="number_plate">Car Plate Number</string>
     <string name="being">Being Paid By?</string>
-   <string name="billing_totals">Billing Totals</string>
+    <string name="billing_totals">Billing Totals</string>
 
     <string name="sbp_fee">Amount</string>
     <string name="select_street">Select Street</string>
@@ -228,5 +229,16 @@
     <string name="contact">Contact Support</string>
     <string name="collected_today">Collected Today</string>
     <string name="matatu">Matatu/Bus Park</string>
+    <string name="receipt_searching">Receipt Searching</string>
+    <string name="receipt_searching_des">Find a receipt by entering any of these: payer\'s phone, name, MPESA code, car number, etc.</string>
+    <string name="receipt_searching_des_two">Only search for today\'s transactions. For other ones, contact support team.</string>
+    <string name="payment_made">Payment Made By</string>
+    <string name="mpesa_number">Mpesa Number</string>
+    <string name="payment_description">Payment Description</string>
+    <string name="collected_by">COLLECTED BY</string>
+    <string name="validity_status">validity status</string>
+    <string name="print_receipt">print receipt</string>
+    <string name="verify">Verify</string>
+
 
 </resources>

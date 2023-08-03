@@ -42,5 +42,6 @@ data class ReceiptDetails (
 	@SerializedName("departmentID") val departmentID : String,
 	@SerializedName("idNo") val idNo : String,
 	@SerializedName("phoneNumber") val phoneNumber : String,
-	@SerializedName("names") val names : String
+	@SerializedName("names") val names : String,
+	@SerializedName("customerPhoneNumber") val customerPhoneNumber : String
 )

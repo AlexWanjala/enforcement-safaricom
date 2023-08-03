@@ -110,7 +110,7 @@ class Markets : AppCompatActivity() {
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "names" to getValue(this,"names").toString(),
             "customerPhoneNumber" to edPhoneNumber.text.toString(),
-            "edDescription" to edDescription.text.toString(),
+            "description" to edDescription.text.toString(),
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -425,7 +425,7 @@ class Markets : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF KISII\nGenowa En Dongruok\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -433,7 +433,7 @@ class Markets : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_print)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -459,7 +459,7 @@ class Markets : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @kisii Town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
 
         add(
             TextPrintable.Builder()

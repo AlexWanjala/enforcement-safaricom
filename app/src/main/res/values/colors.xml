@@ -15,7 +15,8 @@
     <color name="primay_color">#0c5192</color>
     <color name="circle_color">#0c5192</color>
     <color name="bg_button">#0c5192</color>
-    <color name="red">#AC4A4A</color>
+    <color name="tv_color">#008ACD</color>
+    <color name="red">#DC0707</color>
     <color name="colorPrimary">#F5F5F5</color>
     <color name="colorPrimaryDark">#F5F5F5</color>
     <color name="colorAccent">#0c5192</color>

@@ -49,6 +49,8 @@ class CessPayments : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cess_payments)
 
+        imageClose.setOnClickListener { finish() }
+
         tvSendPayment.setOnClickListener {
 
             if(edPlate.text.isEmpty()){
@@ -57,13 +59,10 @@ class CessPayments : AppCompatActivity() {
                 if(edPhoneNumber.text.isEmpty()){
                     Toast.makeText(this,"Phone Required",Toast.LENGTH_LONG).show()
                 }else{
-
                     //edPlate
                     generateBill()
                 }
-
             }
-
         }
         getIncomeTypes()
 
@@ -408,7 +407,7 @@ class CessPayments : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF KISII\nGenowa En Dongruok\n\n\n"
+        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -416,7 +415,7 @@ class CessPayments : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.county_logo_print)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -442,7 +441,7 @@ class CessPayments : AppCompatActivity() {
         val humanDate = date?.let { outputFormat.format(it) }
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @kisii Town\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
 
         add(
             TextPrintable.Builder()
