@@ -202,7 +202,7 @@ class Login : AppCompatActivity() {
     }
 
     private fun login (){
-
+        val versionCode = BuildConfig.VERSION_CODE
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "login",
@@ -212,7 +212,8 @@ class Login : AppCompatActivity() {
             "longitude" to getValue(this,"longitude").toString(),
             "country" to getValue(this,"country").toString(),
             "address" to getValue(this,"address").toString(),
-            "locality" to getValue(this,"locality").toString()
+            "locality" to getValue(this,"locality").toString(),
+            "versionCode" to versionCode.toString()
         )
         executeRequest(formData, authentication,object : CallBack{
             override fun onSuccess(result: String?) {

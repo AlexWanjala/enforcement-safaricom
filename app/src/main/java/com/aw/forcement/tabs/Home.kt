@@ -1,6 +1,7 @@
 package com.aw.forcement.tabs
 
 import Json4Kotlin_Base
+import OverviewAdapter
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -13,10 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.HorizontalScrollView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.*
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
@@ -31,6 +34,7 @@ import kotlinx.android.synthetic.main.bottom_nav.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.message.*
 import kotlinx.android.synthetic.main.progressbar.*
+import kotlinx.android.synthetic.main.recycler_view.*
 import java.io.IOException
 import java.util.*
 
@@ -56,6 +60,8 @@ class Home : AppCompatActivity() {
         markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
         //Receipt inspection
         receipt_inspection.setOnClickListener { toggleBottomSheet("cess") }
+        //No Plate Verificarion
+        plate_verification.setOnClickListener {  startActivity(Intent(this, Street::class.java)) }
 
 
         //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
@@ -86,6 +92,8 @@ class Home : AppCompatActivity() {
        // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
+
+        collectionOverview()
     }
 
     private fun toggleBottomSheet(type: String){
@@ -101,6 +109,8 @@ class Home : AppCompatActivity() {
         buttonSearch.setOnClickListener {
             getTransactions()
         }
+
+
 
     }
     override fun onResume() {
@@ -148,6 +158,41 @@ class Home : AppCompatActivity() {
 
 
      }
+    private fun collectionOverview(){
+
+        val formData = listOf(
+            "function" to "collectionOverview",
+            "keyword" to edSearch.text.toString().trim(),
+            "latitude" to getValue(this,"latitude").toString(),
+            "longitude" to getValue(this,"longitude").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "addressString" to getValue(this,"addressString").toString()
+        )
+        executeRequest(formData, biller,object : CallBack{
+            override fun onSuccess(result: String?) {
+                runOnUiThread {  progress_circular.visibility = View.GONE }
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+
+                if(response.success){
+                    runOnUiThread {
+
+                        val adapter = OverviewAdapter(this@Home, response.data.overview)
+                        adapter.notifyDataSetChanged()
+                        recyclerView.layoutManager = LinearLayoutManager(this@Home,LinearLayoutManager.HORIZONTAL, false)
+                        recyclerView.adapter = adapter
+                        recyclerView.setHasFixedSize(false)
+                    }
+                }else{
+                    runOnUiThread {
+                        tvMessage.text = response.message }
+                }
+            }
+
+        })
+
+
+    }
     private fun queryReceiptNumber(){
 
          if(edSearch.text.toString().isEmpty()){
@@ -395,5 +440,6 @@ class Home : AppCompatActivity() {
         }
 
     }
+
 
 }

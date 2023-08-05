@@ -42,6 +42,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street.*
 import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Street : AppCompatActivity() {
@@ -49,22 +50,36 @@ class Street : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street)
+
         switchCamera.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 cameraView.visibility = View.VISIBLE
                 //startCameraSource()
             } else {
                 cameraView.visibility = View.GONE
-               /* if (preview != null) {
-                    preview!!.stop()
-                }*/
+                /* if (preview != null) {
+                     preview!!.stop()
+                 }*/
             }
         }
+
         initOCR()
 
         tvSubmit.setOnClickListener {
-             getParking(edPlate.text.toString().replace("",""))
+            if(edPlate.text.toString().isEmpty()){
+                tts!!.speak("Please Scan or enter plate number", TextToSpeech.QUEUE_ADD, null, "DEFAULT")
+            }else{
+                getParking(edPlate.text.toString().replace("",""))
+            }
         }
+    }
+
+    fun humanDate(input: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = inputFormat.parse(input)
+        val outputFormat = SimpleDateFormat("dd MMM yyyy 'AT' hh:mm a")
+        val output = outputFormat.format(date)
+        return output
     }
 
     private fun getParking(plateNumbe : String){
@@ -84,9 +99,20 @@ class Street : AppCompatActivity() {
               //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-
                     runOnUiThread {
-                        plate.text = response.data.parking.numberPlate.trim()
+                        edPlate.setText(response.data.parking.numberPlate)
+                        plate.text = response.data.parking.numberPlate
+                        tv_zone.text = response.data.parking.zone
+                        tv_for.text = response.data.parking.category
+                        tv_amount.text = "KES "+response.data.parking.receiptAmount
+                        tv_for.text = response.data.parking.category+" for "+ response.data.parking.duration
+                        tv_status.text = response.data.parking.status
+                        if (response.data.parking.status!="PAID")
+                            tv_status.setTextColor(Color.RED) else  tv_status.setTextColor(Color.parseColor("#09754E"))
+                        if(response.data.parking.startDate.isNotEmpty())
+                         date_paid.text = humanDate(response.data.parking.startDate)
+                        tv_last.text = response.data.parking.zone
+                      /*  plate.text = response.data.parking.numberPlate.trim()
                         vehicleCategory.text = response.data.parking.category.trim()
                         zone.text =  response.data.parking.zone.trim()
                         street.text = getValue(this@Street,"addressString").toString().trim()
@@ -96,8 +122,7 @@ class Street : AppCompatActivity() {
                             status.setTextColor(Color.parseColor("#12a637"))
                         }else{
                             status.setTextColor(Color.RED)
-                        }
-
+                        }*/
 
                         tts!!.speak(response.message, TextToSpeech.QUEUE_ADD, null, "DEFAULT")
                     }

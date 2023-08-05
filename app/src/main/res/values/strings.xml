@@ -191,9 +191,13 @@
     <string name="account_header">Account Number</string>
     <string name="amount_hint">Enter Amount</string>
     <string name="amount">Amount</string>
+    <string name="compliance">compliance status</string>
+    <string name="all">all inspections</string>
     <string name="trans_code">Transaction Code</string>
     <string name="acc_ref">Acc Ref</string>
     <string name="date">Date</string>
+    <string name="date_paid">Date paid</string>
+    <string name="last">last checkpoint</string>
     <string name="status">Status</string>
     <string name="phone">MPESA Phone Number</string>
     <string name="cess_item">Fees and charges</string>
@@ -239,6 +243,11 @@
     <string name="validity_status">validity status</string>
     <string name="print_receipt">print receipt</string>
     <string name="verify">Verify</string>
+    <string name="manual_entry">Manual Entry</string>
+    <string name="enter_plate">Enter No. Plate Manually</string>
+    <string name="no.plate">No. Plate</string>
+    <string name="payment_zone">payment zone</string>
+    <string name="paid_for">paid for</string>
 
 
 </resources>

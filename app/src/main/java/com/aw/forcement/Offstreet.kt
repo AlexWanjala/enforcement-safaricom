@@ -68,7 +68,6 @@ class Offstreet : AppCompatActivity(){
         imageReports.setOnClickListener { startActivity(Intent(this,Transactions::class.java)) }
         imageScan.setOnClickListener { startActivity(Intent(this,Street::class.java)) }
 
-
         getCategory()
         tvSendPush.setOnClickListener {
             if(edPlate.text.isEmpty()){
@@ -85,17 +84,13 @@ class Offstreet : AppCompatActivity(){
         }
 
         imagePay.setOnClickListener { startActivity(Intent(this,CessPayments::class.java)) }
-
         initOCR()
     }
-
 
     override fun onBackPressed() {
         finish()
         super.onBackPressed()
     }
-
-
     private fun getCategory(){
         progressBar1.visibility = View.VISIBLE
         val formData = listOf(
@@ -151,45 +146,9 @@ class Offstreet : AppCompatActivity(){
                     runOnUiThread {
                       //  Toast.makeText(this@Pay,response.message, Toast.LENGTH_LONG).show()
                     }
-
                 }
-
             }
-
         })
-
-
-    }
-
-    private fun x(){
-        val formData = listOf(
-            "function" to "getRate",
-            "category" to category_code,
-            "duration" to duration,
-            "zone" to zone.toString(),
-        )
-        executeRequest(formData, parking,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-                    runOnUiThread {tv_message.text ="Bill generated success.." }
-
-                    customerPayBillOnline(
-                        response.data.billGenerated.billNo,
-                        response.data.billGenerated.payBillNo,
-                        response.data.billGenerated.amount
-                    )
-
-                }
-                else{
-                    Toast.makeText(this@Offstreet,response.message,Toast.LENGTH_LONG).show()
-                }
-
-            }
-
-        })
-
-
     }
     private fun matatuPayment(){
         tv_message.text ="Generating bill please wait..$duration $category_code"
@@ -226,14 +185,10 @@ class Offstreet : AppCompatActivity(){
                         tv_message.text = response.message
                     }
                 }
-
             }
-
         })
 
-
     }
-
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String){
         // progressBar1.visibility = View.VISIBLE
         runOnUiThread {   tv_message.text ="Sending Payment Request.." }
@@ -392,8 +347,6 @@ class Offstreet : AppCompatActivity(){
     /**
      * Initializes the UI and creates the detector pipeline.
      */
-
-
     /**
      * Handles the requesting of the camera permission.  This includes
      * showing a "Snackbar" message of why the permission is needed then
@@ -424,13 +377,11 @@ class Offstreet : AppCompatActivity(){
             .setAction("ok", listener)
             .show()
     }
-
     override fun onTouchEvent(e: MotionEvent): Boolean {
         val b = scaleGestureDetector!!.onTouchEvent(e)
         val c = gestureDetector!!.onTouchEvent(e)
         return b || c || super.onTouchEvent(e)
     }
-
     /**
      * Creates and starts the camera.  Note that this uses a higher resolution in comparison
      * to other detection examples to enable the ocr detector to detect small text samples
@@ -499,7 +450,6 @@ class Offstreet : AppCompatActivity(){
             preview!!.stop()
         }
     }
-
     /**
      * Releases the resources associated with the camera source, the associated detectors, and the
      * rest of the processing pipeline.

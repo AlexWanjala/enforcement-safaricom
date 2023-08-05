@@ -24,8 +24,8 @@ android {
         applicationId "com.aw.forcement"
         minSdk 21
         targetSdk 33
-        versionCode 24
-        versionName "24"
+        versionCode 31
+        versionName "31"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -99,6 +99,7 @@ dependencies {
     implementation "com.github.mazenrashed:Printooth:$printooth"
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
 }
 
 

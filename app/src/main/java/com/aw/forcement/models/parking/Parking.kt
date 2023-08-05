@@ -20,9 +20,9 @@ data class Parking (
 	@SerializedName("duration") val duration : String,
 	@SerializedName("category") val category : String,
 	@SerializedName("zone") val zone : String,
-	@SerializedName("billTotal") val billTotal : Int,
-	@SerializedName("receiptAmount") val receiptAmount : Int,
-	@SerializedName("billBalance") val billBalance : Int,
+	@SerializedName("billTotal") val billTotal : String,
+	@SerializedName("receiptAmount") val receiptAmount : String,
+	@SerializedName("billBalance") val billBalance : String,
 	@SerializedName("startDate") val startDate : String,
 	@SerializedName("endDate") val endDate : String,
 	@SerializedName("status") val status : String

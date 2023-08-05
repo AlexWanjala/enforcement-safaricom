@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:scrollbars="vertical"
     android:background="#F6F6FA"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -17,13 +18,15 @@
             android:visibility="visible"
             android:id="@+id/cameraView"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="300dp">
             <TextView
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="true"
                 android:layout_marginTop="3dp"
                 android:textColor="#FFFF00"
                 android:gravity="center"
                 android:elevation="1dp"
-                android:text="Place Number Plate In Between The Boundaries"
+                android:text="place the plate within the boundaries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <ImageView
@@ -50,13 +53,13 @@
             <com.aw.forcement.ocr.camera.CameraSourcePreview
                 android:id="@+id/preview"
                 android:layout_width="match_parent"
-                android:layout_height="230dp">
+                android:layout_height="300dp">
 
                 <com.aw.forcement.ocr.camera.GraphicOverlay
-                    android:elevation="5dp"
+                    android:elevation="51dp"
                     android:id="@+id/graphicOverlay"
                     android:layout_width="match_parent"
-                    android:layout_height="230dp" >
+                    android:layout_height="300dp" >
                 </com.aw.forcement.ocr.camera.GraphicOverlay>
 
 
@@ -64,308 +67,324 @@
 
         </FrameLayout>
 
-
-        <Switch
-            android:textSize="14dp"
-            android:layout_gravity="right"
-            android:checked="false"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:padding="5dp"
-            android:id="@+id/switchCamera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Camera" />
-
-        <LinearLayout
-            android:orientation="vertical"
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:textColor="@color/black"
-                    android:id="@+id/edPlate"
-                    android:hint="Enter Plate"
-                    android:padding="7dp"
-                    android:background="@drawable/rectangle_background"
-                    android:layout_weight="0.7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:lines="1"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:imeOptions="actionNext"/>
-                <TextView
-                    android:id="@+id/tvSubmit"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center"
-                    android:padding="9dp"
-                    android:background="#00632C"
-                    android:text="Submit"
-                    android:textColor="#FFFF"
-                    android:layout_weight="0.3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-
-
-            <androidx.cardview.widget.CardView
-                xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/card_view"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:padding="20dp"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                card_view:cardCornerRadius="4dp">
+                android:fillViewport="true">
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/labels"
+                        android:textSize="14sp"
+                        android:text="@string/manual_entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                <!--    <com.github.ybq.android.spinkit.SpinKitView
-                        android:elevation="5dp"
-                        android:visibility="gone"
-                        android:layout_gravity="center"
-                        app:SpinKit_Color="@color/colorPrimaryDark"
-                        style="@style/SpinKitView"
-                        android:id="@+id/progressbar"
-                        android:layout_width="130dp"
-                        android:layout_height="130dp" />-->
+                    <Switch
+                        android:textSize="14dp"
+                        android:layout_gravity="right"
+                        android:checked="true"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:id="@+id/switchCamera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera" />
+                </FrameLayout>
 
-                    <ImageView
-                        android:id="@+id/display_img"
-                        android:src="@drawable/display_img_fade"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp" />
 
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:textSize="10sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:id="@+id/edPlate"
+                        android:hint="@string/enter_plate"
+                        android:padding="15dp"
+                        android:background="@drawable/rectangle_background"
+                        android:layout_weight="0.7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"/>
+
+                    <TextView
+                        android:id="@+id/tvSubmit"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:background="@drawable/bg_fill_primary"
+                        android:textColor="#FFFF"
+                        android:layout_width="71sp"
+                        android:layout_height="45dp"
+                        app:drawableTopCompat="@drawable/search" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
-                        android:id="@+id/display_data"
-                        android:visibility="visible"
-                        android:padding="15dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
                         android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:text="Plate"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/no.plate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                         <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:id="@+id/plate"
-                            android:textSize="14dp"
                             android:textColor="@android:color/black"
                             tools:text="KCC 358Y"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+                    </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:text="Vehicle Category"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/payment_zone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
                         <TextView
-                            android:id="@+id/vehicleCategory"
-                            android:textSize="14dp"
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_zone"
                             android:textColor="@android:color/black"
-                            tools:text="Lorry"
+                            tools:text="Homabay town"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:background="@color/bg"
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/money"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
+
+                    <LinearLayout
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
                         <TextView
-                            android:text="Zone"
+                            android:textSize="10sp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/paid_for"
+                            android:textAllCaps="true" />
 
                         <TextView
-                            android:id="@+id/zone"
-                            android:textSize="14dp"
+                            android:textSize="10sp"
+                            android:id="@+id/tv_for"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
                             android:textColor="@android:color/black"
-                            tools:text="CBD"
+                            tools:text="Homabay town"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
-
-
-
-                        <TextView
-                            android:layout_marginTop="3dp"
-                            android:text="Duration"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/duration"
-                            android:textSize="14dp"
-                            android:textColor="@android:color/black"
-                            tools:text="Daily"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-
-                        <TextView
-                            android:layout_marginTop="4dp"
-                            android:text="status"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <LinearLayout
-                            android:layout_marginBottom="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                android:id="@+id/status"
-                                android:textAllCaps="true"
-                                android:textSize="14dp"
-                                android:textColor="@android:color/holo_red_dark"
-                                tools:text="UNPAID"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-
-
-                            <ImageView
-                                android:id="@+id/imageStatus"
-                                android:layout_marginLeft="10dp"
-                                android:layout_width="25dp"
-                                android:layout_height="25dp" />
-
-                            <TextView
-                                android:lines="1"
-                                android:layout_marginLeft="10dp"
-                                android:visibility="visible"
-                                android:id="@+id/description"
-                                android:textSize="14dp"
-                                android:textColor="@android:color/black"
-                                tools:text="description"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_marginTop="0dp"
-                            android:visibility="visible"
-                            android:text="Street"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:visibility="visible"
-                            android:id="@+id/street"
-                            android:textSize="14dp"
-                            android:textColor="@android:color/black"
-                            tools:text="Moi Aveneu"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-
                     </LinearLayout>
 
 
 
-                </FrameLayout>
 
-            </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_amount"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            tools:text="kes 100"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/date_paid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/date_paid"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/black"
+                            tools:text="11 jan 2023 01:54 PM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
 
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/compliance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_status"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/holo_green_light"
+                            tools:text="Paid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/last"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_last"
+                            android:textColor="@android:color/black"
+                            tools:text="homabay town"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
 
     </LinearLayout>
 
 
-    <RadioGroup
-        android:elevation="5dp"
-        android:padding="3dp"
-        android:background="@android:color/white"
-        android:weightSum="3"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal"
-        android:id="@+id/radioGroup1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <LinearLayout
-            android:id="@+id/LView"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:visibility="gone"
-                android:id="@+id/radio0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/view_ianactive" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:visibility="gone"
-                android:id="@+id/radio01"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/scan_icon" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
-            <RadioButton
-                android:visibility="gone"
-                android:id="@+id/radio02"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true" />
-
-            <ImageView
-                android:id="@+id/logout"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/log_out" />
-        </LinearLayout>
-    </RadioGroup>
-
-
-</FrameLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
