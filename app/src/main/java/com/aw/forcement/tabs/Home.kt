@@ -1,5 +1,6 @@
 package com.aw.forcement.tabs
 
+import DotsIndicatorDecoration
 import java.util.Timer
 import kotlin.concurrent.timerTask
 import Json4Kotlin_Base
@@ -23,11 +24,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.*
-import com.aw.forcement.adapters.DotsIndicatorDecoration
+
 import com.aw.forcement.adapters.LoopingSnapHelper
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
 import com.aw.passanger.api.parking
+import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
@@ -191,20 +193,14 @@ class Home : AppCompatActivity() {
                     runOnUiThread {
 
                         with(recyclerView) {
-                            layoutManager = LoopingLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            layoutManager = LoopingLayoutManager(context, LoopingLayoutManager.HORIZONTAL, false)
                             adapter = OverviewAdapter(this@Home, response.data.overview)
-                            addItemDecoration(
-                                DotsIndicatorDecoration(
-                                    colorInactive = ContextCompat.getColor(context, R.color.purple_200),
-                                    colorActive = ContextCompat.getColor(context, R.color.purple_500)
-                                )
+
+                            recyclerView.addItemDecoration(
+                                DotsIndicatorDecoration()
                             )
 
-
                         }
-
-
-
 
                     }
                 }else{

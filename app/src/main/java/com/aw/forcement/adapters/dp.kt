@@ -1,106 +1,22 @@
-package com.aw.forcement.adapters
-
-import android.content.res.Resources
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.view.View
-import androidx.annotation.ColorInt
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.math.roundToInt
 
-val Int.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
+class DotsIndicatorDecoration : RecyclerView.ItemDecoration() {
 
-class DotsIndicatorDecoration(
-    @ColorInt colorInactive: Int,
-    @ColorInt colorActive: Int
-) : RecyclerView.ItemDecoration() {
-
-    private val lineLength = 40.dp
-    private val indicatorHeight: Int = 20.dp
-    private val indicatorItemPadding: Int = 4.dp
-    private val radius: Int = 2.dp
+    private val indicatorHeight = 16
+    private val indicatorItemPadding = 4
+    private val radius = 4f
     private val inactivePaint = Paint()
     private val activePaint = Paint()
 
     init {
-        inactivePaint.style = Paint.Style.FILL
-        inactivePaint.isAntiAlias = true
-        inactivePaint.color = colorInactive
-        activePaint.style = Paint.Style.FILL_AND_STROKE
-        activePaint.strokeCap = Paint.Cap.ROUND
-        activePaint.strokeWidth = radius.toFloat() * 2
-        activePaint.isAntiAlias = true
-        activePaint.color = colorActive
-    }
-
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        super.onDrawOver(c, parent, state)
-        val adapter = parent.adapter ?: return
-        val itemCount = adapter.itemCount
-
-        // center horizontally, calculate width and subtract half from center
-        val totalLength = (this.radius * 2 * itemCount).toFloat()
-        val paddingBetweenItems = (0.coerceAtLeast(itemCount - 1) * indicatorItemPadding).toFloat()
-        val indicatorTotalWidth = totalLength + paddingBetweenItems
-        val indicatorStartX = (parent.width - indicatorTotalWidth) / 2f
-
-        // center vertically in the allotted space
-        val indicatorPosY = parent.height - indicatorHeight / 2f
-
-        val activePosition: Int = when (parent.layoutManager) {
-            is LinearLayoutManager -> {
-                (parent.layoutManager as LinearLayoutManager?)!!.findFirstCompletelyVisibleItemPosition()
-            }
-            else -> {
-                // not supported layout manager
-                return
-            }
-        }
-        if (activePosition == RecyclerView.NO_POSITION) {
-            return
-        }
-
-        drawInactiveDots(c, indicatorStartX, indicatorPosY, itemCount, activePosition)
-        drawActiveLine(c, indicatorStartX, indicatorPosY, activePosition)
-    }
-
-    private fun drawInactiveDots(
-        c: Canvas,
-        indicatorStartX: Float,
-        indicatorPosY: Float,
-        itemCount: Int,
-        activeIndex: Int,
-    ) {
-        // width of item indicator including padding
-        val itemWidth = (this.radius * 2 + indicatorItemPadding).toFloat()
-        var start = indicatorStartX + radius
-        for (i in 0 until itemCount) {
-            if (i == activeIndex) {
-                start += lineLength / 2
-                continue
-            }
-            c.drawCircle(start, indicatorPosY, radius.toFloat(), inactivePaint)
-            start += itemWidth
-        }
-    }
-
-    private fun drawActiveLine(
-        c: Canvas, indicatorStartX: Float, indicatorPosY: Float,
-        highlightPosition: Int
-    ) {
-        // width of item indicator including padding
-        val itemWidth = (lineLength + indicatorItemPadding).toFloat() / 2
-        val circleWidth = (radius * 2) + indicatorItemPadding
-        val highlightStart = indicatorStartX + circleWidth * highlightPosition + radius
-        c.drawLine(
-            highlightStart,
-            indicatorPosY,
-            highlightStart + itemWidth - indicatorItemPadding / 2,
-            indicatorPosY,
-            activePaint
-        )
+// Set the paint color for the inactive and active indicators
+        inactivePaint.color = Color.GRAY
+        activePaint.color = Color.WHITE
     }
 
     override fun getItemOffsets(
@@ -110,6 +26,49 @@ class DotsIndicatorDecoration(
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
+// Use 16dp as an example, you can adjust it according to your preference
         outRect.bottom = indicatorHeight
     }
+
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(c, parent, state)
+
+// Get the total number of items in the adapter
+        val itemCount = parent.adapter?.itemCount ?: 0
+
+// Loop through each item in the adapter
+        for (i in 0 until itemCount) {
+// Get a reference to the current item's view holder and view
+            val viewHolder = parent.findViewHolderForAdapterPosition(i)
+            val view = viewHolder?.itemView ?: continue
+
+// Get the width and height of the item
+            val width = view.width
+            val height = view.height
+
+// Calculate the total width of the indicators
+            val indicatorTotalWidth = (radius * 2 * itemCount) + (indicatorItemPadding * (itemCount - 1))
+
+// Calculate the left and right positions of the indicators relative to the item
+            val indicatorStartX = (width - indicatorTotalWidth) / 2f + view.left
+            val indicatorPosY = height - indicatorHeight / 2f + view.top
+
+// Draw a dot or circle for each item in the adapter
+            for (j in 0 until itemCount) {
+// Calculate the position of the current dot or circle relative to the item
+                val dx1 = indicatorStartX + (j * (2 * radius + indicatorItemPadding))
+                val dx2 = dx1 + 2 * radius
+
+// Check if the current item is active or not
+                if (i == j) {
+// If active, draw a filled circle with the active paint
+                    c.drawCircle((dx1 + dx2) / 2f, indicatorPosY, radius, activePaint)
+                } else {
+// If inactive, draw a hollow circle with the inactive paint
+                    c.drawCircle((dx1 + dx2) / 2f, indicatorPosY, radius, inactivePaint)
+                }
+            }
+        }
+    }
 }
+
