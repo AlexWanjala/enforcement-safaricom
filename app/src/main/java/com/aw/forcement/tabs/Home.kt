@@ -1,5 +1,7 @@
 package com.aw.forcement.tabs
 
+import java.util.Timer
+import kotlin.concurrent.timerTask
 import Json4Kotlin_Base
 import OverviewAdapter
 import android.Manifest
@@ -21,6 +23,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.*
+import com.aw.forcement.adapters.DotsIndicatorDecoration
+import com.aw.forcement.adapters.LoopingSnapHelper
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
 import com.aw.passanger.api.parking
@@ -94,6 +98,15 @@ class Home : AppCompatActivity() {
        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
 
         collectionOverview()
+
+
+        val snapHelper = LoopingSnapHelper()
+        snapHelper.attachToRecyclerView(recyclerView)
+        val timer = Timer()
+        val task = timerTask {
+            recyclerView.smoothScrollBy(720, 0) // Scroll 100
+        }
+        timer.schedule(task, 0, 8000) // 0 delay, 3000 period
     }
 
     private fun toggleBottomSheet(type: String){
@@ -177,11 +190,22 @@ class Home : AppCompatActivity() {
                 if(response.success){
                     runOnUiThread {
 
-                        val adapter = OverviewAdapter(this@Home, response.data.overview)
-                        adapter.notifyDataSetChanged()
-                        recyclerView.layoutManager = LinearLayoutManager(this@Home,LinearLayoutManager.HORIZONTAL, false)
-                        recyclerView.adapter = adapter
-                        recyclerView.setHasFixedSize(false)
+                        with(recyclerView) {
+                            layoutManager = LoopingLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                            adapter = OverviewAdapter(this@Home, response.data.overview)
+                            addItemDecoration(
+                                DotsIndicatorDecoration(
+                                    colorInactive = ContextCompat.getColor(context, R.color.purple_200),
+                                    colorActive = ContextCompat.getColor(context, R.color.purple_500)
+                                )
+                            )
+
+
+                        }
+
+
+
+
                     }
                 }else{
                     runOnUiThread {
