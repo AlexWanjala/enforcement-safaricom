@@ -1,10 +1,13 @@
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.net.ParseException
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +25,8 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 	private var mList: List<Overview> = ArrayList<Overview>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+		var layout: FrameLayout = itemView.findViewById<View>(R.id.frame_layout) as FrameLayout
+		var image_icon: ImageView = itemView.findViewById<View>(R.id.image_icon) as ImageView
 		var tv_icon: ImageView = itemView.findViewById<View>(R.id.tv_icon) as ImageView
 		var tv_header: TextView = itemView.findViewById<View>(R.id.tv_header) as TextView
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
@@ -39,10 +44,34 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val list: Overview = mList[position]
 
+		//list.units
 		holder.tv_header.text = list.item
-		holder.tv_amount.text = "KES "+ list.today
-		holder.tv_difference.text = list.difference
+		holder.tv_amount.text =list.units+" "+String.format("%,.2f", list.today.toFloat())
+		holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
 		holder.tv_message.text = list.message
+		if(list.difference<0){
+			holder.image_icon.setImageResource (R.drawable.arrow_down);
+		}else{
+			holder.image_icon.setImageResource (R.drawable.arrow_up);
+		}
+
+		if(position==0){
+			holder.layout.setBackgroundResource(R.drawable.bg_blue)
+			holder.tv_icon.setImageResource(R.drawable.customers)
+		}
+		if(position==1){
+			holder.layout.setBackgroundResource(R.drawable.bg_green)
+			holder.tv_icon.setImageResource(R.drawable.inspection)
+		}
+		if(position==2){
+			holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
+			holder.tv_icon.setImageResource(R.drawable.customers)
+		}
+		if(position==3){
+			holder.layout.setBackgroundResource(R.drawable.bg_orange)
+			holder.tv_icon.setImageResource(R.drawable.trophy)
+		}
+
 	}
 
 	override fun getItemCount(): Int {

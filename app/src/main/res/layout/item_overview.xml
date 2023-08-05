@@ -10,6 +10,7 @@
    >
 
     <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -38,6 +39,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textAllCaps="true"
                 android:id="@+id/tv_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -69,10 +71,12 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:elevation="5dp"
+                        android:id="@+id/image_icon"
                         android:layout_gravity="center"
                         android:src="@drawable/arrow_up"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"/>
 
                 </FrameLayout>
 
