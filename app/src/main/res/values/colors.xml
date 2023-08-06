@@ -23,6 +23,7 @@
     <color name="yellow">#B7DD2631</color>
     <color name="colorText">#6a0dad</color>
     <color name="grey">#3693C5F4</color>
+    <color name="grey_indicator">#B2FFFFFF</color>
     <color name="edit_text">#8DC6D2DD</color>
     <color name="green_zuku">#0c5192</color>
     <color name="blue_zuku">#0c5192</color>
