@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.*
 import com.aw.forcement.adapters.DotsIndicatorDecoration
 import com.aw.forcement.adapters.LoopingSnapHelper
+import com.aw.forcement.history.MyHistory
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
 import com.aw.passanger.api.parking
@@ -67,19 +68,20 @@ class Home : AppCompatActivity() {
         receipt_inspection.setOnClickListener { toggleBottomSheet("cess") }
         //No Plate Verificarion
         plate_verification.setOnClickListener {  startActivity(Intent(this, Street::class.java)) }
+        //document_verification
+        document_verification.setOnClickListener {  startActivity(Intent(this, ScanClass::class.java)) }
+        //history
+        history.setOnClickListener {  startActivity(Intent(this, MyHistory::class.java))
+            finish()}
+
+        profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
+            finish()}
 
 
         //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
         imageHome.setColorFilter(ContextCompat.getColor(this, R.color.selector))
-
-
-
-        history.setOnClickListener {  startActivity(Intent(this, History::class.java))
-            finish()}
-        profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
-            finish()}
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
 

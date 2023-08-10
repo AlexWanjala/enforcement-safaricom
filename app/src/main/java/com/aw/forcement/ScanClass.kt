@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aw.forcement.others.Business
 import com.aw.forcement.others.Receipt
+import com.aw.forcement.others.TransactionsResults
 import com.aw.passanger.api.*
 import com.google.android.gms.vision.CameraSource
 import com.google.android.gms.vision.Detector
@@ -35,6 +36,7 @@ class ScanClass : AppCompatActivity() {
     lateinit var cameraSource: CameraSource
     lateinit var barcodeDetector: BarcodeDetector
     var scannedValue = ""
+    var boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,8 +109,13 @@ class ScanClass : AppCompatActivity() {
                     //Don't forget to add this line printing value or finishing activity must run on main thread
                     runOnUiThread {
                         cameraSource.stop()
+                        if(boolean){
+                            boolean = false
+                            getTransactions(scannedValue)
+                        }
+
                         //Toast.makeText(this@ScanClass, "valuejjj- $scannedValue", Toast.LENGTH_SHORT).show()
-                        if(intent.getStringExtra("type").toString() == "receipt"){
+                       /* if(intent.getStringExtra("type").toString() == "receipt"){
                             queryReceiptNumber(scannedValue)
                         }else if(intent.getStringExtra("type").toString() == "liquor"){
                             if(scannedValue.length>4)
@@ -121,12 +128,12 @@ class ScanClass : AppCompatActivity() {
                             checkBusiness( scannedValue.split(":")[1].split(" ")[1])
                             else
                                 checkBusiness( scannedValue)
-                        }
+                        }*/
 
                     }
                 }else
                 {
-                  runOnUiThread {   Toast.makeText(this@ScanClass, "value- else", Toast.LENGTH_SHORT).show() }
+                 // runOnUiThread {   Toast.makeText(this@ScanClass, "value- else", Toast.LENGTH_SHORT).show() }
 
                 }
             }
@@ -161,25 +168,38 @@ class ScanClass : AppCompatActivity() {
         cameraSource.stop()
     }
 
-    private fun queryReceiptNumber(ReceiptNo: String){
+
+    private fun getTransactions(ReceiptNo: String){
         Log.e("########",ReceiptNo)
         Log.i("########MPESACODE",ReceiptNo.split(",")[0].replace(" ","").split(":")[1])
 
-
-       val formData = listOf(
-            "function" to "getReceipt",
-            "receiptNo" to ReceiptNo.split(",")[0].replace(" ","").split(":")[1] //RGG1PKMB2L
+        val formData = listOf(
+            "function" to "getTransactions",
+            "keyword" to ReceiptNo.split(",")[0].replace(" ","").split(":")[1],//RGG1PKMB2
+            "latitude" to getValue(this,"latitude").toString(),
+            "longitude" to getValue(this,"longitude").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "addressString" to getValue(this,"addressString").toString()
         )
         executeRequest(formData, biller,object : CallBack{
             override fun onSuccess(result: String?) {
+
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+
                 if(response.success){
-                    startActivity(Intent(this@ScanClass, Receipt::class.java).putExtra("result",result).addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT))
+                    startActivity(Intent(this@ScanClass, TransactionsResults::class.java).putExtra("result",result))
+                    finish()
                 }else{
-                    runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG).show() }
+                    runOnUiThread {
+                        tvMessage.text = response.message
+                        finish()
+                    }
                 }
             }
+
         })
+
 
     }
     private fun checkBusiness(businessID: String){

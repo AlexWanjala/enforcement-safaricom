@@ -1,74 +1,54 @@
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.net.ParseException
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
-import com.aw.forcement.others.TransactionsResults
-import com.aw.passanger.api.*
-import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_cess_payments.*
+import com.aw.passanger.api.getValue
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 
 
 /**
  * Created by Alex Boey on 8/1/2016.
  */
-class TransSearchAdapter(private val context: Context, mList: List<Transactions>) :
-	RecyclerView.Adapter<TransSearchAdapter.ViewHolder?>() {
-	private var mList: List<Transactions> = ArrayList<Transactions>()
+class MyHistoryAdapter(private val context: Context, mList: List<MyHistory>) :
+	RecyclerView.Adapter<MyHistoryAdapter.ViewHolder?>() {
+	private var mList: List<MyHistory> = ArrayList<MyHistory>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		var layoutView: ConstraintLayout = itemView.findViewById<View>(R.id.layoutView) as ConstraintLayout
-		var tv_tag : TextView = itemView.findViewById<View>(R.id.tv_tag) as TextView
-		var tv_name: TextView = itemView.findViewById<View>(R.id.tv_name) as TextView
-		var tv_code: TextView = itemView.findViewById<View>(R.id.tv_code) as TextView
-		var tv_item: TextView = itemView.findViewById<View>(R.id.tv_item) as TextView
-		var tv_status: TextView = itemView.findViewById<View>(R.id.tv_status) as TextView
-		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
-		var tv_date: TextView = itemView.findViewById<View>(R.id.tv_date) as TextView
+		var layoutView: LinearLayout = itemView.findViewById<View>(R.id.layoutView) as LinearLayout
+		var tvAmout: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
+		var tvHeader: TextView = itemView.findViewById<View>(R.id.tv_header) as TextView
+		var tvItem: TextView = itemView.findViewById<View>(R.id.tv_item) as TextView
+		var tvDate: TextView = itemView.findViewById<View>(R.id.tv_date) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 		val view: View = LayoutInflater.from(parent.context)
-			.inflate(R.layout.item_search_transaction, parent, false)
+			.inflate(R.layout.item_history, parent, false)
 		return ViewHolder(view)
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val list: Transactions = mList[position]
-
-		if(list.names==null){
-			holder.tv_tag.text = "#"
-		}else{
-			holder.tv_tag.text = "${list.names[0]}${list.names[2]}"
-		}
+		val list: MyHistory = mList[position]
 
 
-		holder.tv_name.text = list.names
-		holder.tv_code.text = list.transaction_code
-		holder.tv_item.text = list.account_ref
-		holder.tv_date.text = covertTimeToText(list.date)
-		holder.tv_amount.text = "KES "+ list.amount
+		holder.tvAmout.text ="KES " + list.amount.toString();
+		holder.tvHeader.text = list.title
+		holder.tvItem.text  = list.description
+		holder.tvDate.text = covertTimeToText(list.time)
 
-		if(!list.verified){
-			holder.tv_status.setTextColor(Color.parseColor("#b30000"))
-			holder.tv_status.text = "Receipt has not been inspected"
-		}
-
-		holder.layoutView.setOnClickListener {
-			context.startActivity(Intent(context,com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code",list.transaction_code).putExtra("verified",list.verified))
-		}
 
 	}
 

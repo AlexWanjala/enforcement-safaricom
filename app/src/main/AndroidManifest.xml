@@ -30,6 +30,13 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
+            android:name=".MyHistory"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ReceiptDetails"
             android:exported="false">
             <meta-data
@@ -91,13 +98,9 @@
         <activity
             android:name=".others.TransactionsResults"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".others.ReceiptDetails"
-            android:windowSoftInputMode="adjustResize"/>
-
-
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Offstreet"
             android:exported="false" />
@@ -114,6 +117,12 @@
             android:name=".ScanClass"
             android:exported="false"
             android:launchMode="singleTop" />
+
+        <activity
+            android:name=".history.MyHistory"
+            android:exported="false"
+            android:launchMode="singleTop" />
+
         <activity
             android:name=".ScanOptions"
             android:exported="false"

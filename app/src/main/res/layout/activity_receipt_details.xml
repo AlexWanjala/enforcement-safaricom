@@ -314,7 +314,7 @@
                     android:textAllCaps="true"
                     android:textSize="8sp"
                     android:textStyle="bold"
-                    android:textColor="@color/red"
+                    android:textColor="@color/text_color"
                     android:fontFamily="@font/montserrat"
                     android:text="receipt has been used"
                     android:layout_width="wrap_content"

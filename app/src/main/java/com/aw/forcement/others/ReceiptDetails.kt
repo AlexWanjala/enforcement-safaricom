@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -108,11 +109,18 @@ class ReceiptDetails : AppCompatActivity() {
                         tv_name.text = response.data.receiptDetails.paidBy
                         tv_phone.text = response.data.receiptDetails.customerPhoneNumber
                         tv_date.text = humanDate(response.data.receiptDetails.dateCreated)
-                        tv_des.text = response.data.receiptDetails.incomeTypeDescription
+                        tv_des.text = response.data.receiptDetails.description
                         tv_amount.text =NumberFormat.getInstance().format(response.data.receiptDetails.receiptAmount.toInt())
                         tv_zone.text = "${response.data.receiptDetails.zone}, ${response.data.receiptDetails.wardName}, ${response.data.receiptDetails.subCountyName}"
                         tv_create_by.text = response.data.receiptDetails.names
-                        tv_status.text = response.data.receiptDetails.status
+
+                        if(!intent.getBooleanExtra("verified",false)){
+                            tv_status.text = "Receipt has not been inspected"
+                            tv_status.setTextColor(Color.parseColor("#b30000"))
+                        }else{
+                            tv_status.text = "Receipt inspected"
+                          //  tv_status.setTextColor(Color.parseColor("#b30000"))
+                        }
 
                     }
                 }else{
@@ -209,12 +217,13 @@ class ReceiptDetails : AppCompatActivity() {
         val phone = getValue(this@ReceiptDetails,"phone")
         val incomeTypeDescription = getValue(this@ReceiptDetails,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@ReceiptDetails,"description")
-        val input = getValue(this@ReceiptDetails,"date")
+        val date = getValue(this@ReceiptDetails,"date")
 
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+       /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
         val date = input?.let { inputFormat.parse(it) }
-        val humanDate = date?.let { outputFormat.format(it) }
+        val humanDate = date?.let { outputFormat.format(it) }*/
+        val humanDate = date
 
 
         val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at HOMABAY town\n"

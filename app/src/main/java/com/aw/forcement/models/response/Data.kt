@@ -28,6 +28,7 @@ data class Data (
 	@SerializedName("tradeSubCategories") val tradeSubCategories : List<TradeSubCategories>,
 	@SerializedName("user") val user : User,
 	@SerializedName("transaction") val transaction : Transaction,
-	@SerializedName("overview") val overview : List<Overview>
+	@SerializedName("overview") val overview : List<Overview>,
+	@SerializedName("myHistory") val myHistory : List<MyHistory>
 
 )

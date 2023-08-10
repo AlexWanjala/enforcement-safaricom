@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    android:id="@+id/layoutView"
+    android:layout_marginBottom="10dp"
+    android:padding="20dp"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="11dp"
+            android:id="@+id/tv_header"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Parking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:textColor="@color/labels"
+            android:fontFamily="@font/montserrat"
+            android:textSize="8sp"
+            android:layout_gravity="right"
+            android:text="30 Min Ago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+
+
+    <View
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_item"
+            android:textSize="10dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/labels"
+            android:text="Motorbike Daily parking charges for KMTC 1234"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/labels"
+                android:fontFamily="@font/montserrat"
+                android:textSize="8sp"
+                android:layout_gravity="right"
+                android:text="Transaction Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textColor="@color/green"
+                android:fontFamily="@font/montserrat"
+                android:textSize="10sp"
+                android:layout_gravity="right"
+                android:text="kes 1,000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

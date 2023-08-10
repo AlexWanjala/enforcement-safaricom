@@ -248,6 +248,7 @@
     <string name="no.plate">No. Plate</string>
     <string name="payment_zone">payment zone</string>
     <string name="paid_for">paid for</string>
-
-
+    <string name="my_history">My History</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 </resources>
