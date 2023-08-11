@@ -12,20 +12,20 @@ import android.content.pm.PackageManager
 import android.graphics.Color
 import android.hardware.Camera
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.aw.forcement.ocr.OcrDetectorProcessor
 import com.aw.forcement.ocr.OcrGraphic
 import com.aw.forcement.ocr.camera.CameraSource
@@ -41,6 +41,8 @@ import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street_parking.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 import java.io.IOException
@@ -64,6 +66,7 @@ class StreetParking : AppCompatActivity(){
 
         getCategory()
         tvSendPush.setOnClickListener {
+            showMessageBox()
             if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Please input Number Plate",Toast.LENGTH_LONG).show()
             }else{
@@ -81,6 +84,17 @@ class StreetParking : AppCompatActivity(){
 
 
 
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showMessageBox(){
+        val messageBoxView = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView)
+        val messageBoxInstance = messageBoxBuilder.show()
+
+
+        //setting text values
+       /// messageBoxView.imageView.setOnClickListener { messageBoxInstance.dismiss()}
     }
 
     override fun onBackPressed() {

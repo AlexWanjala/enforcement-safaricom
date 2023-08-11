@@ -44,6 +44,7 @@ class MyHistory : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
 
+
         radio_collections.isChecked = true
         radio_collections.setOnClickListener {
             history ="Collections"

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:padding="20dp"
+            android:background="@drawable/bg_fill_blue"
+            android:src="@drawable/checkbox"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/green"
+            android:text="Received !"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/labels"
+            android:text="Transaction was Succesful"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+             <View
+                 android:layout_marginTop="20dp"
+                 android:background="@color/green"
+                 android:layout_width="55dp"
+                 android:layout_height="3dp"/>
+
+
+        <LinearLayout
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@color/bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="Daily Parking Fee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+               <TextView
+                   android:fontFamily="@font/montserrat"
+                   android:textStyle="bold"
+                   android:textColor="@color/black"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="KBG 675T Saloon Car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_outline_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_weight="1"
+                    android:text="@string/paid_by"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_weight="1"
+                    android:text="John Omondi"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/labels"
+                    android:layout_weight="1"
+                    android:text="@string/trans_code"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="RESOPTY"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+            <View
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/black"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/dotted"
+                android:layout_width="wrap_content"
+                android:layout_height="5dp"/>
+
+            <LinearLayout
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="@string/amount_paid"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_weight="1"
+                    android:text="KES 200"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_marginBottom="30dp"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_fill_primary"
+            android:id="@+id/login"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="@string/okay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</LinearLayout>

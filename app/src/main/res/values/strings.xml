@@ -109,6 +109,7 @@
     <string name="zone">Zone</string>
     <string name="zone_">Butere</string>
     <string name="paid">Paid</string>
+    <string name="paid_by">Paid By</string>
     <string name="clamp_vehicle">CLAMP VEHICLE</string>
     <string name="clamp_vehicle_">Enter reason for clamping the vehicle.</string>
     <string name="clamp">CLAMP</string>
@@ -256,5 +257,8 @@
     <string name="my_assigned_zones">My Assigned Zones</string>
     <string name="contact_support">Contact Support</string>
     <string name="inquiries">For any inquiries or problems, contact our support staff from this section.</string>
+    <string name="okay">okay</string>
+    <string name="resend">Resend Request</string>
+
 
 </resources>
