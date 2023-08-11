@@ -38,11 +38,25 @@ class MyHistory : AppCompatActivity() {
 
      var dateTo =""
      var dateFrom =""
+     var history ="Collections"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
 
+        radio_collections.isChecked = true
+        radio_collections.setOnClickListener {
+            history ="Collections"
+            getMyHistory()
+        }
+        radio_inspection.setOnClickListener {
+            history ="Inspections"
+            getMyHistory()
+        }
+        radio_enforcement.setOnClickListener {
+            history ="Enforcements"
+            getMyHistory()
+        }
 
         DrawableCompat.setTint(DrawableCompat.wrap(imageHistory.drawable), ContextCompat.getColor(this, R.color.bg_button))
         tvHistory.setTextColor(resources.getColor(R.color.bg_button))
@@ -75,11 +89,6 @@ class MyHistory : AppCompatActivity() {
         dateFrom = formattedDate2
         dateTo = formattedDate2
 
-
-        imageClose.setOnClickListener {
-            startActivity(Intent(this,Home::class.java))
-            finish()
-        }
 
         //Date from
         val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
@@ -141,13 +150,15 @@ class MyHistory : AppCompatActivity() {
         getMyHistory()
 
 
+
     }
 
     private fun getMyHistory (){
         // progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getMyHistory",
-            "idNo" to  "35861288",
+            "history" to history,
+            "idNo" to  getValue(this,"idNo").toString(),
             "dateFrom" to dateFrom,//2023-07-01
             "dateTo" to dateTo//2023-08-10
         )
@@ -155,6 +166,7 @@ class MyHistory : AppCompatActivity() {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                runOnUiThread { recyclerView.adapter = null }
                 if(response.success){
                     runOnUiThread {
                         val adapter = MyHistoryAdapter(this@MyHistory, response.data.myHistory)
@@ -162,7 +174,6 @@ class MyHistory : AppCompatActivity() {
                         recyclerView.layoutManager = LinearLayoutManager(this@MyHistory)
                         recyclerView.adapter = adapter
                         recyclerView.setHasFixedSize(false)
-
 
                         val totalAmount = response.data.myHistory.sumOf{ item -> item.amount.toDouble() }
 
@@ -182,7 +193,12 @@ class MyHistory : AppCompatActivity() {
                     }
 
                 }else{
-                    runOnUiThread {  Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()}
+                    runOnUiThread {
+                      //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()
+                        tv_number.text ="0"
+                        tv_amount.text ="KES 0.0"
+                        targetMargin.text ="0"
+                    }
 
                 }
 

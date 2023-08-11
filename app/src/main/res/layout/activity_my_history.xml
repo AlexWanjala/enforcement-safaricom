@@ -62,15 +62,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
-                            <ImageView
-                                android:elevation="5dp"
-                                android:id="@+id/imageClose"
-                                android:padding="10dp"
-                                android:gravity="center"
-                                android:layout_gravity="right"
-                                android:src="@drawable/close_image"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
 
                         </FrameLayout>
 
@@ -81,6 +72,8 @@
                             android:layout_height="wrap_content">
 
                             <RadioButton
+                                android:id="@+id/radio_collections"
+                                android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Collections"
@@ -90,6 +83,8 @@
                                 android:background="@drawable/radio_button_background"/>
 
                             <RadioButton
+                                android:id="@+id/radio_inspection"
+                                android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Inspections"
@@ -99,6 +94,8 @@
                                 android:background="@drawable/radio_button_background"/>
 
                             <RadioButton
+                                android:id="@+id/radio_enforcement"
+                                android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Enforcements"
@@ -206,7 +203,7 @@
                             android:textSize="24dp"
                             android:textStyle="bold"
                             android:textColor="@color/white"
-                            tools:text="KES 30,000"
+                            android:text="KES 0.0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -230,7 +227,7 @@
                                 android:layout_marginStart="5dp"
                                 android:textColor="@color/white"
                                 android:textSize="12dp"
-                                tools:text="22"
+                                android:text="0"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -271,7 +268,7 @@
                             android:layout_marginStart="5dp"
                             android:textColor="@color/white"
                             android:textSize="12dp"
-                            tools:text="+22,355"
+                            android:text="0.0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
