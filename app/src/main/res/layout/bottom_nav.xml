@@ -32,13 +32,14 @@
                 android:src="@drawable/menu"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                app:tint="@color/bg_button" />
+                app:tint="@color/black" />
 
             <TextView
+                android:id="@+id/tvHome"
                 android:layout_marginTop="8dp"
                 android:textStyle="bold"
                 android:textSize="11dp"
-                android:textColor="@color/bg_button"
+                android:textColor="@color/labels"
                 android:fontFamily="@font/montserrat"
                 android:text="@string/home"
                 android:layout_width="wrap_content"
@@ -63,6 +64,7 @@
                 app:tint="@color/black" />
 
             <TextView
+                android:id="@+id/tvHistory"
                 android:layout_marginTop="8dp"
                 android:textSize="11dp"
                 android:textColor="@color/labels"
@@ -91,6 +93,7 @@
                 app:tint="@color/black" />
 
             <TextView
+                android:id="@+id/tvProfile"
                 android:layout_marginTop="8dp"
                 android:textSize="11dp"
                 android:textColor="@color/labels"

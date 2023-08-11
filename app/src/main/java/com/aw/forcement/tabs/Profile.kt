@@ -9,12 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.aw.forcement.ChangePassword
 import com.aw.forcement.Login
 import com.aw.forcement.R
 import com.aw.forcement.ScanOptions
+import com.aw.forcement.history.MyHistory
 import com.aw.passanger.api.getValue
-import kotlinx.android.synthetic.main.activity_main.*
+
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.bottom_nav.*
 
@@ -23,28 +25,29 @@ class Profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
-       /*imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
-        imageProfile.setColorFilter(ContextCompat.getColor(this, R.color.selector))
+        DrawableCompat.setTint(DrawableCompat.wrap(imageProfile.drawable), ContextCompat.getColor(this, R.color.bg_button))
+        tvProfile.setTextColor(resources.getColor(R.color.bg_button))
 
-        home.setOnClickListener {  startActivity(Intent(this, Home::class.java))
-            finish() }
-        history.setOnClickListener {  startActivity(Intent(this, History::class.java))
-            finish()}
-        profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
-            finish()}
+        nameProfile.text = getValue(this,"names").toString()
+        tvNameTagProfile.text =getValue(this,"names").toString()[0].toString()+getValue(this,"names").toString()[1].toString()
+        email.text = getValue(this,"email").toString()
+        tv_zone.text =  getValue(this,"zone").toString()
 
-        tvChangePassword.setOnClickListener { startActivity(Intent(this, ChangePassword::class.java)) }
-        tvLogout.setOnClickListener { startActivity(Intent(this, Login::class.java))
-        finishAffinity()}
+        imageLogout.setOnClickListener {
+            startActivity(Intent(this, Login::class.java))
+            finishAffinity()
+        }
 
-        nameProfile.text = getValue(this,"FirstName")!!.uppercase()+" "+  getValue(this,"LastName")!!.uppercase()
-        tvNameTagProfile.text = getValue(this,"FirstName")!![0].uppercase() +""+  getValue(this,"LastName")!![0].uppercase()
+        imageHome.setOnClickListener {
+            startActivity(Intent(this,Home::class.java))
+            finish()
+        }
 
+        imageHistory.setOnClickListener {
+            startActivity(Intent(this,MyHistory::class.java))
+            finish()
+        }
 
-        tvHelp.setOnClickListener {
-            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + "0715321138"))
-            this@Profile.startActivity(intent)
-        }*/
     }
 
     override fun onBackPressed() {

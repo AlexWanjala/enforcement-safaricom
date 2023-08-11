@@ -251,4 +251,10 @@
     <string name="my_history">My History</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="my_account">My Account Details</string>
+    <string name="current_zone">Current Zone</string>
+    <string name="my_assigned_zones">My Assigned Zones</string>
+    <string name="contact_support">Contact Support</string>
+    <string name="inquiries">For any inquiries or problems, contact our support staff from this section.</string>
+
 </resources>

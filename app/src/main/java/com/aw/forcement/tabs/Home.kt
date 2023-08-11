@@ -4,11 +4,15 @@ import java.util.Timer
 import kotlin.concurrent.timerTask
 import Json4Kotlin_Base
 import OverviewAdapter
+import UsersAdapter
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.drawable.BitmapDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -43,11 +47,18 @@ import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.io.IOException
 import java.util.*
+import androidx.core.graphics.drawable.DrawableCompat
+import kotlinx.android.synthetic.main.activity_my_history.*
+import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
+import kotlinx.android.synthetic.main.bottom_sheet_contact.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class Home : AppCompatActivity() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
     private var locationPermissionGranted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,13 +88,23 @@ class Home : AppCompatActivity() {
         profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
             finish()}
 
+        //contact
+        contact.setOnClickListener { toggleBottomSheetContact() }
+
+
 
         //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
-        imageHome.setColorFilter(ContextCompat.getColor(this, R.color.selector))
+
+        // Home
+        DrawableCompat.setTint(DrawableCompat.wrap(imageHome.drawable), ContextCompat.getColor(this, R.color.bg_button))
+        tvHome.setTextColor(resources.getColor(R.color.bg_button))
+
+
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
+        bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
 
 
 
@@ -129,6 +150,17 @@ class Home : AppCompatActivity() {
 
 
     }
+
+    private fun toggleBottomSheetContact(){
+
+        if (bottomSheetBehaviorContact.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+        getUsersPaginated()
+
+    }
     override fun onResume() {
         super.onResume()
         //name.text = getValue(this,"username")
@@ -137,6 +169,39 @@ class Home : AppCompatActivity() {
         locationPermission()
 
     }
+
+    private fun getUsersPaginated (){
+
+        val formData = listOf(
+            "function" to "getUsersPaginated",
+            "page" to "1",
+            "rows_per_page" to "100",
+            "category" to "ICT OFFICER",
+            "search" to ""
+        )
+        executeRequest(formData, authentication,object : CallBack {
+            override fun onSuccess(result: String?) {
+                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+                    runOnUiThread {
+                        val adapter = UsersAdapter(this@Home, response.data.users)
+                        adapter.notifyDataSetChanged()
+                        recyclerView2.layoutManager = LinearLayoutManager(this@Home)
+                        recyclerView2.adapter = adapter
+                        recyclerView2.setHasFixedSize(false)
+                    }
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@Home,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+
+        })
+    }
+
      private fun getTransactions(){
 
          if(edSearch.text.toString().isEmpty()){
@@ -352,6 +417,8 @@ class Home : AppCompatActivity() {
             finish()
         }else{
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_COLLAPSED
+
             exit = true
         }
     }

@@ -21,10 +21,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
 
                 <FrameLayout
                     android:id="@+id/toolBarNav"
@@ -116,17 +117,20 @@
                             android:layout_height="wrap_content">
 
                             <LinearLayout
+                                android:padding="10dp"
                                 android:layout_weight="1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:textSize="12dp"
                                     android:fontFamily="@font/montserrat"
                                     android:textColor="@color/labels"
                                     android:text="@string/to"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
                                 <TextView
+                                    android:textSize="12dp"
                                     android:id="@+id/tv_date_from"
                                     android:layout_marginStart="10dp"
                                     android:fontFamily="@font/montserrat"
@@ -134,24 +138,27 @@
                                     android:textColor="@color/black"
                                     android:drawablePadding="10dp"
                                     android:drawableRight="@drawable/down_fill_arrow"
-                                    android:text="1 Jun 2023"
+                                    tools:text="1 Jun 2023"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
                             </LinearLayout>
 
                             <LinearLayout
+                                android:padding="10dp"
                                 android:layout_weight="1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:textSize="12dp"
                                     android:fontFamily="@font/montserrat"
                                     android:textColor="@color/labels"
                                     android:text="@string/to"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
                                 <TextView
+                                    android:textSize="12dp"
                                     android:id="@+id/tv_date_to"
                                     android:fontFamily="@font/montserrat"
                                     android:layout_marginStart="10dp"
@@ -159,7 +166,7 @@
                                     android:textColor="@color/black"
                                     android:drawablePadding="10dp"
                                     android:drawableRight="@drawable/down_fill_arrow"
-                                    android:text="1 Jun 2023"
+                                    tools:text="1 Jun 2023"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
@@ -174,15 +181,14 @@
 
                 </FrameLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_gravity="bottom"
-                    android:background="@color/grey"
-                    app:layout_constraintTop_toBottomOf="@+id/toolBarNav" />
-
-
                 <FrameLayout
+                    android:layout_marginTop="-15dp"
+                    android:id="@+id/banner"
+                    app:layout_constraintTop_toBottomOf="@+id/toolBarNav"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
                     android:background="@drawable/banner_bg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -249,7 +255,7 @@
                         android:layout_height="6dp"/>
                     <LinearLayout
                         android:layout_marginStart="50dp"
-                       android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="20dp"
                         android:layout_gravity="bottom"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
@@ -280,9 +286,21 @@
 
                 </FrameLayout>
 
-                <include layout="@layout/recycler_view"/>
+                <LinearLayout
+                    app:layout_constraintTop_toBottomOf="@+id/banner"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp">
+                    <include layout="@layout/recycler_view"/>
+                </LinearLayout>
 
-            </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
 

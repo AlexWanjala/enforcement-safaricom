@@ -11,6 +11,6 @@
         android:bottomLeftRadius="250dp"
         android:bottomRightRadius="250dp"
         />
-    <stroke android:width="2px" android:color="@color/circle_color" />
+    <stroke android:width="20px" android:color="@color/white" />
 
 </shape>
