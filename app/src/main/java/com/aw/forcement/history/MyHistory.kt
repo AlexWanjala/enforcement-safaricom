@@ -7,6 +7,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -33,8 +35,9 @@ import java.util.*
 class MyHistory : AppCompatActivity() {
 
     var cal: Calendar = Calendar.getInstance()
-     var dateFrom =""
+
      var dateTo =""
+     var dateFrom =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,11 +59,21 @@ class MyHistory : AppCompatActivity() {
 
 
 
+
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("d MMM yyyy")
         val formattedDate = today.format(formatter)
-        tv_date_from.text = formattedDate
-        tv_date_to.text = formattedDate
+
+        // Create a Spanned object from an HTML string with an <u> tag
+        val spanned = Html.fromHtml("<u> $formattedDate </u>")
+
+        tv_date_from.text = spanned
+        tv_date_to.text = spanned
+
+        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+        val formattedDate2 = today.format(formatter2)
+        dateFrom = formattedDate2
+        dateTo = formattedDate2
 
 
         imageClose.setOnClickListener {
@@ -74,9 +87,16 @@ class MyHistory : AppCompatActivity() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
+
+            val myFormat1 = "yyyy-MM-dd" //
+            val sdf1 = SimpleDateFormat(myFormat1, Locale.US)
+            dateFrom = sdf1.format(cal.time)
+
+
             val myFormat = "dd MMMM yyyy" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
-            tv_date_from.text = sdf.format(cal.time)
+            val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
+            tv_date_from.text = spanned
             getMyHistory()
 
 
@@ -98,9 +118,14 @@ class MyHistory : AppCompatActivity() {
             cal.set(Calendar.MONTH, monthOfYear)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
+            val myFormat1 = "yyyy-MM-dd" //
+            val sdf1 = SimpleDateFormat(myFormat1, Locale.US)
+            dateTo = sdf1.format(cal.time)
+
             val myFormat = "dd MMMM yyyy" // mention the format you need
             val sdf = SimpleDateFormat(myFormat, Locale.US)
-            tv_date_to.text = sdf.format(cal.time)
+            val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
+            tv_date_to.text = spanned
             getMyHistory()
         }
         tv_date_to.setOnClickListener {
@@ -113,12 +138,6 @@ class MyHistory : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-
-        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-         dateFrom = today.format(formatter)
-        dateTo = dateFrom;
-
-
         getMyHistory()
 
 
@@ -128,9 +147,9 @@ class MyHistory : AppCompatActivity() {
         // progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getMyHistory",
-            "idNo" to  getValue(this,"idNo").toString(),
-            "dateFrom" to "2023-07-01",
-            "dateTo" to "2023-08-10"
+            "idNo" to  "35861288",
+            "dateFrom" to dateFrom,//2023-07-01
+            "dateTo" to dateTo//2023-08-10
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -146,6 +165,14 @@ class MyHistory : AppCompatActivity() {
 
 
                         val totalAmount = response.data.myHistory.sumOf{ item -> item.amount.toDouble() }
+
+                        var target = getValue(this@MyHistory,"target").toString()
+                        if(target.isEmpty()){
+                            target = "0"
+                        }
+
+                        val targetMarginValue = target.toDouble() - totalAmount
+                        targetMargin.text = targetMarginValue.toString()
 
                         val df = DecimalFormat("#,##0.00")
                         df.roundingMode = RoundingMode.HALF_UP

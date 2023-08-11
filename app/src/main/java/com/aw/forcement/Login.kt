@@ -232,6 +232,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"wardName",response.data.user.wardName)
+                    save(this@Login,"target",response.data.user.target)
 
                     startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
@@ -247,7 +248,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"subCountyID",response.data.user.subCountyID)
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
-                    save(this@Login,"wardName",response.data.user.wardName)
+                    save(this@Login,"target",response.data.user.target)
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))

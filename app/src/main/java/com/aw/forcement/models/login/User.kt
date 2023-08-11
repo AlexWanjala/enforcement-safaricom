@@ -32,5 +32,7 @@ data class User (
 	@SerializedName("lng") val lng : String,
 	@SerializedName("address") val address : String,
 	@SerializedName("lastSeen") val lastSeen : String,
-	@SerializedName("status") val status : String
+	@SerializedName("status") val status : String,
+	@SerializedName("target") val target : String,
+
 )
