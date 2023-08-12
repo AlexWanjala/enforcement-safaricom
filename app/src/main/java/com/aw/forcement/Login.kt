@@ -34,6 +34,7 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.AsyncTask
+import com.aw.forcement.ro.MainRoActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Tasks
@@ -52,6 +53,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         login.setOnClickListener {
+
 
             if(edUsername.text.equals("") || edPassword.text.equals("") ){
                 Toast.makeText(this,"ALl fields require",Toast.LENGTH_LONG).show()
@@ -231,7 +233,8 @@ class Login : AppCompatActivity() {
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
-                    startActivity(Intent(this@Login, Home::class.java))
+                    startActivity(Intent(this@Login, MainRoActivity::class.java))
+                   // startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )

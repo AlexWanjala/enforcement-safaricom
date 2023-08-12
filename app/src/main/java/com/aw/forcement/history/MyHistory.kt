@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -39,24 +40,24 @@ class MyHistory : AppCompatActivity() {
      var dateTo =""
      var dateFrom =""
      var history ="Collections"
+     var idNo =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
 
-
         radio_collections.isChecked = true
         radio_collections.setOnClickListener {
             history ="Collections"
-            getMyHistory()
+            getMyHistory(getValue(this,"idNo").toString())
         }
         radio_inspection.setOnClickListener {
             history ="Inspections"
-            getMyHistory()
+            getMyHistory(getValue(this,"idNo").toString())
         }
         radio_enforcement.setOnClickListener {
             history ="Enforcements"
-            getMyHistory()
+            getMyHistory(getValue(this,"idNo").toString())
         }
 
         DrawableCompat.setTint(DrawableCompat.wrap(imageHistory.drawable), ContextCompat.getColor(this, R.color.bg_button))
@@ -107,7 +108,7 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_from.text = spanned
-            getMyHistory()
+            getMyHistory(getValue(this,"idNo").toString())
 
 
         }
@@ -136,7 +137,7 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_to.text = spanned
-            getMyHistory()
+            getMyHistory(getValue(this,"idNo").toString())
         }
         tv_date_to.setOnClickListener {
 
@@ -148,18 +149,23 @@ class MyHistory : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        getMyHistory()
-
-
+        if(intent.getStringExtra("idNo")?.isEmpty() == true){
+            getMyHistory(getValue(this,"idNo").toString())
+        }else{
+            getMyHistory(intent.getStringExtra("idNo").toString())
+            val names = intent.getStringExtra("names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+            tv_title.text = names+"'s Logs"
+            bottomBar.visibility = View.GONE
+        }
 
     }
 
-    private fun getMyHistory (){
+    private fun getMyHistory (idNo: String){
         // progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getMyHistory",
             "history" to history,
-            "idNo" to  getValue(this,"idNo").toString(),
+            "idNo" to  idNo,
             "dateFrom" to dateFrom,//2023-07-01
             "dateTo" to dateTo//2023-08-10
         )

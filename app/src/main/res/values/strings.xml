@@ -21,6 +21,8 @@
     <string name="county">County Government</string>
     <string name="enforcement">Enforcement</string>
     <string name="collections">My Collections Overview</string>
+    <string name="overview">Here is an Overview Sub County</string>
+    <string name="my_assigned">My Assigned Revenue Officials</string>
     <string name="receipt_query">Query By Receipt Number</string>
     <string name="business_query">Query By Business ID</string>
     <string name="vehicle_query">Query By Number Plate</string>
@@ -258,6 +260,9 @@
     <string name="inquiries">For any inquiries or problems, contact our support staff from this section.</string>
     <string name="okay">okay</string>
     <string name="resend">Resend Request</string>
-
+    <string name="logins">logins:</string>
+    <string name="view_all">View All</string>
+    <string name="inactive">Inactive</string>
+    <string name="logged_out">Logged Out</string>
 
 </resources>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    tools:context=".tabs.Home">
+
+    <FrameLayout
+        android:id="@+id/toolBarNav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/home"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_outline_gray"
+            android:drawableRight="@drawable/support"
+            android:drawablePadding="10dp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/contact"
+            android:textColor="@color/black"
+            android:textSize="10dp" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/grey"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarNav" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/nav"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarNav">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_marginBottom="2dp"
+                    android:id="@+id/header_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20sp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toolBar">
+
+                    <TextView
+                        android:id="@+id/tvName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"
+                        tools:text="Hello Alex," />
+
+                    <TextView
+                        android:id="@+id/tv_overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/overview"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <include layout="@layout/recycler_view"/>
+
+                <LinearLayout
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:orientation="vertical"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header_title">
+
+
+                   <FrameLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+                       <TextView
+                           android:layout_gravity="left"
+                           android:textStyle="bold"
+                           android:fontFamily="@font/montserrat"
+                           android:textSize="13dp"
+                           android:textColor="@color/black"
+                           android:text="@string/my_assigned"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                       <TextView
+                           android:padding="5dp"
+                           android:layout_gravity="right"
+                           android:fontFamily="@font/montserrat"
+                           android:textSize="10dp"
+                           android:textColor="@color/primay_color"
+                           android:text="@string/view_all"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+
+                   </FrameLayout>
+
+                    <RadioGroup
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:checked="true"
+                            android:padding="10dp"
+                            android:textSize="10dp"
+                            android:textColor="@drawable/indicator_text_color"
+                            android:id="@+id/radio_inactive"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/inactive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:button="@null"
+                            android:background="@drawable/bg_oval_selector"/>
+
+                        <RadioButton
+                            android:layout_marginStart="20dp"
+                            android:padding="10dp"
+                            android:textSize="10dp"
+                            android:textColor="@drawable/indicator_text_color"
+                            android:id="@+id/radio_logged_out"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/logged_out"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:button="@null"
+                            android:background="@drawable/bg_oval_selector"/>
+
+                        <RadioButton
+                            android:layout_marginStart="20dp"
+                            android:padding="10dp"
+                            android:textSize="10dp"
+                            android:textColor="@drawable/indicator_text_color"
+                            android:id="@+id/radio_active"
+                            android:gravity="center"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/active"
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:button="@null"
+                            android:background="@drawable/bg_oval_selector"/>
+
+                    </RadioGroup>
+
+                    <!---->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layout_constraintTop_toBottomOf="@+id/tabs"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/recyclerView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false" />
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="5dp">
+
+        <include layout="@layout/bottom_sheet_contact" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

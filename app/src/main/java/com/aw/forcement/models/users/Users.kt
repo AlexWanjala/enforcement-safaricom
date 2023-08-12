@@ -13,7 +13,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class Users (
-
 	@SerializedName("id") val id : Int,
 	@SerializedName("names") val names : String,
 	@SerializedName("gender") val gender : String,
@@ -34,5 +33,10 @@ data class Users (
 	@SerializedName("lastSeen") val lastSeen : String,
 	@SerializedName("status") val status : String,
 	@SerializedName("des") val des : String,
-	@SerializedName("target") val target : String
+	@SerializedName("target") val target : String,
+	@SerializedName("idNNumber") val idNNumber : String,
+	@SerializedName("logins") val logins : String,
+	@SerializedName("transactions") val transactions : String,
+	@SerializedName("inspections") val inspections : String,
+	@SerializedName("amount") val amount : String,
 )
