@@ -13,6 +13,7 @@ import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street_parking.*
 import kotlinx.android.synthetic.main.message_box.view.*
+import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -32,6 +33,9 @@ class StreetParking : AppCompatActivity(){
     lateinit var messageBoxViewFailed : View
     lateinit var messageBoxInstanceFailed: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
+    lateinit var messageBoxViewPaid : View
+    lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street_parking)
@@ -39,6 +43,7 @@ class StreetParking : AppCompatActivity(){
         // Initialize messageBoxView here
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
         messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
+        messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
 
         getCategory()
         tvSendPush.setOnClickListener {
@@ -60,8 +65,6 @@ class StreetParking : AppCompatActivity(){
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBackPressed() {
-
-
         finish()
         super.onBackPressed()
     }
@@ -268,6 +271,15 @@ class StreetParking : AppCompatActivity(){
                             tvSendPush.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
+
+                            //v_transaction: String,payer: String,amount: String, des: String,category:String
+                            showMessageBoxPayment(
+                                response.data.transaction.transaction_code,
+                                response.data.transaction.names,
+                                response.data.transaction.amount,
+                                "${category_code} ${edPhone.text}",
+                                duration
+                            )
 /*
                             transactionCode.text = response.data.push.transaction_code
                             tvAmount.text = "KES "+response.data.push.amount
@@ -316,14 +328,26 @@ class StreetParking : AppCompatActivity(){
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
         messageBoxInstance = messageBoxBuilder.show()
     }
+    private fun showMessageBoxPayment(transaction: String,payer: String,amount: String, des: String,category:String){
 
-    private fun showMessageBoxPayment(){
-        val messageBoxView2 = LayoutInflater.from(this).inflate(R.layout.message_box, null)
-        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView2)
-        // messageBoxInstance = messageBoxBuilder.show()
+        // Check if messageBoxView has a parent
+        if (messageBoxViewPaid.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewPaid.parent as ViewGroup).removeView(messageBoxViewPaid)
+        }
 
-        //setting text values
-        /// messageBoxView.imageView.setOnClickListener { messageBoxInstance.dismiss()}
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewPaid as View?
+        )
+        messageBoxInstancePaid = messageBoxBuilder.show()
+
+        messageBoxViewPaid.tv_transaction.text = transaction
+        messageBoxViewPaid.tv_payer.text = payer
+        messageBoxViewPaid.tv_amount.text = amount
+        messageBoxViewPaid.tv_des.text = des
+        messageBoxViewPaid.tv_category.text = category
+        messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
+
     }
     private fun showMessageBoxPaymentFail(message: String) {
 
