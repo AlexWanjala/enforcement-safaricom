@@ -13,7 +13,8 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.aw.forcement.BuildConfig
+import androidx.viewbinding.BuildConfig
+import com.aw.forcement.R
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
@@ -34,6 +35,11 @@ const val URL ="https://api.paysol.co.ke/"
 
 const val URL ="https://api.craftcollect.africa/homabay/"
 const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
+
+/*const val URL ="https://api.elgeyomarakwet.go.ke/"
+const val paysol ="api.elgeyomarakwet.go.ke/paysol/index.php"*/
+
+
 var parking = "parking/"
 var rent = "rent/"
 var trade = "trade/"
@@ -51,9 +57,8 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
 
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
-
     // get the version code from BuildConfig
-    val versionCode = BuildConfig.VERSION_CODE
+    val versionCode =  "35"//todo change verson code
 
     val newFormData = formData + Pair("versionCode", versionCode.toString())
     Fuel.post(URL+stream, newFormData)
@@ -64,9 +69,8 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
             println("##Response$result")
             callback.onSuccess(result.get())
         }
-
-
 }
+
 fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
 
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory

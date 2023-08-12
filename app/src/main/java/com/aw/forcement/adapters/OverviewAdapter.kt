@@ -44,32 +44,38 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val list: Overview = mList[position]
 
-		//list.units
-		holder.tv_header.text = list.item
-		holder.tv_amount.text =list.units+" "+String.format("%,.2f", list.today.toFloat())
-		holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
-		holder.tv_message.text = list.message
-		if(list.difference<0){
-			holder.image_icon.setImageResource (R.drawable.arrow_down);
-		}else{
-			holder.image_icon.setImageResource (R.drawable.arrow_up);
-		}
+		try {
 
-		if(position==0){
-			holder.layout.setBackgroundResource(R.drawable.bg_blue)
-			holder.tv_icon.setImageResource(R.drawable.customers)
-		}
-		if(position==1){
-			holder.layout.setBackgroundResource(R.drawable.bg_green)
-			holder.tv_icon.setImageResource(R.drawable.inspection)
-		}
-		if(position==2){
-			holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
-			holder.tv_icon.setImageResource(R.drawable.customers)
-		}
-		if(position==3){
-			holder.layout.setBackgroundResource(R.drawable.bg_orange)
-			holder.tv_icon.setImageResource(R.drawable.trophy)
+			//list.units
+			holder.tv_header.text = list.item
+			holder.tv_amount.text =list.units+" "+String.format("%,.2f", list.today.toFloat())
+			holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
+			holder.tv_message.text = list.message
+			if(list.difference<0){
+				holder.image_icon.setImageResource (R.drawable.arrow_down);
+			}else{
+				holder.image_icon.setImageResource (R.drawable.arrow_up);
+			}
+
+			if(position==0){
+				holder.layout.setBackgroundResource(R.drawable.bg_blue)
+				holder.tv_icon.setImageResource(R.drawable.customers)
+			}
+			if(position==1){
+				holder.layout.setBackgroundResource(R.drawable.bg_green)
+				holder.tv_icon.setImageResource(R.drawable.inspection)
+			}
+			if(position==2){
+				holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
+				holder.tv_icon.setImageResource(R.drawable.customers)
+			}
+			if(position==3){
+				holder.layout.setBackgroundResource(R.drawable.bg_orange)
+				holder.tv_icon.setImageResource(R.drawable.trophy)
+			}
+
+		}catch (ex:NullPointerException ){
+
 		}
 
 	}

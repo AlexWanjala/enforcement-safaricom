@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement.elgeyo",
+  "variantName": "elgeyoRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 32,
+      "versionName": "32-elgeyo",
+      "outputFile": "app-elgeyo-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

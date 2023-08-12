@@ -1,53 +1,19 @@
 package com.aw.forcement
 
 import Json4Kotlin_Base
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.IntentFilter
-import android.content.pm.PackageManager
-import android.graphics.Color
-import android.hardware.Camera
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.speech.tts.TextToSpeech
-import android.util.Log
 import android.view.*
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
-import com.aw.forcement.ocr.OcrDetectorProcessor
-import com.aw.forcement.ocr.OcrGraphic
-import com.aw.forcement.ocr.camera.CameraSource
-import com.aw.forcement.ocr.camera.CameraSourcePreview
-import com.aw.forcement.ocr.camera.GraphicOverlay
-import com.aw.forcement.others.CessPayments
-import com.aw.forcement.others.Street
 import com.aw.passanger.api.*
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.android.gms.vision.text.TextBlock
-import com.google.android.gms.vision.text.TextRecognizer
-import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street_parking.*
 import kotlinx.android.synthetic.main.message_box.view.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-
-
-import java.io.IOException
-import java.lang.NullPointerException
+import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -56,13 +22,15 @@ import kotlin.collections.ArrayList
 class StreetParking : AppCompatActivity(){
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-
     lateinit var category_code: String
     lateinit var duration : String
     lateinit var payer : String
 
-    lateinit var messageBoxView : Any
+    lateinit var messageBoxView : View
     lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewFailed : View
+    lateinit var messageBoxInstanceFailed: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +38,7 @@ class StreetParking : AppCompatActivity(){
 
         // Initialize messageBoxView here
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
 
         getCategory()
         tvSendPush.setOnClickListener {
@@ -89,31 +58,7 @@ class StreetParking : AppCompatActivity(){
         imageClose.setOnClickListener { finish() }
 
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showMessageBoxPayment(){
-        val messageBoxView2 = LayoutInflater.from(this).inflate(R.layout.message_box, null)
-        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView2)
-        // messageBoxInstance = messageBoxBuilder.show()
-
-        //setting text values
-       /// messageBoxView.imageView.setOnClickListener { messageBoxInstance.dismiss()}
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun showMessageBox(){
-        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
-            messageBoxView as View?
-        )
-         messageBoxInstance = messageBoxBuilder.show()
-        (messageBoxView as View?)!!.tv_message.text ="jjdjdjd"
-
-    }
-
-    private fun closeMessageBox(){
-        messageBoxInstance.dismiss()
-    }
-
     override fun onBackPressed() {
 
 
@@ -248,6 +193,9 @@ class StreetParking : AppCompatActivity(){
                     runOnUiThread {
                         tv_message.text = response.message
                         (messageBoxView as View?)!!.tv_message.text =response.message
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
+                        messageBoxInstance.dismiss()
                     }
                 }
 
@@ -320,8 +268,6 @@ class StreetParking : AppCompatActivity(){
                             tvSendPush.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
-
-
 /*
                             transactionCode.text = response.data.push.transaction_code
                             tvAmount.text = "KES "+response.data.push.amount
@@ -345,6 +291,7 @@ class StreetParking : AppCompatActivity(){
                             tv_message.text = response.data.push.message
                             tvSendPush.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
+                            showMessageBoxPaymentFail(response.data.push.message)
 
                         }
                     }
@@ -360,5 +307,70 @@ class StreetParking : AppCompatActivity(){
 
         })
     }
+    private fun showMessageBox(){
+        // Check if messageBoxView has a parent
+        if (messageBoxView.parent != null) {
+       // Remove messageBoxView from its parent
+            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+        }
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
+        messageBoxInstance = messageBoxBuilder.show()
+    }
 
+    private fun showMessageBoxPayment(){
+        val messageBoxView2 = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView2)
+        // messageBoxInstance = messageBoxBuilder.show()
+
+        //setting text values
+        /// messageBoxView.imageView.setOnClickListener { messageBoxInstance.dismiss()}
+    }
+    private fun showMessageBoxPaymentFail(message: String) {
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewFailed.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewFailed.parent as ViewGroup).removeView(messageBoxViewFailed)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewFailed as View?
+        )
+        messageBoxInstanceFailed = messageBoxBuilder.show()
+
+        if (message.contains("invalid")) {
+            (messageBoxViewFailed as View?)!!.tv_title.text = "Wrong PIN"
+            (messageBoxViewFailed as View?)!!.tv_message_unpaid.text = "The Payer typed an incorrect pin. Send the request again to retry."
+            (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.wrong_pin)
+        } else
+            if (message.contains("insufficient")) {
+                (messageBoxViewFailed as View?)!!.tv_title.text = "Insufficient Funds"
+                (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                    "Payer needs more money. Tell them to top up MPESA to pay."
+                (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.insufficient)
+            } else
+                if (message.contains("cancel")) {
+                    (messageBoxViewFailed as View?)!!.tv_title.text = "Request Canceled !"
+                    (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                        "Payer canceled payment. Click Resend request to try again."
+                    (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                } else
+                    if (message.contains("timeout")) {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "Phone unreachable"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                            "Phone unreachable. Ask payer to switch On their phone"
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.phone_unreachable)
+                    } else {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "No Payment"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text = message
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                    }
+
+        (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss()  }
+        (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            matatuPayment()
+        }
+
+    }
 }

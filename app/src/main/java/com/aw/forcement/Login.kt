@@ -69,8 +69,6 @@ class Login : AppCompatActivity() {
         }
 
 
-
-
     /*    tvForgot.setOnClickListener {
             if(edUsername.text.isEmpty()){
                 Toast.makeText(this@Login,"Enter your email or username",Toast.LENGTH_LONG).show()
@@ -233,10 +231,8 @@ class Login : AppCompatActivity() {
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
-
                     startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
-
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )
                     save(this@Login,"userid", response.data.user.id.toString())
@@ -258,9 +254,7 @@ class Login : AppCompatActivity() {
                     }
                    // startActivity(Intent(this@Login, Home::class.java))
                 }
-
             }
-
         })
     }
     override fun onResume() {

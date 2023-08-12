@@ -30,12 +30,52 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "entity"
+    productFlavors {
+        homabay {
+            manifestPlaceholders = [ launchActivityName:"com.example.MainActivity"]
+            dimension "entity"
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "app_name", "Homabay Revenue Collector"
+            resValue "string", "base_api_url", "http://api.smarttest.zukutv.co.zm:92/"
+            resValue "string", "country_code", "+254"
+            buildConfigField "String", 'version_code', '"1.1"'
+
+        }
+        elgeyo {
+            dimension "entity"
+            applicationIdSuffix ".elgeyo"
+            versionNameSuffix "-elgeyo"
+            resValue "string", "app_name", "Elgeyo Revenue Collector"
+            resValue "string", "base_api_url", "http://api.smarttest.zukutv.co.zm:92/"
+            buildConfigField "String", 'version_code', '"1.1"'
+
+        }
+    }
+    android.variantFilter {
+        variant ->
+            if (variant.buildType.name == 'release' &&
+                    (variant.getFlavors().get(0).name.contains('Dev'))) {
+                variant.setIgnore(true)
+            }
+            if (variant.buildType.name == 'debug' &&
+                    (variant.getFlavors().get(0).name.contains('Prod'))) {
+                variant.setIgnore(true)
+            }
+            if (variant.buildType.name == 'release' &&
+                    (variant.getFlavors().get(0).name.contains('demo'))) {
+                variant.setIgnore(true)
+            }
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
