@@ -41,6 +41,7 @@ import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street_parking.*
+import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -60,13 +61,18 @@ class StreetParking : AppCompatActivity(){
     lateinit var duration : String
     lateinit var payer : String
 
+    lateinit var messageBoxView : Any
+    lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street_parking)
 
+        // Initialize messageBoxView here
+        messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+
         getCategory()
         tvSendPush.setOnClickListener {
-            showMessageBox()
             if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Please input Number Plate",Toast.LENGTH_LONG).show()
             }else{
@@ -82,22 +88,35 @@ class StreetParking : AppCompatActivity(){
 
         imageClose.setOnClickListener { finish() }
 
-
-
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun showMessageBox(){
-        val messageBoxView = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
-        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView)
-        val messageBoxInstance = messageBoxBuilder.show()
-
+    private fun showMessageBoxPayment(){
+        val messageBoxView2 = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView2)
+        // messageBoxInstance = messageBoxBuilder.show()
 
         //setting text values
        /// messageBoxView.imageView.setOnClickListener { messageBoxInstance.dismiss()}
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showMessageBox(){
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxView as View?
+        )
+         messageBoxInstance = messageBoxBuilder.show()
+        (messageBoxView as View?)!!.tv_message.text ="jjdjdjd"
+
+    }
+
+    private fun closeMessageBox(){
+        messageBoxInstance.dismiss()
+    }
+
     override fun onBackPressed() {
+
+
         finish()
         super.onBackPressed()
     }
@@ -179,7 +198,6 @@ class StreetParking : AppCompatActivity(){
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-
                     runOnUiThread { tvAmount.text = "KES "+response.data.feesAndCharge.unitFeeAmount }
                 }
                 else{
@@ -187,15 +205,13 @@ class StreetParking : AppCompatActivity(){
                        tv_message.text = response.message
                    }
                 }
-
             }
-
         })
-
-
     }
     private fun matatuPayment(){
+        showMessageBox()
         tv_message.text ="Generating bill please wait..$duration $category_code"
+        (messageBoxView as View?)!!.tv_message.text ="Generating bill please wait..$duration $category_code"
         val formData = listOf(
             "function" to "matatuPayment",
             "numberPlate" to edPlate.text.toString(),
@@ -216,7 +232,10 @@ class StreetParking : AppCompatActivity(){
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-                    runOnUiThread {tv_message.text ="Bill generated success.." }
+                    runOnUiThread {
+                        tv_message.text ="Bill generated success.."
+                        (messageBoxView as View?)!!.tv_message.text ="Bill generated success.."
+                    }
 
                     customerPayBillOnline(
                         response.data.billGenerated.billNo,
@@ -228,6 +247,7 @@ class StreetParking : AppCompatActivity(){
                 else{
                     runOnUiThread {
                         tv_message.text = response.message
+                        (messageBoxView as View?)!!.tv_message.text =response.message
                     }
                 }
 
@@ -239,7 +259,11 @@ class StreetParking : AppCompatActivity(){
     }
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String){
         // progressBar1.visibility = View.VISIBLE
-        runOnUiThread {   tv_message.text ="Sending Payment Request.." }
+        runOnUiThread {
+            tv_message.text ="Sending Payment Request.."
+            (messageBoxView as View?)!!.tv_message.text ="Sending Payment Request.."
+
+        }
         val formData = listOf(
             "function" to "customerPayBillOnline",
             "payBillNumber" to payBillNumber,
@@ -291,10 +315,13 @@ class StreetParking : AppCompatActivity(){
 
                         runOnUiThread {
 
+                            messageBoxInstance.dismiss()
+
                             tvSendPush.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
-
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
+
+
 /*
                             transactionCode.text = response.data.push.transaction_code
                             tvAmount.text = "KES "+response.data.push.amount
@@ -305,11 +332,16 @@ class StreetParking : AppCompatActivity(){
 
 
                     }else if(response.data.push.callback_returned=="PENDING"){
-                        runOnUiThread { tv_message.text ="Waiting for payment.." }
+                        runOnUiThread {
+                            tv_message.text ="Waiting for payment.."
+                            (messageBoxView as View?)!!.tv_message.text ="Waiting for payment.."
+
+                        }
                         TimeUnit.SECONDS.sleep(2L)
                         checkPayment(accountReference)
                     }else{
                         runOnUiThread {
+                            messageBoxInstance.dismiss()
                             tv_message.text = response.data.push.message
                             tvSendPush.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
