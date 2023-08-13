@@ -48,14 +48,17 @@ class TransactionsBreakDown : AppCompatActivity() {
         radio_streams.setOnClickListener {
             collectionBy ="STREAMS"
             revenueCollectionsBreakdown()
+            tv_message_header.text ="Collections Breakdown by Revenue streams"
         }
         radio_zones.setOnClickListener {
             collectionBy ="ZONES"
             revenueCollectionsBreakdown()
+            tv_message_header.text ="Collections Breakdown by Collection Zones"
         }
         radio_agent.setOnClickListener {
             collectionBy ="AGENTS"
             revenueCollectionsBreakdown()
+            tv_message_header.text ="Collections Breakdown by Revenue Agents"
         }
 
 

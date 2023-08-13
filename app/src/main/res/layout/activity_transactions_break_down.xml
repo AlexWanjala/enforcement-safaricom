@@ -307,6 +307,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1000dp">
                     <TextView
+                        android:id="@+id/tv_message_header"
                         android:fontFamily="@font/montserrat"
                         android:textSize="10sp"
                         android:textColor="@color/white"
