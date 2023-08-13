@@ -31,6 +31,8 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:padding="10dp"
+                    android:background="@drawable/touch_feedback"
                     android:id="@+id/tvBack"
                     android:layout_gravity="left"
                     android:gravity="center"

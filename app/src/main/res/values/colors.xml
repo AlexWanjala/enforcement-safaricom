@@ -37,6 +37,7 @@
     <color name="menu_color">#101817</color>
     <color name="bg_ajja">#5B707070</color>
     <color name="bottom_color_bar">#707070</color>
+    <color name="sub">#2D0067CF</color>
 
 
 </resources>

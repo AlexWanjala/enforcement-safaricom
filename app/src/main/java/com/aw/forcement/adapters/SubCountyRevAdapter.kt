@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
+import com.aw.passanger.api.getValue
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -44,6 +45,15 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 		if (isEven(position)){
 			holder.layoutView.setBackgroundColor(Color.parseColor("#11707070"))
+
+			if(getValue(context,"subCountyID")==list.subCountyID.toString()){
+				holder.layoutView.setBackgroundColor(Color.parseColor("#2D0067CF"))
+			}
+		}else{
+			if(getValue(context,"subCountyID")==list.subCountyID.toString()){
+				holder.layoutView.setBackgroundColor(Color.parseColor("#2D0067CF"))
+			}
+
 		}
 
 		val progress = calculateProgress(list.amountTotal.toInt(),list.target.toInt())
