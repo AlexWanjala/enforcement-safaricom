@@ -29,11 +29,77 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spin_kit"
+            style="@style/SpinKitView.Large.Circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:SpinKit_Color="@color/colorAccent" />
+
+
+        <FrameLayout
+            android:layout_gravity="center"
+            android:id="@+id/layoutTime"
+            android:visibility="gone"
+            android:fontFamily="@font/montserrat"
+            android:padding="20sp"
+            android:backgroundTint="@color/white"
+            android:background="@drawable/bg_circle_fill"
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="10"
+            android:textStyle="bold"
+            android:textSize="33sp"
+            >
+
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+
+                    android:id="@+id/tv_timer"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="10"
+                    android:textStyle="bold"
+                    android:textSize="33sp"
+                    />
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:text="sec"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+        </FrameLayout>
+
+
+
         <ImageView
+            android:layout_marginTop="20sp"
             android:layout_gravity="center"
             android:src="@drawable/ring"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
 
         <TextView
             android:id="@+id/tv_title"
@@ -48,6 +114,7 @@
 
 
         <TextView
+            android:id="@+id/tv_message"
             android:textColor="@color/white"
             android:gravity="center"
             android:layout_gravity="center"
