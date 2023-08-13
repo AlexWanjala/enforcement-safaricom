@@ -5,10 +5,14 @@ import OverviewAdapter
 import UsersAdapter
 import UsersRoAdapter
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.aw.forcement.adapters.DotsIndicatorDecoration
@@ -31,11 +35,17 @@ import kotlinx.android.synthetic.main.recycler_view.*
 class MainRoActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_ro)
+        setContentView(R.layout.main_activity)
+       // statusBarTransparent(this)
 
-        tvName.text = "Hello "+getValue(this,"names").toString()
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+
+        openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(GravityCompat.START) } else {  drawerLayout.openDrawer(GravityCompat.START) } }
+
+            tvName.text = "Hello "+getValue(this,"names").toString()
 
         bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
         contact.setOnClickListener { toggleBottomSheetContact() }
@@ -97,7 +107,6 @@ class MainRoActivity : AppCompatActivity() {
 
 
     }
-
     var exit: Boolean =false
     override fun onBackPressed() {
         if(exit){
@@ -108,7 +117,6 @@ class MainRoActivity : AppCompatActivity() {
             exit = true
         }
     }
-
     private fun getUsersPaginated (){
 
         val formData = listOf(
@@ -140,7 +148,6 @@ class MainRoActivity : AppCompatActivity() {
 
         })
     }
-
     override fun onResume() {
         try {
             if(getValue(this,"getUsersBySubCounty").toString().isNotEmpty()){
@@ -153,7 +160,6 @@ class MainRoActivity : AppCompatActivity() {
 
         super.onResume()
     }
-
     private fun getUsersBySubCounty (status: String){
         val formData = listOf(
             "function" to "getUsersBySubCounty",
@@ -171,7 +177,6 @@ class MainRoActivity : AppCompatActivity() {
 
         })
     }
-
     fun updateUserUI(result: String,status: String){
         val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
         runOnUiThread { recyclerView3.adapter = null }

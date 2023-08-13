@@ -22,4 +22,11 @@
     <style name="Theme.NarokEnforcement.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.NarokEnforcement.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyMenuItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/menu_color</item>
+    </style>
+
 </resources>

@@ -34,5 +34,6 @@
     <color name="border_color">#828282</color>
     <color name="color_search">#0067CF</color>
     <color name="green">#228B22</color>
+    <color name="menu_color">#101817</color>
 
 </resources>

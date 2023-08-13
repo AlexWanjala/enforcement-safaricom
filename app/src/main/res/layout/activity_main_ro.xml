@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -18,18 +18,36 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/openDrawer"
+            android:gravity="center"
             android:layout_gravity="left"
             android:layout_marginStart="20dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
-            android:fontFamily="@font/montserrat"
-            android:text="@string/home"
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/icn_menu_dark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/black" />
+
+            <TextView
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat"
+                android:text="@string/home"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
 
 
         <TextView
@@ -63,7 +81,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/nav"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolBarNav">
@@ -125,31 +142,31 @@
                     app:layout_constraintTop_toBottomOf="@+id/header_title">
 
 
-                   <FrameLayout
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content">
-                       <TextView
-                           android:layout_gravity="left"
-                           android:textStyle="bold"
-                           android:fontFamily="@font/montserrat"
-                           android:textSize="13dp"
-                           android:textColor="@color/black"
-                           android:text="@string/my_assigned"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_gravity="left"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:text="@string/my_assigned"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                       <TextView
-                           android:padding="5dp"
-                           android:layout_gravity="right"
-                           android:fontFamily="@font/montserrat"
-                           android:textSize="10dp"
-                           android:textColor="@color/primay_color"
-                           android:text="@string/view_all"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"/>
+                        <TextView
+                            android:padding="5dp"
+                            android:layout_gravity="right"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="10dp"
+                            android:textColor="@color/primay_color"
+                            android:text="@string/view_all"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
 
-                   </FrameLayout>
+                    </FrameLayout>
 
                     <RadioGroup
                         android:orientation="horizontal"

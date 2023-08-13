@@ -264,5 +264,11 @@
     <string name="view_all">View All</string>
     <string name="inactive">Inactive</string>
     <string name="logged_out">Logged Out</string>
+    <string name="my_account_">My Account</string>
+    <string name="transactions">Transactions</string>
+    <string name="revenue_agent">Revenue Agents Logs</string>
+    <string name="transactions_break_down">Transactions Breakdown</string>
+    <string name="total_county_collections">Total County Collections</string>
+
 
 </resources>

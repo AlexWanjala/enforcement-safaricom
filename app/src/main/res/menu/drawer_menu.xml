@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_user_account"
+            android:icon="@drawable/user_account"
+            android:title="@string/my_account_"/>
+        <item
+            android:id="@+id/nav_transaction"
+            android:icon="@drawable/transaction_money"
+            android:title="@string/transactions"/>
+        <item
+            android:id="@+id/nav_revenue_agents"
+            android:icon="@drawable/user_groups"
+            android:title="@string/revenue_agent"/>
+
+        <item
+            android:id="@+id/nav_transactions_break_down"
+            android:icon="@drawable/transaction_break_down"
+            android:title="@string/transactions_break_down"/>
+
+        <item
+            android:id="@+id/nav_total_county_collections"
+            android:icon="@drawable/money_bag"
+            android:title="@string/total_county_collections"/>
+
+        <item
+            android:fontFamily="@font/montserrat"
+            android:id="@+id/nav_logout_off"
+            android:icon="@drawable/logout_off"
+            android:title="@string/logout"/>
+    </group>
+</menu>
