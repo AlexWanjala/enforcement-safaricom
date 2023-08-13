@@ -32,6 +32,8 @@ class TotalCountyCollection : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_total_county_collection)
 
+        tvBack.setOnClickListener { finish() }
+
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("d MMM yyyy")
         val formattedDate = today.format(formatter)
@@ -123,38 +125,45 @@ class TotalCountyCollection : AppCompatActivity() {
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                runOnUiThread { recyclerView.adapter = null }
-                if(response.success){
-                    runOnUiThread {
-                        val adapter = SubCountyRevAdapter(this@TotalCountyCollection, response.data.subCountiesRevenue)
-                        adapter.notifyDataSetChanged()
-                        recyclerView.layoutManager = LinearLayoutManager(this@TotalCountyCollection)
-                        recyclerView.adapter = adapter
-                        recyclerView.setHasFixedSize(false)
-
-                        val totalAmount = response.data.subCountiesRevenue.sumOf{ item -> item.amountTotal.toDouble() }
-                        val totalTarget = response.data.subCountiesRevenue.sumOf{ item -> item.target.toDouble() }
-
-                        val progress = calculateProgress(totalAmount.toInt(),totalTarget.toInt())
-
-                        tv_total_amount.text ="KES "+ formatNumber(totalAmount.toInt())
-                        tv_total_progress.text = progress.toString() + "%"
-                    }
-
-                }else{
-                    runOnUiThread {
-                        //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()
-                        tv_number.text ="0"
-                        tv_amount.text ="KES 0.0"
-                        targetMargin.text ="0"
-                    }
-
+                save(this@TotalCountyCollection,"getSubCountiesRevenue",result)
+                if (result != null) {
+                    updateUI(result)
                 }
+
 
             }
 
         })
+    }
+
+    fun updateUI(result: String){
+        val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+        runOnUiThread { recyclerView.adapter = null }
+        if(response.success){
+            runOnUiThread {
+                val adapter = SubCountyRevAdapter(this@TotalCountyCollection, response.data.subCountiesRevenue)
+                adapter.notifyDataSetChanged()
+                recyclerView.layoutManager = LinearLayoutManager(this@TotalCountyCollection)
+                recyclerView.adapter = adapter
+                recyclerView.setHasFixedSize(false)
+
+                val totalAmount = response.data.subCountiesRevenue.sumOf{ item -> item.amountTotal.toDouble() }
+                val totalTarget = response.data.subCountiesRevenue.sumOf{ item -> item.target.toDouble() }
+
+                val progress = calculateProgress(totalAmount.toInt(),totalTarget.toInt())
+
+                tv_total_amount.text ="KES "+ formatNumber(totalAmount.toInt())
+                tv_total_progress.text = progress.toString() + "%"
+            }
+
+        }else{
+            runOnUiThread {
+                //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()tv_number.text ="0"
+                tv_amount.text ="KES 0.0"
+                targetMargin.text ="0"
+            }
+
+        }
     }
 
     private fun calculateProgress(collected: Int, target: Int): Double {
@@ -165,5 +174,18 @@ class TotalCountyCollection : AppCompatActivity() {
         val decFormat = DecimalFormat("#,##0.00")
         decFormat.roundingMode = RoundingMode.HALF_UP
         return decFormat.format(progress).toDouble()
+    }
+
+    override fun onResume() {
+        try {
+            if(getValue(this,"getSubCountiesRevenue").toString().isNotEmpty()){
+                updateUI(getValue(this,"getSubCountiesRevenue").toString())
+            }
+        }catch (ex: Exception ){
+            save(this,"getSubCountiesRevenue","")
+        }
+
+
+        super.onResume()
     }
 }

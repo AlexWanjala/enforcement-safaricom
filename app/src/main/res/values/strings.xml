@@ -274,6 +274,13 @@
     <string name="target_margin">Target Progress</string>
     <string name="revenue_collections">Revenue Collections</string>
     <string name="today_collection">TODAYS COLLECTIONS</string>
+    <string name="above_target">Above Target</string>
+    <string name="performing">Performing 90-100%</string>
+    <string name="below_target">Below Target 80-90%</string>
+    <string name="under_performing">Under Performing below 80%</string>
+    <string name="rising_rank">Rising Rank</string>
+    <string name="dropping">Dropping Rank</string>
+    <string name="maintained">Maintained Rank</string>
 
 
 </resources>
