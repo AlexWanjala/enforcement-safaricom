@@ -234,8 +234,8 @@ class Login : AppCompatActivity() {
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
                     save(this@Login,"category",response.data.user.category)
-                    startActivity(Intent(this@Login, MainRoActivity::class.java))
-                   // startActivity(Intent(this@Login, Home::class.java))
+                   // startActivity(Intent(this@Login, MainRoActivity::class.java))
+                    startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )

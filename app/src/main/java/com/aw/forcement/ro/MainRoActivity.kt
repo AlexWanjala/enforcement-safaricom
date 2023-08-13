@@ -241,6 +241,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_revenue_agents -> {
             }
             R.id.nav_transactions_break_down -> {
+                startActivity(Intent(this,TransactionsBreakDown::class.java))
             }
             R.id.nav_total_county_collections -> {
                 startActivity(Intent(this,TotalCountyCollection::class.java))

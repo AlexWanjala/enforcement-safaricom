@@ -283,6 +283,12 @@
     <string name="maintained">Maintained Rank</string>
     <string name="collection_app">The Collections, Inspections &amp; Enforcement App</string>
     <string name="platform">Sub County Supervision Platform</string>
+    <string name="title_activity_transactions_breakdown">TransactionsBreakdown</string>
+    <string name="streams">STREAMS</string>
+    <string name="zones">ZONES</string>
+    <string name="agents">AGENTS</string>
+    <string name="revenue_collection_break">Revenue Collections Breakdown</string>
+    <string name="revenue_collection_break_des">Collections Breakdown by Revenue streams</string>
 
 
 </resources>
