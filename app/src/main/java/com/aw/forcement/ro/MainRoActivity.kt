@@ -27,17 +27,9 @@ import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.activity_main_ro.*
-import kotlinx.android.synthetic.main.activity_main_ro.contact
-import kotlinx.android.synthetic.main.activity_main_ro.tvName
-import kotlinx.android.synthetic.main.activity_my_history.*
-import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.message.*
-import kotlinx.android.synthetic.main.nav_header_main.*
-import kotlinx.android.synthetic.main.nav_header_main.view.*
-import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 
 

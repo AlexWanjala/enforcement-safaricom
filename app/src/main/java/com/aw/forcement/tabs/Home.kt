@@ -21,6 +21,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.HorizontalScrollView
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -48,6 +50,14 @@ import kotlinx.android.synthetic.main.recycler_view.*
 import java.io.IOException
 import java.util.*
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import com.aw.forcement.ro.MainRoActivity
+import com.google.android.material.navigation.NavigationView
+import kotlinx.android.synthetic.main.activity_main_page.contact
+import kotlinx.android.synthetic.main.activity_main_page.openDrawer
+import kotlinx.android.synthetic.main.activity_main_page.tvName
+import kotlinx.android.synthetic.main.activity_main_ro.*
 import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
@@ -63,9 +73,29 @@ class Home : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main_page)
+        setContentView(R.layout.activity_main_page_home)
 
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(
+            GravityCompat.START) } else {  drawerLayout.openDrawer(GravityCompat.START) } }
+
+        //get a reference to the navigation view
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        // set the listener for the navigation view
+        val nameTag = navigationView.getHeaderView(0).findViewById<TextView>(R.id.nameTag)
+        val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
+        val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
+
+        nameTag.text = getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
         tvName.text = "Hello "+getValue(this,"names").toString()
+        name.text = getValue(this,"names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+
+        val layoutSwitch = navigationView.getHeaderView(0).findViewById<LinearLayout>(R.id.layoutSwitch)
+        layoutSwitch.setOnClickListener {
+            startActivity(Intent(this, MainRoActivity::class.java))
+            finishAffinity()
+        }
 
         //Street Parking
         streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
