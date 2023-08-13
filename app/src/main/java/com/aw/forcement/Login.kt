@@ -233,6 +233,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
+                    save(this@Login,"category",response.data.user.category)
                     startActivity(Intent(this@Login, MainRoActivity::class.java))
                    // startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
@@ -248,6 +249,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"target",response.data.user.target)
+                    save(this@Login,"category",response.data.user.category)
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))

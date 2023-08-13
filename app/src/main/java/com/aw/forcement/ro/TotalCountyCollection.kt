@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_from
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_to
 import kotlinx.android.synthetic.main.activity_total_county_collection.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat

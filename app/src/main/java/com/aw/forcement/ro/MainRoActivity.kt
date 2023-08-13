@@ -8,6 +8,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -16,8 +18,10 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aw.forcement.ChangePassword
 import com.aw.forcement.R
 import com.aw.forcement.adapters.DotsIndicatorDecoration
+import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -31,6 +35,8 @@ import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.message.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
 import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 
@@ -43,16 +49,30 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(GravityCompat.START) } else {  drawerLayout.openDrawer(GravityCompat.START) } }
 
        //get a reference to the navigation view
         val navigationView = findViewById<NavigationView>(R.id.nav_view)
        // set the listener for the navigation view
         navigationView.setNavigationItemSelectedListener(this)
+        val nameTag = navigationView.getHeaderView(0).findViewById<TextView>(R.id.nameTag)
+        val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
+        val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
+        //set the text of the nameTag TextView
+        nameTag.text = getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
+        tvName.text = "Hello "+getValue(this,"names").toString()
+        name.text = getValue(this,"names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        //category
 
-            tvName.text = "Hello "+getValue(this,"names").toString()
+        val layoutSwitch = navigationView.findViewById<LinearLayout>(R.id.layoutSwitch)
+        layoutSwitch.setOnClickListener {
+            startActivity(Intent(this, Home::class.java))
+        }
+
+
 
         bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
         contact.setOnClickListener { toggleBottomSheetContact() }
@@ -64,6 +84,9 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         radio_logged_out.setOnClickListener {  getUsersBySubCounty("Logged Out") }
 
         getUsersBySubCounty("Inactive")
+
+
+        // //getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
     }
     private fun toggleBottomSheetContact(){
 

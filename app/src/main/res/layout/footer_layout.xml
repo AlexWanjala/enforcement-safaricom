@@ -18,7 +18,7 @@
             android:textAllCaps="true"
             android:id="@+id/nameTag"
             android:layout_marginStart="10sp"
-            android:text="CRS"
+            android:text="CRfffffffS"
             android:gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/bg_fill_primary_circle"
