@@ -31,5 +31,8 @@ data class Data (
 	@SerializedName("overview") val overview : List<Overview>,
 	@SerializedName("myHistory") val myHistory : List<MyHistory>,
 	@SerializedName("users") val users : List<Users>,
+	@SerializedName("subCountiesRevenue") val subCountiesRevenue : List<SubCountiesRevenue>,
+	@SerializedName("totalAmount") val totalAmount : TotalAmount,
+	@SerializedName("totalItems") val totalItems : Int
 
 )

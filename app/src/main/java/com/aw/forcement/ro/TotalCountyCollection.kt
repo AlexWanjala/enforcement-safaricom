@@ -1,30 +1,19 @@
-package com.aw.forcement.history
+package com.aw.forcement.ro
 
 import Json4Kotlin_Base
-import MyHistoryAdapter
+import SubCountyRevAdapter
 import android.app.DatePickerDialog
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.forcement.tabs.Home
-import com.aw.forcement.tabs.Profile
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.biller
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_my_history.*
-import kotlinx.android.synthetic.main.bottom_nav.*
+import kotlinx.android.synthetic.main.activity_my_history.tv_date_from
+import kotlinx.android.synthetic.main.activity_my_history.tv_date_to
+import kotlinx.android.synthetic.main.activity_total_county_collection.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -33,47 +22,15 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class MyHistory : AppCompatActivity() {
+class TotalCountyCollection : AppCompatActivity() {
 
-     var cal: Calendar = Calendar.getInstance()
-     var dateTo =""
-     var dateFrom =""
-     var history ="Collections"
-     var idNo =""
+    var cal: Calendar = Calendar.getInstance()
+    var dateTo =""
+    var dateFrom =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_history)
-
-        radio_collections.isChecked = true
-        radio_collections.setOnClickListener {
-            history ="Collections"
-            getMyHistory(getValue(this,"idNo").toString())
-        }
-        radio_inspection.setOnClickListener {
-            history ="Inspections"
-            getMyHistory(getValue(this,"idNo").toString())
-        }
-        radio_enforcement.setOnClickListener {
-            history ="Enforcements"
-            getMyHistory(getValue(this,"idNo").toString())
-        }
-
-        DrawableCompat.setTint(DrawableCompat.wrap(imageHistory.drawable), ContextCompat.getColor(this, R.color.bg_button))
-        tvHistory.setTextColor(resources.getColor(R.color.bg_button))
-
-        imageHome.setOnClickListener {
-            startActivity(Intent(this,Home::class.java))
-            finish()
-        }
-
-        imageProfile.setOnClickListener {
-            startActivity(Intent(this,Profile::class.java))
-            finish()
-        }
-
-
-
+        setContentView(R.layout.activity_total_county_collection)
 
         val today = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("d MMM yyyy")
@@ -107,7 +64,7 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_from.text = spanned
-            getMyHistory(getValue(this,"idNo").toString())
+            getSubCountiesRevenue()
 
 
         }
@@ -136,7 +93,7 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_to.text = spanned
-            getMyHistory(getValue(this,"idNo").toString())
+            getSubCountiesRevenue()
         }
         tv_date_to.setOnClickListener {
 
@@ -148,23 +105,18 @@ class MyHistory : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        if(intent.getStringExtra("idNo")?.isEmpty() == true){
-            getMyHistory(getValue(this,"idNo").toString())
-        }else{
-            getMyHistory(intent.getStringExtra("idNo").toString())
-            val names = intent.getStringExtra("names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
-            tv_title.text = names+"'s Logs"
-            bottomBar.visibility = View.GONE
-        }
 
+
+        getSubCountiesRevenue()
     }
 
-    private fun getMyHistory (idNo: String){
+    private fun getSubCountiesRevenue (){
         // progress_circular.visibility = View.VISIBLE
         val formData = listOf(
-            "function" to "getMyHistory",
-            "history" to history,
-            "idNo" to  idNo,
+            "function" to "getSubCountiesRevenue",
+            "keyword" to "",
+            "page" to  "1",
+            "rows_per_page" to "20",
             "dateFrom" to dateFrom,//2023-07-01
             "dateTo" to dateTo//2023-08-10
         )
@@ -175,32 +127,24 @@ class MyHistory : AppCompatActivity() {
                 runOnUiThread { recyclerView.adapter = null }
                 if(response.success){
                     runOnUiThread {
-                        val adapter = MyHistoryAdapter(this@MyHistory, response.data.myHistory)
+                        val adapter = SubCountyRevAdapter(this@TotalCountyCollection, response.data.subCountiesRevenue)
                         adapter.notifyDataSetChanged()
-                        recyclerView.layoutManager = LinearLayoutManager(this@MyHistory)
+                        recyclerView.layoutManager = LinearLayoutManager(this@TotalCountyCollection)
                         recyclerView.adapter = adapter
                         recyclerView.setHasFixedSize(false)
 
-                        val totalAmount = response.data.myHistory.sumOf{ item -> item.amount.toDouble() }
+                        val totalAmount = response.data.subCountiesRevenue.sumOf{ item -> item.amountTotal.toDouble() }
+                        val totalTarget = response.data.subCountiesRevenue.sumOf{ item -> item.target.toDouble() }
 
-                        var target = getValue(this@MyHistory,"target").toString()
-                        if(target.isEmpty()){
-                            target = "0"
-                        }
+                        val progress = calculateProgress(totalAmount.toInt(),totalTarget.toInt())
 
-                        val targetMarginValue = target.toDouble() - totalAmount
-                        targetMargin.text = targetMarginValue.toString()
-
-                        val df = DecimalFormat("#,##0.00")
-                        df.roundingMode = RoundingMode.HALF_UP
-                        tv_amount.text ="KES "+ df.format(totalAmount)
-
-                        tv_number.text = response.data.myHistory.size.toString()
+                        tv_total_amount.text ="KES "+ formatNumber(totalAmount.toInt())
+                        tv_total_progress.text = progress.toString() + "%"
                     }
 
                 }else{
                     runOnUiThread {
-                      //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()
+                        //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()
                         tv_number.text ="0"
                         tv_amount.text ="KES 0.0"
                         targetMargin.text ="0"
@@ -211,5 +155,15 @@ class MyHistory : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun calculateProgress(collected: Int, target: Int): Double {
+        if(target==0){
+            return 0.0
+        }
+        val progress = (collected.toDouble() / target.toDouble()) * 100
+        val decFormat = DecimalFormat("#,##0.00")
+        decFormat.roundingMode = RoundingMode.HALF_UP
+        return decFormat.format(progress).toDouble()
     }
 }

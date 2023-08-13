@@ -269,6 +269,11 @@
     <string name="revenue_agent">Revenue Agents Logs</string>
     <string name="transactions_break_down">Transactions Breakdown</string>
     <string name="total_county_collections">Total County Collections</string>
+    <string name="comparison">Comparison By Sub Counties</string>
+    <string name="total_county">Total County Collections</string>
+    <string name="target_margin">Target Progress</string>
+    <string name="revenue_collections">Revenue Collections</string>
+    <string name="today_collection">TODAYS COLLECTIONS</string>
 
 
 </resources>

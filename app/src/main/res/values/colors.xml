@@ -35,5 +35,8 @@
     <color name="color_search">#0067CF</color>
     <color name="green">#228B22</color>
     <color name="menu_color">#101817</color>
+    <color name="bg_ajja">#5B707070</color>
+    <color name="bottom_color_bar">#707070</color>
+
 
 </resources>

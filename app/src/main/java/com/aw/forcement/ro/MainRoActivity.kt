@@ -4,7 +4,9 @@ import Json4Kotlin_Base
 import OverviewAdapter
 import UsersAdapter
 import UsersRoAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ import com.aw.forcement.adapters.DotsIndicatorDecoration
 import com.aw.passanger.api.*
 import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.activity_main_ro.*
@@ -32,18 +35,22 @@ import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 
 
-class MainRoActivity : AppCompatActivity() {
+class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
     private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-       // statusBarTransparent(this)
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
 
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(GravityCompat.START) } else {  drawerLayout.openDrawer(GravityCompat.START) } }
+
+       //get a reference to the navigation view
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+       // set the listener for the navigation view
+        navigationView.setNavigationItemSelectedListener(this)
 
             tvName.text = "Hello "+getValue(this,"names").toString()
 
@@ -206,5 +213,30 @@ class MainRoActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+
+    // override the onNavigationItemSelected method
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.nav_user_account -> {
+            }
+            R.id.nav_transaction -> {
+            }
+            R.id.nav_revenue_agents -> {
+            }
+            R.id.nav_transactions_break_down -> {
+            }
+            R.id.nav_total_county_collections -> {
+                startActivity(Intent(this,TotalCountyCollection::class.java))
+            }
+            R.id.nav_logout_off -> {
+            }
+        }
+        //close the drawer after selecting an item
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawerLayout.closeDrawer(GravityCompat.START)
+        //return true to indicate that the item was handled
+        return true
     }
 }

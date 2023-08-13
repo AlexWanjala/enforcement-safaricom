@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    tools:context=".tabs.Home">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".others.CessPayments">
+
+            <FrameLayout
+                android:gravity="center"
+                android:padding="20dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_gravity="left"
+                    android:gravity="center"
+                    android:src="@drawable/back_arrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_gravity="center"
+                        android:id="@+id/tv_title"
+                        android:fontFamily="@font/montserrat"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="16dp"
+                        android:text="@string/total_county"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:textColor="@color/black"
+                        android:text="@string/comparison"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+
+            </FrameLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:background="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:weightSum="2"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/labels"
+                        android:text="@string/to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:background="@drawable/bg_white_curved_corners"
+                        android:textSize="12dp"
+                        android:id="@+id/tv_date_from"
+                        android:layout_marginStart="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/down_fill_arrow"
+                        tools:text="1 Jun 2023"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:padding="10dp"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/labels"
+                        android:text="@string/to"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:background="@drawable/bg_white_curved_corners"
+                        android:textSize="12dp"
+                        android:id="@+id/tv_date_to"
+                        android:fontFamily="@font/montserrat"
+                        android:layout_marginStart="10dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@drawable/down_fill_arrow"
+                        tools:text="1 Jun 2023"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="#"
+                    android:layout_width="10sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="@string/sub_county"
+                    android:layout_width="120sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="@string/target_margin"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="@string/revenue_collections"
+                    android:layout_width="120sp"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+            <include layout="@layout/recycler_view"/>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@color/bottom_color_bar"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:textAllCaps="true"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="@string/collected_today"
+                    android:layout_width="120sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_total_progress"
+                    android:gravity="center"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="0.0%"
+                    android:layout_width="100sp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tv_total_amount"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="KES 0.0"
+                    android:layout_width="120sp"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</ScrollView>
+
+
+
+
+
+

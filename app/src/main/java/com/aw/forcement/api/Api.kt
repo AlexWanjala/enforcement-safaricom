@@ -28,6 +28,8 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.text.NumberFormat
+import java.util.*
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
 
@@ -133,6 +135,13 @@ fun Context.statusBarTransparent(activity: Activity){
         statusBarColor = Color.TRANSPARENT
     }
 }
+
+ fun formatNumber(number: Int): String {
+    val numberFormat = NumberFormat.getInstance(Locale.US)
+    return numberFormat.format(number)
+}
+
+
 
 fun isConnectingToInternet(context: Context): Boolean {
     val connectivity = context.getSystemService(AppCompatActivity.CONNECTIVITY_SERVICE) as ConnectivityManager
