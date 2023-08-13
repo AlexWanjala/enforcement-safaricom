@@ -289,6 +289,7 @@
     <string name="agents">AGENTS</string>
     <string name="revenue_collection_break">Revenue Collections Breakdown</string>
     <string name="revenue_collection_break_des">Collections Breakdown by Revenue streams</string>
+    <string name="alert_Kelvin">Alert Kelvin</string>
 
 
 </resources>

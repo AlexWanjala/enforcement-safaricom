@@ -160,8 +160,8 @@ class TotalCountyCollection : AppCompatActivity() {
         }else{
             runOnUiThread {
                 //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()tv_number.text ="0"
-                tv_amount.text ="KES 0.0"
-                targetMargin.text ="0"
+               // tv_amount.text ="KES 0.0"
+                //targetMargin.text ="0"
             }
 
         }

@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
+import com.aw.forcement.ro.AlertRing
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
@@ -72,6 +73,10 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 			val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
 			context.startActivity(intent)
 
+		}
+
+		holder.bell.setOnClickListener {
+			context.startActivity(Intent(context,AlertRing::class.java).putExtra("idNo",list.idNo).putExtra("names",list.names))
 		}
 
 	}
