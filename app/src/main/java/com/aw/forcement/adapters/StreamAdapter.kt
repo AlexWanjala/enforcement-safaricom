@@ -60,13 +60,19 @@ class StreamAdapter(private val context: Context, private val dataSet: List<Stre
 
             }
         }
-            viewHolder.radio_1.text = item.incomeTypeDescription.toString().lowercase().capitalize()
+        viewHolder.radio_1.text = item.incomeTypeDescription.toString().lowercase().capitalize()
         viewHolder.radio_1.setOnClickListener {
             if (lastCheckedRB != null) {
                 lastCheckedRB?.isChecked = false
             }
             //store the clicked radiobutton
             lastCheckedRB = viewHolder.radio_1
+
+            if (context is TransactionsRo) {
+                (context as TransactionsRo).updateStream(item.incomeTypeDescription)
+
+            }
+
 
         }
 

@@ -2,6 +2,7 @@ package com.aw.forcement.ro
 
 import Json4Kotlin_Base
 import MyHistoryAdapter
+import Streams
 import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +37,7 @@ class TransactionsRo : AppCompatActivity() {
 
     var dateTo =""
     var dateFrom =""
+    var stream = ""
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -92,6 +94,7 @@ class TransactionsRo : AppCompatActivity() {
             tv_date_from.text = spanned
             idNo = getValue(this,"idNo").toString()
             getMyHistory()
+            getStreams()
 
 
         }
@@ -122,6 +125,7 @@ class TransactionsRo : AppCompatActivity() {
             tv_date_to.text = spanned
             idNo =  getValue(this,"idNo").toString()
             getMyHistory()
+            getStreams()
         }
         tv_date_to.setOnClickListener {
 
@@ -149,13 +153,13 @@ class TransactionsRo : AppCompatActivity() {
         getStreams()
 
     }
-    private fun getStreams (){
+     private fun getStreams (){
         runOnUiThread { progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getStreams",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
             "dateFrom" to dateFrom,//2023-07-01
-            "dateTo" to dateTo//2023-08-10
+            "dateTo" to dateTo,//2023-08-10 0
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -166,7 +170,18 @@ class TransactionsRo : AppCompatActivity() {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
                     runOnUiThread {
-                        val adapter = StreamAdapter(this@TransactionsRo, response.data.streams)
+
+                        val newArray = arrayListOf<Streams>()
+
+                        val newItem = Streams("All")
+                        newArray.add(0, newItem)
+
+                        for (item in response.data.streams) {
+                            newArray.add(item)
+                        }
+
+
+                        val adapter = StreamAdapter(this@TransactionsRo, newArray)
                         adapter.notifyDataSetChanged()
                         recycler_view_radio.layoutManager = LinearLayoutManager(this@TransactionsRo,LinearLayoutManager.HORIZONTAL,false)
                         recycler_view_radio.adapter = adapter
@@ -185,14 +200,24 @@ class TransactionsRo : AppCompatActivity() {
 
         })
     }
+    fun updateStream(stream: String){
+        if(stream=="All"){
+            this.stream = ""
+        }else{
+            this.stream = stream
+        }
+
+        getMyHistory()
+    }
     private fun getMyHistory (){
         runOnUiThread { progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getMyHistory",
             "history" to history,
-            "idNo" to  idNo,
+            "subCountyID" to  getValue(this,"subCountyID").toString(),
             "dateFrom" to dateFrom,//2023-07-01
-            "dateTo" to dateTo//2023-08-10
+            "dateTo" to dateTo,//2023-08-10
+            "stream" to stream
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -203,7 +228,10 @@ class TransactionsRo : AppCompatActivity() {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
                     runOnUiThread {
+                        recyclerView.adapter = null
                         tv_message_header.text =message+" (${response.data.myHistory.size})"
+
+
                         val adapter = MyHistoryAdapter(this@TransactionsRo, response.data.myHistory)
                         adapter.notifyDataSetChanged()
                         recyclerView.layoutManager = LinearLayoutManager(this@TransactionsRo)
