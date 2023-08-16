@@ -149,6 +149,8 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <include layout="@layout/progressbar"/>
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_marginTop="20dp"

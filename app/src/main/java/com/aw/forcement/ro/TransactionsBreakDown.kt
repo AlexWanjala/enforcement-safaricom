@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.aw.passanger.api.CallBack
@@ -22,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_my_history.tv_date_from
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_to
 import kotlinx.android.synthetic.main.activity_my_history.tv_number
 import kotlinx.android.synthetic.main.activity_transactions_break_down.*
+import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -37,6 +39,7 @@ class TransactionsBreakDown : AppCompatActivity() {
      var dateFrom =""
      var collectionBy ="STREAMS"
      var idNo =""
+    var message =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,17 +51,17 @@ class TransactionsBreakDown : AppCompatActivity() {
         radio_streams.setOnClickListener {
             collectionBy ="STREAMS"
             revenueCollectionsBreakdown()
-            tv_message_header.text ="Collections Breakdown by Revenue streams"
+            message ="Collections Breakdown by Revenue streams"
         }
         radio_zones.setOnClickListener {
             collectionBy ="ZONES"
             revenueCollectionsBreakdown()
-            tv_message_header.text ="Collections Breakdown by Collection Zones"
+            message ="Collections Breakdown by Collection Zones"
         }
         radio_agent.setOnClickListener {
             collectionBy ="AGENTS"
             revenueCollectionsBreakdown()
-            tv_message_header.text ="Collections Breakdown by Revenue Agents"
+            message ="Collections Breakdown by Revenue Agents"
         }
 
 
@@ -142,7 +145,7 @@ class TransactionsBreakDown : AppCompatActivity() {
     }
 
     private fun revenueCollectionsBreakdown (){
-        // progress_circular.visibility = View.VISIBLE
+        progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "revenueCollectionsBreakdown",
             "collectionBy" to collectionBy,
@@ -152,11 +155,12 @@ class TransactionsBreakDown : AppCompatActivity() {
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
-                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 runOnUiThread { recyclerView.adapter = null }
                 if(response.success){
                     runOnUiThread {
+                        tv_message_header.text = message+" (${response.data.collectionsBreakdown.size})"
 
                         val totalAmount = response.data.collectionsBreakdown.sumOf{ item -> item.amount.toDouble() }
 
@@ -186,6 +190,7 @@ class TransactionsBreakDown : AppCompatActivity() {
                 }else{
                     runOnUiThread {
                       //Toast.makeText(this@MyHistory,response.message, Toast.LENGTH_LONG).show()
+                        tv_message_header.text = collectionBy+" (0)"
                         tv_number.text ="0"
                         tv_amount.text ="KES 0.0"
                         targetMargin.text ="0"

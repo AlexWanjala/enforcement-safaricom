@@ -34,6 +34,7 @@ data class Data (
 	@SerializedName("subCountiesRevenue") val subCountiesRevenue : List<SubCountiesRevenue>,
 	@SerializedName("totalAmount") val totalAmount : TotalAmount,
 	@SerializedName("totalItems") val totalItems : Int,
-	@SerializedName("collectionsBreakdown") val collectionsBreakdown : List<CollectionsBreakdown>
+	@SerializedName("collectionsBreakdown") val collectionsBreakdown : List<CollectionsBreakdown>,
+	@SerializedName("streams") val streams : List<Streams>
 
 )

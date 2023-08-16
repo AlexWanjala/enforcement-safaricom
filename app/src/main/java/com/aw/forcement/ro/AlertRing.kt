@@ -23,8 +23,8 @@ class AlertRing : AppCompatActivity(){
         setContentView(R.layout.alert_ring)
 
         val name = intent.getStringExtra("names")!!.split(" ")[0].lowercase().split(" ").joinToString(" ") { it.capitalize() }
-
         tv_title.text = "Alert " + name+"!"
+        tv_ring.text = "Alert " + name
         tv_message.text =  "To alert ${name} to stay active, click the button below and his phone will ring."
 
         tv_close.setOnClickListener { finish() }

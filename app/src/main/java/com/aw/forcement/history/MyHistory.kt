@@ -25,6 +25,7 @@ import com.aw.passanger.api.getValue
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.bottom_nav.*
+import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -40,23 +41,30 @@ class MyHistory : AppCompatActivity() {
      var dateFrom =""
      var history ="Collections"
      var idNo =""
+     var message =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
 
+
+        message ="My Collections"
+
         radio_collections.isChecked = true
         radio_collections.setOnClickListener {
             history ="Collections"
-            getMyHistory(getValue(this,"idNo").toString())
+            message ="My collections"
+            getMyHistory()
         }
         radio_inspection.setOnClickListener {
             history ="Inspections"
-            getMyHistory(getValue(this,"idNo").toString())
+            message ="My payments verifications and inspections"
+            getMyHistory()
         }
         radio_enforcement.setOnClickListener {
             history ="Enforcements"
-            getMyHistory(getValue(this,"idNo").toString())
+            message ="My Enforcements and logs"
+            getMyHistory()
         }
 
         DrawableCompat.setTint(DrawableCompat.wrap(imageHistory.drawable), ContextCompat.getColor(this, R.color.bg_button))
@@ -107,7 +115,8 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_from.text = spanned
-            getMyHistory(getValue(this,"idNo").toString())
+            idNo = getValue(this,"idNo").toString()
+            getMyHistory()
 
 
         }
@@ -136,7 +145,8 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_to.text = spanned
-            getMyHistory(getValue(this,"idNo").toString())
+            idNo =  getValue(this,"idNo").toString()
+            getMyHistory()
         }
         tv_date_to.setOnClickListener {
 
@@ -148,10 +158,14 @@ class MyHistory : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
-        if(intent.getStringExtra("idNo")?.isEmpty() == true){
-            getMyHistory(getValue(this,"idNo").toString())
+
+        val idNo = intent.getStringExtra("idNo") ?: ""
+        if (idNo.isEmpty()) {
+            this.idNo =getValue(this,"idNo").toString()
+            getMyHistory()
         }else{
-            getMyHistory(intent.getStringExtra("idNo").toString())
+            this.idNo = intent.getStringExtra("idNo").toString()
+            getMyHistory()
             val names = intent.getStringExtra("names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
             tv_title.text = names+"'s Logs"
             bottomBar.visibility = View.GONE
@@ -159,8 +173,8 @@ class MyHistory : AppCompatActivity() {
 
     }
 
-    private fun getMyHistory (idNo: String){
-        // progress_circular.visibility = View.VISIBLE
+    private fun getMyHistory (){
+      runOnUiThread { progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getMyHistory",
             "history" to history,
@@ -170,11 +184,14 @@ class MyHistory : AppCompatActivity() {
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
-                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                  runOnUiThread {
+                      progress_circular.visibility = View.GONE
+                      recyclerView.adapter = null
+                  }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                runOnUiThread { recyclerView.adapter = null }
                 if(response.success){
                     runOnUiThread {
+                        tv_message_header.text =message+" (${response.data.myHistory.size})"
                         val adapter = MyHistoryAdapter(this@MyHistory, response.data.myHistory)
                         adapter.notifyDataSetChanged()
                         recyclerView.layoutManager = LinearLayoutManager(this@MyHistory)
@@ -204,6 +221,7 @@ class MyHistory : AppCompatActivity() {
                         tv_number.text ="0"
                         tv_amount.text ="KES 0.0"
                         targetMargin.text ="0"
+                        tv_message_header.text =message+" (0)"
                     }
 
                 }

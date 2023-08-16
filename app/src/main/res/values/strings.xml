@@ -290,6 +290,11 @@
     <string name="revenue_collection_break">Revenue Collections Breakdown</string>
     <string name="revenue_collection_break_des">Collections Breakdown by Revenue streams</string>
     <string name="alert_Kelvin">Alert Kelvin</string>
+    <string name="all_">All</string>
+    <string name="collectors">Collectors</string>
+    <string name="inspectors">Inspectors</string>
+    <string name="enforcers">Enforcers</string>
+    <string name="collections_">Collections</string>
 
 
 </resources>

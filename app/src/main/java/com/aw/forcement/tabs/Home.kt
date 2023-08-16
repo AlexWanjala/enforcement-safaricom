@@ -201,7 +201,7 @@ class Home : AppCompatActivity() {
     }
 
     private fun getUsersPaginated (){
-
+        runOnUiThread {  progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getUsersPaginated",
             "page" to "1",
@@ -211,7 +211,7 @@ class Home : AppCompatActivity() {
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
-                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
                     runOnUiThread {
@@ -559,6 +559,5 @@ class Home : AppCompatActivity() {
         }
 
     }
-
 
 }

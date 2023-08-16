@@ -41,13 +41,7 @@
 
         </FrameLayout>
 
-
-        <ProgressBar
-            android:visibility="gone"
-            android:id="@+id/progress_circular"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <include layout="@layout/progressbar"/>
 
 
         <LinearLayout
@@ -283,7 +277,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/text_color"
                     android:fontFamily="@font/montserrat"
-                    android:text="Kelvin Njuguna"
+                    tools:text="Kelvin Njuguna"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

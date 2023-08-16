@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.aw.passanger.api.*
@@ -15,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_my_history.tv_date_from
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_to
 import kotlinx.android.synthetic.main.activity_total_county_collection.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -114,7 +116,7 @@ class TotalCountyCollection : AppCompatActivity() {
     }
 
     private fun getSubCountiesRevenue (){
-        // progress_circular.visibility = View.VISIBLE
+         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getSubCountiesRevenue",
             "keyword" to "",
@@ -125,7 +127,7 @@ class TotalCountyCollection : AppCompatActivity() {
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
-                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                 runOnUiThread {  progress_circular.visibility = View.GONE }
                 save(this@TotalCountyCollection,"getSubCountiesRevenue",result)
                 if (result != null) {
                     updateUI(result)

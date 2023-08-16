@@ -30,6 +30,7 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main_ro.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.message.*
+import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 
 
@@ -91,7 +92,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     }
     private fun collectionOverview(){
-
+        progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "collectionOverview",
             "latitude" to getValue(this,"latitude").toString(),
@@ -106,7 +107,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
                 if(response.success){
                     runOnUiThread {
-
+                        progress_circular.visibility = View.GONE
                         with(recyclerView) {
                             layoutManager = LoopingLayoutManager(context, LoopingLayoutManager.HORIZONTAL, false)
                             adapter = OverviewAdapter(this@MainRoActivity, response.data.overview)
@@ -121,6 +122,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     }
                 }else{
                     runOnUiThread {
+                        progress_circular.visibility = View.GONE
                         tvMessage.text = response.message }
                 }
             }
@@ -140,7 +142,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         }
     }
     private fun getUsersPaginated (){
-
+        progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getUsersPaginated",
             "page" to "1",
@@ -150,7 +152,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
-                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                 runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
                     runOnUiThread {
@@ -183,6 +185,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         super.onResume()
     }
     private fun getUsersBySubCounty (status: String){
+        progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getUsersBySubCounty",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
@@ -190,6 +193,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
+                runOnUiThread {   progress_circular.visibility = View.GONE }
                 save(this@MainRoActivity,"getUsersBySubCounty",result)
                 save(this@MainRoActivity,"status",status)
                 if (result != null) {
@@ -237,8 +241,10 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             R.id.nav_user_account -> {
             }
             R.id.nav_transaction -> {
+                startActivity(Intent(this,TransactionsRo::class.java))
             }
             R.id.nav_revenue_agents -> {
+                startActivity(Intent(this,RevenueAgentsLogs::class.java))
             }
             R.id.nav_transactions_break_down -> {
                 startActivity(Intent(this,TransactionsBreakDown::class.java))

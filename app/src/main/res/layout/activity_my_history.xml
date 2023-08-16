@@ -57,7 +57,7 @@
                                 android:fontFamily="@font/montserrat"
                                 android:gravity="center"
                                 android:textColor="@color/black"
-                                android:textSize="18dp"
+                                android:textSize="16dp"
                                 android:textStyle="bold"
                                 android:text="@string/my_history"
                                 android:layout_width="wrap_content"
@@ -73,37 +73,46 @@
                             android:layout_height="wrap_content">
 
                             <RadioButton
+                                android:textSize="10sp"
                                 android:id="@+id/radio_collections"
                                 android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Collections"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:button="@null"
-                                android:background="@drawable/radio_button_background"/>
+                                android:layout_height="35dp"
+                                android:textColor="@drawable/indicator_text_color"
+                                android:background="@drawable/bg_oval_selector"
+                             />
 
                             <RadioButton
+                                android:textSize="10sp"
                                 android:id="@+id/radio_inspection"
                                 android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Inspections"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:button="@null"
-                                android:background="@drawable/radio_button_background"/>
+                                android:textColor="@drawable/indicator_text_color"
+                                android:background="@drawable/bg_oval_selector"
+                             />
 
                             <RadioButton
+                                android:textSize="10sp"
                                 android:id="@+id/radio_enforcement"
                                 android:gravity="center"
                                 android:fontFamily="@font/montserrat"
                                 android:layout_weight="1"
                                 android:text="Enforcements"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="35dp"
                                 android:button="@null"
-                                android:background="@drawable/radio_button_background"/>
+                                android:textColor="@drawable/indicator_text_color"
+                                android:background="@drawable/bg_oval_selector"
+                              />
 
                         </RadioGroup>
 
@@ -288,6 +297,7 @@
                 </FrameLayout>
 
                 <LinearLayout
+                    android:orientation="vertical"
                     app:layout_constraintTop_toBottomOf="@+id/banner"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -296,6 +306,17 @@
                     android:layout_marginStart="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="1000dp">
+                    <TextView
+                        android:id="@+id/tv_message_header"
+                        android:fontFamily="@font/montserrat"
+                        android:textSize="10sp"
+                        android:textColor="@color/white"
+                        android:background="@color/circle_color"
+                        android:padding="17sp"
+                        tools:text="@string/revenue_collection_break_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <include layout="@layout/progressbar"/>
                     <include layout="@layout/recycler_view"/>
                 </LinearLayout>
 

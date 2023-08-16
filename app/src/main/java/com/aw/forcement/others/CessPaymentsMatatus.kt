@@ -55,6 +55,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 if(edPhoneNumber.text.isEmpty()){
                     Toast.makeText(this,"Phone Required",Toast.LENGTH_LONG).show()
                 }else{
+
                     generateBill()
                 }
             }
@@ -75,7 +76,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
             "amount" to amount,
-            "customer" to edNumberPlate.text.toString(),
+            "customer" to edNumberPlate.text.toString().replace("\\s".toRegex(), "").trim() ,
             "zone" to getValue(this,"zone").toString(),
             "subCountyID" to getValue(this,"subCountyID").toString(),
             "subCountyName" to getValue(this,"subCountyName").toString(),

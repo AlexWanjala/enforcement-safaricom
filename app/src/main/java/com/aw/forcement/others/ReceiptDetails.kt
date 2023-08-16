@@ -25,6 +25,7 @@ import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_receipt_details.*
+import kotlinx.android.synthetic.main.progressbar.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
 import java.text.NumberFormat
