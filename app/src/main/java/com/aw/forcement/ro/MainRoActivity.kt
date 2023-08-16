@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.ChangePassword
 import com.aw.forcement.R
 import com.aw.forcement.adapters.DotsIndicatorDecoration
+import com.aw.forcement.adapters.LoopingSnapHelper
 import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
@@ -32,6 +33,8 @@ import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.message.*
 import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
+import java.util.*
+import kotlin.concurrent.timerTask
 
 
 class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener  {
@@ -65,6 +68,10 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             startActivity(Intent(this, Home::class.java))
         }
 
+        tv_view_all.setOnClickListener {
+            startActivity(Intent(this, RevenueAgentsLogs::class.java))
+        }
+
 
 
         bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
@@ -77,6 +84,17 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         radio_logged_out.setOnClickListener {  getUsersBySubCounty("Logged Out") }
 
         getUsersBySubCounty("Inactive")
+
+
+
+        //Todo for recycler view to scroll
+        val snapHelper = LoopingSnapHelper()
+        snapHelper.attachToRecyclerView(recyclerView)
+        val timer = Timer()
+        val task = timerTask {
+            recyclerView.smoothScrollBy(720, 0) // Scroll 100
+        }
+        timer.schedule(task, 0, 8000) // 0 delay, 3000 period
 
 
         // //getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
@@ -92,22 +110,25 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
     }
     private fun collectionOverview(){
-        progress_circular.visibility = View.VISIBLE
+      runOnUiThread {    progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
-            "function" to "collectionOverview",
+            "function" to "collectionOverviewRo",
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
-            "idNo" to getValue(this,"idNo").toString(),
+            "subCountyID" to getValue(this,"subCountyID").toString(),
+            "subCountyName" to getValue(this,"subCountyName").toString(),
             "username" to getValue(this,"username").toString(),
             "addressString" to getValue(this,"addressString").toString()
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
+                runOnUiThread {    progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-
                 if(response.success){
                     runOnUiThread {
                         progress_circular.visibility = View.GONE
+
+                        //todo if you copy this copy also another code in the onCreate method for scrolling timer
                         with(recyclerView) {
                             layoutManager = LoopingLayoutManager(context, LoopingLayoutManager.HORIZONTAL, false)
                             adapter = OverviewAdapter(this@MainRoActivity, response.data.overview)
@@ -120,7 +141,8 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         }
 
                     }
-                }else{
+                }
+                else{
                     runOnUiThread {
                         progress_circular.visibility = View.GONE
                         tvMessage.text = response.message }
@@ -239,6 +261,8 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_user_account -> {
+                startActivity(Intent(this,MainRoActivity::class.java))
+                finishAffinity()
             }
             R.id.nav_transaction -> {
                 startActivity(Intent(this,TransactionsRo::class.java))
@@ -253,6 +277,8 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 startActivity(Intent(this,TotalCountyCollection::class.java))
             }
             R.id.nav_logout_off -> {
+                startActivity(Intent(this,Long::class.java))
+                finishAffinity()
             }
         }
         //close the drawer after selecting an item

@@ -48,8 +48,8 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 
 			//list.units
 			holder.tv_header.text = list.item
-			holder.tv_amount.text =list.units+" "+String.format("%,.2f", list.today.toFloat())
-			holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
+			holder.tv_amount.text =list.units+" "+list.today
+
 			holder.tv_message.text = list.message
 			if(list.difference<0){
 				holder.image_icon.setImageResource (R.drawable.arrow_down);
@@ -58,18 +58,27 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 			}
 
 			if(position==0){
+				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
 				holder.layout.setBackgroundResource(R.drawable.bg_blue)
 				holder.tv_icon.setImageResource(R.drawable.customers)
 			}
 			if(position==1){
+				holder.tv_difference.text = String.format("%,.0f", list.difference).toString().replace("-","")
+				holder.layout.setBackgroundResource(R.drawable.bg_red)
+				holder.tv_icon.setImageResource(R.drawable.alert)
+			}
+			if(position==3){
+				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
 				holder.layout.setBackgroundResource(R.drawable.bg_green)
 				holder.tv_icon.setImageResource(R.drawable.inspection)
 			}
-			if(position==2){
+			if(position==4){
+				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
 				holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
 				holder.tv_icon.setImageResource(R.drawable.customers)
 			}
-			if(position==3){
+			if(position==5){
+				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
 				holder.layout.setBackgroundResource(R.drawable.bg_orange)
 				holder.tv_icon.setImageResource(R.drawable.trophy)
 			}

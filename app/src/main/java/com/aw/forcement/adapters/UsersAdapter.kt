@@ -65,39 +65,46 @@ class UsersAdapter(private val context: Context, mList: List<Users>) :
 		this.mList = mList
 	}
 
-	fun covertTimeToText(dataDate: String?): String? {
-		var convTime: String? = null
-		try {
-			val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-			val pasTime: Date = dateFormat.parse(dataDate)
-			val nowTime = Date()
-			val dateDiff: Long = nowTime.getTime() - pasTime.getTime()
-			val detik: Long = TimeUnit.MILLISECONDS.toSeconds(dateDiff)
-			val menit: Long = TimeUnit.MILLISECONDS.toMinutes(dateDiff)
-			val jam: Long = TimeUnit.MILLISECONDS.toHours(dateDiff)
-			val hari: Long = TimeUnit.MILLISECONDS.toDays(dateDiff)
-			if (detik < 60) {
-				convTime = detik.toString() + " sec ago"
-			} else if (menit < 60) {
-				convTime = menit.toString() + " min ago"
-			} else if (jam < 24) {
-				convTime = jam.toString() + " hours ago"
-			} else if (hari >= 7) {
-				convTime = if (hari > 30) {
-					(hari / 30).toString() + " last month"
-				} else if (hari > 360) {
-					(hari / 360).toString() + " tahun lalu"
-				} else {
-					(hari / 7).toString() + " last year"
-				}
-			} else if (hari < 7) {
-				convTime = hari.toString() + " yesterday"
-			}
-		} catch (e: ParseException) {
-			e.printStackTrace()
-			Log.e("ConvTimeE", e.message.toString())
+	private fun getTimeAgo(time: String): String {
+
+		val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+		val date = simpleDateFormat.parse(time)
+
+		val calendar = Calendar.getInstance()
+		calendar.time = date
+
+		val year = calendar.get(Calendar.YEAR)
+		val month = calendar.get(Calendar.MONTH)
+		val day = calendar.get(Calendar.DAY_OF_MONTH)
+		val hour = calendar.get(Calendar.HOUR_OF_DAY)
+		val minute = calendar.get(Calendar.MINUTE)
+
+		val currentCalendar = Calendar.getInstance()
+
+		val currentYear = currentCalendar.get(Calendar.YEAR)
+		val currentMonth = currentCalendar.get(Calendar.MONTH)
+		val currentDay = currentCalendar.get(Calendar.DAY_OF_MONTH)
+		val currentHour = currentCalendar.get(Calendar.HOUR_OF_DAY)
+		val currentMinute = currentCalendar.get(Calendar.MINUTE)
+
+		return if (year < currentYear ) {
+			val interval = currentYear - year
+			if (interval == 1) "$interval year ago" else "$interval years ago"
+		} else if (month < currentMonth) {
+			val interval = currentMonth - month
+			if (interval == 1) "$interval month ago" else "$interval months ago"
+		} else  if (day < currentDay) {
+			val interval = currentDay - day
+			if (interval == 1) "$interval day ago" else "$interval days ago"
+		} else if (hour < currentHour) {
+			val interval = currentHour - hour
+			if (interval == 1) "$interval hour ago" else "$interval hours ago"
+		} else if (minute < currentMinute) {
+			val interval = currentMinute - minute
+			if (interval == 1) "$interval min ago" else "$interval min ago"
+		} else {
+			"a moment ago"
 		}
-		return convTime
 	}
 
 	private fun toTitleCase(str: String?): String? {

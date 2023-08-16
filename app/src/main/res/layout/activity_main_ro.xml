@@ -157,6 +157,8 @@
                             android:layout_height="wrap_content"/>
 
                         <TextView
+                            android:background="@drawable/touch_feedback"
+                            android:id="@+id/tv_view_all"
                             android:padding="5dp"
                             android:layout_gravity="right"
                             android:fontFamily="@font/montserrat"

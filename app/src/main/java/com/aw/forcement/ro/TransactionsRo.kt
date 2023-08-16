@@ -42,6 +42,8 @@ class TransactionsRo : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions_ro)
+
+        tvBack.setOnClickListener { finish() }
         message ="My Collections"
 
         radio_collections.isChecked = true

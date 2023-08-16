@@ -154,6 +154,7 @@ class Home : AppCompatActivity() {
         collectionOverview()
 
 
+        //Todo for recycler view to scroll
         val snapHelper = LoopingSnapHelper()
         snapHelper.attachToRecyclerView(recyclerView)
         val timer = Timer()
@@ -288,6 +289,7 @@ class Home : AppCompatActivity() {
                 if(response.success){
                     runOnUiThread {
 
+                        //todo if you copy this copy also another code in the onCreate method for scrolling timer
                         with(recyclerView) {
                             layoutManager = LoopingLayoutManager(context, LoopingLayoutManager.HORIZONTAL, false)
                             adapter = OverviewAdapter(this@Home, response.data.overview)

@@ -1,27 +1,17 @@
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.net.ParseException
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
 import com.aw.forcement.ro.AlertRing
-import com.aw.passanger.api.*
-import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
-import kotlin.concurrent.timer
 
 
 /**
@@ -63,6 +53,11 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		holder.tv_inspections.text = list.inspections
 		holder.tv_amount.text = list.amount
 
+
+
+		holder.tv_time.text = getTimeAgo(list.lastSeen)
+
+
 		//holder.tv_time.text =list.lastSeen.getTimeAgo()
 
 		holder.layoutView.setOnClickListener {
@@ -89,9 +84,13 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		this.mList = mList
 	}
 
-	fun Date.getTimeAgo(): String {
+	private fun getTimeAgo(time: String): String {
+
+		val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+		val date = simpleDateFormat.parse(time)
+
 		val calendar = Calendar.getInstance()
-		calendar.time = this
+		calendar.time = date
 
 		val year = calendar.get(Calendar.YEAR)
 		val month = calendar.get(Calendar.MONTH)
@@ -121,7 +120,7 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 			if (interval == 1) "$interval hour ago" else "$interval hours ago"
 		} else if (minute < currentMinute) {
 			val interval = currentMinute - minute
-			if (interval == 1) "$interval minute ago" else "$interval minutes ago"
+			if (interval == 1) "$interval min ago" else "$interval min ago"
 		} else {
 			"a moment ago"
 		}
