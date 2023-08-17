@@ -7,14 +7,17 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.aw.forcement.R
-import com.aw.passanger.api.*
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.aw.passanger.api.CallBack
+import com.aw.passanger.api.biller
+import com.aw.passanger.api.executeRequest
+import com.aw.passanger.api.getValue
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
 import com.mazenrashed.printooth.data.printable.ImagePrintable
@@ -27,8 +30,8 @@ import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_receipt_details.*
 import kotlinx.android.synthetic.main.progressbar.*
 import net.glxn.qrgen.android.QRCode
-import java.text.SimpleDateFormat
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -111,7 +114,11 @@ class ReceiptDetails : AppCompatActivity() {
                         tv_phone.text = response.data.receiptDetails.customerPhoneNumber
                         tv_date.text = humanDate(response.data.receiptDetails.dateCreated)
                         tv_des.text = response.data.receiptDetails.description
-                        tv_amount.text =NumberFormat.getInstance().format(response.data.receiptDetails.receiptAmount.toInt())
+                        val amount = intent.getStringExtra("amount")
+                        val nf = NumberFormat.getInstance(Locale.US)
+                        val f1 = nf.parse(amount).toFloat()
+                        tv_amount.text = "KES "+ nf.format(f1) // or df.format(f2);
+
                         tv_zone.text = "${response.data.receiptDetails.zone}, ${response.data.receiptDetails.wardName}, ${response.data.receiptDetails.subCountyName}"
                         tv_create_by.text = response.data.receiptDetails.names
 

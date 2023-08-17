@@ -67,11 +67,11 @@ import java.text.DecimalFormat
 
 class Home : AppCompatActivity() {
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
-    private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
-    private var locationPermissionGranted = false
+     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
+     private var locationPermissionGranted = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page_home)
 
@@ -162,9 +162,22 @@ class Home : AppCompatActivity() {
             recyclerView.smoothScrollBy(720, 0) // Scroll 100
         }
         timer.schedule(task, 0, 8000) // 0 delay, 3000 period
-    }
 
-    private fun toggleBottomSheet(type: String){
+
+        //Disable navigation drawer
+        val category = getValue(this,"category")
+        if(category =="COLLECTOR" || category=="INSPECTOR" || category =="ENFORCEMENT"){
+            // Get a reference to the drawer layout
+            val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            val navigationView = findViewById<NavigationView>(R.id.nav_view)
+            navigationView.setVisibility(View.GONE)
+            imageHomeside.visibility = View.GONE
+        }
+
+
+    }
+     private fun toggleBottomSheet(type: String){
         runOnUiThread {   tvMessage.text = ""
             edSearch.text.clear()
         }
@@ -181,8 +194,7 @@ class Home : AppCompatActivity() {
 
 
     }
-
-    private fun toggleBottomSheetContact(){
+     private fun toggleBottomSheetContact(){
 
         if (bottomSheetBehaviorContact.state == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -192,7 +204,7 @@ class Home : AppCompatActivity() {
         getUsersPaginated()
 
     }
-    override fun onResume() {
+     override fun onResume() {
         super.onResume()
         //name.text = getValue(this,"username")
         //nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
@@ -200,8 +212,7 @@ class Home : AppCompatActivity() {
         locationPermission()
 
     }
-
-    private fun getUsersPaginated (){
+     private fun getUsersPaginated (){
         runOnUiThread {  progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getUsersPaginated",
@@ -232,7 +243,6 @@ class Home : AppCompatActivity() {
 
         })
     }
-
      private fun getTransactions(){
 
          if(edSearch.text.toString().isEmpty()){
@@ -270,7 +280,7 @@ class Home : AppCompatActivity() {
 
 
      }
-    private fun collectionOverview(){
+     private fun collectionOverview(){
 
         val formData = listOf(
             "function" to "collectionOverview",
@@ -312,7 +322,7 @@ class Home : AppCompatActivity() {
 
 
     }
-    private fun queryReceiptNumber(){
+     private fun queryReceiptNumber(){
 
          if(edSearch.text.toString().isEmpty()){
              Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
@@ -443,8 +453,8 @@ class Home : AppCompatActivity() {
          })
 
      }
-    var exit: Boolean =false
-    override fun onBackPressed() {
+     var exit: Boolean =false
+     override fun onBackPressed() {
         if(exit){
             finish()
         }else{
@@ -454,9 +464,8 @@ class Home : AppCompatActivity() {
             exit = true
         }
     }
-
     //Device location
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         locationPermissionGranted = false
         when (requestCode) {
             requestCode -> {
@@ -473,7 +482,7 @@ class Home : AppCompatActivity() {
         }
 
     }
-    private fun locationPermission(){
+     private fun locationPermission(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION), 1)
         }else{
@@ -486,9 +495,9 @@ class Home : AppCompatActivity() {
         }
 
     }
-    //Get device location
+     //Get device location
     @SuppressLint("MissingPermission")
-    private fun getDeviceLocation() {
+     private fun getDeviceLocation() {
         try {
             if (locationPermissionGranted) {
                 println("## locationPermissionGranted")
@@ -519,7 +528,7 @@ class Home : AppCompatActivity() {
             Log.e("Exception: %s", e.message, e)
         }
     }
-    private fun getAddress(lat: Double, lng: Double) {
+     private fun getAddress(lat: Double, lng: Double) {
         // Initializing Geocoder
         val mGeocoder = Geocoder(applicationContext, Locale.getDefault())
         var addressString= ""

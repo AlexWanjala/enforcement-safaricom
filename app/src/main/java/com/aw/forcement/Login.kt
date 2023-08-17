@@ -34,10 +34,20 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.AsyncTask
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import com.aw.forcement.ro.MainRoActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Tasks
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.appupdate.AppUpdateOptions
+import com.google.android.play.core.install.InstallStateUpdatedListener
+import com.google.android.play.core.install.model.AppUpdateType
+import com.google.android.play.core.install.model.InstallStatus
+import com.google.android.play.core.install.model.UpdateAvailability
+import kotlinx.android.synthetic.main.activity_main_page.*
 
 import java.util.*
 
@@ -48,6 +58,8 @@ class Login : AppCompatActivity() {
     private var smsReceiver: SMSReceiver? = null
     private val arrayList = ArrayList<String>()
     private lateinit var sStreetName: String
+
+    private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +74,7 @@ class Login : AppCompatActivity() {
                 loadPage()
             }
         }
+
 
 
         tvPrivacy.setOnClickListener {
@@ -89,7 +102,7 @@ class Login : AppCompatActivity() {
         initBroadCast()
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
+        updateApp()
     }
 
 
@@ -278,7 +291,67 @@ class Login : AppCompatActivity() {
          //MPESA	254729994994	RGH7QP68R5	KES 50.00  JAMES
          //MPESA	254729994994	RGH1QP6M4N	KES 20.00 Queenter
 
+        appUpdateManager
+            .appUpdateInfo
+            .addOnSuccessListener { appUpdateInfo ->
+                // If the update is downloaded but not installed,
+                // notify the user to complete the update.
+                if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                    popupSnackbarForCompleteUpdate()
+                }
+            }
     }
+
+    // Displays the snackbar notification and call to action.
+    private fun popupSnackbarForCompleteUpdate() {
+        Snackbar.make(findViewById(R.id.login),"An update has just been downloaded.", Snackbar.LENGTH_INDEFINITE).apply {
+            setAction("RESTART") { appUpdateManager.completeUpdate() }
+            setActionTextColor(resources.getColor(R.color.red))
+            show()
+        }
+    }
+
+    private fun updateApp(){
+
+        val appUpdateInfoTask = appUpdateManager.appUpdateInfo
+        appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+                // Request the update.
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, this, AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build(), 1)
+
+                val listener = InstallStateUpdatedListener { state ->
+                    // (Optional) Provide a download progress bar.
+                    if (state.installStatus() == InstallStatus.DOWNLOADING) {
+                        val bytesDownloaded = state.bytesDownloaded()
+                        val totalBytesToDownload = state.totalBytesToDownload()
+                        // Show update progress bar.
+                        tvMessage.text = totalBytesToDownload.toString()
+                    }
+                    // Log state or install the update.
+                }
+
+// Before starting an update, register a listener for updates.
+                appUpdateManager.registerListener(listener)
+
+// Start an update.
+
+// When status updates are no longer needed, unregister the listener.
+                appUpdateManager.unregisterListener(listener)
+
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1) {
+            if (resultCode != RESULT_OK) {
+          // Handle user's rejection or update failure
+                //updateApp()
+            }
+        }
+    }
+
     private fun initBroadCast() {
         intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
         smsReceiver = SMSReceiver()
@@ -346,6 +419,8 @@ class Login : AppCompatActivity() {
             }
         }
     }
+
+
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun isLocationEnabled(): Boolean {

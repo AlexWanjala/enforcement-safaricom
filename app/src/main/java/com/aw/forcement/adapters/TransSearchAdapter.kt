@@ -67,7 +67,8 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 		}
 
 		holder.layoutView.setOnClickListener {
-			context.startActivity(Intent(context,com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code",list.transaction_code).putExtra("verified",list.verified))
+			context.startActivity(Intent(context,com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code",list.transaction_code).putExtra("verified",list.verified)
+				.putExtra("amount",list.amount))
 		}
 
 	}

@@ -64,10 +64,12 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
     // get the version code from BuildConfig
-    val versionCode =  "35"//todo change verson code
 
-    val newFormData = formData + Pair("versionCode", versionCode.toString())
-    Fuel.post(URL+stream, newFormData)
+
+  /*  val versionCode =  "33"
+    val newFormData = formData + Pair("versionCode", versionCode.toString())*/
+
+    Fuel.post(URL+stream, formData)
         .timeout(0)
                 .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
         .responseString {request, response, result ->

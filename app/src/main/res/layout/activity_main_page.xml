@@ -31,6 +31,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/imageHomeside"
                 android:background="@drawable/touch_feedback"
                 android:src="@drawable/icn_menu_dark"
                 android:layout_width="wrap_content"
