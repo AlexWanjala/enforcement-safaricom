@@ -74,11 +74,11 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 		}
 
 
-		if(list.position_rank.toInt() > list.position_rank_previous.toInt()){
+		if(list.position_rank.toInt() < list.position_rank_previous.toInt()){
 			holder.tv_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.rising_rank, 0, 0, 0)
 		}
 
-		if(list.position_rank.toInt() < list.position_rank_previous.toInt()){
+		if(list.position_rank.toInt() > list.position_rank_previous.toInt()){
 			holder.tv_name.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.dropping_rank, 0, 0, 0)
 		}
 

@@ -36,8 +36,6 @@ class CessPaymentsMatatus : AppCompatActivity() {
     private val arrayList2 = ArrayList<String>()
     lateinit var amount: String
     lateinit var feeId: String
-
-
     private var printing : Printing? = null
 
 
@@ -67,8 +65,6 @@ class CessPaymentsMatatus : AppCompatActivity() {
             printing = Printooth.printer()
         initListeners()
     }
-
-
 
     private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
