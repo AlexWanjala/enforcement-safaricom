@@ -112,8 +112,10 @@ class Home : AppCompatActivity() {
         //document_verification
         document_verification.setOnClickListener {  startActivity(Intent(this, ScanClass::class.java)) }
         //history
-        history.setOnClickListener {  startActivity(Intent(this, MyHistory::class.java))
-            finish()}
+        history.setOnClickListener {
+            startActivity(Intent(this, MyHistory::class.java).putExtra("bottomBar","show").putExtra("names","My History").putExtra("idNo", getValue(this,"idNo")))
+            finish()
+        }
 
         profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
             finish()}

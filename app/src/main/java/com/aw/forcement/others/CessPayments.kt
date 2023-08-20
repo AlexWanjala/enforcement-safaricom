@@ -89,7 +89,7 @@ class CessPayments : AppCompatActivity() {
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "customerPhoneNumber" to edPhoneNumber.text.toString(),
-            "names" to getValue(this,"names").toString()
+            "names" to getValue(this,"username").toString()
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

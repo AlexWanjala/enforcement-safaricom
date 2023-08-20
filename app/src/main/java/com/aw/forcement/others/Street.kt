@@ -165,12 +165,7 @@ class Street : AppCompatActivity() {
            }
            gestureDetector = GestureDetector(this, CaptureGestureListener())
            scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
-           Snackbar.make(
-               graphicOverlay!!, "Tap to Speak. Pinch/Stretch to zoom",
-               Snackbar.LENGTH_LONG
-           )
-               .show()
-
+           Snackbar.make(graphicOverlay!!, "Tap to Speak. Pinch/Stretch to zoom", Snackbar.LENGTH_LONG).show()
            // Set up the Text To Speech engine.
            val listener = TextToSpeech.OnInitListener { status ->
                if (status == TextToSpeech.SUCCESS) {

@@ -47,6 +47,8 @@ class MyHistory : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
 
+        idNo = intent.getStringExtra("idNo").toString()
+
 
         message ="My Collections"
 
@@ -115,7 +117,6 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_from.text = spanned
-            idNo = getValue(this,"idNo").toString()
             getMyHistory()
 
 
@@ -145,7 +146,6 @@ class MyHistory : AppCompatActivity() {
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val spanned = Html.fromHtml("<u> ${sdf.format(cal.time)} </u>")
             tv_date_to.text = spanned
-            idNo =  getValue(this,"idNo").toString()
             getMyHistory()
         }
         tv_date_to.setOnClickListener {
@@ -158,18 +158,18 @@ class MyHistory : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
 
+        val names = intent.getStringExtra("names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 
-        val idNo = intent.getStringExtra("idNo") ?: ""
-        if (idNo.isEmpty()) {
-            this.idNo =getValue(this,"idNo").toString()
-            getMyHistory()
-        }else{
-            this.idNo = intent.getStringExtra("idNo").toString()
-            getMyHistory()
-            val names = intent.getStringExtra("names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        if(intent.getStringExtra("bottomBar")=="hide"){
             tv_title.text = names+"'s Logs"
             bottomBar.visibility = View.GONE
+        }else{
+            tv_title.text = names+" Logs"
+            bottomBar.visibility = View.VISIBLE
         }
+
+
+        getMyHistory()
 
     }
 

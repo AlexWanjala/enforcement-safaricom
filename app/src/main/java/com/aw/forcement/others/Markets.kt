@@ -108,7 +108,7 @@ class Markets : AppCompatActivity() {
             "wardName" to getValue(this,"wardName").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
-            "names" to getValue(this,"names").toString(),
+            "names" to getValue(this,"username").toString(),
             "customerPhoneNumber" to edPhoneNumber.text.toString(),
             "description" to edDescription.text.toString(),
         )

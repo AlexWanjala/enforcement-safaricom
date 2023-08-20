@@ -61,7 +61,7 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		//holder.tv_time.text =list.lastSeen.getTimeAgo()
 
 		holder.layoutView.setOnClickListener {
-			context.startActivity(Intent(context,com.aw.forcement.history.MyHistory::class.java).putExtra("idNo",list.idNNumber).putExtra("names",list.names))
+			context.startActivity(Intent(context,com.aw.forcement.history.MyHistory::class.java).putExtra("bottomBar","hide").putExtra("idNo",list.idNNumber).putExtra("names",list.names))
 		}
 
 		holder.call_blue.setOnClickListener {
