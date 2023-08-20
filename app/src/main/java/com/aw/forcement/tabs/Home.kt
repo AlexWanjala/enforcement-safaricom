@@ -63,6 +63,7 @@ import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
 
 
 class Home : AppCompatActivity() {
@@ -74,6 +75,14 @@ class Home : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page_home)
+
+         val formatter = SimpleDateFormat("yyyy-MM-dd")
+         val date = formatter.format(Date())
+         if(getValue(this,"date").toString()!=date){
+             startActivity(Intent(this, SelectZone::class.java))
+         }
+
+
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(
