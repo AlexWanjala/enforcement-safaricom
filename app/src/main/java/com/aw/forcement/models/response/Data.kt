@@ -35,6 +35,7 @@ data class Data (
 	@SerializedName("totalAmount") val totalAmount : TotalAmount,
 	@SerializedName("totalItems") val totalItems : Int,
 	@SerializedName("collectionsBreakdown") val collectionsBreakdown : List<CollectionsBreakdown>,
-	@SerializedName("streams") val streams : List<Streams>
+	@SerializedName("streams") val streams : List<Streams>,
+	@SerializedName("floors") val floors : List<Floors>
 
 )

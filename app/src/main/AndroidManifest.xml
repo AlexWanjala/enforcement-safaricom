@@ -29,9 +29,42 @@
         android:windowSoftInputMode="adjustResize"
         tools:replace="android:theme"
         tools:targetApi="31">
-
-
-        <activity android:name=".SelectZone"/>
+        <activity
+            android:name=".sbp.BillingInformation"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".sbp.BusinessActivityInformation"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".sbp.BusinessContact"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".sbp.BusinessDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".sbp.BusinessOwner"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity android:name=".SelectZone" />
         <activity
             android:name=".ro.TransactionsRo"
             android:exported="false">

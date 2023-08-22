@@ -10,10 +10,7 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import com.aw.forcement.ChangePassword
-import com.aw.forcement.Login
-import com.aw.forcement.R
-import com.aw.forcement.ScanOptions
+import com.aw.forcement.*
 import com.aw.forcement.history.MyHistory
 import com.aw.passanger.api.getValue
 
@@ -25,11 +22,15 @@ class Profile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        btn_change_zone.setOnClickListener {
+            startActivity(Intent(this, SelectZone::class.java))
+        }
+
         DrawableCompat.setTint(DrawableCompat.wrap(imageProfile.drawable), ContextCompat.getColor(this, R.color.bg_button))
         tvProfile.setTextColor(resources.getColor(R.color.bg_button))
 
-        nameProfile.text = getValue(this,"names").toString()
-        tvNameTagProfile.text =getValue(this,"names").toString()[0].toString()+getValue(this,"names").toString()[1].toString()
+        nameProfile.text = getValue(this,"username").toString()
+        tvNameTagProfile.text =getValue(this,"username").toString()[0].toString()+getValue(this,"username").toString()[1].toString()
         email.text = getValue(this,"email").toString()
         tv_zone.text =  getValue(this,"zone").toString()
 

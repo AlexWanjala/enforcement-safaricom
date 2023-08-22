@@ -5,13 +5,13 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -28,7 +28,7 @@ import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
+
 
 class CessPaymentsMatatus : AppCompatActivity() {
 
@@ -37,6 +37,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
     lateinit var amount: String
     lateinit var feeId: String
     private var printing : Printing? = null
+    var incomeType =""
+    var psvTypeSelection =""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,9 @@ class CessPaymentsMatatus : AppCompatActivity() {
         setContentView(R.layout.activity_cess_payments_matatus)
 
         imageClose.setOnClickListener { finish() }
+
+        psvTypeSelection = getValue(this,"psvTypeSelection").toString()
+
 
 
         tvSendPayment.setOnClickListener {
@@ -130,7 +135,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     runOnUiThread {
 
                         for(data in response.data.incomeTypes){
-                            arrayList.add(data.incomeTypeDescription)
+                                arrayList.add(data.incomeTypeDescription)
                         }
 
                         //Spinner
@@ -139,7 +144,18 @@ class CessPaymentsMatatus : AppCompatActivity() {
                         spinnerIncomeType.adapter = adapters
                         spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+
+
+                                if(incomeType !=""){
+                                    spinnerFeeAndCharges.setSelection(incomeType.toInt())
+                                    incomeType =""
+                                }
+                                else{
+                                    save(this@CessPaymentsMatatus,"incomeType",postion.toString())
+                                }
+
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
+
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -169,6 +185,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     adapters.clear()
                 if(response.success){
                     runOnUiThread {
+
+
                         for(data in response.data.feesAndCharges){
                             arrayList2.add(data.feeDescription)
                         }
@@ -178,15 +196,21 @@ class CessPaymentsMatatus : AppCompatActivity() {
                         spinnerFeeAndCharges.adapter = adapters
                         spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-                              //  response.data.feesAndCharges[postion].feeId
+
+                                if(psvTypeSelection !=""){
+                                    spinnerFeeAndCharges.setSelection(psvTypeSelection.toInt())
+                                    psvTypeSelection =""
+                                }
+                                else{
+                                    save(this@CessPaymentsMatatus,"psvTypeSelection",postion.toString())
+                                }
+
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
-
                                 runOnUiThread {
                                     tvVehicleType.text =  response.data.feesAndCharges[postion].feeDescription
                                     tvAmount.text ="KES $amount"
                                 }
-
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 

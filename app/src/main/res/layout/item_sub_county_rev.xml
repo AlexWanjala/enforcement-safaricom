@@ -34,10 +34,10 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
-            android:textSize="10sp"
+            android:textSize="9sp"
             android:textStyle="bold"
             android:text="Homabay Town"
-            android:layout_width="120sp"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -45,10 +45,10 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
-            android:textSize="10sp"
+            android:textSize="9sp"
             android:textStyle="bold"
             android:text="20%   "
-            android:layout_width="100sp"
+            android:layout_width="90sp"
             android:layout_height="wrap_content"/>
 
         <TextView
@@ -56,10 +56,10 @@
             android:layout_marginStart="5dp"
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat"
-            android:textSize="10sp"
+            android:textSize="9sp"
             android:textStyle="bold"
             android:text="KES 450,900"
-            android:layout_width="120sp"
+            android:layout_width="100sp"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 

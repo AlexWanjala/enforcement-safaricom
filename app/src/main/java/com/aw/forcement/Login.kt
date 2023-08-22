@@ -192,7 +192,6 @@ class Login : AppCompatActivity() {
                 showGPSDisabledAlertToUser()
             }*/
 
-
         }
 
     }

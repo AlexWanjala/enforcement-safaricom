@@ -57,9 +57,9 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
         val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
         //set the text of the nameTag TextView
-        nameTag.text = getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
-        tvName.text = "Hello "+getValue(this,"names").toString()
-        name.text = getValue(this,"names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        nameTag.text = getValue(this,"username").toString()[0].toString()+ getValue(this,"username").toString()[1].toString()
+        tvName.text = "Hello "+getValue(this,"username").toString()
+        name.text = getValue(this,"username").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
         tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
         //category
 

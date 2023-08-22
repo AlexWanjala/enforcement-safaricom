@@ -53,6 +53,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.aw.forcement.ro.MainRoActivity
+import com.aw.forcement.sbp.BusinessDetails
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main_page.contact
 import kotlinx.android.synthetic.main.activity_main_page.openDrawer
@@ -61,6 +62,8 @@ import kotlinx.android.synthetic.main.activity_main_ro.*
 import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
+import kotlinx.android.synthetic.main.bottom_sheet_contact.bottomSheetLayoutContact
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -69,6 +72,7 @@ import java.text.SimpleDateFormat
 class Home : AppCompatActivity() {
 
      private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
 
@@ -83,7 +87,6 @@ class Home : AppCompatActivity() {
          }
 
 
-
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(
             GravityCompat.START) } else {  drawerLayout.openDrawer(GravityCompat.START) } }
@@ -95,9 +98,9 @@ class Home : AppCompatActivity() {
         val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
         val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
 
-        nameTag.text = getValue(this,"names").toString()[0].toString()+ getValue(this,"names").toString()[1].toString()
-        tvName.text = "Hello "+getValue(this,"names").toString()
-        name.text = getValue(this,"names").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+        nameTag.text = getValue(this,"username").toString()[0].toString()+ getValue(this,"username").toString()[1].toString()
+        tvName.text = "Hello "+getValue(this,"username").toString()
+        name.text = getValue(this,"username").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
         tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 
         val layoutSwitch = navigationView.getHeaderView(0).findViewById<LinearLayout>(R.id.layoutSwitch)
@@ -131,6 +134,13 @@ class Home : AppCompatActivity() {
 
         //contact
         contact.setOnClickListener { toggleBottomSheetContact() }
+         sbp.setOnClickListener { toggleBottomSheetSbp() }
+
+
+         fl_initiate_application.setOnClickListener {
+             startActivity(Intent(this, BusinessDetails::class.java))
+         }
+
 
 
 
@@ -144,8 +154,9 @@ class Home : AppCompatActivity() {
 
 
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
-        bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
+         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
+         bottomSheetBehaviorSbp = BottomSheetBehavior.from(bottomSheetLayoutPermit)
+         bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
 
 
 
@@ -157,7 +168,8 @@ class Home : AppCompatActivity() {
 
        // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
-        closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
        // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
@@ -174,7 +186,6 @@ class Home : AppCompatActivity() {
         }
         timer.schedule(task, 0, 8000) // 0 delay, 3000 period
 
-
         //Disable navigation drawer
         val category = getValue(this,"category")
         if(category =="COLLECTOR" || category=="INSPECTOR" || category =="ENFORCEMENT"){
@@ -186,6 +197,14 @@ class Home : AppCompatActivity() {
             imageHomeside.visibility = View.GONE
         }
 
+    }
+     private fun toggleBottomSheetSbp(){
+
+        if (bottomSheetBehaviorSbp.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_EXPANDED
+        }
 
     }
      private fun toggleBottomSheet(type: String){
