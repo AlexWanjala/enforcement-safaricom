@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Login">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_marginTop="10sp"
@@ -18,7 +24,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@drawable/banner"
+            android:src="@drawable/meru_banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -141,6 +147,7 @@
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -166,13 +173,12 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
     </LinearLayout>
 
-
-
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
@@ -183,14 +189,15 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="@string/version"
+            android:visibility="gone"
+            android:text="Powered By Craft Silicon"
             android:textColor="@color/hint"
             tools:text="County Revenue System"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-
         <TextView
+            android:visibility="visible"
             android:layout_marginStart="5dp"
             android:id="@+id/tvVersion"
             android:textStyle="bold"
@@ -199,8 +206,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+
+        <ImageView
+            android:visibility="gone"
+            android:src="@drawable/craft_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
+    </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

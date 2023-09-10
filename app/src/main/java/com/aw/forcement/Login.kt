@@ -66,7 +66,6 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         login.setOnClickListener {
 
-
             if(edUsername.text.equals("") || edPassword.text.equals("") ){
                 Toast.makeText(this,"ALl fields require",Toast.LENGTH_LONG).show()
             }else{
@@ -236,12 +235,11 @@ class Login : AppCompatActivity() {
                     save(this@Login,"pass", edPassword.text.toString() )
                     save(this@Login,"userid", response.data.user.id.toString())
                     save(this@Login,"zone", response.data.user.zone.toString())
-                    save(this@Login,"username", response.data.user.names)
                     save(this@Login,"phoneNumber", response.data.user.phoneNumber)
                     save(this@Login,"idNo", response.data.user.idNo)
-                    save(this@Login,"username",response.data.user.names)
+                    save(this@Login,"username","Akinyi")
                     save(this@Login,"subCountyID",response.data.user.subCountyID)
-                    save(this@Login,"subCountyName",response.data.user.subCountyName)
+                    save(this@Login,"subCountyName","Kusumu")
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
@@ -258,7 +256,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"idNo", response.data.user.idNo)
                     save(this@Login,"username",response.data.user.email)
                     save(this@Login,"subCountyID",response.data.user.subCountyID)
-                    save(this@Login,"subCountyName",response.data.user.subCountyName)
+                    save(this@Login,"subCountyName","Kusumu")
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"target",response.data.user.target)
                     save(this@Login,"category",response.data.user.category)

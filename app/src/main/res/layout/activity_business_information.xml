@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sbp.BusinessOwner">
+    tools:context=".sbp.application.BusinessOwner">
 
 
     <LinearLayout
@@ -155,9 +155,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/ed_physical_address"
+                android:inputType="number"
+                android:id="@+id/ed_premise_size"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/premises_size_des"
@@ -189,8 +190,10 @@
 
 
                     <EditText
+                        android:inputType="number"
+                        android:id="@+id/ed_number_of_employees"
                         android:textSize="12sp"
-                        android:hint="@string/postal_address"
+                        android:hint="@string/number_of_employees"
                         android:padding="13dp"
                         android:background="@drawable/rectangle_background"
                         android:layout_marginTop="10dp"
@@ -251,9 +254,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
-                android:id="@+id/ed_plot_number"
+                android:id="@+id/ed_business_des"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/business_description_optional"
@@ -264,13 +267,11 @@
 
 
 
-
-
             <Button
                 android:drawableTint="@color/grey"
                 android:backgroundTint="@color/grey"
                 android:fontFamily="@font/montserrat"
-                android:background="@drawable/bg_fill_disabled"
+                android:background="@drawable/bg_fill_primary"
                 android:id="@+id/btn_next"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="60dp"

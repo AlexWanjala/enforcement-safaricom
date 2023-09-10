@@ -170,12 +170,12 @@ class ScanClass : AppCompatActivity() {
 
 
     private fun getTransactions(ReceiptNo: String){
-        Log.e("########",ReceiptNo)
-        Log.i("########MPESACODE",ReceiptNo.split(",")[0].replace(" ","").split(":")[1])
+     //   Log.e("########",ReceiptNo)
+       // Log.i("########MPESACODE",ReceiptNo.split(",")[0].replace(" ","").split(":")[1])
 
         val formData = listOf(
             "function" to "getTransactions",
-            "keyword" to ReceiptNo.split(",")[0].replace(" ","").split(":")[1],//RGG1PKMB2
+            "keyword" to "RI785YQJCM",//ReceiptNo.split(",")[0].replace(" ","").split(":")[1],//RGG1PKMB2
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),

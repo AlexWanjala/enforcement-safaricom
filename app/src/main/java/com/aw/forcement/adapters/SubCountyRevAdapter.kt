@@ -88,7 +88,9 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 
 		holder.tv_number.text = list.position_rank
-		val names = list.subCountyName.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
+		val nameSub = getName(list.subCountyID.toString())
+
+		val names = nameSub.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 		holder.tv_name.text = names
 		holder.tv_target.text = progress.toString() +"%"
 		holder.tv_amount.text = "KES "+ formatNumber(list.amountTotal.toInt())
@@ -119,6 +121,21 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 	}
 	init {
 		this.mList = mList
+	}
+
+	fun getName(subCountyID: String): String {
+		val nameMap = mapOf(
+			"43247" to "Kisumu Central",
+			"43251" to "Kisumu East",
+			"43246" to "Kisumu West",
+			"43248" to "Nyakach",
+			"43252" to "Nyando",
+			"43249" to "Muhoroni",
+			"43245" to "Seme",
+			"43253" to "Kisumu Central",
+			"43250" to "Kisumu East"
+		)
+		return nameMap[subCountyID] ?: "Unknown"
 	}
 
 	fun covertTimeToText(dataDate: String?): String? {

@@ -22,7 +22,7 @@ android {
 
     defaultConfig {
         applicationId "com.aw.forcement"
-        minSdk 26
+        minSdk 23
         targetSdk 34
         versionCode 42
         versionName "42"
@@ -45,9 +45,10 @@ android {
             applicationIdSuffix ""
             versionNameSuffix ""
             resValue "string", "app_name", "Homabay Revenue Collector"
-            resValue "string", "base_api_url", "http://api.smarttest.zukutv.co.zm:92/"
             resValue "string", "country_code", "+254"
             buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://api.craftcollect.africa/homabay/"'
 
         }
         elgeyo {
@@ -55,8 +56,19 @@ android {
             applicationIdSuffix ".elgeyo"
             versionNameSuffix "-elgeyo"
             resValue "string", "app_name", "Elgeyo Revenue Collector"
-            resValue "string", "base_api_url", "http://api.smarttest.zukutv.co.zm:92/"
             buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo_elgeyo"
+            buildConfigField "String", "URL", '"https://api.elgeyomarakwet.go.ke/"'
+
+        }
+        meru {
+            dimension "entity"
+            applicationIdSuffix ".meru"
+            versionNameSuffix "-meru"
+            resValue "string", "app_name", "Meru Revenue Collector"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_meru"
+            buildConfigField "String", "URL", '"https://api.craftcollect.africa/meru/"'
 
         }
     }
@@ -145,6 +157,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
 
 
 }

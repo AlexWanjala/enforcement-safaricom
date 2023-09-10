@@ -17,7 +17,7 @@ import android.view.View
 import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.BuildConfig
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
@@ -39,12 +39,19 @@ const val paysol ="https://api.paysol.co.ke/paysol/index.php"
 const val URL ="https://api.paysol.co.ke/"
 */
 
-const val URL ="https://api.craftcollect.africa/homabay/"
-const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
+
+
 
 /*const val URL ="https://api.elgeyomarakwet.go.ke/"
 const val paysol ="api.elgeyomarakwet.go.ke/paysol/index.php"*/
+/*
 
+const val URL ="https://api.craftcollect.africa/homabay/"
+const val paysol ="https://api.craftcollect.africa/homabay/paysol/index.php"
+*/
+
+val URL = BuildConfig.URL
+val paysol = URL + "paysol/index.php"
 
 var parking = "parking/"
 var rent = "rent/"
@@ -52,8 +59,6 @@ var trade = "trade/"
 var biller ="biller/"
 var liquor ="liquor/"
 var authentication ="authentication/"
-
-//Your have created as a system user. Your username: 32783823 and password: 9227. Download the app from here. https://shorturl.at/acvT3
 
 interface CallBack {
     fun onSuccess(result: String?)
@@ -63,12 +68,6 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
 
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
-    // get the version code from BuildConfig
-
-
-  /*  val versionCode =  "33"
-    val newFormData = formData + Pair("versionCode", versionCode.toString())*/
-
     Fuel.post(URL+stream, formData)
         .timeout(0)
                 .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
@@ -93,19 +92,12 @@ fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, ca
             callback.onSuccess(result.get())
         }
 
-    /* println("##Request ${formData.toString()}")
-     Fuel.post(URL+stream,formData).timeout(0).authentication().responseString {
-             _, _, result ->
-         println("##Response$result")
-         callback.onSuccess(result.get())
-     }*/
-
 }
 
 
-fun executeJsonRequest(json: String, function: String, callback: CallBack) {
+fun executeJsonRequest(json: String,stream: String, callback: CallBack) {
     println("##Request ${json.toString()}")
-    Fuel.post(URL+function).timeout(0).jsonBody(json).responseString {
+    Fuel.post(URL+stream).timeout(0).authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==").jsonBody(json).responseString {
             _, _, result ->
         println("##Response$result")
         callback.onSuccess(result.get())

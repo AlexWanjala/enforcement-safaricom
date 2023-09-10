@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sbp.BusinessOwner">
+    tools:context=".sbp.application.BusinessOwner">
 
 
         <LinearLayout
@@ -91,7 +91,7 @@
                 <EditText
                     android:id="@+id/ed_full_names"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:padding="15dp"
                     android:hint="@string/full_names_hint"
@@ -113,9 +113,10 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:inputType="number"
                     android:id="@+id/ed_owner_id"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:padding="15dp"
                     android:hint="@string/owner_id_hint"
@@ -137,9 +138,10 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:inputType="phone"
                     android:id="@+id/ed_phone"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:padding="15dp"
                     android:hint="@string/owner_phone_hint"
@@ -162,16 +164,16 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:inputType="textEmailAddress"
                     android:id="@+id/ed_email"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:padding="15dp"
                     android:hint="@string/email_address_hint"
                     android:background="@drawable/rectangle_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
 
                 <TextView
                     android:layout_marginTop="15dp"
@@ -186,14 +188,13 @@
                 <EditText
                     android:id="@+id/ed_kra_pin"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/black"
                     android:textSize="13sp"
                     android:padding="15dp"
                     android:hint="@string/kra_pin_hint"
                     android:background="@drawable/rectangle_background"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-
 
                 <Button
                     android:fontFamily="@font/montserrat"
@@ -205,14 +206,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-
             </LinearLayout>
 
-
         </LinearLayout>
-
-
-
-
 
 </ScrollView>

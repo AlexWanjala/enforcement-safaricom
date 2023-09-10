@@ -8,7 +8,7 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="welcome">System Login</string>
+    <string name="welcome">Welcome</string>
     <string name="login_des">Enter your correct credentials to continue.</string>
     <string name="login">Login</string>
     <string name="username">Enter your ID No./User name</string>
@@ -372,10 +372,16 @@
     <string name="enter_premises_size">Enter premises Size</string>
     <string name="billing_information">Billing Information</string>
     <string name="business_category">Business category</string>
-     <string name="business_sub_category">Business sub Category</string>
+    <string name="business_sub_category">Business sub Category</string>
     <string name="owner_des">Owner\'s ID</string>
     <string name="business_phone">Business phone no.</string>
     <string name="business_email">business email</string>
     <string name="building">Building</string>
-
+    <string name="being_paid_now">Being Paid Now</string>
+    <string name="send_later">Send Bill No. to Pay Later</string>
+    <string name="proceed">Proceed</string>
+    <string name="business_application">Business Application</string>
+    <string name="contacts_location">Location/Contacts</string>
+    <string name="application_status">Application Status</string>
+    <string name="inspection">inspection</string>
 </resources>

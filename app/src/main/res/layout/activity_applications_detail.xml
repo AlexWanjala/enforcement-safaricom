@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sbp.applications.Applications">
+
+  <LinearLayout
+      android:padding="15dp"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <FrameLayout
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+      <TextView
+          android:fontFamily="@font/montserrat"
+          android:gravity="center"
+          android:textColor="@color/black"
+          android:textSize="18dp"
+          android:textStyle="bold"
+          tools:text="Approved Application"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+      <ImageView
+          android:id="@+id/closeBottom"
+          android:padding="10dp"
+          android:gravity="center"
+          android:layout_gravity="right"
+          android:src="@drawable/close_image"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:textSize="10dp"
+        android:fontFamily="@font/montserrat"
+        android:text="@string/business_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+  </LinearLayout>
+
+
+
+  <View
+      android:background="@color/grey"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"/>
+
+  <LinearLayout
+      android:padding="15dp"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:backgroundTint="@color/bg"
+        android:background="@drawable/bg_round_corner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+      <TextView
+          android:fontFamily="@font/montserrat"
+          android:textColor="@color/black"
+          android:text="Sherrif Supermaket"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"/>
+
+      <TextView
+          android:textColor="@color/labels"
+          android:fontFamily="@font/montserrat"
+          android:layout_marginTop="5dp"
+          android:textSize="10dp"
+          android:text="The Twin tower. Next to next gen supermarket"
+          android:layout_width="200dp"
+          android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginTop="20sp"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:backgroundTint="@color/bg"
+        android:background="@drawable/bg_round_corner"
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:fontFamily="@font/montserrat"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        android:text="@string/application_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <include layout="@layout/recycler_view"/>
+
+
+    <Button
+        android:fontFamily="@font/montserrat"
+        android:background="@drawable/bg_fill_primary"
+        android:id="@+id/login"
+        android:layout_gravity="right"
+        android:layout_marginTop="20dp"
+        android:text="@string/inspection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+  </LinearLayout>
+
+
+
+
+</LinearLayout>

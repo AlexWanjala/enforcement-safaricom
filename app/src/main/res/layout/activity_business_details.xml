@@ -5,14 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sbp.BusinessOwner">
+    tools:context=".sbp.application.BusinessOwner">
 
 
     <LinearLayout
+        android:id="@+id/mainLinearLayoutLL"
         android:layout_gravity="top"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <FrameLayout
             android:padding="20sp"
             android:gravity="center"
@@ -91,7 +93,7 @@
             <EditText
                 android:id="@+id/ed_business_name"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/business_name_hint"
@@ -196,7 +198,7 @@
             <EditText
                 android:id="@+id/ed_plot_number"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/select_plot_hint"
@@ -220,7 +222,7 @@
             <EditText
                 android:id="@+id/ed_physical_address"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/physical_address_hint"
@@ -245,7 +247,7 @@
             <EditText
                 android:id="@+id/ed_building_name"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/building_name_hint"
@@ -358,6 +360,7 @@
 
 
                     <EditText
+                        android:textColor="@color/black"
                         android:id="@+id/ed_room_no"
                         android:textSize="12sp"
                         android:hint="@string/stall_no_hint"
@@ -389,7 +392,7 @@
                 android:drawableTint="@color/grey"
                 android:backgroundTint="@color/grey"
                 android:fontFamily="@font/montserrat"
-                android:background="@drawable/bg_fill_disabled"
+                android:background="@drawable/bg_fill_primary"
                 android:id="@+id/btn_next"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="60dp"

@@ -10,9 +10,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.BitmapDrawable
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
@@ -20,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -34,7 +30,6 @@ import com.aw.forcement.adapters.LoopingSnapHelper
 import com.aw.forcement.history.MyHistory
 import com.aw.forcement.others.*
 import com.aw.passanger.api.*
-import com.aw.passanger.api.parking
 import com.bekawestberg.loopinglayout.library.LoopingLayoutManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -53,7 +48,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.aw.forcement.ro.MainRoActivity
-import com.aw.forcement.sbp.BusinessDetails
+import com.aw.forcement.sbp.application.BusinessOwner
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main_page.contact
 import kotlinx.android.synthetic.main.activity_main_page.openDrawer
@@ -64,8 +59,6 @@ import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.bottomSheetLayoutContact
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.*
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 
@@ -138,7 +131,7 @@ class Home : AppCompatActivity() {
 
 
          fl_initiate_application.setOnClickListener {
-             startActivity(Intent(this, BusinessDetails::class.java))
+             startActivity(Intent(this, BusinessOwner::class.java))
          }
 
 

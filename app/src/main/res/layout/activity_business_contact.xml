@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".sbp.BusinessOwner">
+    tools:context=".sbp.application.BusinessOwner">
 
 
     <LinearLayout
@@ -89,9 +89,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/ed_full_names"
+                android:inputType="textEmailAddress"
+                android:id="@+id/ed_business_email"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/email_address_hint"
@@ -123,6 +124,7 @@
 
 
                     <EditText
+                        android:id="@+id/ed_postal_address"
                         android:textSize="12sp"
                         android:hint="@string/postal_address"
                         android:padding="13dp"
@@ -151,6 +153,7 @@
 
 
                     <EditText
+                        android:id="@+id/ed_postal_code"
                         android:textSize="12sp"
                         android:hint="@string/postal_conde"
                         android:padding="13dp"
@@ -175,9 +178,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <EditText
-                android:id="@+id/ed_plot_number"
+                android:inputType="phone"
+                android:id="@+id/ed_business_phone"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/enter_phone_hint"
@@ -210,9 +214,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/ed_physical_address"
+                android:inputType="textPersonName"
+                android:id="@+id/ed_contact_person_names"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/full_names"
@@ -235,9 +240,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
-                android:id="@+id/ed_building_name"
+                android:inputType="number"
+                android:id="@+id/ed_contact_person_idNo"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/id_no_hint"
@@ -296,9 +302,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:inputType="phone"
                 android:id="@+id/ed_contact_person_phone"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/contact_person_phone"
@@ -321,9 +328,10 @@
                 android:layout_height="wrap_content"/>
 
             <EditText
+                android:inputType="textEmailAddress"
                 android:id="@+id/ed_contact_person_email"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/grey"
+                android:textColor="@color/black"
                 android:textSize="13sp"
                 android:padding="15dp"
                 android:hint="@string/contact_person_email"
@@ -332,15 +340,11 @@
                 android:layout_height="wrap_content"/>
 
 
-
-
-
-
             <Button
                 android:drawableTint="@color/grey"
                 android:backgroundTint="@color/grey"
                 android:fontFamily="@font/montserrat"
-                android:background="@drawable/bg_fill_disabled"
+                android:background="@drawable/bg_fill_primary"
                 android:id="@+id/btn_next"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="60dp"
