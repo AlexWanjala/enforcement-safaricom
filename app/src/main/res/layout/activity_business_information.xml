@@ -88,8 +88,6 @@
                 android:text="@string/select_business_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
             <LinearLayout
                 android:padding="10dp"
                 android:background="@drawable/rectangle_background"
@@ -121,8 +119,6 @@
                 android:text="@string/select_business_sub_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
             <LinearLayout
                 android:padding="10dp"
                 android:background="@drawable/rectangle_background"

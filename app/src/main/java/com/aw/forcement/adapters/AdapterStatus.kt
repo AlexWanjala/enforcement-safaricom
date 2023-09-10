@@ -1,8 +1,5 @@
-/*
 package com.aw.forcement.adapters
 
-import OrderStatuses
-import SearchResult
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,22 +10,22 @@ import android.widget.RadioButton
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.aw.forcement.R
 import com.loukwn.stagestepbar.StageStepBar
 import kotlinx.android.synthetic.main.item.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import java.util.Objects
 
 
-class AdapterStatus(private val context: Context, private val dataSet: List<OrderStatuses>) :
+class AdapterStatus(private val context: Context, private val dataSet: List<Objects>) :
         RecyclerView.Adapter<AdapterStatus.ViewHolder>() {
 
 
-    */
-/**
+    /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
-     *//*
-
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val stageStepBar: StageStepBar
         val tvStatus: TextView
@@ -53,9 +50,10 @@ class AdapterStatus(private val context: Context, private val dataSet: List<Orde
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = dataSet[position]
-        viewHolder.tvStatus.text = item.orderStatus
+
+      /*  viewHolder.tvStatus.text = item.orderStatus
         viewHolder.tvStatusDes.text = item.status
-        viewHolder.stageStepBar.setCurrentState(StageStepBar.State(item.completed.toInt(),0))
+        viewHolder.stageStepBar.setCurrentState(StageStepBar.State(item.completed.toInt(),0))*/
 
     }
 
@@ -63,4 +61,3 @@ class AdapterStatus(private val context: Context, private val dataSet: List<Orde
     override fun getItemCount() = dataSet.size
 
 }
-*/

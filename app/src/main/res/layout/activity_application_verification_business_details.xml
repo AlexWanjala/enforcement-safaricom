@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sbp.applications.Applications">
+
+    <LinearLayout
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/application_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:textSize="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+    <View
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/primay_color"
+                android:text="@string/business_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:background="@color/primay_color"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Business Name-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:background="@color/strip"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/business_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="Levetot Limited"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--Sub County-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/sub_county"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="NDIWA"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--Ward-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:background="@color/strip"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/ward"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="ward Name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--Physical Address-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/physical_address"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="Nairobi West"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+
+            <!--Building Name-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/building_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="The Tower"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--Floor Number-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/floor_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="34"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+
+            <!--Room/Stall No-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/stall_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="39"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+            <Button
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_fill_primary"
+                android:id="@+id/login"
+                android:layout_gravity="right"
+                android:layout_marginTop="20dp"
+                android:text="@string/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:backgroundTint="@color/circle_color"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_outline_white"
+                android:id="@+id/btn_previous"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/circle_color"
+                android:text="@string/previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+</LinearLayout>
+
+</LinearLayout>

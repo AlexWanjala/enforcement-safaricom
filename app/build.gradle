@@ -160,6 +160,14 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
 
 
+    //steps bar
+    // Add only this one if you want to include the View version
+    //https://github.com/loukwn/StageStepBar
+    implementation 'com.github.loukwn.StageStepBar:stagestepbar:1.1.0'
+    // Add only this one if you want to include the Compose version
+    implementation 'com.github.loukwn.StageStepBar:stagestepbar-compose:1.1.0'
+
+
 }
 
 

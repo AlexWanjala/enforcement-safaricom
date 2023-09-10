@@ -5,16 +5,16 @@
     android:layout_width="wrap_content"
     android:layout_height="60dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
- <!--   <com.loukwn.stagestepbar.StageStepBar
+    <com.loukwn.stagestepbar.StageStepBar
         app:ssb_thumbSize="0dp"
         app:ssb_filledTrackColor="@color/black"
         app:ssb_verticalDirection="ttb"
         app:ssb_orientation="vertical"
-        android:id="@+id/stageStepBar"
         android:layout_width="50dp"
+        android:id="@+id/stageStepBar"
         android:layout_height="wrap_content"
         app:ssb_stageStepConfig="1"
-        app:ssb_animationDuration="2000"/>-->
+        app:ssb_animationDuration="2000"/>
 
     <LinearLayout
         android:layout_weight="4"

@@ -196,7 +196,7 @@
     <string name="compliance">compliance status</string>
     <string name="all">all inspections</string>
     <string name="trans_code">Transaction Code</string>
-    <string name="acc_ref">Acc Ref</string>
+    <string name="acc_ref">Ref No.</string>
     <string name="date">Date</string>
     <string name="date_paid">Date paid</string>
     <string name="last">last checkpoint</string>
@@ -222,6 +222,8 @@
     <string name="ward">Ward</string>
     <string name="last_business_information">Last Business information</string>
     <string name="business_activity_description">Business Activity Description*</string>
+    <string name="business_description">Business Description</string>
+    <string name="business_details">business details</string>
     <string name="email">Email</string>
     <string name="submit">Submit</string>
     <string name="request">Request Sent Successfully</string>
@@ -316,6 +318,7 @@
     <string name="application_declined_des">Get to approve application if all the requirements are met</string>
     <string name="active_business">List of Active Businesses</string>
     <string name="active_business_des">View all active businesses within Ndhiwa Sub County</string>
+    <string name="application_verification">Application Verification</string>
     <string name="rents">Rents</string>
     <string name="rents_des">Efficient tenant payment request and tracking.</string>
     <string name="sbp_permits">SBP Permits</string>
@@ -356,6 +359,7 @@
     <string name="contact_person">Contact Person</string>
     <string name="enter_name_hint">Enter Name</string>
     <string name="id_no">ID No. *</string>
+    <string name="id_no_">ID No</string>
     <string name="id_no_hint">Enter ID</string>
     <string name="contact_hint">Contact Person\'s Role</string>
     <string name="contact_person_phone">Contact person phone number*</string>
@@ -365,6 +369,7 @@
     <string name="select_business_category">Select Business Category</string>
     <string name="select_business_sub_category">Select Business Sub Category</string>
     <string name="premises_size">Premises Size in M2 *</string>
+    <string name="premises_size_">Premises Size in M2</string>
     <string name="premises_size_des">Enter premises Size</string>
     <string name="number_of_employees">Number of Employees</string>
     <string name="vehicle_tonnage">Vehicle Tonnage</string>
@@ -384,4 +389,16 @@
     <string name="contacts_location">Location/Contacts</string>
     <string name="application_status">Application Status</string>
     <string name="inspection">inspection</string>
+    <string name="update">Update</string>
+    <string name="check">Check this option if you are at the business\'s Premises</string>
+    <string name="business_location">I am at the business\'s location</string>
+    <string name="date_created">Date Created</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="bill_created_by">BILL CREATED BY</string>
+    <string name="validated_amount">Validated Amount</string>
+    <string name="remaining_balance">Remaining Balance</string>
+    <string name="application_validation_findings">APPLICATIONS VALIDATIONS FINDINGS</string>
+    <string name="comments">Comments</string>
+    <string name="observations_hint">Enter some of the observations you have made</string>
+
 </resources>

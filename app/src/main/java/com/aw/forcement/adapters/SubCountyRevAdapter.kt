@@ -88,7 +88,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 
 		holder.tv_number.text = list.position_rank
-		val nameSub = getName(list.subCountyID.toString())
+		val nameSub = list.subCountyID.toString() //getName() //todo to change the values
 
 		val names = nameSub.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 		holder.tv_name.text = names

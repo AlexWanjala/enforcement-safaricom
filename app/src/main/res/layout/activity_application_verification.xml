@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sbp.applications.Applications">
+
+    <LinearLayout
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/application_verification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:textSize="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="@string/business_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+    <View
+        android:background="@color/grey"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <LinearLayout
+        android:padding="15dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/primay_color"
+                android:text="@string/business_owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                android:background="@color/primay_color"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!--Names-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:background="@color/strip"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/full_names"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="Alex Wanjala"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+        </LinearLayout>
+
+            <!--IdNo-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/id_no_"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="32699686"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--phone-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:background="@color/strip"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/company_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="0719401837"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--Email-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="boeyalex@gmail.com"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+
+            <!--kra pin-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="boeyalex@gmail.com"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+            <!--kra pin-->
+            <LinearLayout
+                android:padding="5dp"
+                android:weightSum="1"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:layout_weight="0.4"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:text="@string/pin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:gravity="right"
+                    android:layout_weight="0.5"
+                    android:textAllCaps="true"
+                    android:textColor="@color/primay_color"
+                    android:text="PIN9292937373"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <include layout="@layout/button"/>
+
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+        <Button
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_fill_primary"
+            android:id="@+id/login"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="@string/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
+
+
+
+
+</LinearLayout>
+
+</LinearLayout>
