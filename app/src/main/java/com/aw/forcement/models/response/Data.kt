@@ -39,6 +39,9 @@ data class Data (
 	@SerializedName("floors") val floors : List<Floors>,
 	@SerializedName("roles") val roles : List<Roles>,
 	@SerializedName("tonnage") val tonnage : List<Tonnage>,
-	@SerializedName("business") val business : Business
+	@SerializedName("businesses") val businesses : List<Businesses>,
+	@SerializedName("entries") val entries : Entries,
+	@SerializedName("business") val business : Business,
+	@SerializedName("statuses") val statuses : List<Statuses>
 
 )

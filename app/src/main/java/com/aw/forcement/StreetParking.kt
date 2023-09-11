@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street_parking.*
+import kotlinx.android.synthetic.main.activity_street_parking.imageClose
+import kotlinx.android.synthetic.main.activity_street_parking.tvAmount
+import kotlinx.android.synthetic.main.activity_street_parking.tvSendPushDisabled
+import kotlinx.android.synthetic.main.activity_street_parking.tv_message
 import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
@@ -23,9 +27,12 @@ import kotlin.collections.ArrayList
 class StreetParking : AppCompatActivity(){
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-    lateinit var category_code: String
-    lateinit var duration : String
+    lateinit var feeDescription: String
+    lateinit var incomeTypeDescription : String
     lateinit var payer : String
+
+    lateinit var amount: String
+    lateinit var feeId: String
 
     lateinit var messageBoxView : View
     lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
@@ -40,12 +47,11 @@ class StreetParking : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street_parking)
 
-        // Initialize messageBoxView here
+        //Initialize messageBoxView here
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
         messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
         messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
 
-        getCategory()
         tvSendPush.setOnClickListener {
             if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Please input Number Plate",Toast.LENGTH_LONG).show()
@@ -55,12 +61,14 @@ class StreetParking : AppCompatActivity(){
                 }else{
                     tvSendPush.visibility = View.GONE
                     tvSendPushDisabled.visibility = View.VISIBLE
-                    matatuPayment()
+                    generateParkingPayment()
                 }
             }
         }
 
         imageClose.setOnClickListener { finish() }
+
+        getIncomeTypes()
 
     }
     @RequiresApi(Build.VERSION_CODES.O)
@@ -68,103 +76,16 @@ class StreetParking : AppCompatActivity(){
         finish()
         super.onBackPressed()
     }
-    private fun getCategory(){
-        progressBar1.visibility = View.VISIBLE
-        val formData = listOf(
-            "function" to "getZones",
-        )
-        executeRequest(formData, parking,object : CallBack {
-            override fun onSuccess(result: String?) {
-                runOnUiThread {  progressBar1.visibility = View.GONE }
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-                     //spinner_zone
-                    runOnUiThread {
-                        progressBar1.visibility = View.GONE
-
-                        for(data in response.data.categories){
-                            arrayList.add(data.category)
-                        }
-
-                        for(data in response.data.durations){
-                            arrayList2.add(data.duration)
-                        }
-
-                        //Spinner
-                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList)
-                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        spinner_search2.adapter = adapters
-                        spinner_search2.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-
-                                category_code = response.data.categories[postion].category
-                                getParkingCharges()
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                            }
-                        }
-
-                        //Zones
-                        val adaptersZone = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList2)
-                        adaptersZone.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        spinner_zone.adapter = adaptersZone
-                        spinner_zone.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-
-                                duration = response.data.durations[postion].duration
-                                runOnUiThread { tvDuration.text = duration }
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                            }
-                        }
-                    }
-
-                }else{
-                    runOnUiThread {
-                      //  Toast.makeText(this@Pay,response.message, Toast.LENGTH_LONG).show()
-                    }
-
-                }
-
-            }
-
-        })
 
 
-    }
-    private fun getParkingCharges(){
-        tv_message.text =""
-        val formData = listOf(
-            "function" to "getParkingCharges",
-            "category" to category_code,
-            "duration" to duration,
-            "zone" to getValue(this,"zone").toString(),
-        )
-        executeRequest(formData, parking,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-                    runOnUiThread { tvAmount.text = "KES "+response.data.feesAndCharge.unitFeeAmount }
-                }
-                else{
-                   runOnUiThread {
-                       tv_message.text = response.message
-                   }
-                }
-            }
-        })
-    }
-    private fun matatuPayment(){
+    private fun generateParkingPayment(){
         showMessageBox()
-        tv_message.text ="Generating bill please wait..$duration $category_code"
-        (messageBoxView as View?)!!.tv_message.text ="Generating bill please wait..$duration $category_code"
+        tv_message.text ="Generating bill please wait..$incomeTypeDescription $feeDescription"
+        (messageBoxView as View?)!!.tv_message.text ="Generating bill please wait..$incomeTypeDescription $feeDescription"
         val formData = listOf(
-            "function" to "matatuPayment",
+            "function" to "generateParkingPayment",
             "numberPlate" to edPlate.text.toString(),
-            "category" to category_code,
-            "duration" to duration,
+            "feeId" to feeId,
             "zone" to getValue(this,"zone").toString(),
             "names" to getValue(this,"names").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
@@ -277,8 +198,8 @@ class StreetParking : AppCompatActivity(){
                                 response.data.transaction.transaction_code,
                                 response.data.transaction.names,
                                 response.data.transaction.amount,
-                                "${category_code} ${edPhone.text}",
-                                duration
+                                "${feeDescription} ${edPhone.text}",
+                                incomeTypeDescription
                             )
 /*
                             transactionCode.text = response.data.push.transaction_code
@@ -393,8 +314,97 @@ class StreetParking : AppCompatActivity(){
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss()  }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
-            matatuPayment()
+            generateParkingPayment()
         }
 
+    }
+
+
+    private fun getIncomeTypes (){
+
+        val formData = listOf(
+            "function" to "getIncomeTypes",
+            "incomeTypePrefix" to "PKN",
+
+            )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+
+                        for(data in response.data.incomeTypes){
+                            arrayList.add(data.incomeTypeDescription)
+                        }
+
+                        //Spinner
+                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList)
+                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                        spinnerIncomeType.adapter = adapters
+                        spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+                                incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+                                spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
+                            }
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                            }
+                        }
+                    }
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@StreetParking,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+
+        })
+    }
+    private fun spinnerFeeAndCharges (incomeTypeId: String){
+        val formData = listOf(
+            "function" to "getFeesAndCharges",
+            "incomeTypeId" to incomeTypeId,
+        )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                runOnUiThread {  arrayList2.clear()
+                    val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList2)
+                    adapters.clear()
+                    if(response.success){
+                        runOnUiThread {
+
+                            for(data in response.data.feesAndCharges){
+                                arrayList2.add(data.feeDescription +" - "+ data.zone)
+                            }
+
+                            //Spinner
+                            adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                            spinnerFeeAndCharges.adapter = adapters
+                            spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+                                    feeDescription =  response.data.feesAndCharges[postion].feeDescription
+                                    amount = response.data.feesAndCharges[postion].unitFeeAmount
+                                    feeId = response.data.feesAndCharges[postion].feeId
+
+                                    runOnUiThread { tvAmount.text = "KES $amount" }
+
+                                }
+                                override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        spinnerFeeAndCharges.adapter = null
+                        Toast.makeText(this@StreetParking,response.message, Toast.LENGTH_LONG).show() }
+                }
+
+            }
+
+        })
     }
 }

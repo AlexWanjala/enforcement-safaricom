@@ -88,7 +88,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 
 		holder.tv_number.text = list.position_rank
-		val nameSub = list.subCountyID.toString() //getName() //todo to change the values
+		val nameSub = getName(list.subCountyID.toString())
 
 		val names = nameSub.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 		holder.tv_name.text = names
@@ -97,7 +97,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 	}
 
-	fun isEven(number: Int): Boolean {
+	private fun isEven(number: Int): Boolean {
 		return number % 2 ==0
 	}
 
@@ -125,15 +125,15 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 	fun getName(subCountyID: String): String {
 		val nameMap = mapOf(
-			"43247" to "Kisumu Central",
-			"43251" to "Kisumu East",
-			"43246" to "Kisumu West",
-			"43248" to "Nyakach",
-			"43252" to "Nyando",
-			"43249" to "Muhoroni",
-			"43245" to "Seme",
-			"43253" to "Kisumu Central",
-			"43250" to "Kisumu East"
+			"43247" to "Narok North,",
+			"43251" to "Narok South",
+			"43246" to "Narok East",
+			"43248" to "Narok West",
+			"43252" to "Emurua Dikirr",
+			"43249" to "Kilgoris",
+			"43245" to "Narok Town",
+			"43253" to "Maasai Mara",
+			"43250" to "Suswa"
 		)
 		return nameMap[subCountyID] ?: "Unknown"
 	}

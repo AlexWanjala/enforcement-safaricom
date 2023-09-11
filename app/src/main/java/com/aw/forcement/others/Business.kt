@@ -17,7 +17,7 @@ class Business : AppCompatActivity() {
 
         back.setOnClickListener { finish() }
         val response = Gson().fromJson(intent.getStringExtra("result"), Json4Kotlin_Base::class.java)
-        tvBusinessId.text = response.data.permit.businessID
+    /*    tvBusinessId.text = response.data.permit.businessID
         tvBusinessName.text = response.data.permit.businessName
         tvOwner.text = response.data.permit.telephone1 +"-"+ response.data.permit.telephone2
         tvActivity.text = response.data.permit.brimsCode+"-"+ response.data.permit.businessActivity
@@ -29,7 +29,7 @@ class Business : AppCompatActivity() {
         tvBox.text = response.data.permit.postalCode
         tvDetailedActivity.text = response.data.permit.businessActivityDescription
         tvStatus.text = response.data.permit.status
-        tvSBPFee.text = response.data.permit.receiptAmount
+        tvSBPFee.text = response.data.permit.receiptAmount*/
 
     }
 }

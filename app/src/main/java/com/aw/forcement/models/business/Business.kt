@@ -13,6 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class Business (
+
 	@SerializedName("id") val id : Int,
 	@SerializedName("businessID") val businessID : String,
 	@SerializedName("businessName") val businessName : String,
@@ -43,5 +44,10 @@ data class Business (
 	@SerializedName("ownerID") val ownerID : String,
 	@SerializedName("ownerPhone") val ownerPhone : String,
 	@SerializedName("ownerEmail") val ownerEmail : String,
-	@SerializedName("kraPin") val kraPin : String
+	@SerializedName("kraPin") val kraPin : String,
+	@SerializedName("createdBy") val createdBy : String,
+	@SerializedName("createdByIDNo") val createdByIDNo : String,
+	@SerializedName("dateCreated") val dateCreated : String,
+	@SerializedName("lat") val lat : String,
+	@SerializedName("lng") val lng : String
 )

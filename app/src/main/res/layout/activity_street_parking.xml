@@ -83,7 +83,7 @@
                     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                         android:gravity="center"
                         android:elevation="5dp"
-                        android:id="@+id/spinner_zone"
+                        android:id="@+id/spinnerIncomeType"
                         android:layout_width="match_parent"
                         android:layout_height="24dp" />
 
@@ -109,7 +109,7 @@
                     <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                         android:gravity="center"
                         android:elevation="5dp"
-                        android:id="@+id/spinner_search2"
+                        android:id="@+id/spinnerFeeAndCharges"
                         android:layout_width="match_parent"
                         android:layout_height="24dp" />
 

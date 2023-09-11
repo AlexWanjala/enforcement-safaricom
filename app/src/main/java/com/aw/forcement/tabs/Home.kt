@@ -49,6 +49,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.aw.forcement.ro.MainRoActivity
 import com.aw.forcement.sbp.application.BusinessOwner
+import com.aw.forcement.sbp.applications.Applications
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main_page.contact
 import kotlinx.android.synthetic.main.activity_main_page.openDrawer
@@ -132,6 +133,11 @@ class Home : AppCompatActivity() {
 
          fl_initiate_application.setOnClickListener {
              startActivity(Intent(this, BusinessOwner::class.java))
+         }
+
+         fl_application_validation.setOnClickListener {
+             save(this,"header","Application Validation")
+             startActivity(Intent(this, Applications::class.java))
          }
 
 

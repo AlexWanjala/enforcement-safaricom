@@ -1,5 +1,6 @@
 package com.aw.forcement.adapters
 
+import Statuses
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ import java.text.NumberFormat
 import java.util.Objects
 
 
-class AdapterStatus(private val context: Context, private val dataSet: List<Objects>) :
+class AdapterStatus(private val context: Context, private val dataSet: List<Statuses>) :
         RecyclerView.Adapter<AdapterStatus.ViewHolder>() {
 
 
@@ -51,9 +52,15 @@ class AdapterStatus(private val context: Context, private val dataSet: List<Obje
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val item = dataSet[position]
 
-      /*  viewHolder.tvStatus.text = item.orderStatus
-        viewHolder.tvStatusDes.text = item.status
-        viewHolder.stageStepBar.setCurrentState(StageStepBar.State(item.completed.toInt(),0))*/
+        viewHolder.tvStatus.text = item.status
+        viewHolder.tvStatusDes.text = item.description
+
+        if(item.completed =="true"){
+            viewHolder.stageStepBar.setCurrentState(StageStepBar.State(1,0))
+        }else{
+            viewHolder.stageStepBar.setCurrentState(StageStepBar.State(0,0))
+        }
+
 
     }
 

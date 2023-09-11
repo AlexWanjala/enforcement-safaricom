@@ -24,5 +24,6 @@ data class FeesAndCharges (
 	@SerializedName("feeType") val feeType : String,
 	@SerializedName("costCenterNo") val costCenterNo : String,
 	@SerializedName("accountDesc") val accountDesc : String,
-	@SerializedName("typeDescription") val typeDescription : String
+	@SerializedName("typeDescription") val typeDescription : String,
+	@SerializedName("zone") val zone : String
 )

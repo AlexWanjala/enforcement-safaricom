@@ -1,15 +1,19 @@
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.net.ParseException
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
+import com.aw.forcement.others.ReceiptDetails
+import com.aw.forcement.sbp.applications.ApplicationsDetail
 import com.aw.passanger.api.getValue
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -22,12 +26,12 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by Alex Boey on 8/1/2016.
  */
-class SbpAdapter(private val context: Context, mList: List<SubCountiesRevenue>) :
+class SbpAdapter(private val context: Context, mList: List<Businesses>) :
 	RecyclerView.Adapter<SbpAdapter.ViewHolder?>() {
-	private var mList: List<SubCountiesRevenue> = ArrayList<SubCountiesRevenue>()
+	private var mList: List<Businesses> = ArrayList<Businesses>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		var layoutView: LinearLayout = itemView.findViewById<View>(R.id.layoutView) as LinearLayout
+		var layoutView: FrameLayout = itemView.findViewById<View>(R.id.layoutView) as FrameLayout
 		var tv_name: TextView = itemView.findViewById<View>(R.id.tv_name) as TextView
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_status: TextView = itemView.findViewById<View>(R.id.tv_status) as TextView
@@ -43,13 +47,21 @@ class SbpAdapter(private val context: Context, mList: List<SubCountiesRevenue>) 
 	}
 
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-		val list: SubCountiesRevenue = mList[position]
+		val list: Businesses = mList[position]
 
 		if (isEven(position)){
 			holder.layoutView.setBackgroundColor(Color.parseColor("#11707070"))
 		}else{
 			holder.layoutView.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
+		}
+
+		holder.tv_name.text = list.businessName
+		holder.tv_amount.text = "KES "+ list.receiptAmount
+		holder.tv_status.text = list.status
+
+		holder.layoutView.setOnClickListener {
+			context.startActivity(Intent(context,ApplicationsDetail::class.java).putExtra("id",list.id))
 		}
 
 
