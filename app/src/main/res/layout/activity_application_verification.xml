@@ -103,28 +103,36 @@
                 <TextView
                     android:textStyle="bold"
                     android:textSize="12dp"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
-                    android:text="@string/full_names"
+                    android:text="@string/name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:gravity="right"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
                     android:text="Alex Wanjala"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <include layout="@layout/button"/>
-
-
+                <Button
+                    android:onClick="update"
+                    android:id="@+id/btn_name"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="9dp"
+                    android:textColor="@color/white"
+                    android:text="@string/update"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
 
         </LinearLayout>
 
@@ -138,8 +146,8 @@
 
                 <TextView
                     android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:layout_weight="0.4"
+                    android:textSize="11dp"
+                    android:layout_weight="0.2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:text="@string/id_no_"
@@ -148,17 +156,27 @@
 
 
                 <TextView
+                    android:id="@+id/tv_owners_id"
                     android:textStyle="bold"
                     android:textSize="12dp"
                     android:gravity="right"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
                     android:text="32699686"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <include layout="@layout/button"/>
+                <Button
+                    android:onClick="update"
+                    android:id="@+id/btn_id_no"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="9dp"
+                    android:textColor="@color/white"
+                    android:text="@string/update"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
 
 
 
@@ -176,26 +194,36 @@
                 <TextView
                     android:textStyle="bold"
                     android:textSize="12dp"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
-                    android:text="@string/company_phone"
+                    android:text="@string/phone_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
 
                 <TextView
+                    android:id="@+id/tv_phone"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:gravity="right"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
                     android:text="0719401837"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <include layout="@layout/button"/>
+                <Button
+                    android:onClick="update"
+                    android:id="@+id/btn_phone"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="9dp"
+                    android:textColor="@color/white"
+                    android:text="@string/update"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
 
 
 
@@ -212,7 +240,7 @@
                 <TextView
                     android:textStyle="bold"
                     android:textSize="12dp"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:text="@string/email"
@@ -221,21 +249,32 @@
 
 
                 <TextView
+                    android:id="@+id/tv_email"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:gravity="right"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
                     android:text="boeyalex@gmail.com"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <include layout="@layout/button"/>
+                <Button
+                    android:onClick="update"
+                    android:id="@+id/btn_email"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="9dp"
+                    android:textColor="@color/white"
+                    android:text="@string/update"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
 
 
 
             </LinearLayout>
+
 
 
             <!--kra pin-->
@@ -249,43 +288,7 @@
                 <TextView
                     android:textStyle="bold"
                     android:textSize="12dp"
-                    android:layout_weight="0.4"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:text="@string/email"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:gravity="right"
-                    android:layout_weight="0.5"
-                    android:textAllCaps="true"
-                    android:textColor="@color/primay_color"
-                    android:text="boeyalex@gmail.com"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-                <include layout="@layout/button"/>
-
-
-
-            </LinearLayout>
-
-            <!--kra pin-->
-            <LinearLayout
-                android:padding="5dp"
-                android:weightSum="1"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:textStyle="bold"
-                    android:textSize="12dp"
-                    android:layout_weight="0.4"
+                    android:layout_weight="0.2"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:text="@string/pin"
@@ -294,17 +297,28 @@
 
 
                 <TextView
+                    android:id="@+id/tv_kra"
                     android:textStyle="bold"
-                    android:textSize="12dp"
+                    android:textSize="11dp"
                     android:gravity="right"
-                    android:layout_weight="0.5"
+                    android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
                     android:text="PIN9292937373"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <include layout="@layout/button"/>
+                <Button
+                    android:onClick="update"
+                    android:id="@+id/btn_pin"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="9dp"
+                    android:textColor="@color/white"
+                    android:text="@string/update"
+                    android:layout_width="80dp"
+                    android:layout_height="35dp"/>
+
 
 
 

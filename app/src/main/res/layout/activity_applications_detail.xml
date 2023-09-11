@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"/>
 
         <ImageView
-            android:id="@+id/closeBottom"
+            android:id="@+id/close"
             android:padding="10dp"
             android:gravity="center"
             android:layout_gravity="right"
@@ -101,20 +101,25 @@
 
 
       <LinearLayout
+
           android:layout_marginTop="20sp"
-          android:padding="20dp"
           android:orientation="vertical"
           android:backgroundTint="@color/bg"
           android:background="@drawable/bg_round_corner"
           android:layout_width="match_parent"
           android:layout_height="150dp">
 
-
+        <fragment
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:id="@+id/map_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
       </LinearLayout>
 
 
       <TextView
+          android:layout_marginBottom="10dp"
           android:fontFamily="@font/montserrat"
           android:layout_marginTop="10dp"
           android:textColor="@color/black"
@@ -129,7 +134,7 @@
       <Button
           android:fontFamily="@font/montserrat"
           android:background="@drawable/bg_fill_primary"
-          android:id="@+id/login"
+          android:id="@+id/inspection"
           android:layout_gravity="right"
           android:layout_marginTop="20dp"
           android:text="@string/inspection"

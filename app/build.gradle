@@ -136,6 +136,7 @@ dependencies {
     implementation 'com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1'
     implementation 'com.dinuscxj:circleprogressbar:1.3.6'
     implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
 
 
     //Add android.enableJetifier=true to gradle.properties

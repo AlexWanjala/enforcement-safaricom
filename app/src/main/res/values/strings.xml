@@ -16,7 +16,7 @@
     <string name="password">Password</string>
     <string name="search">Search..</string>
     <string name="search_des">search for transaction</string>
-    <string name="name">Alex Wanjala</string>
+    <string name="name">Name</string>
     <string name="px">AL</string>
     <string name="county">County Government</string>
     <string name="enforcement">Enforcement</string>
@@ -400,5 +400,6 @@
     <string name="application_validation_findings">APPLICATIONS VALIDATIONS FINDINGS</string>
     <string name="comments">Comments</string>
     <string name="observations_hint">Enter some of the observations you have made</string>
-
+    <string name="phone_number">Phone</string>
+    <string name="change">change</string>
 </resources>
