@@ -33,6 +33,8 @@ data class Business (
 	@SerializedName("businessDes") val businessDes : String,
 	@SerializedName("businessCategory") val businessCategory : String,
 	@SerializedName("businessSubCategory") val businessSubCategory : String,
+	@SerializedName("incomeTypeId") val incomeTypeId : String,
+	@SerializedName("feeId") val feeId : String,
 	@SerializedName("businessEmail") val businessEmail : String,
 	@SerializedName("postalAddress") val postalAddress : String,
 	@SerializedName("postalCode") val postalCode : String,

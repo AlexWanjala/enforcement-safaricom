@@ -94,7 +94,6 @@ class BusinessActivityInformation : AppCompatActivity() {
 
         })
     }
-
     private fun getTonnage (){
 
         val formData = listOf(

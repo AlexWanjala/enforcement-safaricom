@@ -342,6 +342,7 @@
             android:layout_height="wrap_content"/>
 
         <CheckBox
+            android:id="@+id/checkbox"
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textColor="@color/primay_color"

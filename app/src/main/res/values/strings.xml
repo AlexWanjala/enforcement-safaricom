@@ -371,7 +371,7 @@
     <string name="premises_size">Premises Size in M2 *</string>
     <string name="premises_size_">Premises Size in M2</string>
     <string name="premises_size_des">Enter premises Size</string>
-    <string name="number_of_employees">Number of Employees</string>
+    <string name="number_of_employees">No. of Employees</string>
     <string name="vehicle_tonnage">Vehicle Tonnage</string>
     <string name="business_description_optional">Business description (Optional)</string>
     <string name="enter_premises_size">Enter premises Size</string>
