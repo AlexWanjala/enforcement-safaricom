@@ -119,6 +119,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_bill_no"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -152,6 +153,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_date_created"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -186,6 +188,7 @@
 
 
                     <TextView
+                        android:id="@+id/tv_payment_status"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -218,6 +221,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_receipt_no"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -251,6 +255,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_payment_mode"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -283,6 +288,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_ref"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -317,6 +323,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_bill_created_by"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -350,6 +357,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_paid_by"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -384,6 +392,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_date_paid"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -417,6 +426,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_billed_amount"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -451,6 +461,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_receipt_amount"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
@@ -483,12 +494,13 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_validated_amount"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
                         android:layout_weight="0.5"
                         android:textAllCaps="true"
-                        android:textColor="@color/primay_color"
+                        android:textColor="@color/red"
                         android:text="kes 3,900.00"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -517,12 +529,13 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_remaining_amount"
                         android:textStyle="bold"
                         android:textSize="12dp"
                         android:gravity="right"
                         android:layout_weight="0.5"
                         android:textAllCaps="true"
-                        android:textColor="@color/primay_color"
+                        android:textColor="@color/red"
                         android:text="0.00"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -559,6 +572,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/layout"
                     android:padding="20sp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_round_corner"
@@ -566,6 +580,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_message"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
                         android:text="There were 0 changes done and there was a match between validation and the application stages. "

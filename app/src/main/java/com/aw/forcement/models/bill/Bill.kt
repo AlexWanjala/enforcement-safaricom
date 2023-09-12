@@ -12,22 +12,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Entries (
+data class Bill (
 
-	@SerializedName("id") val id : Int,
-	@SerializedName("billNo") val billNo : String,
-	@SerializedName("businessID") val businessID : String,
-	@SerializedName("businessName") val businessName : String,
-	@SerializedName("duration") val duration : String,
-	@SerializedName("billTotal") val billTotal : String,
-	@SerializedName("receiptAmount") val receiptAmount : String,
-	@SerializedName("billBalance") val billBalance : String,
-	@SerializedName("startDate") val startDate : String,
-	@SerializedName("endDate") val endDate : String,
-	@SerializedName("statusID") val statusID : String,
-	@SerializedName("status") val status : String,
-	@SerializedName("printable") val printable : Boolean,
-	@SerializedName("issuingOfficer") val issuingOfficer : String ?,
-	@SerializedName("designation") val designation : String ?,
-	@SerializedName("dateOfIssue") val dateOfIssue : String
+	@SerializedName("billDetails") val billDetails : BillDetails,
+	@SerializedName("billInfo") val billInfo : List<BillInfo>
 )

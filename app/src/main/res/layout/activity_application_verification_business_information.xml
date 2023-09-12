@@ -355,7 +355,7 @@
         <Button
             android:fontFamily="@font/montserrat"
             android:background="@drawable/bg_fill_primary"
-            android:id="@+id/login"
+            android:id="@+id/btn_next"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
             android:text="@string/next"

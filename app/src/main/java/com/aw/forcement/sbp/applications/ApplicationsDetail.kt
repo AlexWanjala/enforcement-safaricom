@@ -69,7 +69,13 @@ class ApplicationsDetail : AppCompatActivity() {
                         tv_address.text = response.data.business.physicalAddress
 
                         //Store in Const
+                        Const.instance.setOriginalBusiness(response.data.business)
                         Const.instance.setBusiness(response.data.business)
+
+
+                        Const.instance.setEntries(response.data.entries)
+                        Const.instance.setBill(response.data.bill)
+                        Const.instance.setReceipt(response.data.receipt)
 
                         val latLng = LatLng(response.data.business.lat.toDouble(),response.data.business.lng.toDouble())
 

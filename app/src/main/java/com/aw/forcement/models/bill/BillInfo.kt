@@ -16,6 +16,8 @@ data class BillInfo (
 
 	@SerializedName("id") val id : Int,
 	@SerializedName("billNo") val billNo : String,
+	@SerializedName("feeID") val feeID : String,
+	@SerializedName("feeDescription") val feeDescription : String,
 	@SerializedName("fiscalYear") val fiscalYear : String,
 	@SerializedName("paymentCode") val paymentCode : String,
 	@SerializedName("customer") val customer : String,
@@ -23,10 +25,20 @@ data class BillInfo (
 	@SerializedName("periodID") val periodID : String,
 	@SerializedName("wardID") val wardID : String,
 	@SerializedName("subCountyID") val subCountyID : String,
+	@SerializedName("subCountyName") val subCountyName : String,
+	@SerializedName("wardName") val wardName : String,
 	@SerializedName("createdBy") val createdBy : String,
 	@SerializedName("billTotal") val billTotal : String,
 	@SerializedName("receiptAmount") val receiptAmount : String,
 	@SerializedName("billBalance") val billBalance : String,
 	@SerializedName("status") val status : String,
-	@SerializedName("dateCreated") val dateCreated : String
+	@SerializedName("dateCreated") val dateCreated : String,
+	@SerializedName("zone") val zone : String,
+	@SerializedName("departmentID") val departmentID : String,
+	@SerializedName("department") val department : String,
+	@SerializedName("idNo") val idNo : String,
+	@SerializedName("phoneNumber") val phoneNumber : String,
+	@SerializedName("names") val names : String,
+	@SerializedName("customerPhoneNumber") val customerPhoneNumber : String,
+	@SerializedName("category") val category : String
 )

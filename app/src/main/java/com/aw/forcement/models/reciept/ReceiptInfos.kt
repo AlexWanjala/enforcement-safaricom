@@ -17,8 +17,10 @@ data class ReceiptInfos (
 	@SerializedName("id") val id : Int,
 	@SerializedName("receiptNo") val receiptNo : String,
 	@SerializedName("billNo") val billNo : String,
+	@SerializedName("feeID") val feeID : String,
+	@SerializedName("feeDescription") val feeDescription : String,
 	@SerializedName("billTotal") val billTotal : String,
-	@SerializedName("receiptAmount") val receiptAmount : Double,
+	@SerializedName("receiptAmount") val receiptAmount : String,
 	@SerializedName("billBalance") val billBalance : String,
 	@SerializedName("customer") val customer : String,
 	@SerializedName("clientPhoneNo") val clientPhoneNo : String,
@@ -31,7 +33,7 @@ data class ReceiptInfos (
 	@SerializedName("wardName") val wardName : String,
 	@SerializedName("dateCreated") val dateCreated : String,
 	@SerializedName("dateModified") val dateModified : String,
-	@SerializedName("createdBy") val createdBy : String,
+	@SerializedName("createdBy") val createdBy : Int,
 	@SerializedName("modifiedBy") val modifiedBy : String,
 	@SerializedName("printedBy") val printedBy : String,
 	@SerializedName("updated") val updated : String,
@@ -39,8 +41,10 @@ data class ReceiptInfos (
 	@SerializedName("status") val status : String,
 	@SerializedName("zone") val zone : String,
 	@SerializedName("departmentID") val departmentID : String,
+	@SerializedName("department") val department : String,
 	@SerializedName("idNo") val idNo : String,
 	@SerializedName("phoneNumber") val phoneNumber : String,
 	@SerializedName("names") val names : String,
-	@SerializedName("customerPhoneNumber") val customerPhoneNumber : String
+	@SerializedName("customerPhoneNumber") val customerPhoneNumber : String,
+	@SerializedName("category") val category : String
 )

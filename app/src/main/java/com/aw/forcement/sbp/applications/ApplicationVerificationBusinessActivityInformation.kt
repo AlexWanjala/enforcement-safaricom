@@ -2,6 +2,7 @@ package com.aw.forcement.sbp.applications
 
 import Const
 import Json4Kotlin_Base
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -38,17 +39,21 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification_business_information)
 
+           btn_next.setOnClickListener { startActivity(Intent(this, ApplicationVerificationBillingInformation::class.java))}
+
                 val business = Const.instance.getBusiness()
 
                 checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
                     if (isChecked) {
-                     // The checkbox is checked
+
+                     // updating some data in the const
                         val currentBusiness = Const.instance.getBusiness()
                         val newBusiness = currentBusiness
                             .copy(lat = getValue(this,"latitude").toString())
                             .copy(lng =  getValue(this,"longitude").toString())
                             .copy(physicalAddress = getValue(this,"address").toString())
                              Const.instance.setBusiness(newBusiness)
+
 
 
                     } else {
@@ -195,6 +200,11 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                                     val currentBusiness = Const.instance.getBusiness()
                                     val newBusiness = currentBusiness.copy(feeId = feeId).copy(businessSubCategory = business_sub_category)
                                     Const.instance.setBusiness(newBusiness)
+
+                                    //Update the BillTotal
+                                    val currentEntries = Const.instance.getEntries()
+                                    val newEntries = currentEntries.copy(billTotal = response.data.feesAndCharges[postion].unitFeeAmount )
+                                    Const.instance.setEntries(newEntries)
 
                                 }
 
