@@ -1,22 +1,18 @@
 package com.aw.forcement.sbp.applications
 
-import Business
 import Const
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.aw.forcement.R
 import kotlinx.android.synthetic.main.activity_application_verification.*
 import kotlinx.android.synthetic.main.update.*
 import kotlinx.android.synthetic.main.update.view.*
-import kotlin.concurrent.fixedRateTimer
-import android.widget.Toast
-
 
 class ApplicationVerificationOwner : AppCompatActivity() {
 
@@ -26,9 +22,9 @@ class ApplicationVerificationOwner : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification)
 
+        btn_next.setOnClickListener {startActivity(Intent(this,ApplicationVerificationBusinessDetails::class.java)) }
 
         displayValues()
-
     }
 
     private fun displayValues(){
@@ -48,7 +44,6 @@ class ApplicationVerificationOwner : AppCompatActivity() {
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.update, null)
         val messageBoxBuilder = AlertDialog.Builder(this).setView(messageBoxView)
         messageBoxInstance = messageBoxBuilder.show()
-
 
         messageBoxView.tv_title.text = "Change Owner's "+ title
         messageBoxView.ed_message.setText(message)
@@ -90,8 +85,7 @@ class ApplicationVerificationOwner : AppCompatActivity() {
 
             }
 
-
-               displayValues()
+                displayValues()
                 messageBoxInstance.dismiss()
         }
 
@@ -124,6 +118,10 @@ class ApplicationVerificationOwner : AppCompatActivity() {
 
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
 

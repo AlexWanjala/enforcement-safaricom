@@ -1,5 +1,5 @@
 // A singleton class that holds a business object as a property
-class Const private constructor() {
+class Const public constructor() {
 
     // A late-initialized immutable property for the business object
     private lateinit var business: Business

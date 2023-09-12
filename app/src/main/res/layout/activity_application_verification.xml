@@ -119,7 +119,7 @@
                     android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
-                    android:text="Alex Wanjala"
+                    tools:text="Alex Wanjala"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
@@ -163,7 +163,7 @@
                     android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
-                    android:text="32699686"
+                    tools:text="32699686"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
@@ -210,7 +210,7 @@
                     android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
-                    android:text="0719401837"
+                    tools:text="0719401837"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
@@ -256,7 +256,7 @@
                     android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
-                    android:text="boeyalex@gmail.com"
+                    tools:text="boeyalex@gmail.com"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
@@ -304,7 +304,7 @@
                     android:layout_weight="0.7"
                     android:textAllCaps="true"
                     android:textColor="@color/primay_color"
-                    android:text="PIN9292937373"
+                    tools:text="PIN9292937373"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
@@ -334,7 +334,7 @@
         <Button
             android:fontFamily="@font/montserrat"
             android:background="@drawable/bg_fill_primary"
-            android:id="@+id/login"
+            android:id="@+id/btn_next"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
             android:text="@string/next"

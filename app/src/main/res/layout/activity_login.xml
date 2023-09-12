@@ -24,7 +24,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:src="@drawable/meru_banner"
+            android:src="@drawable/banner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 

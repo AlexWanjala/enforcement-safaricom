@@ -14,6 +14,6 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Wards (
 
-	@SerializedName("wardID") val wardID : Int,
+	@SerializedName("wardID") val wardID : String,
 	@SerializedName("wardName") val wardName : String
 )

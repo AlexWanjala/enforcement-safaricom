@@ -205,11 +205,13 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                     save(this@CessPaymentsMatatus,"psvTypeSelection",postion.toString())
                                 }
 
+
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
                                 runOnUiThread {
                                     tvVehicleType.text =  response.data.feesAndCharges[postion].feeDescription
                                     tvAmount.text ="KES $amount"
+                                    tv_message.text =""
                                 }
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {

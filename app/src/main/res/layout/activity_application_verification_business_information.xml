@@ -121,6 +121,7 @@
 
 
           <TextView
+              android:id="@+id/tv_premise"
               android:textStyle="bold"
               android:textSize="12dp"
               android:gravity="right"
@@ -131,9 +132,16 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"/>
 
-          <include layout="@layout/button"/>
-
-
+          <Button
+              android:onClick="update"
+              android:id="@+id/btn_business_premise"
+              android:layout_marginStart="10dp"
+              android:fontFamily="@font/montserrat"
+              android:textSize="9dp"
+              android:textColor="@color/white"
+              android:text="@string/update"
+              android:layout_width="80dp"
+              android:layout_height="35dp"/>
 
         </LinearLayout>
 
@@ -157,6 +165,7 @@
 
 
           <TextView
+              android:id="@+id/tv_business_des"
               android:textStyle="bold"
               android:textSize="12dp"
               android:gravity="right"
@@ -167,8 +176,16 @@
               android:layout_width="0dp"
               android:layout_height="wrap_content"/>
 
-          <include layout="@layout/button"/>
-
+          <Button
+              android:onClick="update"
+              android:id="@+id/btn_business_des"
+              android:layout_marginStart="10dp"
+              android:fontFamily="@font/montserrat"
+              android:textSize="9dp"
+              android:textColor="@color/white"
+              android:text="@string/update"
+              android:layout_width="80dp"
+              android:layout_height="35dp"/>
 
         </LinearLayout>
 
