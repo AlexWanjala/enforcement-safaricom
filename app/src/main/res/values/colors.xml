@@ -25,7 +25,7 @@
     <color name="grey">#3693C5F4</color>
     <color name="grey_indicator">#B2FFFFFF</color>
     <color name="edit_text">#8DC6D2DD</color>
-    <color name="green_zuku">#0067CF</color>
+    <color name="green_zuku">#228B22</color>
     <color name="blue_zuku">#0067CF</color>
     <color name="text_color_grey">#6E6E6E</color>
     <color name="blue_disabled">#0067CF</color>
@@ -33,7 +33,7 @@
     <color name="hint">#828282</color>
     <color name="border_color">#828282</color>
     <color name="color_search">#0067CF</color>
-    <color name="green">#0067CF</color>
+    <color name="green">#228B22</color>
     <color name="menu_color">#101817</color>
     <color name="bg_ajja">#5B707070</color>
     <color name="bottom_color_bar">#707070</color>

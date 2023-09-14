@@ -88,7 +88,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 
 		holder.tv_number.text = list.position_rank
-		val nameSub = getName(list.subCountyID.toString())
+		val nameSub = list.subCountyName
 
 		val names = nameSub.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 		holder.tv_name.text = names
@@ -122,16 +122,17 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 	init {
 		this.mList = mList
 	}
+	//Mvita, Changamwe, Kisauni, Jomvu, Nyali and Likoni.
 
 	fun getName(subCountyID: String): String {
 		val nameMap = mapOf(
-			"43247" to "Narok North,",
-			"43251" to "Narok South",
-			"43246" to "Narok East",
-			"43248" to "Narok West",
-			"43252" to "Emurua Dikirr",
-			"43249" to "Kilgoris",
-			"43245" to "Narok Town",
+			"43247" to "Mvita",
+			"43251" to "Changamwe",
+			"43246" to "Kisauni",
+			"43248" to "Kisauni",
+			"43252" to "Jomvu",
+			"43249" to "Nyali",
+			"43245" to "Likoni",
 			"43253" to "Maasai Mara",
 			"43250" to "Suswa"
 		)

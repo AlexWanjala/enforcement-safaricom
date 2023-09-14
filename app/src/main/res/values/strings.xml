@@ -402,4 +402,5 @@
     <string name="observations_hint">Enter some of the observations you have made</string>
     <string name="phone_number">Phone</string>
     <string name="change">change</string>
+    <string name="application_submitted">Application Submited</string>
 </resources>

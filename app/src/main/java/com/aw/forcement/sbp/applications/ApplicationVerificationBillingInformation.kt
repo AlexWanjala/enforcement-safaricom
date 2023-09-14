@@ -1,23 +1,47 @@
 package com.aw.forcement.sbp.applications
 
 import Const
+import Json4Kotlin_Base
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.aw.forcement.R
+import com.aw.passanger.api.CallBack
+import com.aw.passanger.api.executeRequest
+import com.aw.passanger.api.getValue
+import com.aw.passanger.api.parking
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_application_verification_billing_information.*
+import kotlinx.android.synthetic.main.activity_application_verification_billing_information.tv_message
+import kotlinx.android.synthetic.main.activity_street_parking.*
+import kotlinx.android.synthetic.main.message_box.view.*
+import kotlinx.android.synthetic.main.payment_recieved.view.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ApplicationVerificationBillingInformation : AppCompatActivity() {
+
+
+     lateinit var messageBoxView : View
+     lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewResponse : View
+    lateinit var messageBoxInstanceResponse: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification_billing_information)
 
+        messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        messageBoxViewResponse = LayoutInflater.from(this).inflate(R.layout.succesfull, null)
 
         val originalDate = LocalDateTime.parse(Const.instance.getBill().billDetails.dateCreated.split(".")[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
         val formattedDate = originalDate.format(DateTimeFormatter.ofPattern("dd MMM yyyy hh:mm a"))
@@ -63,10 +87,70 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         }
 
         tv_message.text = changesMessage
-
+        btn_submit.setOnClickListener { submit() }
 
     }
 
+    private fun submit(){
+        (messageBoxView as View?)!!.tv_message.text ="Processing Application"
+        showMessageBox()
+
+        val gson = Gson()
+        val json = gson.toJson(Const.instance.getBusiness())
+
+        val formData = listOf(
+            "function" to "businessValidation",
+            "business" to json,
+
+        )
+        executeRequest(formData, parking,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+
+                        (messageBoxView as View?)!!.tv_message.text ="Submitted"
+                        showMessageResponse()
+                    }
+
+                }
+                else{
+                    runOnUiThread {
+                      Toast.makeText(this@ApplicationVerificationBillingInformation, response.message,Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+        })
+
+
+    }
+    private fun showMessageBox(){
+        // Check if messageBoxView has a parent
+        if (messageBoxView.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+        }
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
+        messageBoxInstance = messageBoxBuilder.show()
+    }
+
+    private fun showMessageResponse(){
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewResponse.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewResponse.parent as ViewGroup).removeView(messageBoxViewResponse)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewResponse as View?
+        )
+        messageBoxInstanceResponse = messageBoxBuilder.show()
+
+    }
 
     private fun getTotalNumberOfChanges(): Int {
         // Get the original and updated business objects from the Const singleton class
@@ -86,8 +170,7 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
 
         return changes
     }
-
-    fun getActualChangesMade(): String {
+    private fun getActualChangesMade(): String {
         // Get the original and updated business objects from the Const singleton class
         val originalBusiness = Const.instance.getOriginalBusiness()
         val updatedBusiness = Const.instance.getBusiness()
@@ -166,7 +249,5 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         }
 
     }
-
-
 
 }

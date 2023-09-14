@@ -43,6 +43,7 @@ class MyHistory : AppCompatActivity() {
      var idNo =""
      var message =""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
@@ -82,12 +83,9 @@ class MyHistory : AppCompatActivity() {
             finish()
         }
 
-
-
-
-        val today = LocalDate.now()
-        val formatter = DateTimeFormatter.ofPattern("d MMM yyyy")
-        val formattedDate = today.format(formatter)
+        val today = org.joda.time.LocalDate.now()
+        val formatter = org.joda.time.format.DateTimeFormat.forPattern("d MMM yyyy")
+        val formattedDate = formatter.print(today)
 
         // Create a Spanned object from an HTML string with an <u> tag
         val spanned = Html.fromHtml("<u> $formattedDate </u>")
@@ -95,8 +93,10 @@ class MyHistory : AppCompatActivity() {
         tv_date_from.text = spanned
         tv_date_to.text = spanned
 
-        val formatter2 = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val formattedDate2 = today.format(formatter2)
+        val formatter2 = org.joda.time.format.DateTimeFormat.forPattern("yyyy-MM-dd")
+        val formattedDate2 = formatter2.print(today)
+
+
         dateFrom = formattedDate2
         dateTo = formattedDate2
 
