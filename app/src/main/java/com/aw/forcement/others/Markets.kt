@@ -65,6 +65,7 @@ class Markets : AppCompatActivity() {
 
             }
         })
+
         tvSendPayment.setOnClickListener {
             if(edQuantity.text.isEmpty()){
                 Toast.makeText(this,"Quantity Required",Toast.LENGTH_LONG).show()
@@ -88,10 +89,28 @@ class Markets : AppCompatActivity() {
         if(edQuantity.text.isNotEmpty()){
             tvUnits.text = "${edQuantity.text} x $amount"
             tvAmount.text = "KES "+  edQuantity.text.toString().toInt() * amount.toString().toInt()
-        }else{
+        }
+        else{
             tvUnits.text =""
             tvAmount.text ="KES 0"
         }
+
+        tvSendPayment.visibility = View.VISIBLE
+        tvSendPushDisabled.visibility = View.GONE
+
+        tvSendPayment.text = "SEND PAYMENT REQUEST"
+        tvSendPayment.setOnClickListener {
+            if(edQuantity.text.isEmpty()){
+                Toast.makeText(this,"Quantity Required",Toast.LENGTH_LONG).show()
+            }else{
+                if(edPhoneNumber.text.isEmpty()){
+                    Toast.makeText(this,"Phone Required",Toast.LENGTH_LONG).show()
+                }else{
+                    generateBill()
+                }
+            }
+        }
+
     }
 
     private fun generateBill (){

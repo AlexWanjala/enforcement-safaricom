@@ -139,7 +139,7 @@
                 android:fontFamily="@font/montserrat"
                 android:textSize="12sp"
                 android:id="@+id/edDescription"
-                android:hint="@string/details_hint"
+                android:hint="@string/details_hint_"
                 android:padding="15dp"
                 android:background="@drawable/rectangle_background"
                 android:layout_width="match_parent"

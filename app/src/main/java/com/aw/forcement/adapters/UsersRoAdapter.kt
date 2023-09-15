@@ -47,7 +47,13 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		val names = list.names.toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
 
 		holder.tv_name.text = names
-		holder.tv_address.text = list.address
+		// Using a ternary operator
+		// Using a ternary operator
+		holder.tv_address.text = if (list.address != null) list.address.replace(
+			"old Value",
+			""
+		) else "No address available"
+
 		holder.tv_logins.text = list.logins
 		holder.tv_transactions.text = list.transactions
 		holder.tv_inspections.text = list.inspections

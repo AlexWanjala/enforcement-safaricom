@@ -370,7 +370,9 @@ class StreetParking : AppCompatActivity(){
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                runOnUiThread {  arrayList2.clear()
+                runOnUiThread {
+                    runOnUiThread { tvAmount.text = "" }
+                    arrayList2.clear()
                     val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList2)
                     adapters.clear()
                     if(response.success){

@@ -127,6 +127,7 @@
     <string name="quantity">Quantity</string>
     <string name="details">Transaction Details</string>
     <string name="details_hint">Enter more details e.g item description</string>
+    <string name="details_hint_">Enter more details e.g Meru to Isiolo</string>
     <string name="quantity_">50 Bags</string>
     <string name="total">Total</string>
     <string name="total_">kes 7,500</string>

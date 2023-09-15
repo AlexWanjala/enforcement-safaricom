@@ -82,12 +82,10 @@
             </LinearLayout>
 
 
-
-
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/cessable"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -115,7 +113,7 @@
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:text="@string/number_plate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -132,6 +130,50 @@
                 android:background="@drawable/rectangle_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="10sp"
+                android:text="@string/quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:inputType="number"
+                android:id="@+id/edQuantity"
+                android:hint="@string/quantity"
+                android:padding="15dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:id="@+id/edDescription"
+                android:hint="@string/details_hint"
+                android:padding="15dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="90dp" />
+
+
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -167,7 +209,7 @@
 
                     <TextView
                         android:fontFamily="@font/montserrat"
-                        android:id="@+id/tvItem"
+                        android:id="@+id/tvUnits"
                         android:textSize="12dp"
                         android:textColor="@color/labels"
                         tools:text="Daily Parking"

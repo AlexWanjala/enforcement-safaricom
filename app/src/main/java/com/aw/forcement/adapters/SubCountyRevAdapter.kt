@@ -126,15 +126,15 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 	fun getName(subCountyID: String): String {
 		val nameMap = mapOf(
-			"43247" to "Mvita",
-			"43251" to "Changamwe",
-			"43246" to "Kisauni",
-			"43248" to "Kisauni",
-			"43252" to "Jomvu",
-			"43249" to "Nyali",
-			"43245" to "Likoni",
-			"43253" to "Maasai Mara",
-			"43250" to "Suswa"
+			"43247" to "Awendo Sub-County",
+			"43251" to "Kuria East Sub-County.",
+			"43246" to "Kuria West Sub-County",
+			"43248" to "Nyatike Sub-County",
+			"43252" to "Rongo Sub-County",
+			"43249" to "Suna East Sub-County",
+			"43245" to "Suna West Sub-County",
+			"43253" to "Uriri Sub-County.",
+			"43250" to "Nyatike Sub-County"
 		)
 		return nameMap[subCountyID] ?: "Unknown"
 	}

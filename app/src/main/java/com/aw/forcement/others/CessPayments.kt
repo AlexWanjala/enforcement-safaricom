@@ -26,7 +26,14 @@ import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_cess_payments.*
+import kotlinx.android.synthetic.main.activity_cess_payments.edPhoneNumber
+import kotlinx.android.synthetic.main.activity_cess_payments.edQuantity
+import kotlinx.android.synthetic.main.activity_cess_payments.imageClose
+import kotlinx.android.synthetic.main.activity_cess_payments.spinnerFeeAndCharges
+import kotlinx.android.synthetic.main.activity_cess_payments.spinnerIncomeType
 import kotlinx.android.synthetic.main.activity_cess_payments.tvAmount
+import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPayment
+import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPushDisabled
 import kotlinx.android.synthetic.main.activity_cess_payments.tv_message
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
@@ -70,16 +77,43 @@ class CessPayments : AppCompatActivity() {
         if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
         initListeners()
+
+        edQuantity.addTextChangedListener(object :TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                amountDisplay()
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+        })
+    }
+
+
+    fun amountDisplay() {
+        if (edQuantity.text.isNotEmpty()) {
+            tvUnits.text = "${edQuantity.text} x $amount"
+            tvAmount.text = "KES " + edQuantity.text.toString().toInt() * amount.toString().toInt()
+        } else {
+            tvUnits.text = ""
+            tvAmount.text = "KES 0"
+        }
     }
 
 
 
-    private fun generateBill (){
+        private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
-            "amount" to amount.toString(),
+            "amount" to (edQuantity.text.toString().toInt() * amount.toString().toInt()).toString(),
             "customer" to edPlate.text.toString(),
             "zone" to getValue(this,"zone").toString(),
             "subCountyID" to getValue(this,"subCountyID").toString(),
@@ -89,7 +123,8 @@ class CessPayments : AppCompatActivity() {
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "customerPhoneNumber" to edPhoneNumber.text.toString(),
-            "names" to getValue(this,"username").toString()
+            "names" to getValue(this,"username").toString(),
+            "description" to edDescription.text.toString(),
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -191,7 +226,7 @@ class CessPayments : AppCompatActivity() {
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
                                runOnUiThread {
-                                   tvItem.text =  response.data.feesAndCharges[postion].feeDescription
+                                   tvUnits.text =  response.data.feesAndCharges[postion].feeDescription
                                    tvAmount.text ="KES "+amount
                                }
                             }
