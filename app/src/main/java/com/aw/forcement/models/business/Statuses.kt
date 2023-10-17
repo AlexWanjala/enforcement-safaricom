@@ -21,5 +21,6 @@ data class Statuses (
 	@SerializedName("description") val description : String,
 	@SerializedName("dateCreated") val dateCreated : String,
 	@SerializedName("completed") val completed : String,
-	@SerializedName("billNo") val billNo : String
+	@SerializedName("billNo") val billNo : String,
+	@SerializedName("comments") val comments : String
 )

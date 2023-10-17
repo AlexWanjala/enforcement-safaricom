@@ -2,21 +2,22 @@ package com.aw.forcement.sbp.applications
 
 import Const
 import Json4Kotlin_Base
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
-import com.aw.passanger.api.parking
+import com.aw.forcement.tabs.Home
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_application_verification_billing_information.*
 import kotlinx.android.synthetic.main.activity_application_verification_billing_information.tv_message
@@ -35,10 +36,16 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
     lateinit var messageBoxViewResponse : View
     lateinit var messageBoxInstanceResponse: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
+     var approvedDeclined =""
+    var stageStatus =""
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification_billing_information)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
 
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
         messageBoxViewResponse = LayoutInflater.from(this).inflate(R.layout.succesfull, null)
@@ -65,7 +72,7 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         tv_receipt_amount.text = "KES " + Const.instance.getBill().billDetails.receiptAmount
         tv_validated_amount.text = "KES " + Const.instance.getEntries().billTotal
 
-        tv_remaining_amount.text = "KES "+(Const.instance.getEntries().billTotal.toDouble() - Const.instance.getBill().billDetails.receiptAmount.toDouble()).toString()
+        tv_remaining_amount.text = "KES "+(Const.instance.getEntries().billTotal.toInt() - Const.instance.getBill().billDetails.receiptAmount.toInt()).toString()
 
         val changes = getTotalNumberOfChanges()
         var changesMessage =""
@@ -73,21 +80,109 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         val actualChangesMade = getActualChangesMade()
 
         if(changes == 0){
-             changesMessage ="There were 0 changes done and $businessSubCategoryMessage"
-            val color = Color.parseColor("#8DC6D2DD")
-            layout.backgroundTintList = ColorStateList.valueOf(color)
-            tv_message.setTextColor(resources.getColor(R.color.black))
+            if(businessSubCategoryMessage==""){
+                changesMessage ="No Changes done. $businessSubCategoryMessage"
+                val color = Color.parseColor("#8DC6D2DD")
+                layout.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message.setTextColor(resources.getColor(R.color.black))
+            }else{
+                changesMessage ="$businessSubCategoryMessage"
+                val color = Color.parseColor("#F35611")
+                layout.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message.setTextColor(Color.parseColor("#CB2020"))
 
-        }else{
-             changesMessage ="You made changes to $actualChangesMade"
+            }
+
+
+        }
+        else{
+             changesMessage ="Changes made to $actualChangesMade. $businessSubCategoryMessage"
             // Create a color object from the hex string
             val color = Color.parseColor("#F35611")
             layout.backgroundTintList = ColorStateList.valueOf(color)
             tv_message.setTextColor(Color.parseColor("#CB2020"))
         }
-
         tv_message.text = changesMessage
-        btn_submit.setOnClickListener { submit() }
+
+
+
+        //For validation that was performed
+        if(Const.instance.getEntries().statusID=="3"){
+            layoutInspection.visibility = View.GONE
+            layoutValidation.visibility = View.VISIBLE
+            btn_decline.visibility = View.VISIBLE
+
+            tv_message_validation.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].description
+
+            if(Const.instance.getBusiness().feeID == Const.instance.getBill().billDetails.feeID){
+                val color = Color.parseColor("#F2F3F8")
+                layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message_validation.setTextColor(Color.parseColor("#5A5A5A"))
+
+                tv_receipt_amount.setTextColor (resources.getColor (R.color.primay_color))
+                tv_validated_amount.setTextColor (resources.getColor (R.color.primay_color))
+
+            }else{
+
+                val color = Color.parseColor("#F35611")
+                layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message_validation.setTextColor(Color.parseColor("#CB2020"))
+
+                tv_receipt_amount.setTextColor (Color.parseColor("#CB2020"))
+                tv_validated_amount.setTextColor (Color.parseColor("#CB2020"))
+            }
+
+        }
+        else if(Const.instance.getEntries().statusID=="4"){
+            layoutInspection.visibility = View.VISIBLE
+            layoutValidation.visibility = View.VISIBLE
+            btn_decline.visibility = View.VISIBLE
+
+            tv_message_validation.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-2].description +" "+ Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-2].comments
+            tv_message_inspection.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].description + " "+  Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].comments
+
+            if(Const.instance.getBusiness().feeID == Const.instance.getBill().billDetails.feeID){
+                val color = Color.parseColor("#F2F3F8")
+                layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message_validation.setTextColor(Color.parseColor("#5A5A5A"))
+
+                layoutInspection.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message_inspection.setTextColor(Color.parseColor("#5A5A5A"))
+
+                tv_receipt_amount.setTextColor (resources.getColor (R.color.primay_color))
+                tv_validated_amount.setTextColor (resources.getColor (R.color.primay_color))
+
+            }else{
+
+                val color = Color.parseColor("#F35611")
+                layoutInspection.backgroundTintList = ColorStateList.valueOf(color)
+                layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
+                tv_message_validation.setTextColor(Color.parseColor("#CB2020"))
+                tv_message_inspection.setTextColor(Color.parseColor("#CB2020"))
+
+                tv_receipt_amount.setTextColor (Color.parseColor("#CB2020"))
+                tv_validated_amount.setTextColor (Color.parseColor("#CB2020"))
+            }
+
+        }
+        else{
+            btn_decline.visibility = View.GONE
+            layoutValidation.visibility = View.GONE
+            layoutInspection.visibility = View.GONE
+
+        }
+
+        btn_decline.setOnClickListener {
+            approvedDeclined ="Declined | "
+            stageStatus ="Declined"
+            submit()
+        }
+
+        btn_submit.setOnClickListener {
+            approvedDeclined =""
+            stageStatus ="Approved"
+            submit()
+        }
 
     }
 
@@ -98,12 +193,22 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         val gson = Gson()
         val json = gson.toJson(Const.instance.getBusiness())
 
+
         val formData = listOf(
             "function" to "businessValidation",
             "business" to json,
+            "description" to approvedDeclined+""+tv_message.text.toString(),
+            "comments" to edComments.text.toString(),
+            "billNo" to  Const.instance.getBill().billDetails.billNo,
+            "statusID" to (Const.instance.getEntries().statusID.toInt() + 1).toString(),
+            "idNo" to getValue(this,"idNo"),
+            "names" to getValue(this,"username"),
+            "phoneNumber" to getValue(this,"phoneNumber").toString(),
+            "balanceAmount" to tv_remaining_amount.text.toString().replace("KES","").replace(" ",""),
+            "stageStatus" to stageStatus
 
         )
-        executeRequest(formData, parking,object : CallBack {
+        executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
@@ -111,6 +216,7 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
                     runOnUiThread {
 
                         (messageBoxView as View?)!!.tv_message.text ="Submitted"
+                        messageBoxInstance.dismiss()
                         showMessageResponse()
                     }
 
@@ -134,10 +240,13 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
             (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
         }
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
+        messageBoxBuilder.setCancelable (false)
         messageBoxInstance = messageBoxBuilder.show()
+
     }
 
     private fun showMessageResponse(){
+
 
         // Check if messageBoxView has a parent
         if (messageBoxViewResponse.parent != null) {
@@ -148,7 +257,14 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewResponse as View?
         )
+        messageBoxBuilder.setCancelable (false)
         messageBoxInstanceResponse = messageBoxBuilder.show()
+
+        messageBoxViewResponse.okay.setOnClickListener {
+            messageBoxInstanceResponse.dismiss()
+            finishAffinity()
+            startActivity(Intent(this, Home::class.java))
+        }
 
     }
 
@@ -193,7 +309,6 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         if (originalBusiness.numberOfEmployees != updatedBusiness.numberOfEmployees) changedProperties.add(Pair("numberOfEmployees", "${originalBusiness.numberOfEmployees} -> ${updatedBusiness.numberOfEmployees}"))
         if (originalBusiness.tonnage != updatedBusiness.tonnage) changedProperties.add(Pair("tonnage", "${originalBusiness.tonnage} -> ${updatedBusiness.tonnage}"))
         if (originalBusiness.businessDes != updatedBusiness.businessDes) changedProperties.add(Pair("businessDes", "${originalBusiness.businessDes} -> ${updatedBusiness.businessDes}"))
-        if (originalBusiness.businessCategory != updatedBusiness.businessCategory) changedProperties.add(Pair("businessCategory", "${originalBusiness.businessCategory} -> ${updatedBusiness.businessCategory}"))
         if (originalBusiness.businessSubCategory != updatedBusiness.businessSubCategory) changedProperties.add(Pair("businessSubCategory", "${originalBusiness.businessSubCategory} -> ${updatedBusiness.businessSubCategory}"))
         if (originalBusiness.businessEmail != updatedBusiness.businessEmail) changedProperties.add(Pair("businessEmail", "${originalBusiness.businessEmail} -> ${updatedBusiness.businessEmail}"))
         if (originalBusiness.postalAddress != updatedBusiness.postalAddress) changedProperties.add(Pair("postalAddress", "${originalBusiness.postalAddress} -> ${updatedBusiness.postalAddress}"))
@@ -240,12 +355,12 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         val updatedBusiness = Const.instance.getBusiness()
 
         // Use a conditional statement to check if there was a mismatch between the subCountyName and the wardName on the original business object
-        if (originalBusiness.businessSubCategory != updatedBusiness.businessSubCategory) {
+        if (originalBusiness.feeID != updatedBusiness.feeID) {
 
-            return "There was a mismatch between the business Sub Category. The applicant will be required to make ad additional payment for this."
+            return "There was a change in Sub Category. ${originalBusiness.businessSubCategory} changed to ${updatedBusiness.businessSubCategory} The applicant will be required to make additional payment for this."
         } else {
 
-            return "There was no mismatch between the business Sub Category"
+            return ""
         }
 
     }

@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:paddingStart="10sp"
     android:layout_marginEnd="10sp"
-    android:paddingBottom="16dp"
-   >
+    android:paddingBottom="16dp">
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -48,15 +47,31 @@
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_amount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat"
-                android:text="KES 23,900"
-                android:textColor="@color/white"
-                android:textSize="26dp"
-                android:textStyle="bold" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="left"
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    android:text="KES 23,900"
+                    android:textColor="@color/white"
+                    android:textSize="26dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_gravity="right"
+                    android:id="@+id/tv_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/montserrat"
+                    tools:text="(20%)"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_marginTop="5dp"
@@ -85,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/montserrat"
-                    android:text="KES 3,240"
+                    tools:text="KES 3,240"
                     android:textColor="@color/white"
                     android:textSize="11dp"
                     android:textStyle="bold" />
@@ -102,6 +117,23 @@
 
 
             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/message2"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:textSize="10dp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="true"
+                android:background="@drawable/bg_round_corner_fill"
+                tools:text="Under Performing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
 
         </LinearLayout>
 

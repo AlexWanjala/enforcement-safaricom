@@ -5,6 +5,7 @@ import HistoryAdapter
 import Json4Kotlin_Base
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.google.gson.Gson
@@ -15,6 +16,7 @@ class ReceiptHistory : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt_history)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val response = Gson().fromJson(intent.getStringExtra("result"), Json4Kotlin_Base::class.java)
 

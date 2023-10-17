@@ -3,6 +3,7 @@ package com.aw.forcement.others
 import Json4Kotlin_Base
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_receipt.*
@@ -13,6 +14,7 @@ class Receipt : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         back.setOnClickListener { finish() }
         val response = Gson().fromJson(intent.getStringExtra("result"), Json4Kotlin_Base::class.java)
         tvReceiptNo.text = response.data.receiptDetails.receiptNo

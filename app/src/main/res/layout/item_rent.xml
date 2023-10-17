@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:weightSum="5"
+    android:padding="10dp"
+    android:id="@+id/layoutView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#11707070"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textAllCaps="true"
+        android:id="@+id/tv_unit_no"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:text="D045"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textAllCaps="true"
+        android:id="@+id/tv_tenant"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:text="Alex Wanjala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textAllCaps="true"
+        android:id="@+id/tv_amount"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:text="KES 30,0000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:textAllCaps="true"
+        android:id="@+id/tv_due"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:text="KES 50,0000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/img_call"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/call_filled"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+</LinearLayout>
+
+
+

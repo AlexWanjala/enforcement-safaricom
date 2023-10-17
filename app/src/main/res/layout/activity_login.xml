@@ -92,7 +92,7 @@
             android:layout_height="wrap_content"/>
 
         <EditText
-            android:maxLength="10"
+
             android:fontFamily="@font/montserrat"
             android:elevation="20dp"
             android:drawablePadding="10dp"
@@ -208,7 +208,7 @@
 
 
         <ImageView
-            android:visibility="gone"
+            android:visibility="visible"
             android:src="@drawable/craft_logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

@@ -90,6 +90,7 @@ class OcrCaptureActivity : AppCompatActivity() {
         super.onCreate(bundle)
         try {
             setContentView(R.layout.ocr_capture)
+
             preview = findViewById<View>(R.id.preview) as CameraSourcePreview
             graphicOverlay = findViewById<View>(R.id.graphicOverlay) as GraphicOverlay<OcrGraphic?>
 

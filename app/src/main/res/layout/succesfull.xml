@@ -46,9 +46,10 @@
 
 
         <Button
+            android:layout_marginBottom="40sp"
             android:fontFamily="@font/montserrat"
             android:background="@drawable/bg_fill_primary"
-            android:id="@+id/resend"
+            android:id="@+id/okay"
             android:layout_gravity="right"
             android:layout_marginTop="20dp"
             android:text="@string/okay"

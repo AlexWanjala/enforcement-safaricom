@@ -4,6 +4,8 @@ import Json4Kotlin_Base
 import MyHistoryAdapter
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,9 +50,9 @@ class MyHistory : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_history)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         idNo = intent.getStringExtra("idNo").toString()
-
 
         message ="My Collections"
 
@@ -200,19 +203,74 @@ class MyHistory : AppCompatActivity() {
 
                         val totalAmount = response.data.myHistory.sumOf{ item -> item.amount.toDouble() }
 
-                        var target = getValue(this@MyHistory,"target").toString()
-                        if(target.isEmpty()){
-                            target = "0"
-                        }
 
-                        val targetMarginValue = target.toDouble() - totalAmount
-                        targetMargin.text = targetMarginValue.toString()
+                        targetMargin.text = "${response.data.myOverview.units} ${response.data.myOverview.difference}"
+                        message2.text = response.data.myOverview.message2
+
+                        tv_percentage.text = response.data.myOverview.percentage
 
                         val df = DecimalFormat("#,##0.00")
                         df.roundingMode = RoundingMode.HALF_UP
                         tv_amount.text ="KES "+ df.format(totalAmount)
 
                         tv_number.text = response.data.myHistory.size.toString()
+
+                        val list =  response.data.myOverview.message2
+
+                        if(list=="Under Performing"){
+
+                            val colorStateList1 = ColorStateList.valueOf(Color.parseColor("#F44242"))
+                            banner.backgroundTintList = colorStateList1
+
+
+                            val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+                            message2.backgroundTintList = colorStateList
+
+                        }
+                        else if(list=="You are Below Average"){
+
+                            val colorStateList1 = ColorStateList.valueOf(Color.parseColor("#F4B342"))
+                            banner.backgroundTintList = colorStateList1
+
+                            val colorStateList = ColorStateList.valueOf(Color.parseColor("#F44242"))
+                            message2.backgroundTintList = colorStateList
+                            message2.setTextColor(Color.parseColor("#FFFFFF"))
+
+                            tv_amount.setTextColor(Color.parseColor("#2B2F34"))
+                            tv_percentage.setTextColor(Color.parseColor("#2B2F34"))
+                            tv_header_line.setTextColor(Color.parseColor("#2B2F34"))
+                            targetMargin.setTextColor(Color.parseColor("#2B2F34"))
+                            tv_message_.setTextColor(Color.parseColor("#2B2F34"))
+                            tv_number.setTextColor(Color.parseColor("#2B2F34"))
+
+
+                        }
+                        else if(list=="Performing"){
+
+                            val colorStateList1 = ColorStateList.valueOf(Color.parseColor("#0067CF"))
+                            banner.backgroundTintList = colorStateList1
+
+                            val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+                            message2.backgroundTintList = colorStateList
+                            message2.setTextColor(Color.parseColor("#040035"))
+
+                        }
+                        else if(list=="Top Performer"){
+
+                            val colorStateList1 = ColorStateList.valueOf(Color.parseColor("#05A50A"))
+                            banner.backgroundTintList = colorStateList1
+
+
+                            val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+                            message2.backgroundTintList = colorStateList
+
+                            message2.setTextColor(Color.parseColor("#040035"))
+
+                        }
+                        else{
+                           // holder.layout.setBackgroundResource(R.drawable.bg_blue)
+                        }
+
                     }
 
                 }else{

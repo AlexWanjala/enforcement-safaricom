@@ -1,6 +1,5 @@
 package com.aw.forcement.sbp.applications
 
-import Business
 import Const
 import Json4Kotlin_Base
 import android.content.ContentValues
@@ -12,6 +11,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.aw.forcement.adapters.AdapterStatus
@@ -25,7 +25,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_applications.*
 import kotlinx.android.synthetic.main.activity_applications_detail.*
 import kotlinx.android.synthetic.main.activity_applications_detail.tv_message_header
 import kotlinx.android.synthetic.main.progressbar.*
@@ -39,6 +38,7 @@ class ApplicationsDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_applications_detail)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         tv_message_header.text = getValue(this,"header")
         close.setOnClickListener { finish() }
 
@@ -72,10 +72,10 @@ class ApplicationsDetail : AppCompatActivity() {
                         Const.instance.setOriginalBusiness(response.data.business)
                         Const.instance.setBusiness(response.data.business)
 
-
                         Const.instance.setEntries(response.data.entries)
                         Const.instance.setBill(response.data.bill)
                         Const.instance.setReceipt(response.data.receipt)
+                        Const.instance.setStatuses(response.data.statuses)
 
                         val latLng = LatLng(response.data.business.lat.toDouble(),response.data.business.lng.toDouble())
 

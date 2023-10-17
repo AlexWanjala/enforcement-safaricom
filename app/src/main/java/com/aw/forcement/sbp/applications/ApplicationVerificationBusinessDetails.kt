@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.biller
@@ -37,9 +39,11 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification_business_details)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
          messageBoxViewDemo = LayoutInflater.from(this).inflate(R.layout.update_demographics, null)
 
         btn_next.setOnClickListener { startActivity(Intent(this,ApplicationVerificationBusinessActivityInformation::class.java)) }
+
     }
 
     private fun displayValues(){

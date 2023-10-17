@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".others.CessPayments">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".others.CessPayments">
+
+
+            <FrameLayout
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:fontFamily="@font/montserrat"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="17dp"
+                    android:textStyle="bold"
+                    android:text="@string/county_rental"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/imageClose"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/close_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </FrameLayout>
+
+
+
+            <TextView
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="@string/market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerIncomeType"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="15dp"
+                android:text="@string/unit_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerFeeAndCharges"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_marginTop="20sp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/tenant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"
+                    tools:text="ALEX WANJALA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+            <FrameLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_gravity="left"
+                    android:padding="20sp"
+                    android:orientation="vertical"
+                    android:background="@color/bg"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/labels"
+                        android:text="@string/tenant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:text="2,000 Per Month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="right"
+                    android:padding="20sp"
+                    android:orientation="vertical"
+                    android:background="@color/bg"
+                    android:layout_width="165dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/labels"
+                        android:text="@string/rent_arrears"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:text="5000 (2)"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="20dp"
+            android:background="@color/bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="20sp"
+                android:text="@string/amount_being_paid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <EditText
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:inputType="number"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/edAmount"
+                android:hint="@string/amount"
+                android:padding="15dp"
+                android:background="@drawable/bg_fill_gay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
+
+            <View
+                android:layout_marginTop="10dp"
+                android:background="@color/grey"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="15sp"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                tools:text="Waiting for Payments..."
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="20sp"
+                android:text="@string/mpesa_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <EditText
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:inputType="phone"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/edPhoneNumber"
+                android:hint="@string/mpesa_"
+                android:padding="15dp"
+                android:background="@drawable/bg_fill_gay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginBottom="20dp"
+                android:id="@+id/tvSendPayment"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/indicator_state_background_button"
+                android:textColor="@drawable/indicator_state_color_button"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="@string/send_payment"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                />
+
+            <TextView
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"
+                android:enabled="false"
+                android:id="@+id/tvSendPushDisabled"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/blue_disabled"
+                android:textColor="@drawable/indicator_state_color_button"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="@string/send_payment"
+                android:layout_width="match_parent"
+                android:layout_height="40sp"
+                />
+
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>

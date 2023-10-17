@@ -13,11 +13,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.biller
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
 import com.mazenrashed.printooth.data.printable.ImagePrintable
@@ -42,6 +41,7 @@ class ReceiptDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt_details)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         imageClose.setOnClickListener { finish() }
         tv_verify.setOnClickListener {
 
@@ -79,9 +79,9 @@ class ReceiptDetails : AppCompatActivity() {
         getReceipt()
 
         //Bluetooth printer
-        if (Printooth.hasPairedPrinter())
+       /* if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
 
     }
 
@@ -95,7 +95,7 @@ class ReceiptDetails : AppCompatActivity() {
     private fun getReceipt(){
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
-            "function" to "getReceipt",
+                "function" to "getReceipt",
             "receiptNo" to intent.getStringExtra("transaction_code").toString(),
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
@@ -201,7 +201,13 @@ class ReceiptDetails : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
+        }
+
+
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -209,7 +215,7 @@ class ReceiptDetails : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -221,30 +227,31 @@ class ReceiptDetails : AppCompatActivity() {
         val amount = getValue(this@ReceiptDetails,"amount")
         val ref = getValue(this@ReceiptDetails,"ref")
         val username = getValue(this@ReceiptDetails,"username")
-        val names = getValue(this@ReceiptDetails,"names")
-        val phone = getValue(this@ReceiptDetails,"phone")
+        val names = getValue(this@ReceiptDetails,"payer_names")
+        val phone = getValue(this@ReceiptDetails,"payer_phone")
         val incomeTypeDescription = getValue(this@ReceiptDetails,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@ReceiptDetails,"description")
         val date = getValue(this@ReceiptDetails,"date")
+
+
 
        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
         val date = input?.let { inputFormat.parse(it) }
         val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
-
-
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at HOMABAY town\n"
+         val zone = getValue(this@ReceiptDetails,"zone")
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
                 .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
                 .setText(message)
                 // .setNewLinesAfter(1)
                 .build())
 
         val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
-
 
         val qr: Bitmap = QRCode.from(message2)
             .withSize(200, 200).bitmap()
@@ -253,7 +260,13 @@ class ReceiptDetails : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n\n"
+
+        val footer = when (BuildConfig.FLAVOR) {
+            "homabay" -> "Lipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n"
+            "meru" -> "Lipa Ushuru Tujenge\n\n#Making Meru Happy\n\n\n\n\n\n\n"
+            else -> "Lipa Ushuru Tujenge\n\n#\n\n\n\n\n"
+        }
+
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)

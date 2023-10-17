@@ -52,7 +52,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -305,7 +304,7 @@
                 android:layout_height="match_parent">
 
                 <RadioButton
-                    android:checked="true"
+                    android:id="@+id/radio_now"
                     android:textStyle="bold"
                     android:fontFamily="@font/montserrat"
                     android:textSize="11dp"
@@ -313,8 +312,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-
                 <RadioButton
+                    android:id="@+id/radio_later"
                     android:textStyle="bold"
                     android:fontFamily="@font/montserrat"
                     android:textSize="11dp"
@@ -323,7 +322,6 @@
                     android:layout_height="wrap_content"/>
 
             </RadioGroup>
-
 
             <LinearLayout
                 android:orientation="vertical"
@@ -395,6 +393,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tv_phone_mpesa"
                     android:fontFamily="@font/montserrat"
                     android:textSize="12dp"
                     android:textColor="@color/labels"
@@ -462,12 +461,22 @@
                     android:layout_height="wrap_content"/>
 
 
+                <Button
+                    android:backgroundTint="@color/circle_color"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/background_filled_red"
+                    android:id="@+id/btn_finish"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/white"
+                    android:text="@string/finish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+
 
             </LinearLayout>
-
-
-
-
 
 
         </LinearLayout>

@@ -36,6 +36,7 @@ import android.location.Location
 import android.os.AsyncTask
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.ro.MainRoActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -64,6 +65,7 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         login.setOnClickListener {
 
             if(edUsername.text.equals("") || edPassword.text.equals("") ){
@@ -74,14 +76,11 @@ class Login : AppCompatActivity() {
             }
         }
 
-
-
         tvPrivacy.setOnClickListener {
             val openURL = Intent(Intent.ACTION_VIEW)
             openURL.data = Uri.parse("https://levetot.co.ke/privacy_policy.html")
             startActivity(openURL)
         }
-
 
     /*    tvForgot.setOnClickListener {
             if(edUsername.text.isEmpty()){
@@ -103,7 +102,6 @@ class Login : AppCompatActivity() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         updateApp()
     }
-
 
     private fun forgetPassword() {
         save(this@Login,"pass", "" )
@@ -138,14 +136,8 @@ class Login : AppCompatActivity() {
     }
     private fun loadPage(){
 
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -173,8 +165,8 @@ class Login : AppCompatActivity() {
                 }
             }
 
-        }else{
-
+        }
+        else{
 
             login()
             GetLocationTask(this).execute()

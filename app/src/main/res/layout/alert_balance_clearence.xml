@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="50dp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:id="@+id/tv_message_balance"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/black"
+            android:text="@string/balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <EditText
+            android:id="@+id/edDate"
+            android:focusable="false"
+            android:layout_marginTop="15dp"
+            android:textSize="14sp"
+            android:drawablePadding="10dp"
+            android:hint="@string/select_date"
+            android:padding="15dp"
+            android:drawableStart="@drawable/calander_icon"
+            android:background="@drawable/rectangle_background"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+
+        <Button
+            android:layout_marginBottom="40sp"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_fill_primary"
+            android:id="@+id/okay"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="@string/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

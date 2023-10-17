@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.executeRequest
@@ -15,7 +16,9 @@ import com.aw.passanger.api.save
 import com.aw.passanger.api.trade
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_business_contact.*
-
+import kotlinx.android.synthetic.main.activity_business_contact.btn_next
+import kotlinx.android.synthetic.main.activity_business_contact.btn_previous
+import kotlinx.android.synthetic.main.activity_business_details.*
 
 
 class BusinessContact : AppCompatActivity() {
@@ -26,6 +29,7 @@ class BusinessContact : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_contact)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
         btn_next.setOnClickListener { startActivity(Intent(this, BusinessActivityInformation::class.java))
@@ -33,10 +37,12 @@ class BusinessContact : AppCompatActivity() {
             saveValues()
         }
 
+        btn_previous.setOnClickListener { finish() }
+
         getRoles()
     }
 
-    fun saveValues(){
+    private fun saveValues(){
         save(this,"business_email",ed_business_email.text.toString())
         save(this,"postal_address",ed_postal_address.text.toString())
         save(this,"postal_code",ed_postal_code.text.toString())

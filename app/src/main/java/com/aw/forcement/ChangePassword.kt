@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.executeRequest
 import com.aw.passanger.api.getValue
@@ -20,6 +21,7 @@ class ChangePassword : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         submit.setOnClickListener {
             if(edPassword.text.toString()==edNewPassword.text.toString()){

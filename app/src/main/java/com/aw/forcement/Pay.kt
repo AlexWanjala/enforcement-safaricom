@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.executePaysolRequest
 import com.aw.passanger.api.executeRequest
@@ -24,6 +25,7 @@ class Pay : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pay)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         tvSendPush.setOnClickListener {
             accNo = edAccount.text.toString()

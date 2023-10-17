@@ -1,24 +1,31 @@
 package com.aw.forcement.sbp.application
 
+import Business
+import Const
 import Json4Kotlin_Base
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
+import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_billing_information.*
+import kotlinx.android.synthetic.main.activity_billing_information.btn_previous
 import kotlinx.android.synthetic.main.activity_billing_information.edPhone
 import kotlinx.android.synthetic.main.activity_billing_information.tvAmount
 import kotlinx.android.synthetic.main.activity_billing_information.tvSendPushDisabled
 import kotlinx.android.synthetic.main.activity_billing_information.tv_message
+import kotlinx.android.synthetic.main.activity_business_information.*
+import kotlinx.android.synthetic.main.activity_business_owner.*
 import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
-import org.json.JSONObject
 import java.util.concurrent.TimeUnit
 
 
@@ -30,19 +37,25 @@ class BillingInformation : AppCompatActivity() {
     lateinit var messageBoxViewFailed : View
     lateinit var messageBoxInstanceFailed: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
+    lateinit var messageBoxViewInfo : View
+    lateinit var messageBoxInstanceInfo: androidx.appcompat.app.AlertDialog
+
     lateinit var messageBoxViewPaid : View
     lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
     var businessID =""
     var description =""
+    var payNow =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_billing_information)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         // Initialize messageBoxView here
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
         messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
         messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
+        messageBoxViewInfo = LayoutInflater.from(this).inflate(R.layout.send_later, null)
 
         tv_business_name.text = getValue(this,"business_name")
         tv_business_category.text = getValue(this,"business_category")
@@ -51,77 +64,117 @@ class BillingInformation : AppCompatActivity() {
         tv_business_phone.text = getValue(this,"business_phone")
         tv_business_email.text = getValue(this,"business_email")
         tvAmount.text ="KES "+ getValue(this,"amount")
-        tv_proceed.setOnClickListener { registerBusiness() }
+
+        tv_proceed.setOnClickListener {
+            if(payNow==""){
+                Toast.makeText(this,"Select Pay Now or Later",Toast.LENGTH_LONG).show()
+            }else{
+                registerBusiness()
+            }
+
+        }
+        btn_previous.setOnClickListener { finish() }
+        radio_now.setOnClickListener {
+            tv_phone_mpesa.text ="Mpesa Phone Number"
+            payNow ="true"
+        }
+        radio_later.setOnClickListener {
+            tv_phone_mpesa.text ="Mpesa Phone Number to Pay Later"
+            payNow ="false"
+        }
+
+        btn_finish.setOnClickListener {
+            finishAffinity()
+            startActivity(Intent(this,Home::class.java))
+        }
 
     }
     private fun getJsonData(): String {
+        val updatedBusiness = Business(
+            id = "",
+            businessID = "",
+            businessName = getValue(this, "business_name").toString(),
+            subCountyID = getValue(this, "subCountyID").toString(),
+            subCountyName =  getValue(this, "subCountyName").toString(),
+            wardID = getValue(this, "wardID").toString(),
+            wardName = getValue(this, "wardName").toString(),
+            plotNumber = getValue(this, "plotNumber").toString(),
+            physicalAddress = getValue(this, "physicalAddress").toString(),
+            buildingName = getValue(this, "buildingName").toString(),
+            buildingOccupancy = getValue(this, "buildingOccupancy").toString(),
+            floorNo = getValue(this, "floorNo").toString(),
+            roomNo = getValue(this, "room_no").toString(),
+            premiseSize = getValue(this, "premise_size").toString(),
+            numberOfEmployees = getValue(this, "number_of_employees").toString(),
+            tonnage = getValue(this, "tonnage").toString(),
+            businessDes = getValue(this, "business_des").toString(),
+            businessCategory = getValue(this, "business_category").toString(),
+            businessSubCategory = getValue(this, "business_sub_category").toString(),
+            incomeTypeID = getValue(this, "incomeTypeID").toString(),
+            feeID = getValue(this, "feeID").toString(),
+            businessEmail = getValue(this, "business_email").toString(),
+            postalAddress = getValue(this, "postal_address").toString(),
+            postalCode = getValue(this, "postal_code").toString(),
+            businessPhone = getValue(this, "business_phone").toString(),
+            contactPersonNames = getValue(this, "contact_person_names").toString(),
+            contactPersonIDNo = getValue(this, "contact_person_idNo").toString(),
+            businessRole = getValue(this, "business_role").toString(),
+            contactPersonPhone = getValue(this, "contact_person_phone").toString(),
+            contactPersonEmail = getValue(this, "contact_person_email").toString(),
+            fullNames = getValue(this, "full_names").toString(),
+            ownerID = getValue(this, "owner_id").toString(),
+            ownerPhone = getValue(this, "owner_phone").toString(),
+            ownerEmail = getValue(this, "owner_email").toString(),
+            kraPin = getValue(this, "kra_pin").toString(),
+            createdBy = getValue(this, "username").toString(),
+            createdByIDNo = getValue(this, "idNo").toString(),
+            dateCreated = "",
+            lat = getValue(this, "lat").toString(),
+            lng = getValue(this, "lng").toString()
+        )
 
-        val jsonObject = JSONObject()
-        //Put the values as key-value pairs
-        jsonObject.put("function", "registerBusiness")
-        jsonObject.put("business_name", getValue(this, "business_name").toString())
-        jsonObject.put("subCountyID", getValue(this, "subCountyID").toString())
-        jsonObject.put("wardID", getValue(this, "wardID").toString())
-        jsonObject.put("plotNumber", getValue(this, "plotNumber").toString())
-        jsonObject.put("physicalAddress", getValue(this, "physicalAddress").toString())
-        jsonObject.put("buildingName", getValue(this, "buildingName").toString())
-        jsonObject.put("buildingOccupancy", getValue(this, "buildingOccupancy").toString())
-        jsonObject.put("floorNo", getValue(this, "floorNo").toString())
-        jsonObject.put("room_no", getValue(this, "room_no").toString())
-        jsonObject.put("premise_size", getValue(this, "premise_size").toString())
-        jsonObject.put("number_of_employees", getValue(this, "number_of_employees").toString())
-        jsonObject.put("tonnage", getValue(this, "tonnage").toString())
-        jsonObject.put("business_des", getValue(this, "business_des").toString())
-        jsonObject.put("business_category", getValue(this, "business_category").toString())
-        jsonObject.put("business_sub_category", getValue(this, "business_sub_category").toString())
-        jsonObject.put("business_email", getValue(this, "business_email").toString())
-        jsonObject.put("postal_address", getValue(this, "postal_address").toString())
-        jsonObject.put("postal_code", getValue(this, "postal_code").toString())
-        jsonObject.put("business_phone", getValue(this, "business_phone").toString())
-        jsonObject.put("contact_person_names", getValue(this, "contact_person_names").toString())
-        jsonObject.put("contact_person_idNo", getValue(this, "contact_person_idNo").toString())
-        jsonObject.put("business_role", getValue(this, "business_role").toString())
-        jsonObject.put("contact_person_phone", getValue(this, "contact_person_phone").toString())
-        jsonObject.put("contact_person_email", getValue(this, "contact_person_email").toString())
-        jsonObject.put("full_names", getValue(this, "full_names").toString())
-        jsonObject.put("owner_id", getValue(this, "owner_id").toString())
-        jsonObject.put("owner_phone", getValue(this, "owner_phone").toString())
-        jsonObject.put("owner_email", getValue(this, "owner_email").toString())
-        jsonObject.put("kra_pin", getValue(this, "kra_pin").toString())
-        jsonObject.put("createdBy", getValue(this, "username").toString())
-        jsonObject.put("createdByIDNo", getValue(this, "idNo").toString())
-
-        return jsonObject.toString()
+        Const.instance.setBusiness(updatedBusiness)
+        val gson = Gson()
+        return gson.toJson(Const.instance.getBusiness())
     }
 
     private fun registerBusiness(){
-        executeJsonRequest(getJsonData(), trade,object: CallBack{
+        (messageBoxView as View?)!!.tv_message.text ="Processing Application"
+        showMessageBox()
+
+        val formData = listOf(
+            "function" to "registerBusiness",
+            "business" to getJsonData(),
+
+            )
+        executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
 
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
-                    businessID = response.data.business.businessID
-                    description = response.data.business.buildingName
+
+                    businessID = response.data.business.businessID.toString()
+                    description = response.data.business.buildingName.toString()
 
                     runOnUiThread {
                         showMessageBox()
                         generateBill()
                     }
 
-                }else{
-
-                }
+                }else{ }
 
             }
 
         })
+
+
     }
 
     private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
             "function" to "generateBill2",
-            "feeId" to getValue(this,"feeId").toString(),
+            "feeId" to getValue(this,"feeID").toString(),
             "amount" to getValue(this,"amount").toString(),
             "customer" to businessID,
             "zone" to getValue(this,"zone").toString(),
@@ -134,6 +187,7 @@ class BillingInformation : AppCompatActivity() {
             "names" to getValue(this,"username").toString(),
             "customerPhoneNumber" to edPhone.text.toString(),
             "description" to description,
+            "payNow" to payNow
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -143,16 +197,26 @@ class BillingInformation : AppCompatActivity() {
                     val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                     if(response.success){
                         runOnUiThread {
+
                             tv_message.text ="Bill generated success.."
                             tv_proceed.visibility = View.GONE
                             tvSendPushDisabled.visibility = View.VISIBLE
+
+                            if (payNow=="true"){
+
+                                customerPayBillOnline(
+                                    response.data.billGenerated.billNo,
+                                    response.data.billGenerated.payBillNo,
+                                    response.data.billGenerated.amount,
+                                )
+
+                            }else{
+                                showMessageBoxPaymentInfo()
+                            }
+
                         }
 
-                        customerPayBillOnline(
-                            response.data.billGenerated.billNo,
-                            response.data.billGenerated.payBillNo,
-                            response.data.billGenerated.amount,
-                        )
+
 
                     }else{
                         Toast.makeText(this@BillingInformation,response.message, Toast.LENGTH_LONG).show()
@@ -298,7 +362,13 @@ class BillingInformation : AppCompatActivity() {
         messageBoxViewPaid.tv_amount.text = amount
         messageBoxViewPaid.tv_des.text = des
         messageBoxViewPaid.tv_category.text = category
-        messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
+        messageBoxViewPaid.okay.setOnClickListener {
+            messageBoxInstancePaid.dismiss()
+
+            finishAffinity()
+            startActivity(Intent(this,Home::class.java))
+
+        }
 
     }
     private fun showMessageBoxPaymentFail(message: String) {
@@ -349,5 +419,24 @@ class BillingInformation : AppCompatActivity() {
         }
 
     }
+    private fun showMessageBoxPaymentInfo(){
 
+        // Check if messageBoxView has a parent
+        if (messageBoxViewInfo.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewInfo.parent as ViewGroup).removeView(messageBoxViewInfo)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewInfo as View?
+        )
+        messageBoxInstanceInfo = messageBoxBuilder.show()
+
+        messageBoxViewInfo.okay.setOnClickListener {
+            messageBoxInstanceInfo.dismiss()
+            finishAffinity()
+            startActivity(Intent(this,Home::class.java))
+        }
+
+    }
 }

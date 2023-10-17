@@ -14,7 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Business (
 
-	@SerializedName("id") val id : Int,
+	@SerializedName("id") val id : String,
 	@SerializedName("businessID") val businessID : String,
 	@SerializedName("businessName") val businessName : String,
 	@SerializedName("subCountyID") val subCountyID : String,
@@ -33,8 +33,8 @@ data class Business (
 	@SerializedName("businessDes") val businessDes : String,
 	@SerializedName("businessCategory") val businessCategory : String,
 	@SerializedName("businessSubCategory") val businessSubCategory : String,
-	@SerializedName("incomeTypeId") val incomeTypeId : String,
-	@SerializedName("feeId") val feeId : String,
+	@SerializedName("incomeTypeID") val incomeTypeID : String,
+	@SerializedName("feeID") val feeID : String,
 	@SerializedName("businessEmail") val businessEmail : String,
 	@SerializedName("postalAddress") val postalAddress : String,
 	@SerializedName("postalCode") val postalCode : String,

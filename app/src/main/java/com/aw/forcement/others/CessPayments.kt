@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -14,6 +15,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -36,8 +38,6 @@ import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPayment
 import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPushDisabled
 import kotlinx.android.synthetic.main.activity_cess_payments.tv_message
 import net.glxn.qrgen.android.QRCode
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -74,9 +74,9 @@ class CessPayments : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-        if (Printooth.hasPairedPrinter())
+       /* if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
 
         edQuantity.addTextChangedListener(object :TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -114,7 +114,7 @@ class CessPayments : AppCompatActivity() {
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
             "amount" to (edQuantity.text.toString().toInt() * amount.toString().toInt()).toString(),
-            "customer" to edPlate.text.toString(),
+            "customer" to edPlate.text.toString().replace(" ", "").trim().toUpperCase(),
             "zone" to getValue(this,"zone").toString(),
             "subCountyID" to getValue(this,"subCountyID").toString(),
             "subCountyName" to getValue(this,"subCountyName").toString(),
@@ -225,7 +225,8 @@ class CessPayments : AppCompatActivity() {
                               //  response.data.feesAndCharges[postion].feeId
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
-                               runOnUiThread {
+                                save(this@CessPayments,"description",response.data.feesAndCharges[postion].feeDescription)
+                                runOnUiThread {
                                    tvUnits.text =  response.data.feesAndCharges[postion].feeDescription
                                    tvAmount.text ="KES "+amount
                                }
@@ -299,9 +300,9 @@ class CessPayments : AppCompatActivity() {
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
                             save(this@CessPayments,"transaction_code",response.data.push.transaction_code)
                             save(this@CessPayments,"amount",response.data.push.amount)
-                            save(this@CessPayments,"phone",response.data.push.account_from)
+                            save(this@CessPayments,"payer_phone",response.data.push.account_from)
                             save(this@CessPayments,"ref",response.data.push.ref)
-                            save(this@CessPayments,"names",response.data.transaction.names)
+                            save(this@CessPayments,"payer_names",response.data.transaction.names)
                             save(this@CessPayments,"date",response.data.transaction.date)
 
                             tvSendPayment.visibility = View.VISIBLE
@@ -310,8 +311,10 @@ class CessPayments : AppCompatActivity() {
                             tvSendPayment.text = "Print"
                             tvSendPayment.setOnClickListener {
                                 //printing
-                                getBillPrint()
+                                printReceipt()
                             }
+
+                            printReceipt()
 
 
                         }
@@ -341,62 +344,20 @@ class CessPayments : AppCompatActivity() {
         })
     }
 
+
+
+
+    //printer services starts here
     fun printReceipt(){
         if (!Printooth.hasPairedPrinter())
             resultLauncher.launch(
                 Intent(
-                    this@CessPayments,
+                    this,
                     ScanningActivity::class.java
                 ),
             )
         else printDetails()
     }
-    fun getBillPrint (){
-        val billNo = getValue(this,"ref").toString()
-        var stream = biller
-        if (billNo.startsWith("SBP")) {
-            stream = trade
-        }
-        if (billNo.startsWith("PKN")) {
-            stream = parking
-        }
-        if (billNo.startsWith("RNT")) {
-            stream = rent
-        }
-        if (billNo.startsWith("BLL")) {
-            stream = biller
-        }
-
-        val formData = listOf(
-            "function" to "getBill",
-            "billNo" to billNo
-        )
-        executeRequest(formData, stream,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-                    runOnUiThread {
-
-                        save(this@CessPayments,"incomeTypeDescription",response.data.billDetails.incomeTypeDescription)
-                        save(this@CessPayments,"description",response.data.billInfo[0].description).toString().toLowerCase().capitalize()
-                        printReceipt()
-                    }
-
-                }else{
-
-                    runOnUiThread {
-                        save(this@CessPayments,"incomeTypeDescription",getValue(this@CessPayments,"ref").toString())
-                        printReceipt()
-                    }
-
-                }
-
-            }
-
-        })
-    }
-
-    //printer services starts here
     private fun initListeners() {
         /* callback from printooth to get printer process */
         printing?.printingCallback = object : PrintingCallback {
@@ -442,7 +403,13 @@ class CessPayments : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
+        }
+
+
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -450,7 +417,7 @@ class CessPayments : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -458,35 +425,35 @@ class CessPayments : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-
-
         val transactioncode = getValue(this@CessPayments,"transaction_code")
         val amount = getValue(this@CessPayments,"amount")
         val ref = getValue(this@CessPayments,"ref")
         val username = getValue(this@CessPayments,"username")
-        val names = getValue(this@CessPayments,"names")
-        val phone = getValue(this@CessPayments,"phone")
+        val names = getValue(this@CessPayments,"payer_names")
+        val phone = getValue(this@CessPayments,"payer_phone")
         val incomeTypeDescription = getValue(this@CessPayments,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@CessPayments,"description")
-
-        val input = getValue(this@CessPayments,"date")
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
-        val date = input?.let { inputFormat.parse(it) }
-        val humanDate = date?.let { outputFormat.format(it) }
+        val date = getValue(this@CessPayments,"date")
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
+
+        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
+         val date = input?.let { inputFormat.parse(it) }
+         val humanDate = date?.let { outputFormat.format(it) }*/
+        val humanDate = date
+        val zone = getValue(this@CessPayments,"zone")
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
                 .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
                 .setText(message)
                 // .setNewLinesAfter(1)
                 .build())
 
         val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
-
 
         val qr: Bitmap = QRCode.from(message2)
             .withSize(200, 200).bitmap()
@@ -495,7 +462,13 @@ class CessPayments : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge\n#Endless Potential\n\n\n\n\n"
+
+        val footer = when (BuildConfig.FLAVOR) {
+            "homabay" -> "Lipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n"
+            "meru" -> "Lipa Ushuru Tujenge\n\n#Making Meru Happy\n\n\n\n\n\n\n"
+            else -> "Lipa Ushuru Tujenge\n\n#\n\n\n\n\n"
+        }
+
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)

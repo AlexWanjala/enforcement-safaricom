@@ -1,16 +1,32 @@
 package com.aw.forcement
 
 import Json4Kotlin_Base
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.passanger.api.*
 import com.google.gson.Gson
+import com.mazenrashed.printooth.Printooth
+import com.mazenrashed.printooth.data.printable.ImagePrintable
+import com.mazenrashed.printooth.data.printable.Printable
+import com.mazenrashed.printooth.data.printable.TextPrintable
+import com.mazenrashed.printooth.data.printer.DefaultPrinter
+import com.mazenrashed.printooth.ui.ScanningActivity
+import com.mazenrashed.printooth.utilities.Printing
+import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_street_parking.*
 import kotlinx.android.synthetic.main.activity_street_parking.imageClose
 import kotlinx.android.synthetic.main.activity_street_parking.tvAmount
@@ -19,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_street_parking.tv_message
 import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
+import net.glxn.qrgen.android.QRCode
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -43,9 +60,14 @@ class StreetParking : AppCompatActivity(){
     lateinit var messageBoxViewPaid : View
     lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
+
+    private var printing : Printing? = null
+     var pushButton = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street_parking)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //Initialize messageBoxView here
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
@@ -66,9 +88,48 @@ class StreetParking : AppCompatActivity(){
             }
         }
 
+        edPlate.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (pushButton){
+                   runOnUiThread {
+                       tvSendPush.setText("SEND PAYMENT REQUEST")
+                       tvSendPush.setOnClickListener {
+                           if(edPlate.text.isEmpty()){
+                               Toast.makeText(this@StreetParking,"Please input Number Plate",Toast.LENGTH_LONG).show()
+                           }else{
+                               if(edPhone.text.isEmpty()){
+                                   Toast.makeText(this@StreetParking,"Please input Number Plate",Toast.LENGTH_LONG).show()
+                               }else{
+                                   tvSendPush.visibility = View.GONE
+                                   tvSendPushDisabled.visibility = View.VISIBLE
+                                   generateParkingPayment()
+                               }
+                           }
+                       }
+                   }
+                    pushButton = false
+                }
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+        })
+
         imageClose.setOnClickListener { finish() }
 
         getIncomeTypes()
+
+       /* //Bluetooth printer
+        if (Printooth.hasPairedPrinter())
+            printing = Printooth.printer()
+        initListeners()*/
 
     }
     @RequiresApi(Build.VERSION_CODES.O)
@@ -96,6 +157,7 @@ class StreetParking : AppCompatActivity(){
             "wardID" to getValue(this,"wardID").toString(),
             "wardName" to getValue(this,"wardName").toString(),
             "customerPhoneNumber" to edPhone.text.toString(),
+            "description" to ""
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -193,6 +255,14 @@ class StreetParking : AppCompatActivity(){
                             tvSendPushDisabled.visibility = View.GONE
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
 
+                            save(this@StreetParking,"description",edPlate.text.toString())
+                            save(this@StreetParking,"transaction_code",response.data.push.transaction_code)
+                            save(this@StreetParking,"amount",response.data.push.amount)
+                            save(this@StreetParking,"payer_phone",response.data.push.account_from)
+                            save(this@StreetParking,"ref",response.data.push.ref)
+                            save(this@StreetParking,"payer_names",response.data.transaction.names)
+                            save(this@StreetParking,"date",response.data.transaction.date)
+
                             //v_transaction: String,payer: String,amount: String, des: String,category:String
                             showMessageBoxPayment(
                                 response.data.transaction.transaction_code,
@@ -206,6 +276,11 @@ class StreetParking : AppCompatActivity(){
                             tvAmount.text = "KES "+response.data.push.amount
                             tvRef.text = response.data.push.ref
                             tvStatus.text = response.data.push.callback_returned; */
+
+                            tvSendPush.setText("Print")
+                            tvSendPush.setOnClickListener { printReceipt() }
+                            pushButton = true
+                            printReceipt()
 
                         }
 
@@ -240,6 +315,7 @@ class StreetParking : AppCompatActivity(){
 
         })
     }
+
     private fun showMessageBox(){
         // Check if messageBoxView has a parent
         if (messageBoxView.parent != null) {
@@ -408,5 +484,145 @@ class StreetParking : AppCompatActivity(){
             }
 
         })
+    }
+
+
+    //printer services starts here
+    fun printReceipt(){
+        if (!Printooth.hasPairedPrinter())
+            resultLauncher.launch(
+                Intent(
+                    this,
+                    ScanningActivity::class.java
+                ),
+            )
+        else printDetails()
+    }
+    private fun initListeners() {
+        /* callback from printooth to get printer process */
+        printing?.printingCallback = object : PrintingCallback {
+            override fun connectingWithPrinter() {
+                Toast.makeText(this@StreetParking, "Connecting with printer", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun printingOrderSentSuccessfully() {
+                Toast.makeText(this@StreetParking, "Order sent to printer", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun connectionFailed(error: String) {
+                Toast.makeText(this@StreetParking, "Failed to connect printer", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onError(error: String) {
+                Toast.makeText(this@StreetParking, error, Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onMessage(message: String) {
+                Toast.makeText(this@StreetParking, "Message: $message", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun disconnected() {
+                Toast.makeText(this@StreetParking, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+    private fun printDetails() {
+        val printables = getSomePrintables()
+        printing?.print(printables)
+    }
+    /* Customize your printer here with text, logo and QR code */
+    private fun getSomePrintables() = java.util.ArrayList<Printable>().apply {
+
+        val title ="\n\nOFFICIAL RECIEPT\n\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
+        }
+
+
+        add(
+            TextPrintable.Builder()
+                .setText(title2)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
+        val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
+        val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
+        add(
+            ImagePrintable.Builder(scaledLogo)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        val transactioncode = getValue(this@StreetParking,"transaction_code")
+        val amount = getValue(this@StreetParking,"amount")
+        val ref = getValue(this@StreetParking,"ref")
+        val username = getValue(this@StreetParking,"username")
+        val names = getValue(this@StreetParking,"payer_names")
+        val phone = getValue(this@StreetParking,"payer_phone")
+        val incomeTypeDescription = getValue(this@StreetParking,"incomeTypeDescription")?.capitalize()
+        val description = getValue(this@StreetParking,"description")
+        val date = getValue(this@StreetParking,"date")
+
+
+
+        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
+         val date = input?.let { inputFormat.parse(it) }
+         val humanDate = date?.let { outputFormat.format(it) }*/
+        val humanDate = date
+        val zone = getValue(this@StreetParking,"zone")
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
+
+        val qr: Bitmap = QRCode.from(message2)
+            .withSize(200, 200).bitmap()
+        add(
+            ImagePrintable.Builder(qr)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+
+        val footer = when (BuildConfig.FLAVOR) {
+            "homabay" -> "Lipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n"
+            "meru" -> "Lipa Ushuru Tujenge\n\n#Making Meru Happy\n\n\n\n\n\n\n"
+            else -> "Lipa Ushuru Tujenge\n\n#\n\n\n\n\n"
+        }
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .setText(footer)
+                .build())
+
+
+    }
+    /* Inbuilt activity to pair device with printer or select from list of pair bluetooth devices */
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == ScanningActivity.SCANNING_FOR_PRINTER &&  result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+//            val intent = result.data
+            printDetails()
+        }
     }
 }

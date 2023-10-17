@@ -500,7 +500,7 @@
                         android:gravity="right"
                         android:layout_weight="0.5"
                         android:textAllCaps="true"
-                        android:textColor="@color/red"
+                        android:textColor="@color/primay_color"
                         android:text="kes 3,900.00"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -535,7 +535,7 @@
                         android:gravity="right"
                         android:layout_weight="0.5"
                         android:textAllCaps="true"
-                        android:textColor="@color/red"
+                        android:textColor="@color/primay_color"
                         android:text="0.00"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
@@ -583,8 +583,66 @@
                         android:id="@+id/tv_message"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
-                        android:text="There were 0 changes done and there was a match between validation and the application stages. "
+                        android:text=""
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:id="@+id/layoutValidation"
+                    android:padding="20sp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_round_corner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="14dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:text="@string/validation_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_message_validation"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        tools:text="The business looks promising for Homa Bay County as a whole"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:visibility="visible"
+                    android:id="@+id/layoutInspection"
+                    android:padding="20sp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_round_corner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="16dp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:text="@string/inspection_comments"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_message_inspection"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        tools:text="The business looks promising for Homa Bay County as a whole"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -600,6 +658,7 @@
 
 
                 <EditText
+                    android:id="@+id/edComments"
                     android:textColor="@color/labels"
                     android:textSize="12sp"
                     android:fontFamily="@font/montserrat"
@@ -610,6 +669,19 @@
                     android:layout_height="100dp"/>
 
 
+                <TextView
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/background_filled_red"
+                    android:id="@+id/btn_decline"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/decline"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+
 
                 <Button
                     android:fontFamily="@font/montserrat"
@@ -617,7 +689,7 @@
                     android:id="@+id/btn_submit"
                     android:layout_gravity="right"
                     android:layout_marginTop="20dp"
-                    android:text="@string/next"
+                    android:text="@string/approve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -634,9 +706,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
-
             </LinearLayout>
-
 
 
         </LinearLayout>

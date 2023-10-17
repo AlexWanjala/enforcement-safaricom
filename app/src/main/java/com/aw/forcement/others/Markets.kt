@@ -14,6 +14,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -46,6 +48,7 @@ class Markets : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_markets)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         imageClose.setOnClickListener { finish() }
 
@@ -80,9 +83,9 @@ class Markets : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-        if (Printooth.hasPairedPrinter())
+      /*  if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
     }
 
     fun amountDisplay(){
@@ -230,6 +233,7 @@ class Markets : AppCompatActivity() {
                               //  response.data.feesAndCharges[postion].feeId
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
+                                save(this@Markets,"description",response.data.feesAndCharges[postion].feeDescription)
                                 amountDisplay()
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -301,9 +305,9 @@ class Markets : AppCompatActivity() {
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
                             save(this@Markets,"transaction_code",response.data.push.transaction_code)
                             save(this@Markets,"amount",response.data.push.amount)
-                            save(this@Markets,"phone",response.data.push.account_from)
+                            save(this@Markets,"payer_phone",response.data.push.account_from)
                             save(this@Markets,"ref",response.data.push.ref)
-                            save(this@Markets,"names",response.data.transaction.names)
+                            save(this@Markets,"payer_names",response.data.transaction.names)
                             save(this@Markets,"date",response.data.transaction.date)
 
                             tvSendPayment.visibility = View.VISIBLE
@@ -343,16 +347,7 @@ class Markets : AppCompatActivity() {
         })
     }
 
-    fun printReceipt(){
-        if (!Printooth.hasPairedPrinter())
-            resultLauncher.launch(
-                Intent(
-                    this@Markets,
-                    ScanningActivity::class.java
-                ),
-            )
-        else printDetails()
-    }
+
     fun getBillPrint (){
         val billNo = getValue(this,"ref").toString()
         var stream = biller
@@ -399,6 +394,16 @@ class Markets : AppCompatActivity() {
     }
 
     //printer services starts here
+    fun printReceipt(){
+        if (!Printooth.hasPairedPrinter())
+            resultLauncher.launch(
+                Intent(
+                    this,
+                    ScanningActivity::class.java
+                ),
+            )
+        else printDetails()
+    }
     private fun initListeners() {
         /* callback from printooth to get printer process */
         printing?.printingCallback = object : PrintingCallback {
@@ -444,7 +449,13 @@ class Markets : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
+        }
+
+
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -452,7 +463,7 @@ class Markets : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -460,35 +471,35 @@ class Markets : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-
-
         val transactioncode = getValue(this@Markets,"transaction_code")
         val amount = getValue(this@Markets,"amount")
         val ref = getValue(this@Markets,"ref")
         val username = getValue(this@Markets,"username")
-        val names = getValue(this@Markets,"names")
-        val phone = getValue(this@Markets,"phone")
+        val names = getValue(this@Markets,"payer_names")
+        val phone = getValue(this@Markets,"payer_phone")
         val incomeTypeDescription = getValue(this@Markets,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@Markets,"description")
-
-        val input = getValue(this@Markets,"date")
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
-        val date = input?.let { inputFormat.parse(it) }
-        val humanDate = date?.let { outputFormat.format(it) }
+        val date = getValue(this@Markets,"date")
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
+
+        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
+         val date = input?.let { inputFormat.parse(it) }
+         val humanDate = date?.let { outputFormat.format(it) }*/
+        val humanDate = date
+        val zone = getValue(this@Markets,"zone")
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
                 .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
                 .setText(message)
                 // .setNewLinesAfter(1)
                 .build())
 
         val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
-
 
         val qr: Bitmap = QRCode.from(message2)
             .withSize(200, 200).bitmap()
@@ -497,7 +508,13 @@ class Markets : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge\n#Endless Potential\n\n\n\n\n"
+
+        val footer = when (BuildConfig.FLAVOR) {
+            "homabay" -> "Lipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n"
+            "meru" -> "Lipa Ushuru Tujenge\n\n#Making Meru Happy\n\n\n\n\n\n\n"
+            else -> "Lipa Ushuru Tujenge\n\n#\n\n\n\n\n"
+        }
+
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)

@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -17,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_business_details.*
 class BusinessDetails : AppCompatActivity() {
 
     private lateinit var subCountyID: String
+    private lateinit var subCountyName: String
+    private lateinit var wardName: String
     private lateinit var wardID: String
     private lateinit var businessActivity: String
     private lateinit var businessActivityDescription: String
@@ -36,6 +39,7 @@ class BusinessDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_details)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         radio_section.setOnClickListener { building_occupancy ="SECTION" }
         radio_whole.setOnClickListener { building_occupancy= "WHOLE" }
@@ -44,6 +48,7 @@ class BusinessDetails : AppCompatActivity() {
             startActivity(Intent(this, BusinessContact::class.java))
             saveValues()
         }
+        btn_previous.setOnClickListener { finish() }
 
         getSubCounties()
         getFloor()
@@ -51,6 +56,8 @@ class BusinessDetails : AppCompatActivity() {
     private fun saveValues(){
         save(this,"business_name",ed_business_name.text.toString())
         save(this,"subCountyID",subCountyID)
+        save(this,"subCountyName",subCountyName)
+        save(this,"wardName",wardName)
         save(this,"wardID",wardID)
         save(this,"plotNumber",ed_plot_number.text.toString())
         save(this,"physicalAddress",ed_physical_address.text.toString())
@@ -82,6 +89,7 @@ class BusinessDetails : AppCompatActivity() {
                         spinner_sub_county.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 subCountyID =response.data.subCounties[postion].subCountyID
+                                subCountyName =response.data.subCounties[postion].subCountyName
                                 getWards()
 
                             }
@@ -124,6 +132,7 @@ class BusinessDetails : AppCompatActivity() {
                         spinner_ward.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 wardID =response.data.wards[postion].wardID.toString()
+                                wardName =response.data.wards[postion].wardName.toString()
 
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -146,7 +155,7 @@ class BusinessDetails : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFloor",
         )
-        executeRequest(formData, trade,object : CallBack {
+        executeRequest(formData,trade,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){

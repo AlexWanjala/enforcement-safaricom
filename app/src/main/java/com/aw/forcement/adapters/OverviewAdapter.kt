@@ -1,5 +1,7 @@
+
 import android.content.Context
-import android.graphics.drawable.Drawable
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.ParseException
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,9 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
 import java.text.SimpleDateFormat
@@ -32,6 +32,8 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_difference: TextView = itemView.findViewById<View>(R.id.tv_difference) as TextView
 		var tv_message: TextView = itemView.findViewById<View>(R.id.tv_message) as TextView
+		var message2: TextView = itemView.findViewById<View>(R.id.message2) as TextView
+		var tv_percentage: TextView = itemView.findViewById<View>(R.id.tv_percentage) as TextView
 
 	}
 
@@ -46,39 +48,88 @@ class OverviewAdapter(private val context: Context, mList: List<Overview>) :
 
 		try {
 
+
+
+			if(list.message2.isEmpty()){
+				holder.message2.visibility = View.GONE
+			}else{
+				holder.message2.text = list.message2
+			}
+
 			//list.units
 			holder.tv_header.text = list.item
 			holder.tv_amount.text =list.units+" "+list.today
 
 			holder.tv_message.text = list.message
-			if(list.difference<0){
+			if(list.difference.replace (",", "").toInt()<0){
 				holder.image_icon.setImageResource (R.drawable.arrow_down);
 			}else{
 				holder.image_icon.setImageResource (R.drawable.arrow_up);
 			}
 
 			if(position==0){
-				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
-				holder.layout.setBackgroundResource(R.drawable.bg_blue)
-				holder.tv_icon.setImageResource(R.drawable.customers)
+				holder.tv_difference.text = list.units+" "+list.difference.toString()
+
+				holder.tv_percentage.text = list.percentage
+
+				if(list.message2=="Under Performing"){
+					holder.layout.setBackgroundResource(R.drawable.bg_red)
+					val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+					holder.message2.backgroundTintList = colorStateList
+
+				}
+				else if(list.message2=="You are Below Average"){
+
+					holder.layout.setBackgroundResource(R.drawable.bg_orange)
+					val colorStateList = ColorStateList.valueOf(Color.parseColor("#F44242"))
+					holder.message2.backgroundTintList = colorStateList
+					holder.message2.setTextColor(Color.parseColor("#FFFFFF"))
+					holder.tv_header.setTextColor(Color.parseColor("#2B2F34"))
+					holder.tv_amount.setTextColor(Color.parseColor("#2B2F34"))
+					holder.tv_percentage.setTextColor(Color.parseColor("#2B2F34"))
+					holder.tv_difference.setTextColor(Color.parseColor("#2B2F34"))
+					holder.tv_message.setTextColor(Color.parseColor("#2B2F34"))
+
+				}
+				else if(list.message2=="Performing"){
+
+					holder.layout.setBackgroundResource(R.drawable.bg_blue)
+					val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+					holder.message2.backgroundTintList = colorStateList
+					holder.message2.setTextColor(Color.parseColor("#040035"))
+
+				}
+				else if(list.message2=="Top Performer"){
+
+					holder.layout.setBackgroundResource(R.drawable.bg_blue)
+					val colorStateList = ColorStateList.valueOf(Color.parseColor("#FFF700"))
+					holder.message2.backgroundTintList = colorStateList
+					holder.message2.setTextColor(Color.parseColor("#040035"))
+
+				}
+				else{
+					holder.layout.setBackgroundResource(R.drawable.bg_blue)
+				}
+
+				holder.tv_icon.setImageResource(R.drawable.dollar)
 			}
 			if(position==1){
-				holder.tv_difference.text = String.format("%,.0f", list.difference).toString().replace("-","")
+				holder.tv_difference.text =list.units +" "+ list.difference.toString()
 				holder.layout.setBackgroundResource(R.drawable.bg_red)
-				holder.tv_icon.setImageResource(R.drawable.alert)
-			}
-			if(position==3){
-				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
-				holder.layout.setBackgroundResource(R.drawable.bg_green)
 				holder.tv_icon.setImageResource(R.drawable.inspection)
 			}
-			if(position==4){
-				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
-				holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
+			if(position==2){
+				holder.tv_difference.text =list.units +" "+ list.difference.toString()
+				holder.layout.setBackgroundResource(R.drawable.bg_green)
 				holder.tv_icon.setImageResource(R.drawable.customers)
 			}
-			if(position==5){
-				holder.tv_difference.text = String.format("%,.2f", list.difference).toString().replace("-","")
+			if(position==3){
+				holder.tv_difference.text = list.units +" "+ list.difference.toString()
+				holder.layout.setBackgroundResource(R.drawable.bg_dark_green)
+				holder.tv_icon.setImageResource(R.drawable.trophy)
+			}
+			if(position==4){
+				holder.tv_difference.text = list.units +" "+ list.difference.toString()
 				holder.layout.setBackgroundResource(R.drawable.bg_orange)
 				holder.tv_icon.setImageResource(R.drawable.trophy)
 			}

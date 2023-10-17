@@ -23,6 +23,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.aw.forcement.R
 import com.aw.forcement.ocr.OcrDetectorProcessor
@@ -50,6 +51,7 @@ class Street : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         switchCamera.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {

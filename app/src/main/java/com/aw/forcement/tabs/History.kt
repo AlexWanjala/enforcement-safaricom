@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.aw.forcement.R
 import com.aw.forcement.ScanOptions
@@ -24,6 +25,7 @@ class History : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
         imageHistory.setColorFilter(ContextCompat.getColor(this, R.color.selector))

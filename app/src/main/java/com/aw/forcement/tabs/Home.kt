@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -47,6 +48,10 @@ import java.util.*
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.aw.forcement.fines.Fines
+import com.aw.forcement.rents.PromisedPayments
+import com.aw.forcement.rents.ReceivePayment
+import com.aw.forcement.rents.TenancyRegister
 import com.aw.forcement.ro.MainRoActivity
 import com.aw.forcement.sbp.application.BusinessOwner
 import com.aw.forcement.sbp.applications.Applications
@@ -59,13 +64,25 @@ import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.bottom_sheet.closeBottom
 import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.bottomSheetLayoutContact
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.*
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.closeBottomFines
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_constructions
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_illegal
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_licenses
+import kotlinx.android.synthetic.main.bottom_sheet_rentals.*
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.*
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.closeBottomSbp
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_active
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_approval
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_declined
 import java.text.SimpleDateFormat
 
 
 class Home : AppCompatActivity() {
 
      private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetLayoutRental: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetLayoutFine: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
@@ -73,6 +90,7 @@ class Home : AppCompatActivity() {
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page_home)
+         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
          val formatter = SimpleDateFormat("yyyy-MM-dd")
          val date = formatter.format(Date())
@@ -113,7 +131,7 @@ class Home : AppCompatActivity() {
         markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
         //Receipt inspection
         receipt_inspection.setOnClickListener { toggleBottomSheet("cess") }
-        //No Plate Verificarion
+        //No Plate Verification
         plate_verification.setOnClickListener {  startActivity(Intent(this, Street::class.java)) }
         //document_verification
         document_verification.setOnClickListener {  startActivity(Intent(this, ScanClass::class.java)) }
@@ -127,23 +145,57 @@ class Home : AppCompatActivity() {
             finish()}
 
         //contact
-        contact.setOnClickListener { toggleBottomSheetContact() }
+         contact.setOnClickListener { toggleBottomSheetContact() }
+
+
+         //SBP
          sbp.setOnClickListener { toggleBottomSheetSbp() }
-
-
          fl_initiate_application.setOnClickListener {
              startActivity(Intent(this, BusinessOwner::class.java))
          }
-
          fl_application_validation.setOnClickListener {
              save(this,"header","Application Validation")
-             startActivity(Intent(this, Applications::class.java))
+             startActivity(Intent(this, Applications::class.java).putExtra("keyword","2"))
+         }
+         fl_application_inspection.setOnClickListener {
+             save(this,"header","Application Validation")
+             startActivity(Intent(this, Applications::class.java).putExtra("keyword","3"))
+         }
+         fl_application_approval.setOnClickListener {
+             save(this,"header","Application Approval")
+             startActivity(Intent(this, Applications::class.java).putExtra("keyword","4"))
+         }
+         fl_application_declined.setOnClickListener {
+
+             save(this,"header","Declined Businesses")
+             startActivity(Intent(this, Applications::class.java).putExtra("keyword","Declined"))
+
+         }
+         fl_application_active.setOnClickListener {
+             save(this,"header","Active Businesses")
+             startActivity(Intent(this, Applications::class.java).putExtra("keyword","true"))
          }
 
 
+         //Fines and Penaltie
+         fines.setOnClickListener { toggleBottomSheetFines() }
+         fl_illegal.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","SIGNS").putExtra("title",resources.getString(R.string.illegal))) }
+         fl_constructions.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","CONSTRUCTION").putExtra("title",resources.getString(R.string.constructions))) }
+         fl_licenses.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","PERMITS").putExtra("title",resources.getString(R.string.licenses))) }
+         fl_application_offense.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","OFFENCES").putExtra("title",resources.getString(R.string.offences))) }
+         fl_application_general.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","GENERAL").putExtra("title",resources.getString(R.string.general))) }
+         fl_application_towing.setOnClickListener {  startActivity(Intent(this, Fines::class.java).putExtra("incomeTypePrefix","TOWING").putExtra("title",resources.getString(R.string.towing))) }
 
 
-        //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
+         //Rent
+         rent.setOnClickListener { toggleBottomSheetRental() }
+         fl_receive_payment.setOnClickListener {  startActivity(Intent(this, ReceivePayment::class.java)) }
+         fl_promised_payments.setOnClickListener {  startActivity(Intent(this, PromisedPayments::class.java)) }
+         fl_rentals_register.setOnClickListener {  startActivity(Intent(this, TenancyRegister::class.java)) }
+
+
+
+         //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
 
@@ -153,6 +205,8 @@ class Home : AppCompatActivity() {
 
 
 
+         bottomSheetLayoutRental = BottomSheetBehavior.from(bottomSheetLayoutRentals)
+         bottomSheetLayoutFine = BottomSheetBehavior.from(bottomSheetLayoutFines)
          bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
          bottomSheetBehaviorSbp = BottomSheetBehavior.from(bottomSheetLayoutPermit)
          bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
@@ -167,6 +221,8 @@ class Home : AppCompatActivity() {
 
        // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
+         closeBottomRent.setOnClickListener {   bottomSheetLayoutRental.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomFines.setOnClickListener {   bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
        // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
@@ -196,6 +252,19 @@ class Home : AppCompatActivity() {
             imageHomeside.visibility = View.GONE
         }
 
+
+
+
+         requestBluetooth()
+
+    }
+
+    private fun requestBluetooth(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.BLUETOOTH_CONNECT), 1)
+
+        }
     }
      private fun toggleBottomSheetSbp(){
 
@@ -223,6 +292,31 @@ class Home : AppCompatActivity() {
 
 
     }
+
+    private fun toggleBottomSheetRental(){
+
+        if (bottomSheetLayoutRental.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetLayoutRental.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetLayoutRental.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+
+    private fun toggleBottomSheetFines(){
+
+        if (bottomSheetLayoutFine.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        buttonSearch.setOnClickListener {
+            getTransactions()
+        }
+
+
+
+    }
      private fun toggleBottomSheetContact(){
 
         if (bottomSheetBehaviorContact.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -230,8 +324,6 @@ class Home : AppCompatActivity() {
         } else {
             bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
-        getUsersPaginated()
-
     }
      override fun onResume() {
         super.onResume()
@@ -351,142 +443,13 @@ class Home : AppCompatActivity() {
 
 
     }
-     private fun queryReceiptNumber(){
 
-         if(edSearch.text.toString().isEmpty()){
-             Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
-             return
-         }
-
-         progress_circular.visibility = View.VISIBLE
-         val formData = listOf(
-             "function" to "getReceipt",
-             "receiptNo" to edSearch.text.toString(),
-             "latitude" to getValue(this,"latitude").toString(),
-             "longitude" to getValue(this,"longitude").toString(),
-             "idNo" to getValue(this,"idNo").toString(),
-             "username" to getValue(this,"username").toString(),
-             "addressString" to getValue(this,"addressString").toString()
-         )
-         executeRequest(formData, com.aw.passanger.api.parking,object : CallBack{
-             override fun onSuccess(result: String?) {
-                 runOnUiThread {  progress_circular.visibility = View.GONE }
-                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-
-                 if(response.success){
-                     runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-                     startActivity(Intent(this@Home,Receipt::class.java).putExtra("result",result))
-                     runOnUiThread {   tvMessage.text = ""}
-                 }else{
-                     runOnUiThread {
-                         tvMessage.text = response.message }
-                 }
-             }
-
-         })
-
-
-     }
-     private fun checkBusiness(){
-
-         if(edSearch.text.toString().isEmpty()){
-             Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
-             return
-         }
-         progress_circular.visibility = View.VISIBLE
-         val formData = listOf(
-             "function" to "printTradePermit",
-             "businessID" to edSearch.text.toString(),
-             "latitude" to getValue(this,"latitude").toString(),
-             "longitude" to getValue(this,"longitude").toString(),
-             "idNo" to getValue(this,"idNo").toString(),
-             "username" to getValue(this,"username").toString(),
-             "addressString" to getValue(this,"addressString").toString()
-         )
-         executeRequest(formData, trade,object : CallBack{
-             override fun onSuccess(result: String?) {
-                 runOnUiThread {  progress_circular.visibility = View.GONE }
-                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                 if(response.success){
-                     runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-                     startActivity(Intent(this@Home,Business::class.java).putExtra("result",result))
-                     runOnUiThread {   tvMessage.text = ""}
-                 }else{
-                     runOnUiThread {   tvMessage.text = response.message }
-                 }
-             }
-         })
-
-     }
-     private fun getParking(){
-        progress_circular.visibility = View.VISIBLE
-
-        val formData = listOf(
-            "function" to "getParking",
-            "numberPlate" to edSearch.text.toString(),
-            "latitude" to getValue(this,"latitude").toString(),
-            "longitude" to getValue(this,"longitude").toString(),
-            "idNo" to getValue(this,"idNo").toString(),
-            "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
-        )
-        executeRequest(formData, com.aw.passanger.api.parking,object : CallBack{
-            override fun onSuccess(result: String?) {
-                runOnUiThread {  progress_circular.visibility = View.GONE }
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-                    runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-                    startActivity(Intent(this@Home,Parking::class.java).putExtra("result",result))
-                    runOnUiThread {   tvMessage.text = ""}
-
-                }else{
-                    runOnUiThread {
-                        buttonSearch.text ="CLAMP IT!!"
-                        tvMessage.text = response.message }
-
-                }
-
-            }
-
-        })
-
-    }
-     private fun enforceByPlateNumber(){
-
-         if(edSearch.text.toString().isEmpty()){
-             Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
-             return
-         }
-         progress_circular.visibility = View.VISIBLE
-         val formData = listOf(
-             "function" to "enforceByPlateNumber",
-             "customer" to edSearch.text.toString(),
-             "idNo" to getValue(this,"idNo").toString(),
-             "latitude" to getValue(this,"latitude").toString(),
-             "longitude" to getValue(this,"longitude").toString(),
-             "TownId" to getValue(this,"TownId").toString()
-         )
-         executeRequest(formData, biller,object : CallBack {
-             override fun onSuccess(result: String?) {
-                 runOnUiThread {  progress_circular.visibility = View.GONE }
-                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                 if(response.success){
-                     runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
-                     startActivity(Intent(this@Home,Cess::class.java).putExtra("result",result))
-                     runOnUiThread {   tvMessage.text = ""}
-                 }else{
-                     runOnUiThread {   tvMessage.text = response.message }
-                 }
-             }
-
-         })
-
-     }
      var exit: Boolean =false
      override fun onBackPressed() {
         if(exit){
             finish()
         }else{
+            bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_COLLAPSED
 

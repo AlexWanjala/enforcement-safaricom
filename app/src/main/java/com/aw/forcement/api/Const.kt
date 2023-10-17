@@ -9,7 +9,17 @@ class Const public constructor() {
     private lateinit var bill: Bill
     private lateinit var receipt: Receipt
 
-    // A function to set the business object
+    private lateinit var statuses: List<Statuses>
+
+
+    fun setStatuses(statuses: List<Statuses>) {
+        this.statuses = statuses
+    }
+
+    fun getStatuses(): List<Statuses> {
+        return statuses
+    }
+
     fun setOriginalBusiness(originalBusiness: Business) {
         this.originalBusiness = originalBusiness
     }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import kotlinx.android.synthetic.main.activity_main_ro.*
@@ -21,6 +22,7 @@ class AlertRing : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.alert_ring)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         val name = intent.getStringExtra("names")!!.split(" ")[0].lowercase().split(" ").joinToString(" ") { it.capitalize() }
         tv_title.text = "Alert " + name+"!"

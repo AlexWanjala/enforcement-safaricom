@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.passanger.api.*
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -38,6 +39,7 @@ class Transactions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transactions)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         //when floationg acition button is clicked
         btnDatePicker2.setOnClickListener {
 
@@ -83,10 +85,10 @@ class Transactions : AppCompatActivity() {
 
         getQueries("","")
 
-        //Bluetooth printer
+       /* //Bluetooth printer
         if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
 
     }
 

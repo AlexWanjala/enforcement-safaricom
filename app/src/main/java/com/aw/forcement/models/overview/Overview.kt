@@ -17,7 +17,9 @@ data class Overview (
 	@SerializedName("item") val item : String,
 	@SerializedName("today") val today : String,
 	@SerializedName("yesterday") val yesterday : String,
-	@SerializedName("difference") val difference : Float,
+	@SerializedName("difference") val difference : String,
 	@SerializedName("message") val message : String,
-	@SerializedName("units") val units : String
+	@SerializedName("message2") val message2 : String,
+	@SerializedName("units") val units : String,
+	@SerializedName("percentage") val percentage : String
 )

@@ -56,7 +56,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 		}
 
-		val progress = calculateProgress(list.amountTotal.toInt(),list.target.toInt())
+		val progress = calculateProgress(list.amountTotal.toDouble(),list.target.toDouble())
 		if (progress>= 100){
 			holder.view_performance.setBackgroundColor(Color.parseColor("#047A10"))//Above Target
 		}
@@ -101,8 +101,8 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 		return number % 2 ==0
 	}
 
-	private fun calculateProgress(collected: Int, target: Int): Double {
-		if(target==0){
+	private fun calculateProgress(collected: Double, target: Double): Double {
+		if(target==0.0){
 			return 0.0
 		}
 		val progress = (collected.toDouble() / target.toDouble()) * 100

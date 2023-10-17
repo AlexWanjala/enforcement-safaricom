@@ -67,6 +67,14 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 		}
 
 		holder.layoutView.setOnClickListener {
+
+			save(context,"transaction_code",list.transaction_code)
+			save(context,"amount",list.amount)
+			save(context,"ref",list.account_ref)
+			save(context,"payer_names",list.names)
+			save(context,"payer_phone",list.names)
+
+
 			context.startActivity(Intent(context,com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code",list.transaction_code).putExtra("verified",list.verified)
 				.putExtra("amount",list.amount))
 		}

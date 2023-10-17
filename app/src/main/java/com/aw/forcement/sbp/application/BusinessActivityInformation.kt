@@ -8,18 +8,26 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 
+
 import kotlinx.android.synthetic.main.activity_business_information.*
+import kotlinx.android.synthetic.main.activity_business_information.btn_next
+import kotlinx.android.synthetic.main.activity_business_information.checkbox
+import kotlinx.android.synthetic.main.activity_business_information.ed_number_of_employees
+import kotlinx.android.synthetic.main.activity_business_information.spinner_category
+import kotlinx.android.synthetic.main.activity_business_information.spinner_sub_category
+import kotlinx.android.synthetic.main.activity_business_information.spinner_tonnage
 
 
 class BusinessActivityInformation : AppCompatActivity() {
 
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-    private val arrayList3 = ArrayList<String>()
+        private val arrayList3 = ArrayList<String>()
     lateinit var amount: String
     lateinit var feeId: String
      var tonnage: String =""
@@ -29,11 +37,26 @@ class BusinessActivityInformation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_information)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                save(this,"lat",getValue(this, "latitude").toString())
+                save(this,"lng",getValue(this, "longitude").toString())
+
+
+            } else {
+                save(this,"lat","")
+                save(this,"lng","")
+
+            }
+        }
 
         btn_next.setOnClickListener {
             startActivity(Intent(this, BillingInformation::class.java))
             saveValues()
         }
+        btn_previous.setOnClickListener { finish() }
         getIncomeTypes()
         //ed_premise_size
          getTonnage()
@@ -45,9 +68,10 @@ class BusinessActivityInformation : AppCompatActivity() {
         save(this,"tonnage",tonnage)
         save(this,"business_des",ed_business_des.text.toString())
         save(this,"business_category",business_category)
-        save(this,"business_sub_category",business_category)
+        save(this,"business_sub_category",business_sub_category)
         save(this,"amount",amount)
-        save(this,"feeId",feeId)
+        save(this,"feeID",feeId)
+
 
     }
 
@@ -57,7 +81,6 @@ class BusinessActivityInformation : AppCompatActivity() {
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to "SBP"
-
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -137,6 +160,7 @@ class BusinessActivityInformation : AppCompatActivity() {
         })
     }
     private fun spinnerFeeAndCharges (incomeTypeId: String){
+        save(this,"incomeTypeID",incomeTypeId)
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
@@ -162,6 +186,7 @@ class BusinessActivityInformation : AppCompatActivity() {
                                     business_sub_category =  response.data.feesAndCharges[postion].feeDescription
                                     amount = response.data.feesAndCharges[postion].unitFeeAmount
                                     feeId = response.data.feesAndCharges[postion].feeId
+
 
                                 }
                                 override fun onNothingSelected(p0: AdapterView<*>?) {

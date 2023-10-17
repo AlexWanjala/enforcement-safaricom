@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
 import kotlinx.android.synthetic.main.activity_application_verification.*
 import kotlinx.android.synthetic.main.update.*
@@ -21,6 +23,7 @@ class ApplicationVerificationOwner : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_application_verification)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         btn_next.setOnClickListener {startActivity(Intent(this,ApplicationVerificationBusinessDetails::class.java)) }
 

@@ -54,27 +54,10 @@
             android:background="@drawable/bg_outline_white"
             android:textColor="@color/black"
             android:layout_marginTop="10sp"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="45sp"/>
 
-        <LinearLayout
-            android:layout_marginStart="5dp"
-            android:layout_weight="0.4"
-            android:padding="10dp"
-            android:layout_gravity="center"
-            android:background="@drawable/rectangle_background"
-            android:layout_marginTop="5dp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content">
 
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                android:gravity="center"
-                android:elevation="5dp"
-                android:id="@+id/spinnerFeeAndCharges"
-                android:layout_width="match_parent"
-                android:layout_height="24dp" />
-
-        </LinearLayout>
 
 
     </LinearLayout>

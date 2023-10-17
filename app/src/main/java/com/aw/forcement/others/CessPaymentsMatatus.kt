@@ -12,6 +12,8 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -44,6 +46,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cess_payments_matatus)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         imageClose.setOnClickListener { finish() }
 
@@ -66,9 +69,9 @@ class CessPaymentsMatatus : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-        if (Printooth.hasPairedPrinter())
+      /*  if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
     }
 
     private fun generateBill (){
@@ -86,7 +89,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "names" to getValue(this,"username").toString(),
-            "customerPhoneNumber" to edPhoneNumber.text.toString(),
+            "customerPhoneNumber" to edPhoneNumber.text.toString()
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -282,9 +285,9 @@ class CessPaymentsMatatus : AppCompatActivity() {
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
                             save(this@CessPaymentsMatatus,"transaction_code",response.data.push.transaction_code)
                             save(this@CessPaymentsMatatus,"amount",response.data.push.amount)
-                            save(this@CessPaymentsMatatus,"phone",response.data.push.account_from)
+                            save(this@CessPaymentsMatatus,"payer_phone",response.data.push.account_from)
                             save(this@CessPaymentsMatatus,"ref",response.data.push.ref)
-                            save(this@CessPaymentsMatatus,"names",response.data.transaction.names)
+                            save(this@CessPaymentsMatatus,"payer_names",response.data.transaction.names)
                             save(this@CessPaymentsMatatus,"date",response.data.transaction.date)
 
                             tvSendPayment.visibility = View.VISIBLE
@@ -324,16 +327,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         })
     }
 
-    fun printReceipt(){
-        if (!Printooth.hasPairedPrinter())
-            resultLauncher.launch(
-                Intent(
-                    this@CessPaymentsMatatus,
-                    ScanningActivity::class.java
-                ),
-            )
-        else printDetails()
-    }
+
     fun getBillPrint (){
         val billNo = getValue(this,"ref").toString()
         var stream = biller
@@ -380,6 +374,16 @@ class CessPaymentsMatatus : AppCompatActivity() {
     }
 
     //printer services starts here
+    fun printReceipt(){
+        if (!Printooth.hasPairedPrinter())
+            resultLauncher.launch(
+                Intent(
+                    this,
+                    ScanningActivity::class.java
+                ),
+            )
+        else printDetails()
+    }
     private fun initListeners() {
         /* callback from printooth to get printer process */
         printing?.printingCallback = object : PrintingCallback {
@@ -425,7 +429,13 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val title2 ="COUNTY GOVERNMENT OF HOMABAY\nGenowa En Dongruok\n\n\n"
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
+        }
+
+
         add(
             TextPrintable.Builder()
                 .setText(title2)
@@ -433,7 +443,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .build())
 
 
-        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo_homabay)
+        val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
         add(
@@ -441,35 +451,35 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-
-
         val transactioncode = getValue(this@CessPaymentsMatatus,"transaction_code")
         val amount = getValue(this@CessPaymentsMatatus,"amount")
         val ref = getValue(this@CessPaymentsMatatus,"ref")
         val username = getValue(this@CessPaymentsMatatus,"username")
-        val names = getValue(this@CessPaymentsMatatus,"names")
-        val phone = getValue(this@CessPaymentsMatatus,"phone")
+        val names = getValue(this@CessPaymentsMatatus,"payer_names")
+        val phone = getValue(this@CessPaymentsMatatus,"payer_phone")
         val incomeTypeDescription = getValue(this@CessPaymentsMatatus,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@CessPaymentsMatatus,"description")
-
-        val input = getValue(this@CessPaymentsMatatus,"date")
-        val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
-        val date = input?.let { inputFormat.parse(it) }
-        val humanDate = date?.let { outputFormat.format(it) }
+        val date = getValue(this@CessPaymentsMatatus,"date")
 
 
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username @HOMABAY Town\n"
+
+        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
+         val date = input?.let { inputFormat.parse(it) }
+         val humanDate = date?.let { outputFormat.format(it) }*/
+        val humanDate = date
+        val zone = getValue(this@CessPaymentsMatatus,"zone")
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
                 .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
                 .setText(message)
                 // .setNewLinesAfter(1)
                 .build())
 
-        val message2 ="Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate"
-
+        val message2 ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $humanDate, Printed By: $username"
 
         val qr: Bitmap = QRCode.from(message2)
             .withSize(200, 200).bitmap()
@@ -478,7 +488,13 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val footer ="\nLipa Ushuru Tujenge \n#Endless Potential\n\n\n\n\n"
+
+        val footer = when (BuildConfig.FLAVOR) {
+            "homabay" -> "Lipa Ushuru Tujenge\n\n#EndlessPotential\n\n\n\n\n\n"
+            "meru" -> "Lipa Ushuru Tujenge\n\n#Making Meru Happy\n\n\n\n\n\n\n"
+            else -> "Lipa Ushuru Tujenge\n\n#\n\n\n\n\n"
+        }
+
         add(
             TextPrintable.Builder()
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
