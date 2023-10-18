@@ -1,5 +1,8 @@
+import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
 import com.aw.forcement.ro.AlertRing
@@ -71,9 +78,10 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		}
 
 		holder.call_blue.setOnClickListener {
-			val phoneNumber = list.phoneNumber
+			/*val phoneNumber = list.phoneNumber
 			val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
-			context.startActivity(intent)
+			context.startActivity(intent)*/
+			makeCall("+"+list.phoneNumber)
 
 		}
 
@@ -83,6 +91,14 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 
 	}
 
+	private fun makeCall (phoneNumber: String) {
+		if (ContextCompat.checkSelfPermission (context, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+			val intent = Intent (Intent.ACTION_CALL, Uri.parse ("tel:$phoneNumber"))
+			context.startActivity (intent)
+		} else {
+			ActivityCompat.requestPermissions (context as Activity, arrayOf (Manifest.permission.CALL_PHONE), 1)
+		}
+	}
 	override fun getItemCount(): Int {
 		return mList.size
 	}

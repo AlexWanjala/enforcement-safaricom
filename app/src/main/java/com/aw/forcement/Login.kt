@@ -16,8 +16,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,7 +23,6 @@ import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.gson.Gson
-import com.sanxynet.printooth.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.message.*
 import kotlinx.android.synthetic.main.progressbar.*
@@ -34,10 +31,8 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.AsyncTask
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
-import com.aw.forcement.ro.MainRoActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Tasks
@@ -204,6 +199,11 @@ class Login : AppCompatActivity() {
         alert.show()
     }
 
+    fun getDeviceId(context: Context): String {
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+    }
+
+    @RequiresApi(34)
     private fun login (){
         val versionCode = BuildConfig.VERSION_CODE
         progress_circular.visibility = View.VISIBLE
@@ -216,7 +216,8 @@ class Login : AppCompatActivity() {
             "country" to getValue(this,"country").toString(),
             "address" to getValue(this,"address").toString(),
             "locality" to getValue(this,"locality").toString(),
-            "versionCode" to versionCode.toString()
+            "versionCode" to versionCode.toString(),
+            "deviceId" to getDeviceId(this)
         )
         executeRequest(formData, authentication,object : CallBack{
             override fun onSuccess(result: String?) {

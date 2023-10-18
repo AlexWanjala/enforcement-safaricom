@@ -108,7 +108,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -125,7 +125,7 @@
                             android:textSize="10dp"
                             android:textColor="@color/black"
                             android:textAllCaps="true"
-                            android:text="@string/select_business_category"
+                            android:text="@string/business_category"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -138,7 +138,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -168,7 +168,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -198,7 +198,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -228,7 +228,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -258,7 +258,7 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
@@ -288,13 +288,15 @@
                             android:textColor="@color/circle_color"
                             android:textAllCaps="true"
                             tools:text="@string/business_name"
-                            android:layout_width="wrap_content"
+                            android:layout_width="130dp"
                             android:layout_height="wrap_content"/>
 
                     </FrameLayout>
 
                 </LinearLayout>
 
+
+            <include layout="@layout/recycler_view"/>
 
 
 

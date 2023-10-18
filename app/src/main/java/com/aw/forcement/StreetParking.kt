@@ -324,6 +324,7 @@ class StreetParking : AppCompatActivity(){
         }
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
         messageBoxInstance = messageBoxBuilder.show()
+        messageBoxInstance.setCanceledOnTouchOutside(false)
     }
     private fun showMessageBoxPayment(transaction: String,payer: String,amount: String, des: String,category:String){
 
@@ -337,6 +338,7 @@ class StreetParking : AppCompatActivity(){
             messageBoxViewPaid as View?
         )
         messageBoxInstancePaid = messageBoxBuilder.show()
+        messageBoxInstancePaid.setCanceledOnTouchOutside(false)
 
         messageBoxViewPaid.tv_transaction.text = transaction
         messageBoxViewPaid.tv_payer.text = payer
@@ -358,6 +360,7 @@ class StreetParking : AppCompatActivity(){
             messageBoxViewFailed as View?
         )
         messageBoxInstanceFailed = messageBoxBuilder.show()
+        messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
 
         if (message.contains("invalid")) {
             (messageBoxViewFailed as View?)!!.tv_title.text = "Wrong PIN"
@@ -394,7 +397,6 @@ class StreetParking : AppCompatActivity(){
         }
 
     }
-
 
     private fun getIncomeTypes (){
 

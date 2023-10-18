@@ -53,5 +53,7 @@ data class Business (
 	@SerializedName("createdByIDNo") val createdByIDNo : String,
 	@SerializedName("dateCreated") val dateCreated : String,
 	@SerializedName("lat") val lat : String,
-	@SerializedName("lng") val lng : String
+	@SerializedName("lng") val lng : String,
+	@SerializedName("liquor") val liquor : String,
+	@SerializedName("conservancy") val conservancy : String,
 )

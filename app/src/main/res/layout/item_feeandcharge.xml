@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+     <FrameLayout
+      android:id="@+id/layoutView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:padding="10dp"
+        android:background="#F4F4F4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_fee_description"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Application Fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_gravity="right"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/circle_color"
+            android:textAllCaps="true"
+            tools:text="KES 20,00"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>

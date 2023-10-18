@@ -45,28 +45,49 @@ class BusinessDetails : AppCompatActivity() {
         radio_whole.setOnClickListener { building_occupancy= "WHOLE" }
 
         btn_next.setOnClickListener {
-            startActivity(Intent(this, BusinessContact::class.java))
-            saveValues()
+            saveIfNotEmpty()
         }
         btn_previous.setOnClickListener { finish() }
 
         getSubCounties()
         getFloor()
     }
-    private fun saveValues(){
-        save(this,"business_name",ed_business_name.text.toString())
-        save(this,"subCountyID",subCountyID)
-        save(this,"subCountyName",subCountyName)
-        save(this,"wardName",wardName)
-        save(this,"wardID",wardID)
-        save(this,"plotNumber",ed_plot_number.text.toString())
-        save(this,"physicalAddress",ed_physical_address.text.toString())
-        save(this,"buildingName",ed_building_name.text.toString())
-        save(this,"buildingOccupancy",building_occupancy)
-        save(this,"floorNo",floorNo)
-        save(this,"room_no",ed_room_no.text.toString())
 
+    private fun saveIfNotEmpty () {
+        // Get the text from the edit texts
+        val businessName = ed_business_name.text.toString ()
+        val subCountyID = subCountyID
+        val subCountyName = subCountyName
+        val wardName = wardName
+        val wardID = wardID
+        val plotNumber = ed_plot_number.text.toString ()
+        val physicalAddress = ed_physical_address.text.toString ()
+        val buildingName = ed_building_name.text.toString ()
+        val buildingOccupancy = building_occupancy
+        val floorNo = floorNo
+        val roomNo = ed_room_no.text.toString ()
+
+       // Check if any of them is empty
+        if (businessName.isEmpty () || subCountyID.isEmpty () || subCountyName.isEmpty () || wardName.isEmpty () || wardID.isEmpty () || plotNumber.isEmpty () || physicalAddress.isEmpty () || buildingName.isEmpty () || buildingOccupancy.isEmpty () || floorNo.isEmpty () || roomNo.isEmpty ()) {
+           // Show a toast message or an error message
+            Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
+        } else {
+         // Save the data using your save function
+            save (this, "business_name", businessName)
+            save (this, "subCountyID", subCountyID)
+            save (this, "subCountyName", subCountyName)
+            save (this, "wardName", wardName)
+            save (this, "wardID", wardID)
+            save (this, "plotNumber", plotNumber)
+            save (this, "physicalAddress", physicalAddress)
+            save (this, "buildingName", buildingName)
+            save (this, "buildingOccupancy", buildingOccupancy)
+            save (this, "floorNo", floorNo)
+            save (this, "room_no", roomNo)
+            startActivity(Intent(this, BusinessContact::class.java))
+        }
     }
+
     private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounty",

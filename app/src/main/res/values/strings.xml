@@ -450,6 +450,9 @@
     <string name="amount_due">amt Due.</string>
     <string name="rent">Rent</string>
     <string name="finish">Finish</string>
-
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="liquor_">Is Liquor License Applicable to the Business</string>
+    <string name="conservancy_">Is Conservancy Fee Applicable</string>
 
 </resources>

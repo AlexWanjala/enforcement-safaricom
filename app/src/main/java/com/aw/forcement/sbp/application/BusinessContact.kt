@@ -32,9 +32,9 @@ class BusinessContact : AppCompatActivity() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 
-        btn_next.setOnClickListener { startActivity(Intent(this, BusinessActivityInformation::class.java))
+        btn_next.setOnClickListener {
 
-            saveValues()
+            saveIfNotEmpty()
         }
 
         btn_previous.setOnClickListener { finish() }
@@ -42,18 +42,39 @@ class BusinessContact : AppCompatActivity() {
         getRoles()
     }
 
-    private fun saveValues(){
-        save(this,"business_email",ed_business_email.text.toString())
-        save(this,"postal_address",ed_postal_address.text.toString())
-        save(this,"postal_code",ed_postal_code.text.toString())
-        save(this,"business_phone",ed_business_phone.text.toString())
-        save(this,"contact_person_names",ed_contact_person_names.text.toString())
-        save(this,"contact_person_idNo",ed_contact_person_idNo.text.toString())
-        save(this,"business_role",business_role)
-        save(this,"contact_person_phone",ed_contact_person_phone.text.toString())
-        save(this,"contact_person_email",ed_contact_person_email.text.toString())
+    private fun saveIfNotEmpty () {
+       // Get the text from the edit texts
+        val businessEmail = ed_business_email.text.toString ()
+        val postalAddress = ed_postal_address.text.toString ()
+        val postalCode = ed_postal_code.text.toString ()
+        val businessPhone = ed_business_phone.text.toString ()
+        val contactPersonNames = ed_contact_person_names.text.toString ()
+        val contactPersonIdNo = ed_contact_person_idNo.text.toString ()
+        val businessRole = business_role
+        val contactPersonPhone = ed_contact_person_phone.text.toString ()
+        val contactPersonEmail = ed_contact_person_email.text.toString ()
 
+        // Check if any of them is empty
+        if (businessEmail.isEmpty () || postalAddress.isEmpty () || postalCode.isEmpty () || businessPhone.isEmpty () || contactPersonNames.isEmpty () || contactPersonIdNo.isEmpty () || businessRole.isEmpty () || contactPersonPhone.isEmpty () || contactPersonEmail.isEmpty ()) {
+        // Show a toast message or an error message
+            Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
+        } else {
+        // Save the data using your save function
+            save (this, "business_email", businessEmail)
+            save (this, "postal_address", postalAddress)
+            save (this, "postal_code", postalCode)
+            save (this, "business_phone", businessPhone)
+            save (this, "contact_person_names", contactPersonNames)
+            save (this, "contact_person_idNo", contactPersonIdNo)
+            save (this, "business_role", businessRole)
+            save (this, "contact_person_phone", contactPersonPhone)
+            save (this, "contact_person_email", contactPersonEmail)
+
+            startActivity(Intent(this, BusinessActivityInformation::class.java))
+        }
     }
+
+
 
     private fun getRoles (){
         val formData = listOf(

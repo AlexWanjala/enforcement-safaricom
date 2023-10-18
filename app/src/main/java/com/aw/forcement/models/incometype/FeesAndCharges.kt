@@ -25,5 +25,17 @@ data class FeesAndCharges (
 	@SerializedName("costCenterNo") val costCenterNo : String,
 	@SerializedName("accountDesc") val accountDesc : String,
 	@SerializedName("typeDescription") val typeDescription : String,
-	@SerializedName("zone") val zone : String
+	@SerializedName("zone") var zone : String,
+	@SerializedName("customer") var customer : String,
+	@SerializedName("revenueStreamItem") var revenueStreamItem : String,
+	@SerializedName("amount") var amount : String,
+	@SerializedName("subCountyID") var subCountyID : String,
+	@SerializedName("subCountyName") var subCountyName : String,
+	@SerializedName("wardID") var wardID : String,
+	@SerializedName("wardName") var wardName : String,
+	@SerializedName("idNo") var idNo : String,
+	@SerializedName("phoneNumber") var phoneNumber : String,
+	@SerializedName("names") var names : String,
+	@SerializedName("customerPhoneNumber") var customerPhoneNumber : String,
+	@SerializedName("description") var description : String
 )

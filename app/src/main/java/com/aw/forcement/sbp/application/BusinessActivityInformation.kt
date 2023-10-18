@@ -31,6 +31,8 @@ class BusinessActivityInformation : AppCompatActivity() {
     lateinit var amount: String
     lateinit var feeId: String
      var tonnage: String =""
+    var liquor: String =""
+    var conservancy: String =""
     lateinit var business_category: String
     lateinit var business_sub_category: String
 
@@ -53,27 +55,61 @@ class BusinessActivityInformation : AppCompatActivity() {
         }
 
         btn_next.setOnClickListener {
-            startActivity(Intent(this, BillingInformation::class.java))
-            saveValues()
+            if(checkbox.isChecked){
+
+                saveIfNotEmpty()
+            }else{
+                Toast.makeText(this,"You Must be at the Business Location",Toast.LENGTH_LONG).show()
+            }
+
         }
         btn_previous.setOnClickListener { finish() }
         getIncomeTypes()
         //ed_premise_size
          getTonnage()
-    }
 
-    private fun saveValues(){
-        save(this,"premise_size",ed_premise_size.text.toString())
-        save(this,"number_of_employees",ed_number_of_employees.text.toString())
-        save(this,"tonnage",tonnage)
-        save(this,"business_des",ed_business_des.text.toString())
-        save(this,"business_category",business_category)
-        save(this,"business_sub_category",business_sub_category)
-        save(this,"amount",amount)
-        save(this,"feeID",feeId)
-
+        liquorYes.setOnClickListener { liquor ="YES" }
+        liquorNo.setOnClickListener { liquor ="NO" }
+        conservancyYes.setOnClickListener { conservancy ="YES" }
+        conservancyNo.setOnClickListener {conservancy ="NO"  }
 
     }
+
+
+    fun saveIfNotEmpty () {
+      // Get the text from the edit texts
+        val premiseSize = ed_premise_size.text.toString ()
+        val numberOfEmployees = ed_number_of_employees.text.toString ()
+        val tonnage = tonnage
+        val businessDes = ed_business_des.text.toString ()
+        val businessCategory = business_category
+        val businessSubCategory = business_sub_category
+        val amount = amount
+        val feeID = feeId
+        val liquor = liquor
+        val conservancy = conservancy
+
+       // Check if any of them is empty
+        if (premiseSize.isEmpty () || numberOfEmployees.isEmpty () || tonnage.isEmpty () || businessDes.isEmpty () || businessCategory.isEmpty () || businessSubCategory.isEmpty () || amount.isEmpty () || feeID.isEmpty () || liquor.isEmpty () || conservancy.isEmpty ()) {
+       // Show a toast message or an error message
+            Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
+        } else {
+       // Save the data using your save function
+            save (this, "premise_size", premiseSize)
+            save (this, "number_of_employees", numberOfEmployees)
+            save (this, "tonnage", tonnage)
+            save (this, "business_des", businessDes)
+            save (this, "business_category", businessCategory)
+            save (this, "business_sub_category", businessSubCategory)
+            save (this, "amount", amount)
+            save (this, "feeID", feeID)
+            save (this, "liquor", liquor)
+            save (this, "conservancy", conservancy)
+            startActivity(Intent(this, BillingInformation::class.java))
+        }
+    }
+
+
 
 
     private fun getIncomeTypes (){

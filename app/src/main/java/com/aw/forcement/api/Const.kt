@@ -11,6 +11,16 @@ class Const public constructor() {
 
     private lateinit var statuses: List<Statuses>
 
+    private lateinit var feesAndCharges: List<FeesAndCharges>
+
+
+    fun setFeesAndCharges(feesAndCharges: List<FeesAndCharges>) {
+        this.feesAndCharges = feesAndCharges
+    }
+
+    fun getFeesAndCharges(): List<FeesAndCharges> {
+        return feesAndCharges
+    }
 
     fun setStatuses(statuses: List<Statuses>) {
         this.statuses = statuses

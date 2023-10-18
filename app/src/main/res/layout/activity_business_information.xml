@@ -278,6 +278,67 @@
 
 
 
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="20sp"
+                android:text="@string/liquor_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/liquorYes"
+                    android:text="@string/no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:id="@+id/liquorNo"
+                    android:text="yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RadioGroup>
+
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="20sp"
+                android:text="@string/conservancy_"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <RadioGroup
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/conservancyYes"
+                    android:text="@string/no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:id="@+id/conservancyNo"
+                    android:text="yes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RadioGroup>
+
+
+
+
 
             <Button
                 android:drawableTint="@color/grey"
@@ -286,7 +347,7 @@
                 android:background="@drawable/bg_fill_primary"
                 android:id="@+id/btn_next"
                 android:layout_gravity="bottom"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="30dp"
                 android:text="@string/next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
