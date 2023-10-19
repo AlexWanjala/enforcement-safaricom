@@ -377,6 +377,18 @@
                     </LinearLayout>
                 </LinearLayout>
 
+
+                <Button
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/bg_fill_danger"
+                    android:id="@+id/btnClamp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/clamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
             </LinearLayout>
         </ScrollView>
 

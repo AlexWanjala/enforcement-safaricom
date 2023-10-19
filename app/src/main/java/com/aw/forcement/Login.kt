@@ -199,7 +199,7 @@ class Login : AppCompatActivity() {
         alert.show()
     }
 
-    fun getDeviceId(context: Context): String {
+    private fun getDeviceId(context: Context): String {
         return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
     }
 
@@ -346,6 +346,7 @@ class Login : AppCompatActivity() {
         intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
         smsReceiver = SMSReceiver()
         smsReceiver?.setOTPListener(object : SMSReceiver.OTPReceiveListener {
+            @RequiresApi(34)
             override fun onOTPReceived(otp: String?) {
                 showToast("OTP Received: $otp")
                 runOnUiThread { edPassword.setText(otp) }

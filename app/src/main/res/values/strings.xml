@@ -94,6 +94,7 @@
     <string name="physical_address_">Park Hill next to Maisha Market</string>
     <string name="certificate_status">Certificate Status</string>
     <string name="active">Active</string>
+    <string name="gps">GPS Coordinates</string>
 
     <string name="parking_details">Parking Details</string>
     <string name="parking_details_">Car plate No KAD 125P</string>
@@ -313,6 +314,7 @@
     <string name="done">Done</string>
     <string name="change_zone">Change Zone</string>
     <string name="sbp">SBP Permits</string>
+    <string name="sbp_data">SBP Data Collection</string>
     <string name="select">Select any of the following options to continue</string>
     <string name="licensing">To be done by Licensing Officer (LO)</string>
     <string name="revenue">To be done by Revenue officer (RO)</string>
@@ -367,7 +369,8 @@
     <string name="postal_conde">Postal Code</string>
     <string name="company_phone">Company Phone Number</string>
     <string name="phone_hint">Enter Phone</string>
-    <string name="contact_person">Contact Person</string>
+    <string name="contact_person">Contact Person/Owner</string>
+    <string name="contact_person_">Contact Person</string>
     <string name="enter_name_hint">Enter Name</string>
     <string name="id_no">ID No. *</string>
     <string name="id_no_">ID No</string>
@@ -454,5 +457,10 @@
     <string name="no">No</string>
     <string name="liquor_">Is Liquor License Applicable to the Business</string>
     <string name="conservancy_">Is Conservancy Fee Applicable</string>
+    <string name="clamp_des">Clamp this car</string>
+    <string name="clamp_hint">Enter reason for clamping</string>
+    <string name="business_type">Business Type</string>
+    <string name="list_of_data">List of Businesses</string>
+
 
 </resources>

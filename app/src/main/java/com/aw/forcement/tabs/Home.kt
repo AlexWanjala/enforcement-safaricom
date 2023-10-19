@@ -53,8 +53,10 @@ import com.aw.forcement.rents.PromisedPayments
 import com.aw.forcement.rents.ReceivePayment
 import com.aw.forcement.rents.TenancyRegister
 import com.aw.forcement.ro.MainRoActivity
+import com.aw.forcement.sbp.datacollections.DataCollection
 import com.aw.forcement.sbp.application.BusinessOwner
 import com.aw.forcement.sbp.applications.Applications
+import com.aw.forcement.sbp.datacollections.CollectionsSBP
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main_page.contact
 import kotlinx.android.synthetic.main.activity_main_page.openDrawer
@@ -70,6 +72,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_constructi
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_illegal
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_licenses
 import kotlinx.android.synthetic.main.bottom_sheet_rentals.*
+import kotlinx.android.synthetic.main.bottom_sheet_sbp_data.*
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.*
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.closeBottomSbp
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_active
@@ -84,6 +87,7 @@ class Home : AppCompatActivity() {
      private lateinit var bottomSheetLayoutRental: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetLayoutFine: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorSbpDataCollection: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
 
@@ -121,6 +125,16 @@ class Home : AppCompatActivity() {
             finishAffinity()
         }
 
+         if(getValue(this,"category").toString() == "ICT OFFICER"){
+             sbpDataCollection.visibility = View.VISIBLE
+         }else{
+             sbpDataCollection.visibility = View.GONE
+         }
+
+         sbpDataCollection.setOnClickListener {
+             startActivity(Intent(this, DataCollection::class.java))
+         }
+
         //Street Parking
         streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
         //Matatu/Bus Park
@@ -149,6 +163,7 @@ class Home : AppCompatActivity() {
 
 
          //SBP
+         sbpDataCollection.setOnClickListener { toggleBottomSheetSbpDataSheet() }
          sbp.setOnClickListener { toggleBottomSheetSbp() }
          fl_initiate_application.setOnClickListener {
              startActivity(Intent(this, BusinessOwner::class.java))
@@ -174,6 +189,14 @@ class Home : AppCompatActivity() {
          fl_application_active.setOnClickListener {
              save(this,"header","Active Businesses")
              startActivity(Intent(this, Applications::class.java).putExtra("keyword","true"))
+         }
+
+         fl_sbp_collection.setOnClickListener {
+             save(this,"header","Active Businesses")
+             startActivity(Intent(this, DataCollection::class.java))
+         }
+         fl_data_collections.setOnClickListener {
+             startActivity(Intent(this, CollectionsSBP::class.java))
          }
 
 
@@ -210,6 +233,7 @@ class Home : AppCompatActivity() {
          bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
          bottomSheetBehaviorSbp = BottomSheetBehavior.from(bottomSheetLayoutPermit)
          bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
+         bottomSheetBehaviorSbpDataCollection = BottomSheetBehavior.from(bottomSheetLayoutDataCollection)
 
 
 
@@ -219,12 +243,14 @@ class Home : AppCompatActivity() {
 
 
 
+
        // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
       //  offstreet.setOnClickListener {  startActivity(Intent(this, Street::class.java))  }
          closeBottomRent.setOnClickListener {   bottomSheetLayoutRental.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomFines.setOnClickListener {   bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomSbpData.setOnClickListener {   bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED }
        // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
@@ -272,6 +298,16 @@ class Home : AppCompatActivity() {
             bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
             bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+
+    private fun toggleBottomSheetSbpDataSheet(){
+
+        if (bottomSheetBehaviorSbpDataCollection.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
     }

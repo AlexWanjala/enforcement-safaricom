@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:id="@+id/layoutView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#11707070"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingDefaultResource">
+
+
+    <LinearLayout
+        android:gravity="left"
+        android:layout_gravity="left"
+        android:orientation="vertical"
+        android:layout_width="150sp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textAllCaps="true"
+            android:id="@+id/tv_name"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:text="sheriff supermarket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:fontFamily="@font/montserrat"
+            android:textSize="8dp"
+            android:textColor="@color/primay_color"
+            android:textStyle="bold"
+            android:text="Hyper-supermarket: Over 100 employees/Over 5001 sq.m 70000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_gravity="right"
+        android:id="@+id/tv_amount"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:text="Hyper-supermarket: Over 100 employees/Over 5001 sq.m 70000"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"/>
+
+
+
+</FrameLayout>
+
+
+

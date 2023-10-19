@@ -16,10 +16,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.ScaleGestureDetector
-import android.view.View
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -42,16 +39,24 @@ import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street.*
+import kotlinx.android.synthetic.main.clamp.view.*
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
 class Street : AppCompatActivity() {
 
+    lateinit var messageBoxView : View
+    lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        messageBoxView = LayoutInflater.from(this).inflate(R.layout.clamp, null)
+
+        btnClamp.setOnClickListener {  }
 
         switchCamera.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
@@ -82,6 +87,31 @@ class Street : AppCompatActivity() {
         val outputFormat = SimpleDateFormat("dd MMM yyyy 'AT' hh:mm a")
         val output = outputFormat.format(date)
         return output
+    }
+
+    private fun showMessageBoxPayment(){
+
+        // Check if messageBoxView has a parent
+        if (messageBoxView.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxView as View?
+        )
+        messageBoxInstance = messageBoxBuilder.show()
+        messageBoxInstance.setCanceledOnTouchOutside(false)
+
+        messageBoxView.btn_clamp.setOnClickListener {
+
+            messageBoxInstance.dismiss()
+        }
+        messageBoxView.tv_close.setOnClickListener {
+
+            messageBoxInstance.dismiss()
+        }
+
     }
 
     private fun getParking(plateNumbe : String){

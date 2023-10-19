@@ -56,4 +56,8 @@ data class Business (
 	@SerializedName("lng") val lng : String,
 	@SerializedName("liquor") val liquor : String,
 	@SerializedName("conservancy") val conservancy : String,
+	@SerializedName("fireLicence") val fireLicence : String,
+	@SerializedName("liquorLicence") val liquorLicence : String,
+	@SerializedName("businessType") val businessType : String,
 )
+

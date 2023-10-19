@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sbp.application.BusinessOwner">
+
+
+    <LinearLayout
+        android:id="@+id/mainLinearLayoutLL"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:padding="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/new_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+        <ProgressBar
+            android:visibility="gone"
+            android:id="@+id/progress_circular"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="@color/circle_color"
+                    android:textAllCaps="true"
+                    android:text="@string/building_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginStart="10sp"
+                    android:layout_gravity="center"
+                    android:background="@color/circle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/business_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/ed_business_name"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/business_name_hint"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="@color/circle_color"
+                    android:textAllCaps="true"
+                    android:text="@string/business_activity_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginStart="10sp"
+                    android:layout_gravity="center"
+                    android:background="@color/circle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/select_business_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinner_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/select_business_sub_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinner_sub_category"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="@string/business_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:inputType="textPersonName"
+                android:id="@+id/ed_business_type"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/business_type"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+<!--
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinner_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+
+            </LinearLayout>-->
+
+            <TextView
+                android:layout_marginTop="20sp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="14sp"
+                android:textColor="@color/circle_color"
+                android:textAllCaps="true"
+                android:text="@string/contact_person"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/full_names"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:inputType="textPersonName"
+                android:id="@+id/ed_contact_person_names"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/full_names"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/id_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/ed_contact_person_idNo"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/id_no_hint"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:inputType="phone"
+                android:id="@+id/ed_contact_person_phone"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/contact_person_phone"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="@string/sub_county"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinner_sub_county"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:text="@string/ward"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:layout_marginStart="10sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinner_ward"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/physical_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/ed_physical_address"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/physical_address_hint"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+            <CheckBox
+                android:checked="true"
+                android:id="@+id/checkbox"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/primay_color"
+                android:text="@string/business_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/gps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:focusable="false"
+                android:id="@+id/ed_gps"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/red"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/gps"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/plot_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/ed_plot_number"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/select_plot_hint"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/business_description_optional"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/ed_business_des"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/business_description_optional"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="Other Licences Applicable to this business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <CheckBox
+                android:id="@+id/checkboxLiqour"
+                android:text="Liqour Licence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <CheckBox
+                android:id="@+id/checkboxFire"
+                android:text="Fire Licence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <Button
+                android:drawableTint="@color/grey"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_fill_primary"
+                android:id="@+id/btn_next"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="60dp"
+                android:text="@string/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

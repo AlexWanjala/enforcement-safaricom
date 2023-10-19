@@ -27,7 +27,7 @@ class BusinessActivityInformation : AppCompatActivity() {
 
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-        private val arrayList3 = ArrayList<String>()
+    private val arrayList3 = ArrayList<String>()
     lateinit var amount: String
     lateinit var feeId: String
      var tonnage: String =""
@@ -153,48 +153,6 @@ class BusinessActivityInformation : AppCompatActivity() {
 
         })
     }
-    private fun getTonnage (){
-
-        val formData = listOf(
-            "function" to "getTonnage",
-        )
-        executeRequest(formData, trade,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-
-                    runOnUiThread {
-
-                        for(data in response.data.tonnage){
-                            arrayList3.add(data.tonnage)
-                        }
-
-                        //Spinner
-                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList3)
-                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        spinner_tonnage.adapter = adapters
-                        spinner_tonnage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-                                if (p0 != null) {
-                                    tonnage = p0.getItemAtPosition(postion).toString()
-                                }
-
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                            }
-                        }
-                    }
-
-                }else{
-                    runOnUiThread {  Toast.makeText(this@BusinessActivityInformation,response.message, Toast.LENGTH_LONG).show()}
-
-                }
-
-            }
-
-        })
-    }
     private fun spinnerFeeAndCharges (incomeTypeId: String){
         save(this,"incomeTypeID",incomeTypeId)
         val formData = listOf(
@@ -240,4 +198,47 @@ class BusinessActivityInformation : AppCompatActivity() {
 
         })
     }
+    private fun getTonnage (){
+
+        val formData = listOf(
+            "function" to "getTonnage",
+        )
+        executeRequest(formData, trade,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+
+                        for(data in response.data.tonnage){
+                            arrayList3.add(data.tonnage)
+                        }
+
+                        //Spinner
+                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList3)
+                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                        spinner_tonnage.adapter = adapters
+                        spinner_tonnage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+                                if (p0 != null) {
+                                    tonnage = p0.getItemAtPosition(postion).toString()
+                                }
+
+                            }
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                            }
+                        }
+                    }
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@BusinessActivityInformation,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+
+        })
+    }
+
 }

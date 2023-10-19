@@ -18,6 +18,7 @@ import com.aw.forcement.R
 import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.google.gson.Gson
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_billing_information.*
 import kotlinx.android.synthetic.main.activity_billing_information.btn_previous
 import kotlinx.android.synthetic.main.activity_billing_information.edPhone
@@ -133,9 +134,11 @@ class BillingInformation : AppCompatActivity() {
             lat = getValue(this, "lat").toString(),
             lng = getValue(this, "lng").toString(),
             liquor = getValue(this, "liquor").toString(),
-            conservancy = getValue(this, "conservancy").toString()
+            conservancy = getValue(this, "conservancy").toString(),
+            fireLicence = "",
+            liquorLicence = "",
+            businessType = "",
         )
-
 
 
         Const.instance.setBusiness(updatedBusiness)
