@@ -31,14 +31,11 @@ import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_cess_payments.*
 import kotlinx.android.synthetic.main.activity_cess_payments.edDescription
-import kotlinx.android.synthetic.main.activity_cess_payments.edPhoneNumber
-import kotlinx.android.synthetic.main.activity_cess_payments.edPlate
 import kotlinx.android.synthetic.main.activity_cess_payments.edQuantity
 import kotlinx.android.synthetic.main.activity_cess_payments.imageClose
 import kotlinx.android.synthetic.main.activity_cess_payments.spinnerFeeAndCharges
 import kotlinx.android.synthetic.main.activity_cess_payments.spinnerIncomeType
 import kotlinx.android.synthetic.main.activity_cess_payments.tvAmount
-import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPayment
 import kotlinx.android.synthetic.main.activity_cess_payments.tvSendPushDisabled
 import kotlinx.android.synthetic.main.activity_cess_payments.tvUnits
 import kotlinx.android.synthetic.main.activity_cess_payments.tv_message

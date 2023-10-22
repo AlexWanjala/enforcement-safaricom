@@ -391,8 +391,7 @@ class Login : AppCompatActivity() {
             super.onPostExecute(location)
             if (location != null) {
                 val geocoder = Geocoder(context, Locale.getDefault())
-                val list: List<Address> =
-                    geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+                val list: List<Address> = geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
 
                 Log.e("###","Latitude\n${list[0].latitude}")
                 Log.e("###","Longitude\n${list[0].longitude}")

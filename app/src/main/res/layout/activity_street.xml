@@ -188,7 +188,7 @@
                             android:textSize="10sp"
                             android:fontFamily="@font/montserrat"
                             android:textAllCaps="true"
-                            android:text="@string/payment_zone"
+                            android:text="@string/zone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 
@@ -228,7 +228,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/montserrat"
-                            android:text="@string/paid_for"
+                            android:text="@string/for_"
                             android:textAllCaps="true" />
 
                         <TextView
@@ -295,7 +295,7 @@
                             android:textSize="10sp"
                             android:fontFamily="@font/montserrat"
                             android:textAllCaps="true"
-                            android:text="@string/date_paid"
+                            android:text="@string/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
 

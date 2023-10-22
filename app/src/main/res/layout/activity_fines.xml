@@ -62,9 +62,6 @@
                 android:text="@string/offence_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
-
             <LinearLayout
                 android:padding="10dp"
                 android:layout_gravity="center"
@@ -81,8 +78,6 @@
                     android:layout_height="24dp" />
 
             </LinearLayout>
-
-
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
@@ -90,8 +85,6 @@
                 android:text="@string/offence_sub_category"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-
             <LinearLayout
                 android:padding="10dp"
                 android:layout_gravity="center"

@@ -35,7 +35,6 @@ class CollectionsSBP : AppCompatActivity() {
                     getBusinessData(p0.toString())
                 }
 
-
             }
 
             override fun afterTextChanged(p0: Editable?) {

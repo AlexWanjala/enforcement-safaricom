@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:background="@color/white"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageIcon"
+            android:padding="20dp"
+            android:background="@drawable/bg_circle_red"
+            android:src="@drawable/timeout"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/red"
+            android:text="@string/transaction_timeout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/labels"
+            android:text="@string/timeout_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <LinearLayout
+            android:layout_gravity="left"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="1. Open your "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Safaricom tool kit."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="2. Choose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="Lipa na MPESA."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="3. Choose Paybill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_paybill"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="382939"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="3. Account No"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_acc_no"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                tools:text="PKN93930383K"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="4. Amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tv_amount_"
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="KES 3,000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="5. Type their"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:layout_marginStart="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:text="MPESA pin."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_gravity="left"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="8. Wait for a confirmation message from the   county."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+
+
+        <Button
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_fill_primary"
+            android:id="@+id/btn_resend"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="@string/resend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="- OR -"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:padding="14dp"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_outline_gray"
+            android:id="@+id/tv_close_"
+            android:layout_gravity="right"
+            android:layout_marginTop="20dp"
+            android:text="@string/close"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</LinearLayout>

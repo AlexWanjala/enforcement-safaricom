@@ -260,6 +260,7 @@
     <string name="no.plate">No. Plate</string>
     <string name="payment_zone">payment zone</string>
     <string name="paid_for">paid for</string>
+    <string name="for_">for</string>
     <string name="my_history">My History</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
@@ -461,6 +462,7 @@
     <string name="clamp_hint">Enter reason for clamping</string>
     <string name="business_type">Business Type</string>
     <string name="list_of_data">List of Businesses</string>
-
+    <string name="transaction_timeout">Mpesa Transaction Timeout</string>
+    <string name="timeout_message">No response. Press Resend or ask the payer to follow these steps to pay by themselves:</string>
 
 </resources>

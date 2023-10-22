@@ -6,7 +6,9 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -26,10 +28,17 @@ import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_cess_payments_matatus.*
+import kotlinx.android.synthetic.main.message_box.view.*
+import kotlinx.android.synthetic.main.payment_offline.view.*
+import kotlinx.android.synthetic.main.payment_offline.view.imageIcon
+import kotlinx.android.synthetic.main.payment_offline.view.tv_title
+import kotlinx.android.synthetic.main.payment_recieved.view.*
+import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.concurrent.schedule
 
 
 class CessPaymentsMatatus : AppCompatActivity() {
@@ -41,6 +50,26 @@ class CessPaymentsMatatus : AppCompatActivity() {
     private var printing : Printing? = null
     var incomeType =""
     var psvTypeSelection =""
+    lateinit var feeDescription: String
+    lateinit var incomeTypeDescription: String
+    lateinit var payer: String
+
+    //payment process
+    var pushButton = false
+    var showTimeout = true
+    var checkPayment = true
+    
+    lateinit var messageBoxViewTimeOut: View
+    lateinit var messageBoxInstanceTimeOut: androidx.appcompat.app.AlertDialog
+
+    lateinit var messageBoxView: View
+    lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewFailed: View
+    lateinit var messageBoxInstanceFailed: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewPaid: View
+    lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,14 +77,17 @@ class CessPaymentsMatatus : AppCompatActivity() {
         setContentView(R.layout.activity_cess_payments_matatus)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
+
+        //Initialize messageBoxView here
+        messageBoxViewTimeOut = LayoutInflater.from(this).inflate(R.layout.payment_offline, null)
+        messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
+        messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
+
         imageClose.setOnClickListener { finish() }
-
         psvTypeSelection = getValue(this,"psvTypeSelection").toString()
-
-
-
-        tvSendPayment.setOnClickListener {
-            if(edNumberPlate.text.isEmpty()){
+        tvSendPush.setOnClickListener {
+            if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Number Plate Required",Toast.LENGTH_LONG).show()
             }else{
                 if(edPhoneNumber.text.isEmpty()){
@@ -75,12 +107,16 @@ class CessPaymentsMatatus : AppCompatActivity() {
     }
 
     private fun generateBill (){
-        tv_message.text ="Generating bill please wait.."
+        showMessageBox()
+        tv_message.text = "Generating bill please wait..$incomeTypeDescription $feeDescription"
+        (messageBoxView as View?)!!.tv_message.text =
+            "Generating bill please wait..$incomeTypeDescription $feeDescription"
+
         val formData = listOf(
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
             "amount" to amount,
-            "customer" to edNumberPlate.text.toString().replace("\\s".toRegex(), "").trim() ,
+            "customer" to edPlate.text.toString().replace("\\s".toRegex(), "").trim() ,
             "zone" to getValue(this,"zone").toString(),
             "subCountyID" to getValue(this,"subCountyID").toString(),
             "subCountyName" to getValue(this,"subCountyName").toString(),
@@ -100,7 +136,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     if(response.success){
                         runOnUiThread {
                             tv_message.text ="Bill generated success.."
-                            tvSendPayment.visibility = View.GONE
+                            tvSendPush.visibility = View.GONE
                             tvSendPushDisabled.visibility = View.VISIBLE
                         }
 
@@ -125,7 +161,6 @@ class CessPaymentsMatatus : AppCompatActivity() {
         })
     }
     private fun getIncomeTypes (){
-
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to  "MATATUPARK"
@@ -156,7 +191,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                 else{
                                     save(this@CessPaymentsMatatus,"incomeType",postion.toString())
                                 }
-
+                                incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
 
                             }
@@ -209,6 +244,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                 }
 
 
+                                feeDescription = response.data.feesAndCharges[postion].feeDescription
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
                                 runOnUiThread {
@@ -232,9 +268,41 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
         })
     }
-    private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String){
-       // progressBar1.visibility = View.VISIBLE
-      runOnUiThread {   tv_message.text ="Sending Payment Request.." }
+
+
+    //payment Process
+    private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
+
+        checkPayment = true
+
+        Timer().schedule(30000) {
+            runOnUiThread {
+                if(showTimeout){
+                    pushButton = true
+                    checkPayment = false
+
+                    tv_message.text =""
+                    tvSendPush.visibility = View.VISIBLE
+                    tvSendPushDisabled.visibility = View.GONE
+
+                    messageBoxInstance.dismiss()
+                    // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                    if (::messageBoxInstanceFailed.isInitialized) {
+                        messageBoxInstanceFailed.dismiss()
+                    }
+                    showMessageBoxTimeOut(
+                        accountReference,
+                        payBillNumber,
+                        amount)
+                }
+            }
+        }
+        // progressBar1.visibility = View.VISIBLE
+        runOnUiThread {
+            tv_message.text = "Sending Payment Request.."
+            (messageBoxView as View?)!!.tv_message.text = "Sending Payment Request.."
+
+        }
         val formData = listOf(
             "function" to "customerPayBillOnline",
             "payBillNumber" to payBillNumber,
@@ -244,19 +312,23 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "phoneNumber" to edPhoneNumber.text.toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
-        executePaysolRequest(formData, paysol,object : CallBack {
+        executePaysolRequest(formData, paysol, object : CallBack {
             override fun onSuccess(result: String?) {
                 //  runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
+                if (response.success) {
 
                     runOnUiThread {
-                       // progressBar1.visibility = View.GONE
+                        // progressBar1.visibility = View.GONE
                         checkPayment(accountReference)
                     }
 
-                }else{
-                    runOnUiThread {  Toast.makeText(this@CessPaymentsMatatus,response.message, Toast.LENGTH_LONG).show()}
+                } else {
+                    runOnUiThread {
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
+                        tv_message.text = response.message
+                    }
 
                 }
 
@@ -265,66 +337,212 @@ class CessPaymentsMatatus : AppCompatActivity() {
         })
 
     }
-    fun checkPayment(accountReference: String){
-      //  runOnUiThread {   progressBarPayments.visibility = View.VISIBLE }
-        val formData = listOf(
-            "function" to "checkPayment",
-            "accNo" to accountReference,
-            "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
-        )
-        executePaysolRequest(formData, paysol,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+    fun checkPayment(accountReference: String) {
 
-                if(response.success){
+        if(checkPayment){
 
-                    if(response.data.push.callback_returned=="PAID"){
+            //  runOnUiThread {   progressBarPayments.visibility = View.VISIBLE }
+            val formData = listOf(
+                "function" to "checkPayment",
+                "accNo" to accountReference,
+                "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
+            )
+            executePaysolRequest(formData, paysol, object : CallBack {
+                override fun onSuccess(result: String?) {
+                    val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 
-                        runOnUiThread {
+                    if (response.success) {
 
-                            tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
-                            save(this@CessPaymentsMatatus,"transaction_code",response.data.push.transaction_code)
-                            save(this@CessPaymentsMatatus,"amount",response.data.push.amount)
-                            save(this@CessPaymentsMatatus,"payer_phone",response.data.push.account_from)
-                            save(this@CessPaymentsMatatus,"ref",response.data.push.ref)
-                            save(this@CessPaymentsMatatus,"payer_names",response.data.transaction.names)
-                            save(this@CessPaymentsMatatus,"date",response.data.transaction.date)
+                        if (response.data.push.callback_returned == "PAID") {
 
-                            tvSendPayment.visibility = View.VISIBLE
-                            tvSendPushDisabled.visibility = View.GONE
+                            runOnUiThread {
+                                showTimeout = false
 
-                            tvSendPayment.text = "Print"
-                            tvSendPayment.setOnClickListener {
-                                //printing
-                                getBillPrint()
+                                messageBoxInstance.dismiss()
+
+                                tvSendPush.visibility = View.VISIBLE
+                                tvSendPushDisabled.visibility = View.GONE
+                                tv_message.text =
+                                    "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
+
+                                save(this@CessPaymentsMatatus, "description", edPlate.text.toString())
+                                save(
+                                    this@CessPaymentsMatatus,
+                                    "transaction_code",
+                                    response.data.push.transaction_code
+                                )
+                                save(this@CessPaymentsMatatus, "amount", response.data.push.amount)
+                                save(this@CessPaymentsMatatus, "payer_phone", response.data.push.account_from)
+                                save(this@CessPaymentsMatatus, "ref", response.data.push.ref)
+                                save(this@CessPaymentsMatatus, "payer_names", response.data.transaction.names)
+                                save(this@CessPaymentsMatatus, "date", response.data.transaction.date)
+
+                                //v_transaction: String,payer: String,amount: String, des: String,category:String
+                                showMessageBoxPayment(
+                                    response.data.transaction.transaction_code,
+                                    response.data.transaction.names,
+                                    response.data.transaction.amount,
+                                    "${feeDescription} ${edPhoneNumber.text}",
+                                    incomeTypeDescription
+                                )
+/*
+                            transactionCode.text = response.data.push.transaction_code
+                            tvAmount.text = "KES "+response.data.push.amount
+                            tvRef.text = response.data.push.ref
+                            tvStatus.text = response.data.push.callback_returned; */
+
+                                tvSendPush.setText("Print")
+                                tvSendPush.setOnClickListener { printReceipt() }
+                                pushButton = true
+                                printReceipt()
+
                             }
 
 
                         }
+                        else if (response.data.push.callback_returned == "PENDING") {
 
+                            if(checkPayment){
+                                runOnUiThread {
+                                    tv_message.text = "Waiting for payment.."
+                                    (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
-                    }else if(response.data.push.callback_returned=="PENDING"){
-                        runOnUiThread { tv_message.text ="Waiting for payment.." }
-                        TimeUnit.SECONDS.sleep(2L)
-                        checkPayment(accountReference)
-                    }else{
-                        runOnUiThread {
-                            tv_message.text = response.data.push.message
-                            tvSendPayment.visibility = View.VISIBLE
-                            tvSendPushDisabled.visibility = View.GONE
+                                }
+                                TimeUnit.SECONDS.sleep(2L)
+                                checkPayment(accountReference)
+                            }
+
+                        }
+                        else {
+                            runOnUiThread {
+                                messageBoxInstance.dismiss()
+                                tv_message.text = response.data.push.message
+                                tvSendPush.visibility = View.VISIBLE
+                                tvSendPushDisabled.visibility = View.GONE
+                                showMessageBoxPaymentFail(response.data.push.message)
+
+                            }
+                        }
+
+                    } else {
+                        if(checkPayment){
+                            runOnUiThread { tv_message.text = "Waiting for payment.." }
+                            TimeUnit.SECONDS.sleep(2L)
+                            checkPayment(accountReference)
                         }
                     }
-
-                }
-                else{
-                    runOnUiThread { tv_message.text ="Waiting for payment.." }
-                    TimeUnit.SECONDS.sleep(2L)
-                    checkPayment(accountReference)
                 }
 
-            }
+            })
+        }
 
-        })
+    }
+    private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        // Check if messageBoxView has a parent
+        if (messageBoxViewTimeOut.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewTimeOut.parent as ViewGroup).removeView(messageBoxViewTimeOut)
+        }
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxViewTimeOut as View?)
+        messageBoxInstanceTimeOut = messageBoxBuilder.show()
+        messageBoxInstanceTimeOut.setCanceledOnTouchOutside(false)
+        messageBoxViewTimeOut.tv_paybill.text = payBillNumber
+        messageBoxViewTimeOut.tv_acc_no.text = accountReference
+        messageBoxViewTimeOut.tv_amount_.text = "KES ${amount}"
+        messageBoxViewTimeOut.btn_resend.setOnClickListener {
+            messageBoxInstanceTimeOut.dismiss()
+            showMessageBox()
+            customerPayBillOnline(
+                accountReference,
+                payBillNumber,
+                amount
+            )
+        }
+        messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+
+    }
+    private fun showMessageBox() {
+        // Check if messageBoxView has a parent
+        if (messageBoxView.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+        }
+        val messageBoxBuilder =
+            androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
+        messageBoxInstance = messageBoxBuilder.show()
+        messageBoxInstance.setCanceledOnTouchOutside(false)
+    }
+    private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewPaid.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewPaid.parent as ViewGroup).removeView(messageBoxViewPaid)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewPaid as View?
+        )
+        messageBoxInstancePaid = messageBoxBuilder.show()
+        messageBoxInstancePaid.setCanceledOnTouchOutside(false)
+
+        messageBoxViewPaid.tv_transaction.text = transaction
+        messageBoxViewPaid.tv_payer.text = payer
+        messageBoxViewPaid.tv_amount.text = amount
+        messageBoxViewPaid.tv_des.text = des
+        messageBoxViewPaid.tv_category.text = category
+        messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
+
+    }
+    private fun showMessageBoxPaymentFail(message: String) {
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewFailed.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewFailed.parent as ViewGroup).removeView(messageBoxViewFailed)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewFailed as View?
+        )
+        messageBoxInstanceFailed = messageBoxBuilder.show()
+        messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
+
+        if (message.contains("invalid")) {
+            (messageBoxViewFailed as View?)!!.tv_title.text = "Wrong PIN"
+            (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                "The Payer typed an incorrect pin. Send the request again to retry."
+            (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.wrong_pin)
+        } else
+            if (message.contains("insufficient")) {
+                (messageBoxViewFailed as View?)!!.tv_title.text = "Insufficient Funds"
+                (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                    "Payer needs more money. Tell them to top up MPESA to pay."
+                (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.insufficient)
+            } else
+                if (message.contains("cancel")) {
+                    (messageBoxViewFailed as View?)!!.tv_title.text = "Request Canceled !"
+                    (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                        "Payer canceled payment. Click Resend request to try again."
+                    (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                } else
+                    if (message.contains("timeout")) {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "Phone unreachable"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                            "Phone unreachable. Ask payer to switch On their phone"
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.phone_unreachable)
+                    } else {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "No Payment"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text = message
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                    }
+
+        (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
+        (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            generateBill()
+        }
+
     }
 
 
