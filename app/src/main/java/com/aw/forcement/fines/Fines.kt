@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
+import com.aw.forcement.StreetParking
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
@@ -100,9 +101,9 @@ class Fines : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-       /* if (Printooth.hasPairedPrinter())
+        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
 
         edQuantity.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -510,6 +511,8 @@ class Fines : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@Fines, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@Fines, Fines::class.java))
             }
 
         }

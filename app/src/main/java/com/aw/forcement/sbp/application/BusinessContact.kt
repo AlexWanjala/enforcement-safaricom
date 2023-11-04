@@ -54,24 +54,17 @@ class BusinessContact : AppCompatActivity() {
         val contactPersonPhone = ed_contact_person_phone.text.toString ()
         val contactPersonEmail = ed_contact_person_email.text.toString ()
 
-        // Check if any of them is empty
-        if (businessEmail.isEmpty () || postalAddress.isEmpty () || postalCode.isEmpty () || businessPhone.isEmpty () || contactPersonNames.isEmpty () || contactPersonIdNo.isEmpty () || businessRole.isEmpty () || contactPersonPhone.isEmpty () || contactPersonEmail.isEmpty ()) {
-        // Show a toast message or an error message
-            Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
-        } else {
-        // Save the data using your save function
-            save (this, "business_email", businessEmail)
-            save (this, "postal_address", postalAddress)
-            save (this, "postal_code", postalCode)
-            save (this, "business_phone", businessPhone)
-            save (this, "contact_person_names", contactPersonNames)
-            save (this, "contact_person_idNo", contactPersonIdNo)
-            save (this, "business_role", businessRole)
-            save (this, "contact_person_phone", contactPersonPhone)
-            save (this, "contact_person_email", contactPersonEmail)
+        save (this, "business_email", businessEmail)
+        save (this, "postal_address", postalAddress)
+        save (this, "postal_code", postalCode)
+        save (this, "business_phone", businessPhone)
+        save (this, "contact_person_names", contactPersonNames)
+        save (this, "contact_person_idNo", contactPersonIdNo)
+        save (this, "business_role", businessRole)
+        save (this, "contact_person_phone", contactPersonPhone)
+        save (this, "contact_person_email", contactPersonEmail)
 
-            startActivity(Intent(this, BusinessActivityInformation::class.java))
-        }
+        startActivity(Intent(this, BusinessActivityInformation::class.java))
     }
 
 
@@ -87,6 +80,7 @@ class BusinessContact : AppCompatActivity() {
 
                     runOnUiThread {
                         arrayList.clear()
+                        arrayList.add("NOT APPLICABLE")
                         for(data in response.data.roles){
                             arrayList.add(data.role)
                         }

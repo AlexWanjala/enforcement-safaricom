@@ -78,7 +78,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"
@@ -203,7 +202,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"
@@ -229,7 +227,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"
@@ -257,7 +254,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"
@@ -291,7 +287,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"
@@ -317,7 +312,6 @@
 
             <TextView
                 android:drawablePadding="10dp"
-                android:drawableRight="@drawable/star"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/montserrat"
                 android:textStyle="bold"

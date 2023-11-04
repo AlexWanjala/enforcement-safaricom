@@ -1,5 +1,8 @@
 package com.aw.forcement.sbp.application
 
+import AdapterOther
+import Const
+import FeesAndCharges
 import Json4Kotlin_Base
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
@@ -21,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_business_information.ed_number_of
 import kotlinx.android.synthetic.main.activity_business_information.spinner_category
 import kotlinx.android.synthetic.main.activity_business_information.spinner_sub_category
 import kotlinx.android.synthetic.main.activity_business_information.spinner_tonnage
+import kotlinx.android.synthetic.main.recycler_view.*
 
 
 class BusinessActivityInformation : AppCompatActivity() {
@@ -28,13 +33,19 @@ class BusinessActivityInformation : AppCompatActivity() {
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
     private val arrayList3 = ArrayList<String>()
+
+    private val arrayListOther = ArrayList<String>()
+    private val arrayListOtherCharges = ArrayList<String>()
+
     lateinit var amount: String
     lateinit var feeId: String
      var tonnage: String =""
-    var liquor: String =""
-    var conservancy: String =""
+    var liquor: String ="NO"
+    var conservancy: String ="NO"
     lateinit var business_category: String
     lateinit var business_sub_category: String
+    lateinit var feesAndCharges: FeesAndCharges
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +54,7 @@ class BusinessActivityInformation : AppCompatActivity() {
 
         checkbox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
+
                 save(this,"lat",getValue(this, "latitude").toString())
                 save(this,"lng",getValue(this, "longitude").toString())
 
@@ -55,13 +67,7 @@ class BusinessActivityInformation : AppCompatActivity() {
         }
 
         btn_next.setOnClickListener {
-            if(checkbox.isChecked){
-
-                saveIfNotEmpty()
-            }else{
-                Toast.makeText(this,"You Must be at the Business Location",Toast.LENGTH_LONG).show()
-            }
-
+            saveIfNotEmpty()
         }
         btn_previous.setOnClickListener { finish() }
         getIncomeTypes()
@@ -73,10 +79,13 @@ class BusinessActivityInformation : AppCompatActivity() {
         conservancyYes.setOnClickListener { conservancy ="YES" }
         conservancyNo.setOnClickListener {conservancy ="NO"  }
 
+
+        getIncomeTypesOther()
+
     }
 
 
-    fun saveIfNotEmpty () {
+    private fun saveIfNotEmpty () {
       // Get the text from the edit texts
         val premiseSize = ed_premise_size.text.toString ()
         val numberOfEmployees = ed_number_of_employees.text.toString ()
@@ -90,7 +99,7 @@ class BusinessActivityInformation : AppCompatActivity() {
         val conservancy = conservancy
 
        // Check if any of them is empty
-        if (premiseSize.isEmpty () || numberOfEmployees.isEmpty () || tonnage.isEmpty () || businessDes.isEmpty () || businessCategory.isEmpty () || businessSubCategory.isEmpty () || amount.isEmpty () || feeID.isEmpty () || liquor.isEmpty () || conservancy.isEmpty ()) {
+        if (businessDes.isEmpty () || businessCategory.isEmpty () || businessSubCategory.isEmpty () || amount.isEmpty () || feeID.isEmpty () || liquor.isEmpty () || conservancy.isEmpty ()) {
        // Show a toast message or an error message
             Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
         } else {
@@ -105,6 +114,7 @@ class BusinessActivityInformation : AppCompatActivity() {
             save (this, "feeID", feeID)
             save (this, "liquor", liquor)
             save (this, "conservancy", conservancy)
+            Const.instance.addFeeAndCharge(feesAndCharges)
             startActivity(Intent(this, BillingInformation::class.java))
         }
     }
@@ -177,9 +187,12 @@ class BusinessActivityInformation : AppCompatActivity() {
                             spinner_sub_category.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                     //response.data.feesAndCharges[postion].feeId
+                                    feesAndCharges =  response.data.feesAndCharges[postion]
+
                                     business_sub_category =  response.data.feesAndCharges[postion].feeDescription
                                     amount = response.data.feesAndCharges[postion].unitFeeAmount
                                     feeId = response.data.feesAndCharges[postion].feeId
+
 
 
                                 }
@@ -234,6 +247,79 @@ class BusinessActivityInformation : AppCompatActivity() {
                 }else{
                     runOnUiThread {  Toast.makeText(this@BusinessActivityInformation,response.message, Toast.LENGTH_LONG).show()}
 
+                }
+
+            }
+
+        })
+    }
+
+
+    private fun getIncomeTypesOther (){
+
+        val formData = listOf(
+            "function" to "getIncomeTypes",
+            "incomeTypePrefix" to "SBP"
+        )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+
+                        for(data in response.data.incomeTypes){
+                            arrayListOther.add(data.incomeTypeDescription)
+                        }
+
+                        //Spinner
+                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayListOther)
+                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                        spinner_category_other.adapter = adapters
+                        spinner_category_other.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+
+                               //business_category = response.data.incomeTypes[postion].incomeTypeDescription
+                                spinnerFeeAndChargesOther(response.data.incomeTypes[postion].incomeTypeId)
+
+                            }
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+                            }
+                        }
+                    }
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@BusinessActivityInformation,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+
+        })
+    }
+    //other charges
+    private lateinit var adapter: AdapterOther
+    private fun spinnerFeeAndChargesOther (incomeTypeId: String){
+        val formData = listOf(
+            "function" to "getFeesAndCharges",
+            "incomeTypeId" to incomeTypeId,
+        )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                runOnUiThread {
+
+                    if(response.success){
+                        recyclerView.adapter = null
+                        adapter = AdapterOther(this@BusinessActivityInformation, response.data.feesAndCharges)
+                        recyclerView.layoutManager = LinearLayoutManager(this@BusinessActivityInformation)
+                        recyclerView.adapter = adapter
+                        recyclerView.setHasFixedSize(false)
+
+                    } else{
+                        Toast.makeText(this@BusinessActivityInformation,response.message, Toast.LENGTH_LONG).show()
+                    }
                 }
 
             }

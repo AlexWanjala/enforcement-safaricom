@@ -79,9 +79,9 @@ class ReceiptDetails : AppCompatActivity() {
         getReceipt()
 
         //Bluetooth printer
-       /* if (Printooth.hasPairedPrinter())
+        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
 
     }
 
@@ -181,6 +181,8 @@ class ReceiptDetails : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@ReceiptDetails, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@ReceiptDetails, ReceiptDetails::class.java))
             }
 
         }

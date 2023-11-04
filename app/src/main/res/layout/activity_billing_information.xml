@@ -143,6 +143,7 @@
 
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:background="#F4F4F4"
                         android:layout_width="match_parent"
@@ -173,6 +174,7 @@
 
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:background="#FFFFFF"
                         android:layout_width="match_parent"
@@ -203,6 +205,7 @@
 
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:background="#F4F4F4"
                         android:layout_width="match_parent"
@@ -233,6 +236,7 @@
 
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:background="#FFFFFF"
                         android:layout_width="match_parent"
@@ -263,6 +267,7 @@
 
                     </FrameLayout>
                     <FrameLayout
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:background="#F4F4F4"
                         android:layout_width="match_parent"

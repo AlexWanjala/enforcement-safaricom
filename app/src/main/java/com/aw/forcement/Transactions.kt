@@ -85,10 +85,10 @@ class Transactions : AppCompatActivity() {
 
         getQueries("","")
 
-       /* //Bluetooth printer
+        //Bluetooth printer
         if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
 
     }
 
@@ -206,6 +206,8 @@ class Transactions : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@Transactions, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@Transactions, StreetParking::class.java))
             }
 
         }

@@ -129,9 +129,9 @@ class Markets : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-      /*  if (Printooth.hasPairedPrinter())
+       if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
     }
 
     fun amountDisplay(){
@@ -167,6 +167,8 @@ class Markets : AppCompatActivity() {
         tv_message.text = "Generating bill please wait..$incomeTypeDescription $feeDescription"
         (messageBoxView as View?)!!.tv_message.text =
             "Generating bill please wait..$incomeTypeDescription $feeDescription"
+
+        save(this,"description",edDescription.text.toString())
 
 
         val formData = listOf(
@@ -243,6 +245,7 @@ class Markets : AppCompatActivity() {
                         spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+                                save(this@Markets,"incomeTypeDescription",incomeTypeDescription)
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -286,7 +289,7 @@ class Markets : AppCompatActivity() {
                                 feeDescription = response.data.feesAndCharges[postion].feeDescription
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
-                                save(this@Markets,"description",response.data.feesAndCharges[postion].feeDescription)
+                                save(this@Markets,"feeDescription",response.data.feesAndCharges[postion].feeDescription)
                                 amountDisplay()
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -304,35 +307,42 @@ class Markets : AppCompatActivity() {
 
         })
     }
-   
 
-    //payment Process
+
+    lateinit var timer: TimerTask
+    private fun stopTimer() {
+        timer.cancel()
+    }
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
 
         checkPayment = true
 
-        Timer().schedule(30000) {
+        timer = Timer().schedule(65000) {
             runOnUiThread {
                 if(showTimeout){
                     pushButton = true
                     checkPayment = false
 
-                    tv_message.text =""
-                    tvSendPush.visibility = View.VISIBLE
-                    tvSendPushDisabled.visibility = View.GONE
+                    if (showTimeout){
+                        tv_message.text =""
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
 
-                    messageBoxInstance.dismiss()
-                    // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
-                    if (::messageBoxInstanceFailed.isInitialized) {
-                        messageBoxInstanceFailed.dismiss()
+                        messageBoxInstance.dismiss()
+                        // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                        if (::messageBoxInstanceFailed.isInitialized) {
+                            messageBoxInstanceFailed.dismiss()
+                        }
+                        showMessageBoxTimeOut(
+                            accountReference,
+                            payBillNumber,
+                            amount)
                     }
-                    showMessageBoxTimeOut(
-                        accountReference,
-                        payBillNumber,
-                        amount)
                 }
             }
         }
+
+
         // progressBar1.visibility = View.VISIBLE
         runOnUiThread {
             tv_message.text = "Sending Payment Request.."
@@ -356,7 +366,7 @@ class Markets : AppCompatActivity() {
 
                     runOnUiThread {
                         // progressBar1.visibility = View.GONE
-                        checkPayment(accountReference)
+                        checkPayment(accountReference, payBillNumber, amount)
                     }
 
                 } else {
@@ -373,7 +383,7 @@ class Markets : AppCompatActivity() {
         })
 
     }
-    fun checkPayment(accountReference: String) {
+    fun checkPayment(accountReference: String,payBillNumber: String, amount: String) {
 
         if(checkPayment){
 
@@ -401,7 +411,6 @@ class Markets : AppCompatActivity() {
                                 tv_message.text =
                                     "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
 
-                                save(this@Markets, "description", edPlate.text.toString())
                                 save(
                                     this@Markets,
                                     "transaction_code",
@@ -444,8 +453,8 @@ class Markets : AppCompatActivity() {
                                     (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
                                 }
-                                TimeUnit.SECONDS.sleep(2L)
-                                checkPayment(accountReference)
+                                TimeUnit.SECONDS.sleep(3L)
+                                checkPayment(accountReference,payBillNumber,amount)
                             }
 
                         }
@@ -455,7 +464,7 @@ class Markets : AppCompatActivity() {
                                 tv_message.text = response.data.push.message
                                 tvSendPush.visibility = View.VISIBLE
                                 tvSendPushDisabled.visibility = View.GONE
-                                showMessageBoxPaymentFail(response.data.push.message)
+                                showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
 
                             }
                         }
@@ -463,8 +472,8 @@ class Markets : AppCompatActivity() {
                     } else {
                         if(checkPayment){
                             runOnUiThread { tv_message.text = "Waiting for payment.." }
-                            TimeUnit.SECONDS.sleep(2L)
-                            checkPayment(accountReference)
+                            TimeUnit.SECONDS.sleep(3L)
+                            checkPayment(accountReference,payBillNumber,amount)
                         }
                     }
                 }
@@ -474,6 +483,7 @@ class Markets : AppCompatActivity() {
 
     }
     private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        showTimeout = false
         // Check if messageBoxView has a parent
         if (messageBoxViewTimeOut.parent != null) {
             // Remove messageBoxView from its parent
@@ -495,6 +505,13 @@ class Markets : AppCompatActivity() {
             )
         }
         messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+        messageBoxViewTimeOut.btn_verify_payment.setOnClickListener {
+
+            messageBoxViewTimeOut.btn_verify_payment.text = "Please Wait.."
+            checkPayment = true
+            checkPayment(accountReference,payBillNumber,amount)
+
+        }
 
     }
     private fun showMessageBox() {
@@ -509,6 +526,7 @@ class Markets : AppCompatActivity() {
         messageBoxInstance.setCanceledOnTouchOutside(false)
     }
     private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -530,7 +548,8 @@ class Markets : AppCompatActivity() {
         messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
 
     }
-    private fun showMessageBoxPaymentFail(message: String) {
+    private fun showMessageBoxPaymentFail(message: String,accountReference: String,payBillNumber: String, amount: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewFailed.parent != null) {
@@ -573,6 +592,10 @@ class Markets : AppCompatActivity() {
                         (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
                     }
 
+        (messageBoxViewFailed as View?)!!.btnPayOffline.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            showMessageBoxTimeOut(accountReference,payBillNumber,amount)
+        }
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
@@ -609,7 +632,6 @@ class Markets : AppCompatActivity() {
                     runOnUiThread {
 
                         save(this@Markets,"incomeTypeDescription",response.data.billDetails.incomeTypeDescription)
-                        save(this@Markets,"description",response.data.billInfo[0].description).toString().toLowerCase().capitalize()
                         printReceipt()
                     }
 
@@ -663,6 +685,8 @@ class Markets : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@Markets, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@Markets, CessPaymentsMatatus::class.java))
             }
 
         }
@@ -711,6 +735,7 @@ class Markets : AppCompatActivity() {
         val username = getValue(this@Markets,"username")
         val names = getValue(this@Markets,"payer_names")
         val phone = getValue(this@Markets,"payer_phone")
+        val feeDescription = getValue(this@Markets,"feeDescription")
         val incomeTypeDescription = getValue(this@Markets,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@Markets,"description")
         val date = getValue(this@Markets,"date")
@@ -723,7 +748,7 @@ class Markets : AppCompatActivity() {
          val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
         val zone = getValue(this@Markets,"zone")
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message = "\n\nType:${incomeTypeDescription}\nDesc: ${feeDescription}\nFor: $description\nMpesa: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()

@@ -39,6 +39,7 @@
     <string name="offstreet">Street Parking</string>
     <string name="verify_vehicle">Scan Vehicle</string>
     <string name="verified">verified</string>
+    <string name="verify_payment">Verify Payment</string>
     <string name="parking_">Parking/Motorbikes</string>
     <string name="street">Street Parking</string>
     <string name="street_des">Parking Charges for motorbikes, personal vehicles and more.</string>
@@ -109,6 +110,9 @@
     <string name="total_charges">Total Charges</string>
     <string name="total_charges_">KES 200.00</string>
     <string name="amount_paid">Amount Paid</string>
+    <string name="vehicle">Vehicle</string>
+    <string name="location">Location</string>
+    <string name="time_elapsed">Elapsed Time</string>
     <string name="amount_paid_">KES 200</string>
     <string name="zone">Zone</string>
     <string name="zone_">Butere</string>
@@ -143,7 +147,8 @@
     <string name="cess_">Cess</string>
 
     <string name="all_queries">All Queries</string>
-    <string name="to_be_clamped">unclamped</string>
+    <string name="to_be_clamped">To be clamped</string>
+    <string name="to_be_un_clamped">To Be Unclamped</string>
     <string name="non_compliant">Non Compliant</string>
     <string name="clamped">Clamped</string>
     <string name="compliant">Compliant</string>
@@ -274,6 +279,7 @@
     <string name="validation_comments">Validation Comments</string>
     <string name="inspection_comments">Inspection Comments</string>
     <string name="resend">Resend Request</string>
+    <string name="pay_manually">Pay Offline</string>
     <string name="logins">logins:</string>
     <string name="view_all">View All</string>
     <string name="inactive">Inactive</string>
@@ -331,7 +337,7 @@
     <string name="application_declined">List of Declined Applications</string>
     <string name="application_declined_des">Get to approve application if all the requirements are met</string>
     <string name="active_business">List of Active Businesses</string>
-    <string name="active_business_des">View all active businesses within Ndhiwa Sub County</string>
+    <string name="active_business_des">View all businesses</string>
     <string name="application_verification">Application Verification</string>
     <string name="rents">Rents</string>
     <string name="rents_des">Efficient tenant payment request and tracking.</string>
@@ -382,13 +388,15 @@
     <string name="contact_person_email">Contact Person Email *</string>
     <string name="business_activity_information">Business Activity Information</string>
     <string name="select_business_category">Select Business Category</string>
+    <string name="year">Select Year</string>
+    <string name="select_business_category_other">Select Other Charges Category</string>
     <string name="select_business_sub_category">Select Business Sub Category</string>
-    <string name="premises_size">Premises Size in M2 *</string>
+    <string name="premises_size">Premises Size in M2</string>
     <string name="premises_size_">Premises Size in M2</string>
     <string name="premises_size_des">Enter premises Size</string>
     <string name="number_of_employees">No. of Employees</string>
     <string name="vehicle_tonnage">Vehicle Tonnage</string>
-    <string name="business_description_optional">Business description (Optional)</string>
+    <string name="business_description_optional">Business description</string>
     <string name="enter_premises_size">Enter premises Size</string>
     <string name="billing_information">Billing Information</string>
     <string name="business_category">Business category</string>
@@ -399,6 +407,7 @@
     <string name="building">Building</string>
     <string name="being_paid_now">Being Paid Now</string>
     <string name="send_later">Send Bill No. to Pay Later</string>
+    <string name="send_payment_payment">Send Payment SMS</string>
     <string name="proceed">Proceed</string>
     <string name="business_application">Business Application</string>
     <string name="contacts_location">Location/Contacts</string>
@@ -421,6 +430,8 @@
     <string name="decline">Decline Application</string>
     <string name="approve">Approve Application</string>
     <string name="fine_penalties">Fines &amp; Penalties</string>
+    <string name="clamping_module">Clamping Modules</string>
+    <string name="clamping_module_des">Check and release vehicles using a payment-controlled system</string>
     <string name="fine_penalties_des">Apply this section for penalizing individuals for their offenses.</string>
     <string name="illegal">Illegal signs, barriers &amp; banners</string>
     <string name="illegal_des">For violations associated with advertising and signage.</string>
@@ -464,5 +475,7 @@
     <string name="list_of_data">List of Businesses</string>
     <string name="transaction_timeout">Mpesa Transaction Timeout</string>
     <string name="timeout_message">No response. Press Resend or ask the payer to follow these steps to pay by themselves:</string>
+    <string name="other">Other Applicable Charges</string>
+
 
 </resources>

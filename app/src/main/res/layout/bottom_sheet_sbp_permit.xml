@@ -90,7 +90,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/red"
                 android:textSize="8sp"
-                android:text="@string/licensing"
+                tools:text="@string/licensing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <FrameLayout
@@ -153,9 +153,10 @@
                 android:textAllCaps="true"
                 android:textColor="@color/red"
                 android:textSize="8sp"
-                android:text="@string/revenue"
+                tools:text="@string/revenue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <FrameLayout
                 android:id="@+id/fl_application_validation"
                 android:layout_marginTop="2dp"
@@ -214,9 +215,10 @@
                 android:textAllCaps="true"
                 android:textColor="@color/red"
                 android:textSize="8sp"
-                android:text="@string/deputy_director"
+                tools:text="@string/deputy_director"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
             <FrameLayout
                 android:id="@+id/fl_application_inspection"
                 android:layout_marginTop="2dp"
@@ -403,6 +405,58 @@
                         android:textStyle="bold"
                         android:textColor="@color/circle_color"
                         android:text="@string/active_business"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textColor="@color/grey_des"
+                        android:textSize="9sp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/active_business_des"
+                        android:layout_width="250sp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/arrow_right_direction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/fl_application_list"
+                android:layout_marginTop="20sp"
+                android:background="@drawable/rectangle_background_blue"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_gravity="left"
+                    android:src="@drawable/list_of_active_sbp"
+                    android:layout_width="30sp"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/circle_color"
+                        android:text="@string/list_of_data"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

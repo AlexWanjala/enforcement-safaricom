@@ -19,18 +19,15 @@ android {
         }
     }
     compileSdk 34
-
     defaultConfig {
-        applicationId "com.aw.forcement"
+        applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 68
-        versionName "68"
+        versionCode 86
+        versionName "86"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
-
     buildTypes {
         release {
             minifyEnabled false
@@ -87,19 +84,16 @@ android {
                 variant.setIgnore(true)
             }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = '1.8'
     }
     buildFeatures {
         viewBinding true
     }
-
     buildscript {
         repositories {
             google()
@@ -108,7 +102,6 @@ android {
     }
     namespace 'com.aw.forcement'
 }
-
 
 
 dependencies {
@@ -160,7 +153,6 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.10"
 
-
     //steps bar
     // Add only this one if you want to include the View version
     //https://github.com/loukwn/StageStepBar
@@ -170,12 +162,9 @@ dependencies {
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
     implementation 'joda-time:joda-time:2.10.10'
-
    // implementation 'androidx.multidex:multidex:2.0.1'
 
-
 }
-
 
 ///Users/nouveta/Desktop/keystore/MacBookPro
 //MacBookPro

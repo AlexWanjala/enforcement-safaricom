@@ -27,6 +27,7 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
+import com.sanxynet.printooth.MainActivity
 import kotlinx.android.synthetic.main.activity_street_parking.*
 import kotlinx.android.synthetic.main.activity_street_parking.imageClose
 import kotlinx.android.synthetic.main.activity_street_parking.tvAmount
@@ -43,10 +44,9 @@ import kotlinx.android.synthetic.main.payment_unsuccesfull.view.tv_title
 import net.glxn.qrgen.android.QRCode
 import java.util.*
 import java.util.concurrent.TimeUnit
+
 import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
-import kotlin.concurrent.scheduleAtFixedRate
-
 
 class StreetParking : AppCompatActivity() {
     private val arrayList = ArrayList<String>()
@@ -76,8 +76,6 @@ class StreetParking : AppCompatActivity() {
 
 
     private var printing: Printing? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_street_parking)
@@ -146,11 +144,10 @@ class StreetParking : AppCompatActivity() {
         imageClose.setOnClickListener { finish() }
         getIncomeTypes()
 
-        /* //Bluetooth printer
+         //Bluetooth printer
          if (Printooth.hasPairedPrinter())
              printing = Printooth.printer()
-         initListeners()*/
-
+         initListeners()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -194,6 +191,7 @@ class StreetParking : AppCompatActivity() {
                                     p3: Long
                                 ) {
                                     incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+                                    save(this@StreetParking,"incomeTypeDescription",incomeTypeDescription)
                                     spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
                                 }
 
@@ -256,6 +254,7 @@ class StreetParking : AppCompatActivity() {
                                         feeDescription = response.data.feesAndCharges[postion].feeDescription
                                         amount = response.data.feesAndCharges[postion].unitFeeAmount
                                         feeId = response.data.feesAndCharges[postion].feeId
+                                        save(this@StreetParking,"feeDescription",feeDescription)
 
                                         runOnUiThread { tvAmount.text = "KES $amount" }
 
@@ -335,33 +334,41 @@ class StreetParking : AppCompatActivity() {
 
     }
 
-    //payment Process
+    //Payment Process
+    lateinit var timer: TimerTask
+    private fun stopTimer() {
+        timer.cancel()
+    }
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
 
         checkPayment = true
 
-        Timer().schedule(30000) {
+        timer = Timer().schedule(65000) {
             runOnUiThread {
                 if(showTimeout){
                     pushButton = true
                     checkPayment = false
 
-                    tv_message.text =""
-                    tvSendPush.visibility = View.VISIBLE
-                    tvSendPushDisabled.visibility = View.GONE
+                    if (showTimeout){
+                        tv_message.text =""
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
 
-                    messageBoxInstance.dismiss()
-                    // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
-                    if (::messageBoxInstanceFailed.isInitialized) {
-                        messageBoxInstanceFailed.dismiss()
+                        messageBoxInstance.dismiss()
+                        // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                        if (::messageBoxInstanceFailed.isInitialized) {
+                            messageBoxInstanceFailed.dismiss()
+                        }
+                        showMessageBoxTimeOut(
+                            accountReference,
+                            payBillNumber,
+                            amount)
                     }
-                    showMessageBoxTimeOut(
-                        accountReference,
-                        payBillNumber,
-                        amount)
                 }
             }
         }
+
+
         // progressBar1.visibility = View.VISIBLE
         runOnUiThread {
             tv_message.text = "Sending Payment Request.."
@@ -385,7 +392,7 @@ class StreetParking : AppCompatActivity() {
 
                     runOnUiThread {
                         // progressBar1.visibility = View.GONE
-                        checkPayment(accountReference)
+                        checkPayment(accountReference, payBillNumber, amount)
                     }
 
                 } else {
@@ -402,7 +409,7 @@ class StreetParking : AppCompatActivity() {
         })
 
     }
-    fun checkPayment(accountReference: String) {
+    fun checkPayment(accountReference: String,payBillNumber: String, amount: String) {
 
         if(checkPayment){
 
@@ -473,8 +480,8 @@ class StreetParking : AppCompatActivity() {
                                     (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
                                 }
-                                TimeUnit.SECONDS.sleep(2L)
-                                checkPayment(accountReference)
+                                TimeUnit.SECONDS.sleep(3L)
+                                checkPayment(accountReference,payBillNumber,amount)
                             }
 
                         }
@@ -484,7 +491,7 @@ class StreetParking : AppCompatActivity() {
                                 tv_message.text = response.data.push.message
                                 tvSendPush.visibility = View.VISIBLE
                                 tvSendPushDisabled.visibility = View.GONE
-                                showMessageBoxPaymentFail(response.data.push.message)
+                                showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
 
                             }
                         }
@@ -492,8 +499,8 @@ class StreetParking : AppCompatActivity() {
                     } else {
                         if(checkPayment){
                             runOnUiThread { tv_message.text = "Waiting for payment.." }
-                            TimeUnit.SECONDS.sleep(2L)
-                            checkPayment(accountReference)
+                            TimeUnit.SECONDS.sleep(3L)
+                            checkPayment(accountReference,payBillNumber,amount)
                         }
                     }
                 }
@@ -503,6 +510,7 @@ class StreetParking : AppCompatActivity() {
 
     }
     private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        showTimeout = false
         // Check if messageBoxView has a parent
         if (messageBoxViewTimeOut.parent != null) {
             // Remove messageBoxView from its parent
@@ -524,6 +532,13 @@ class StreetParking : AppCompatActivity() {
             )
         }
         messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+        messageBoxViewTimeOut.btn_verify_payment.setOnClickListener {
+
+        messageBoxViewTimeOut.btn_verify_payment.text = "Please Wait.."
+            checkPayment = true
+        checkPayment(accountReference,payBillNumber,amount)
+
+        }
 
     }
     private fun showMessageBox() {
@@ -538,6 +553,7 @@ class StreetParking : AppCompatActivity() {
         messageBoxInstance.setCanceledOnTouchOutside(false)
     }
     private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -559,7 +575,8 @@ class StreetParking : AppCompatActivity() {
         messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
 
     }
-    private fun showMessageBoxPaymentFail(message: String) {
+    private fun showMessageBoxPaymentFail(message: String,accountReference: String,payBillNumber: String, amount: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewFailed.parent != null) {
@@ -602,6 +619,10 @@ class StreetParking : AppCompatActivity() {
                         (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
                     }
 
+        (messageBoxViewFailed as View?)!!.btnPayOffline.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            showMessageBoxTimeOut(accountReference,payBillNumber,amount)
+        }
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
@@ -621,7 +642,6 @@ class StreetParking : AppCompatActivity() {
             )
         else printDetails()
     }
-
     private fun initListeners() {
         /* callback from printooth to get printer process */
         printing?.printingCallback = object : PrintingCallback {
@@ -651,16 +671,16 @@ class StreetParking : AppCompatActivity() {
             override fun disconnected() {
                 Toast.makeText(this@StreetParking, "Disconnected Printer", Toast.LENGTH_SHORT)
                     .show()
+                finish()
+                startActivity(Intent(this@StreetParking, StreetParking::class.java))
             }
 
         }
     }
-
     private fun printDetails() {
         val printables = getSomePrintables()
         printing?.print(printables)
     }
-
     /* Customize your printer here with text, logo and QR code */
     private fun getSomePrintables() = java.util.ArrayList<Printable>().apply {
 
@@ -689,6 +709,7 @@ class StreetParking : AppCompatActivity() {
         )
 
 
+        //Todo if print_county_logo is red check if the res of the flavor selected if available
         val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
         val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
         val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
@@ -704,8 +725,8 @@ class StreetParking : AppCompatActivity() {
         val username = getValue(this@StreetParking, "username")
         val names = getValue(this@StreetParking, "payer_names")
         val phone = getValue(this@StreetParking, "payer_phone")
-        val incomeTypeDescription =
-            getValue(this@StreetParking, "incomeTypeDescription")?.capitalize()
+        val feeDescription = getValue(this@StreetParking, "feeDescription")
+        val incomeTypeDescription = getValue(this@StreetParking, "incomeTypeDescription")?.capitalize()
         val description = getValue(this@StreetParking, "description")
         val date = getValue(this@StreetParking, "date")
 
@@ -716,8 +737,7 @@ class StreetParking : AppCompatActivity() {
          val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
         val zone = getValue(this@StreetParking, "zone")
-        val message =
-            "\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message = "\n\nType:${incomeTypeDescription}\nDesc: ${feeDescription}\nFor: $description\nMpesa: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
@@ -755,10 +775,8 @@ class StreetParking : AppCompatActivity() {
 
 
     }
-
     /* Inbuilt activity to pair device with printer or select from list of pair bluetooth devices */
-    var resultLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == ScanningActivity.SCANNING_FOR_PRINTER && result.resultCode == Activity.RESULT_OK) {
                 // There are no request codes
 //            val intent = result.data

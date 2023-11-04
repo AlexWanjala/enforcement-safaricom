@@ -48,6 +48,7 @@ import java.util.*
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.aw.forcement.clamping.ClampingModule
 import com.aw.forcement.fines.Fines
 import com.aw.forcement.rents.PromisedPayments
 import com.aw.forcement.rents.ReceivePayment
@@ -55,6 +56,7 @@ import com.aw.forcement.rents.TenancyRegister
 import com.aw.forcement.ro.MainRoActivity
 import com.aw.forcement.sbp.datacollections.DataCollection
 import com.aw.forcement.sbp.application.BusinessOwner
+import com.aw.forcement.sbp.application.Businesses
 import com.aw.forcement.sbp.applications.Applications
 import com.aw.forcement.sbp.datacollections.CollectionsSBP
 import com.google.android.material.navigation.NavigationView
@@ -125,14 +127,58 @@ class Home : AppCompatActivity() {
             finishAffinity()
         }
 
-         if(getValue(this,"category").toString() == "ICT OFFICER"){
-             sbpDataCollection.visibility = View.VISIBLE
-         }else{
-             sbpDataCollection.visibility = View.GONE
+
+        /* if (getValue(this,"category").toString() == "LICENCING OFFICERS"){
+             fl_application_validation.visibility = View.GONE
          }
+         else{
+             fl_application_validation.visibility = View.VISIBLE
+         }
+
+         if (getValue(this,"category").toString() == "REVENUE DIRECTOR"){
+             fl_application_approval.visibility = View.VISIBLE
+         }
+         else{
+             fl_application_approval.visibility = View.GONE
+         }
+
+         if (getValue(this,"category").toString() == "ACCOUNTANTS" ||
+             getValue(this,"category").toString() == "REVENUE OFFICER" ||
+             getValue(this,"category").toString() == "REVENUE DIRECTOR" ||
+             getValue(this,"category").toString() == "ICT ADMIN" ||
+             getValue(this,"category").toString() == "ICT OFFICER" ||
+             getValue(this,"category").toString() == "DEPUTY DIRECTOR"){
+             fl_application_inspection.visibility = View.VISIBLE
+         }else{
+             fl_application_inspection.visibility = View.GONE
+         }
+
+        if(
+            getValue(this,"category").toString() == "LICENCING OFFICERS" ||
+            getValue(this,"category").toString() == "REVENUE OFFICER" ||
+            getValue(this,"category").toString() == "REVENUE DIRECTOR" ||
+            getValue(this,"category").toString() == "DEPUTY DIRECTOR" ||
+            getValue(this,"category").toString() == "ICT ADMIN" ||
+            getValue(this,"category").toString() == "ICT OFFICER" ||
+            getValue(this,"category").toString() == "SUPERVISORS" ||
+            getValue(this,"category").toString() == "ACCOUNTANTS" ||
+            getValue(this,"category").toString() == "EXECUTIVE"
+        ){
+             sbpDataCollection.visibility = View.VISIBLE
+            sbp.visibility = View.VISIBLE
+         }
+        else{
+             sbpDataCollection.visibility = View.GONE
+              sbp.visibility = View.GONE
+         }*/
 
          sbpDataCollection.setOnClickListener {
              startActivity(Intent(this, DataCollection::class.java))
+         }
+
+         fl_application_list.setOnClickListener {
+
+             startActivity(Intent(this, Businesses::class.java))
          }
 
         //Street Parking
@@ -153,6 +199,9 @@ class Home : AppCompatActivity() {
         history.setOnClickListener {
             startActivity(Intent(this, MyHistory::class.java).putExtra("bottomBar","show").putExtra("names","My History").putExtra("idNo", getValue(this,"idNo")))
             finish()
+        }
+        clamping_module.setOnClickListener {
+            startActivity(Intent(this, ClampingModule::class.java))
         }
 
         profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
@@ -195,6 +244,7 @@ class Home : AppCompatActivity() {
              save(this,"header","Active Businesses")
              startActivity(Intent(this, DataCollection::class.java))
          }
+
          fl_data_collections.setOnClickListener {
              startActivity(Intent(this, CollectionsSBP::class.java))
          }

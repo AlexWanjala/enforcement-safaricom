@@ -3,6 +3,7 @@ package com.aw.forcement.sbp.application
 import AdapterFeeAndCharges
 import Business
 import Const
+import FeesAndCharges
 import Json4Kotlin_Base
 import android.content.Intent
 import android.os.Bundle
@@ -47,6 +48,7 @@ class BillingInformation : AppCompatActivity() {
     var businessID =""
     var description =""
     var payNow =""
+    var totalAmount = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,13 +61,18 @@ class BillingInformation : AppCompatActivity() {
         messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
         messageBoxViewInfo = LayoutInflater.from(this).inflate(R.layout.send_later, null)
 
+        closeBottom.setOnClickListener {
+            finishAffinity()
+            startActivity(Intent(this,Home::class.java))
+        }
+
         tv_business_name.text = getValue(this,"business_name")
         tv_business_category.text = getValue(this,"business_category")
         tv_business_sub_category.text = getValue(this,"business_sub_category")
         tv_owners_id.text = getValue(this,"owner_id")
         tv_business_phone.text = getValue(this,"business_phone")
         tv_business_email.text = getValue(this,"business_email")
-        tvAmount.text ="KES "+ getValue(this,"amount")
+
 
         tv_proceed.setOnClickListener {
             if(payNow==""){
@@ -90,7 +97,31 @@ class BillingInformation : AppCompatActivity() {
             startActivity(Intent(this,Home::class.java))
         }
 
+
+        loadSelectedFeeAndCharges()
     }
+
+     fun loadSelectedFeeAndCharges(){
+         totalAmount =0.0
+        runOnUiThread {
+            val adapter = AdapterFeeAndCharges(this@BillingInformation, Const.instance.getSelectedFeesAndCharges())
+            adapter.notifyDataSetChanged()
+            recyclerView.layoutManager = LinearLayoutManager(this@BillingInformation)
+            recyclerView.adapter = adapter
+            recyclerView.setHasFixedSize(false)
+        }
+
+         val selectedFeesAndCharges = Const.instance.getSelectedFeesAndCharges()
+
+        // Loop through the selected fees and charges
+         for (feeAndCharge in selectedFeesAndCharges) {
+        // Parse the unitFeeAmount as a double and add it to the total amount
+             totalAmount += feeAndCharge.unitFeeAmount.toDouble()
+         }
+
+         tvAmount.text ="KES "+ totalAmount
+    }
+
     private fun getJsonData(): String {
         val updatedBusiness = Business(
             id = "",
@@ -133,7 +164,6 @@ class BillingInformation : AppCompatActivity() {
             dateCreated = "",
             lat = getValue(this, "lat").toString(),
             lng = getValue(this, "lng").toString(),
-            liquor = getValue(this, "liquor").toString(),
             conservancy = getValue(this, "conservancy").toString(),
             fireLicence = "",
             liquorLicence = "",
@@ -164,37 +194,7 @@ class BillingInformation : AppCompatActivity() {
                     businessID = response.data.business.businessID.toString()
                     description = response.data.business.buildingName.toString()
 
-
-                    runOnUiThread {
-                        val adapter = AdapterFeeAndCharges(this@BillingInformation, response.data.feesAndCharges)
-                        adapter.notifyDataSetChanged()
-                        recyclerView.layoutManager = LinearLayoutManager(this@BillingInformation)
-                        recyclerView.adapter = adapter
-                        recyclerView.setHasFixedSize(false)
-                    }
-
                     Const.instance.setFeesAndCharges(response.data.feesAndCharges)
-                    Const.instance.getFeesAndCharges().forEach {
-
-                        if (it.feeId == response.data.business.feeID) {
-                            it.customer = "Business ID: ${response.data.business.businessID}"
-                            Log.e("#####","${it.feeDescription} || ${it.feeId}  ||  ${response.data.business.feeID}")
-                        }else{
-                            it.customer = ""
-                        }
-                        it.zone = getValue(this@BillingInformation,"zone").toString()
-                        it.revenueStreamItem = response.data.business.businessName
-                        it.amount = it.unitFeeAmount
-                        it.subCountyName =  response.data.business.subCountyName
-                        it.subCountyID =  response.data.business.subCountyID
-                        it.wardID =  response.data.business.wardID
-                        it.wardName =  response.data.business.wardName
-                        it.idNo = getValue(this@BillingInformation,"idNo").toString()
-                        it.phoneNumber = getValue(this@BillingInformation,"phoneNumber").toString()
-                        it.names = getValue(this@BillingInformation,"names").toString()
-                        it.customerPhoneNumber =  response.data.business.ownerPhone
-                        it.description = response.data.business.businessName
-                    }
 
                     runOnUiThread {
                         showMessageBox()
@@ -208,16 +208,40 @@ class BillingInformation : AppCompatActivity() {
         })
     }
 
-    private fun getBillItem(): String {
-        val gson = Gson()
-        return gson.toJson(Const.instance.getFeesAndCharges())
+    private fun getBillItem(): List<FeesAndCharges> {
+
+        Const.instance.getSelectedFeesAndCharges().forEach {
+
+            if (it.feeId == getValue(this, "feeID").toString()) {
+                it.customer = "Business ID: $businessID"
+
+            }else{
+                it.customer = ""
+            }
+
+            it.zone = getValue(this@BillingInformation,"zone").toString()
+            it.amount = it.unitFeeAmount
+            it.subCountyName =  getValue(this, "subCountyName").toString()
+            it.subCountyID = getValue(this, "subCountyID").toString()
+            it.wardID = getValue(this, "wardID").toString()
+            it.wardName =  getValue(this, "wardName").toString()
+            it.idNo = getValue(this@BillingInformation,"idNo").toString()
+            it.phoneNumber = getValue(this@BillingInformation,"phoneNumber").toString()
+            it.names = getValue(this@BillingInformation,"names").toString()
+            it.customerPhoneNumber =  getValue(this, "owner_phone").toString()
+            it.description = getValue(this, "business_name").toString()
+            it.fiscalYear = getValue(this, "fiscalYear").toString()
+        }
+
+        return Const.instance.getSelectedFeesAndCharges()
     }
 
     private fun generateBill (){
+
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
             "function" to "generateBill3",
-            "billItem" to getBillItem(),
+            "billItem" to  Gson().toJson(getBillItem()),
             "payNow" to payNow,
             "customerPhoneNumber" to edPhone.text.toString(),
         )
@@ -261,66 +285,6 @@ class BillingInformation : AppCompatActivity() {
         })
     }
 
-    private fun generateBilll (){
-        tv_message.text ="Generating bill please wait.."
-        val formData = listOf(
-            "function" to "generateBill2",
-            "feeId" to getValue(this,"feeID").toString(),
-            "amount" to getValue(this,"amount").toString(),
-            "customer" to businessID,
-            "zone" to getValue(this,"zone").toString(),
-            "subCountyID" to getValue(this,"subCountyID").toString(),
-            "subCountyName" to getValue(this,"subCountyName").toString(),
-            "wardID" to getValue(this,"wardID").toString(),
-            "wardName" to getValue(this,"wardName").toString(),
-            "idNo" to getValue(this,"idNo").toString(),
-            "phoneNumber" to getValue(this,"phoneNumber").toString(),
-            "names" to getValue(this,"username").toString(),
-            "customerPhoneNumber" to edPhone.text.toString(),
-            "description" to description,
-            "payNow" to payNow
-        )
-        executeRequest(formData, biller,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-
-                    val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                    if(response.success){
-                        runOnUiThread {
-
-                            tv_message.text ="Bill generated success.."
-                            tv_proceed.visibility = View.GONE
-                            tvSendPushDisabled.visibility = View.VISIBLE
-
-                            if (payNow=="true"){
-
-                                customerPayBillOnline(
-                                    response.data.billGenerated.billNo,
-                                    response.data.billGenerated.payBillNo,
-                                    response.data.billGenerated.amount,
-                                )
-
-                            }else{
-                                showMessageBoxPaymentInfo()
-                            }
-
-                        }
-
-                    }else{
-                        Toast.makeText(this@BillingInformation,response.message, Toast.LENGTH_LONG).show()
-                    }
-
-
-                }else{
-                    runOnUiThread {  Toast.makeText(this@BillingInformation,response.message, Toast.LENGTH_LONG).show()}
-
-                }
-
-            }
-
-        })
-    }
 
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String){
         // progressBar1.visibility = View.VISIBLE
@@ -456,7 +420,7 @@ class BillingInformation : AppCompatActivity() {
             messageBoxInstancePaid.dismiss()
 
             finishAffinity()
-            startActivity(Intent(this,Home::class.java))
+            startActivity(Intent(this,Businesses::class.java))
 
         }
 
@@ -505,7 +469,7 @@ class BillingInformation : AppCompatActivity() {
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss()  }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
-           runOnUiThread {  generateBill() }
+           runOnUiThread { generateBill() }
         }
 
     }
@@ -516,17 +480,17 @@ class BillingInformation : AppCompatActivity() {
             // Remove messageBoxView from its parent
             (messageBoxViewInfo.parent as ViewGroup).removeView(messageBoxViewInfo)
         }
-        messageBoxInstanceInfo.setCanceledOnTouchOutside (false)
 
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewInfo as View?
         )
         messageBoxInstanceInfo = messageBoxBuilder.show()
+        messageBoxInstanceInfo.setCanceledOnTouchOutside (false)
 
         messageBoxViewInfo.okay.setOnClickListener {
             messageBoxInstanceInfo.dismiss()
             finishAffinity()
-            startActivity(Intent(this,Home::class.java))
+            startActivity(Intent(this,Businesses::class.java))
         }
 
     }

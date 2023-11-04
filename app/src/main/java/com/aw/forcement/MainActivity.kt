@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
+import com.aw.forcement.others.ReceiptDetails
 import com.mazenrashed.printooth.Printooth
 import com.mazenrashed.printooth.data.printable.ImagePrintable
 import com.mazenrashed.printooth.data.printable.Printable
@@ -34,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-      /*  if (Printooth.hasPairedPrinter())
+        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-             initListeners()*/
+             initListeners()
 
     }
 
@@ -79,6 +80,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@MainActivity, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@MainActivity, MainActivity::class.java))
             }
 
         }

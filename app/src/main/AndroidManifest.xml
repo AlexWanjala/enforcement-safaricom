@@ -31,9 +31,24 @@
         android:windowSoftInputMode="adjustResize"
         tools:replace="android:theme"
         tools:targetApi="31">
+        <activity
+            android:name=".clamping.ClampingModule"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <activity
             android:name=".sbp.datacollections.CollectionsSBP"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".sbp.application.Businesses"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

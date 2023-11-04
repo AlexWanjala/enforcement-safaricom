@@ -153,7 +153,6 @@ class DataCollection :  AppCompatActivity() {
             dateCreated = "",
             lat = getValue(this, "latitude").toString(),
             lng = getValue(this, "longitude").toString(),
-            liquor = "",
             conservancy = "",
             fireLicence = fireLicence,
             liquorLicence = liquorLicence,

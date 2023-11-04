@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
+import com.aw.forcement.sbp.application.BillingInformation
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -45,6 +47,18 @@ class AdapterFeeAndCharges(private val context: Context, mList: List<FeesAndChar
 			holder.layoutView.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
 		}
+		holder.layoutView.setOnClickListener {
+
+			Toast.makeText(context,"Long Press to Remove",Toast.LENGTH_LONG).show()
+		}
+		holder.layoutView.setOnLongClickListener( object : View.OnLongClickListener {
+			override fun onLongClick(p0: View?): Boolean {
+				Const.instance.removeFeeAndCharge(list)
+				(context as BillingInformation).loadSelectedFeeAndCharges()
+				return true
+			}
+
+		})
 
 		holder.tv_fee_description.text = list.feeDescription
 		holder.tv_amount.text = "KES ${list.unitFeeAmount}"

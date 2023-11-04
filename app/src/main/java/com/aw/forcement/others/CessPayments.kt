@@ -115,9 +115,9 @@ class CessPayments : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-       /* if (Printooth.hasPairedPrinter())
+        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
 
         edQuantity.addTextChangedListener(object :TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -150,6 +150,8 @@ class CessPayments : AppCompatActivity() {
         tv_message.text = "Generating bill please wait..$incomeTypeDescription $feeDescription"
         (messageBoxView as View?)!!.tv_message.text =
             "Generating bill please wait..$incomeTypeDescription $feeDescription"
+
+        save(this@CessPayments,"description",edPlate.text.toString().replace(" ", "").trim().toUpperCase()+" "+edDescription.text.toString())
 
 
         val formData = listOf(
@@ -226,6 +228,7 @@ class CessPayments : AppCompatActivity() {
                         spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+                                save(this@CessPayments,"incomeTypeDescription",incomeTypeDescription)
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -269,8 +272,8 @@ class CessPayments : AppCompatActivity() {
                                 feeDescription = response.data.feesAndCharges[postion].feeDescription
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
+                                save(this@CessPayments,"feeDescription",feeDescription)
 
-                                save(this@CessPayments,"description",response.data.feesAndCharges[postion].feeDescription)
                                 runOnUiThread {
                                    tvUnits.text =  response.data.feesAndCharges[postion].feeDescription
                                    tvAmount.text ="KES "+amount
@@ -293,33 +296,40 @@ class CessPayments : AppCompatActivity() {
     }
 
 
-    //payment Process
+    lateinit var timer: TimerTask
+    private fun stopTimer() {
+        timer.cancel()
+    }
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
 
         checkPayment = true
 
-        Timer().schedule(30000) {
+        timer = Timer().schedule(65000) {
             runOnUiThread {
                 if(showTimeout){
                     pushButton = true
                     checkPayment = false
 
-                    tv_message.text =""
-                    tvSendPush.visibility = View.VISIBLE
-                    tvSendPushDisabled.visibility = View.GONE
+                    if (showTimeout){
+                        tv_message.text =""
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
 
-                    messageBoxInstance.dismiss()
-                    // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
-                    if (::messageBoxInstanceFailed.isInitialized) {
-                        messageBoxInstanceFailed.dismiss()
+                        messageBoxInstance.dismiss()
+                        // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                        if (::messageBoxInstanceFailed.isInitialized) {
+                            messageBoxInstanceFailed.dismiss()
+                        }
+                        showMessageBoxTimeOut(
+                            accountReference,
+                            payBillNumber,
+                            amount)
                     }
-                    showMessageBoxTimeOut(
-                        accountReference,
-                        payBillNumber,
-                        amount)
                 }
             }
         }
+
+
         // progressBar1.visibility = View.VISIBLE
         runOnUiThread {
             tv_message.text = "Sending Payment Request.."
@@ -343,7 +353,7 @@ class CessPayments : AppCompatActivity() {
 
                     runOnUiThread {
                         // progressBar1.visibility = View.GONE
-                        checkPayment(accountReference)
+                        checkPayment(accountReference, payBillNumber, amount)
                     }
 
                 } else {
@@ -360,7 +370,7 @@ class CessPayments : AppCompatActivity() {
         })
 
     }
-    fun checkPayment(accountReference: String) {
+    fun checkPayment(accountReference: String,payBillNumber: String, amount: String) {
 
         if(checkPayment){
 
@@ -388,7 +398,6 @@ class CessPayments : AppCompatActivity() {
                                 tv_message.text =
                                     "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
 
-                                save(this@CessPayments, "description", edPlate.text.toString())
                                 save(
                                     this@CessPayments,
                                     "transaction_code",
@@ -431,8 +440,8 @@ class CessPayments : AppCompatActivity() {
                                     (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
                                 }
-                                TimeUnit.SECONDS.sleep(2L)
-                                checkPayment(accountReference)
+                                TimeUnit.SECONDS.sleep(3L)
+                                checkPayment(accountReference,payBillNumber,amount)
                             }
 
                         }
@@ -442,7 +451,7 @@ class CessPayments : AppCompatActivity() {
                                 tv_message.text = response.data.push.message
                                 tvSendPush.visibility = View.VISIBLE
                                 tvSendPushDisabled.visibility = View.GONE
-                                showMessageBoxPaymentFail(response.data.push.message)
+                                showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
 
                             }
                         }
@@ -450,8 +459,8 @@ class CessPayments : AppCompatActivity() {
                     } else {
                         if(checkPayment){
                             runOnUiThread { tv_message.text = "Waiting for payment.." }
-                            TimeUnit.SECONDS.sleep(2L)
-                            checkPayment(accountReference)
+                            TimeUnit.SECONDS.sleep(3L)
+                            checkPayment(accountReference,payBillNumber,amount)
                         }
                     }
                 }
@@ -461,6 +470,7 @@ class CessPayments : AppCompatActivity() {
 
     }
     private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        showTimeout = false
         // Check if messageBoxView has a parent
         if (messageBoxViewTimeOut.parent != null) {
             // Remove messageBoxView from its parent
@@ -482,6 +492,13 @@ class CessPayments : AppCompatActivity() {
             )
         }
         messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+        messageBoxViewTimeOut.btn_verify_payment.setOnClickListener {
+
+            messageBoxViewTimeOut.btn_verify_payment.text = "Please Wait.."
+            checkPayment = true
+            checkPayment(accountReference,payBillNumber,amount)
+
+        }
 
     }
     private fun showMessageBox() {
@@ -496,6 +513,7 @@ class CessPayments : AppCompatActivity() {
         messageBoxInstance.setCanceledOnTouchOutside(false)
     }
     private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -517,7 +535,8 @@ class CessPayments : AppCompatActivity() {
         messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
 
     }
-    private fun showMessageBoxPaymentFail(message: String) {
+    private fun showMessageBoxPaymentFail(message: String,accountReference: String,payBillNumber: String, amount: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewFailed.parent != null) {
@@ -560,6 +579,10 @@ class CessPayments : AppCompatActivity() {
                         (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
                     }
 
+        (messageBoxViewFailed as View?)!!.btnPayOffline.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            showMessageBoxTimeOut(accountReference,payBillNumber,amount)
+        }
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
@@ -567,8 +590,6 @@ class CessPayments : AppCompatActivity() {
         }
 
     }
-
-    
 
     //printer services starts here
     fun printReceipt(){
@@ -606,6 +627,8 @@ class CessPayments : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@CessPayments, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@CessPayments, CessPayments::class.java))
             }
 
         }
@@ -654,6 +677,7 @@ class CessPayments : AppCompatActivity() {
         val username = getValue(this@CessPayments,"username")
         val names = getValue(this@CessPayments,"payer_names")
         val phone = getValue(this@CessPayments,"payer_phone")
+        val feeDescription = getValue(this@CessPayments, "feeDescription")
         val incomeTypeDescription = getValue(this@CessPayments,"incomeTypeDescription")?.capitalize()
         val description = getValue(this@CessPayments,"description")
         val date = getValue(this@CessPayments,"date")
@@ -666,7 +690,8 @@ class CessPayments : AppCompatActivity() {
          val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
         val zone = getValue(this@CessPayments,"zone")
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message = "\n\nType:${incomeTypeDescription}\nDesc: ${feeDescription}\nFor: $description\nMpesa: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+
 
         add(
             TextPrintable.Builder()

@@ -46,6 +46,8 @@ data class Data (
 	@SerializedName("statuses") val statuses : List<Statuses>,
 	@SerializedName("bill") val bill : Bill,
 	@SerializedName("receipt") val receipt : Receipt,
-	@SerializedName("businessTypes") val businessTypes : List<BusinessTypes>
+	@SerializedName("businessTypes") val businessTypes : List<BusinessTypes>,
+	@SerializedName("clamped") val clamped : List<Clamped>,
+	@SerializedName("years") val years : List<Years>
 
 )

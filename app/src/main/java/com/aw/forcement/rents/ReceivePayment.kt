@@ -19,6 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
+import com.aw.forcement.others.CessPaymentsMatatus
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
@@ -107,9 +108,9 @@ class ReceivePayment : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-        /* if (Printooth.hasPairedPrinter())
+         if (Printooth.hasPairedPrinter())
              printing = Printooth.printer()
-         initListeners()*/
+         initListeners()
 
     }
 
@@ -556,6 +557,8 @@ class ReceivePayment : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@ReceivePayment, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@ReceivePayment, ReceivePayment::class.java))
             }
 
         }

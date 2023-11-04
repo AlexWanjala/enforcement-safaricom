@@ -39,20 +39,31 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street.*
-import kotlinx.android.synthetic.main.activity_street.edPlate
-import kotlinx.android.synthetic.main.activity_street_parking.*
 import kotlinx.android.synthetic.main.clamp.*
 import kotlinx.android.synthetic.main.clamp.spinnerFeeAndCharges
 import kotlinx.android.synthetic.main.clamp.spinnerIncomeType
 import kotlinx.android.synthetic.main.clamp.view.*
+import kotlinx.android.synthetic.main.clamp.view.imageIcon
+import kotlinx.android.synthetic.main.clamp.view.tv_close
+import kotlinx.android.synthetic.main.clamp.view.tv_message_unpaid
+import kotlinx.android.synthetic.main.clamp.view.tv_title
+import kotlinx.android.synthetic.main.message_box.view.*
+import kotlinx.android.synthetic.main.message_box.view.tv_message
+import kotlinx.android.synthetic.main.pay.*
+import kotlinx.android.synthetic.main.pay.view.*
+import kotlinx.android.synthetic.main.payment_offline.view.*
+import kotlinx.android.synthetic.main.payment_recieved.view.*
+import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
+import kotlin.concurrent.schedule
 
 class Street : AppCompatActivity() {
 
-    lateinit var messageBoxView : View
-    lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+    lateinit var messageBoxViewClamp : View
+    lateinit var messageBoxInstanceClamp: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
@@ -71,10 +82,21 @@ class Street : AppCompatActivity() {
         setContentView(R.layout.activity_street)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        messageBoxView = LayoutInflater.from(this).inflate(R.layout.clamp, null)
+        //Initialize messageBoxView here
+        messageBoxViewClamp = LayoutInflater.from(this).inflate(R.layout.clamp, null)
+        messageBoxViewTimeOut = LayoutInflater.from(this).inflate(R.layout.payment_offline, null)
+        messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
+        messageBoxViewFailed = LayoutInflater.from(this).inflate(R.layout.payment_unsuccesfull, null)
+        messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
+        messageBoxViewPay = LayoutInflater.from(this).inflate(R.layout.pay, null)
 
         btnClamp.setOnClickListener {
-            showMessageBox()
+            if(edPlate.text.isEmpty()){
+                Toast.makeText(this,"Enter Plate Number",Toast.LENGTH_LONG).show()
+            }else{
+                showMessageBoxClamp()
+            }
+
         }
 
         switchCamera.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -109,39 +131,39 @@ class Street : AppCompatActivity() {
         return output
     }
 
-    private fun showMessageBox(){
+    private fun showMessageBoxClamp(){
 
         // Check if messageBoxView has a parent
-        if (messageBoxView.parent != null) {
+        if (messageBoxViewClamp.parent != null) {
             // Remove messageBoxView from its parent
-            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+            (messageBoxViewClamp.parent as ViewGroup).removeView(messageBoxViewClamp)
         }
 
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
-            messageBoxView as View?
+            messageBoxViewClamp as View?
         )
-        messageBoxInstance = messageBoxBuilder.show()
-        messageBoxInstance.setCanceledOnTouchOutside(false)
+        messageBoxInstanceClamp = messageBoxBuilder.show()
+        messageBoxInstanceClamp.setCanceledOnTouchOutside(false)
 
-        messageBoxView.btn_clamp.setOnClickListener {
+        messageBoxViewClamp.btn_clamp.setOnClickListener {
             generatePenalty()
-            messageBoxInstance.dismiss()
+            messageBoxInstanceClamp.dismiss()
         }
-        messageBoxView.tv_close.setOnClickListener {
+        messageBoxViewClamp.tv_close.setOnClickListener {
 
-            messageBoxInstance.dismiss()
+            messageBoxInstanceClamp.dismiss()
         }
 
         getIncomeTypes()
         getIncomeTypesParking()
 
     }
-    private fun getParking(plateNumbe : String){
+    private fun getParking(plateNumber : String){
        // progress_circular.visibility = View.VISIBLE
 
         val formData = listOf(
             "function" to "getParking",
-            "numberPlate" to plateNumbe.trim(),
+            "numberPlate" to plateNumber.trim(),
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
@@ -163,10 +185,21 @@ class Street : AppCompatActivity() {
                             tv_status.setTextColor(Color.RED)
                             tv_amount.setTextColor(Color.RED)
                             tv_amount.text = "KES "+response.data.parking.billBalance
+
+                            if(response.data.parking.status.equals("CLAMPED")){
+                                btnClamp.text = "PAY"
+                                btnClamp.setOnClickListener { showMessageBoxPay(response.data.parking.billBalance,response.data.parking.parkingCode) }
+
+                            }
+
                         }else{
-                            tv_amount.text = "KES "+response.data.parking.receiptAmount
-                            tv_status.setTextColor(Color.parseColor("#09754E"))
+
+                                tv_amount.text = "KES "+response.data.parking.receiptAmount
+                                tv_status.setTextColor(Color.parseColor("#09754E"))
+
+
                         }
+
 
                         tv_for.text = response.data.parking.category+" for "+ response.data.parking.duration
                         tv_status.text = response.data.parking.status
@@ -186,7 +219,7 @@ class Street : AppCompatActivity() {
                             status.setTextColor(Color.RED)
                         }*/
 
-                       tts!!.speak(response.message, TextToSpeech.QUEUE_ADD, null, "DEFAULT")
+                      tts!!.speak(response.message, TextToSpeech.QUEUE_ADD, null, "DEFAULT")
                     }
 
 
@@ -225,7 +258,7 @@ class Street : AppCompatActivity() {
             "names" to getValue(this,"username").toString(),
             "address" to getValue(this,"address").toString(),
             "customerPhoneNumber" to "",
-            "description" to messageBoxView.ed_reason.text.toString(),
+            "description" to messageBoxViewClamp.ed_reason.text.toString(),
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -233,7 +266,11 @@ class Street : AppCompatActivity() {
                 if(response.success){
 
                     runOnUiThread {
-                        runOnUiThread {  Toast.makeText(this@Street,response.message, Toast.LENGTH_LONG).show()}
+                        runOnUiThread {
+                            Toast.makeText(this@Street,response.message, Toast.LENGTH_LONG).show()
+                            getParking( edPlate.text.toString())
+                        }
+
                     }
 
                 }else{
@@ -266,8 +303,8 @@ class Street : AppCompatActivity() {
                         //Spinner
                         val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayListParking)
                         adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        messageBoxView.spinnerIncomeType.adapter = adapters
-                        messageBoxView.spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        messageBoxViewClamp.spinnerIncomeType.adapter = adapters
+                        messageBoxViewClamp.spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
                                 spinnerFeeAndChargesParking(response.data.incomeTypes[postion].incomeTypeId)
@@ -309,8 +346,8 @@ class Street : AppCompatActivity() {
 
                             //Spinner
                             adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                            messageBoxView.spinnerFeeAndCharges.adapter = adapters
-                            messageBoxView.spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            messageBoxViewClamp.spinnerFeeAndCharges.adapter = adapters
+                            messageBoxViewClamp.spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                     feeDescription =  response.data.feesAndCharges[postion].feeDescription
                                     amount = response.data.feesAndCharges[postion].unitFeeAmount
@@ -355,8 +392,8 @@ class Street : AppCompatActivity() {
                         //Spinner
                         val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList)
                         adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        messageBoxView.spinnerIncomeTypeClamp.adapter = adapters
-                        messageBoxView.spinnerIncomeTypeClamp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        messageBoxViewClamp.spinnerIncomeTypeClamp.adapter = adapters
+                        messageBoxViewClamp.spinnerIncomeTypeClamp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
                                 incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
@@ -395,8 +432,8 @@ class Street : AppCompatActivity() {
 
                             //Spinner
                             adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                            messageBoxView.spinnerFeeAndChargesClamp.adapter = adapters
-                            messageBoxView.spinnerFeeAndChargesClamp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            messageBoxViewClamp.spinnerFeeAndChargesClamp.adapter = adapters
+                            messageBoxViewClamp.spinnerFeeAndChargesClamp.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                     //  response.data.feesAndCharges[postion].feeId
                                     amount = response.data.feesAndCharges[postion].unitFeeAmount
@@ -415,7 +452,7 @@ class Street : AppCompatActivity() {
                         }
                     }
                     else{
-                        messageBoxView.spinnerFeeAndChargesClamp.adapter = null
+                        messageBoxViewClamp.spinnerFeeAndChargesClamp.adapter = null
                         Toast.makeText(this@Street,response.message, Toast.LENGTH_LONG).show() }
                 }
 
@@ -423,6 +460,353 @@ class Street : AppCompatActivity() {
 
         })
     }
+
+
+
+
+
+
+    //Payment Process
+    var pushButton = false
+    var showTimeout = true
+    var checkPayment = true
+
+    lateinit var messageBoxViewTimeOut: View
+    lateinit var messageBoxInstanceTimeOut: androidx.appcompat.app.AlertDialog
+
+    lateinit var messageBoxView: View
+    lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewFailed: View
+    lateinit var messageBoxInstanceFailed: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewPaid: View
+    lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var messageBoxViewPay : View
+    lateinit var messageBoxInstancePay: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
+
+    lateinit var timer: TimerTask
+    private fun stopTimer() {
+        timer.cancel()
+    }
+    private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
+
+        checkPayment = true
+
+        timer = Timer().schedule(65000) {
+            runOnUiThread {
+                if(showTimeout){
+                    pushButton = true
+                    checkPayment = false
+
+                    if (showTimeout){
+                        tv_message.text =""
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
+
+                        messageBoxInstance.dismiss()
+                        // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                        if (::messageBoxInstanceFailed.isInitialized) {
+                            messageBoxInstanceFailed.dismiss()
+                        }
+                        showMessageBoxTimeOut(
+                            accountReference,
+                            payBillNumber,
+                            amount)
+                    }
+                }
+            }
+        }
+
+
+        // progressBar1.visibility = View.VISIBLE
+        runOnUiThread {
+            messageBoxViewPay.tv_message.text = "Sending Payment Request.."
+            (messageBoxView as View?)!!.tv_message.text = "Sending Payment Request.."
+
+        }
+        val formData = listOf(
+            "function" to "customerPayBillOnline",
+            "payBillNumber" to payBillNumber,
+            "amount" to amount,
+            "accountReference" to accountReference,
+            "transactionDesc" to accountReference,
+            "phoneNumber" to messageBoxViewPay.edPhone.text.toString(),
+            "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
+        )
+        executePaysolRequest(formData, paysol, object : CallBack {
+            override fun onSuccess(result: String?) {
+                //  runOnUiThread {  progress_circular.visibility = View.GONE }
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if (response.success) {
+
+                    runOnUiThread {
+                        // progressBar1.visibility = View.GONE
+                        checkPayment(accountReference, payBillNumber, amount)
+                    }
+
+                } else {
+                    runOnUiThread {
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
+                        tv_message.text = response.message
+                    }
+
+                }
+
+            }
+
+        })
+
+    }
+    fun checkPayment(accountReference: String,payBillNumber: String, amount: String) {
+
+        if(checkPayment){
+
+            //  runOnUiThread {   progressBarPayments.visibility = View.VISIBLE }
+            val formData = listOf(
+                "function" to "checkPayment",
+                "accNo" to accountReference,
+                "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
+            )
+            executePaysolRequest(formData, paysol, object : CallBack {
+                override fun onSuccess(result: String?) {
+                    val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+
+                    if (response.success) {
+
+                        if (response.data.push.callback_returned == "PAID") {
+
+                            runOnUiThread {
+                                showTimeout = false
+
+                                messageBoxInstance.dismiss()
+
+                                tvSendPush.visibility = View.VISIBLE
+                                tvSendPushDisabled.visibility = View.GONE
+                                tv_message.text =
+                                    "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
+
+                                save(this@Street, "description", edPlate.text.toString())
+                                save(
+                                    this@Street,
+                                    "transaction_code",
+                                    response.data.push.transaction_code
+                                )
+                                save(this@Street, "amount", response.data.push.amount)
+                                save(this@Street, "payer_phone", response.data.push.account_from)
+                                save(this@Street, "ref", response.data.push.ref)
+                                save(this@Street, "payer_names", response.data.transaction.names)
+                                save(this@Street, "date", response.data.transaction.date)
+
+                                //v_transaction: String,payer: String,amount: String, des: String,category:String
+                                showMessageBoxPayment(
+                                    response.data.transaction.transaction_code,
+                                    response.data.transaction.names,
+                                    response.data.transaction.amount,
+                                    "${feeDescription} ${edPhone.text}",
+                                    incomeTypeDescription
+                                )
+/*
+                            transactionCode.text = response.data.push.transaction_code
+                            tvAmount.text = "KES "+response.data.push.amount
+                            tvRef.text = response.data.push.ref
+                            tvStatus.text = response.data.push.callback_returned; */
+
+                               // tvSendPush.setText("Print")
+                               // tvSendPush.setOnClickListener { printReceipt() }
+                                pushButton = true
+                                //printReceipt()
+
+                            }
+
+
+                        }
+                        else if (response.data.push.callback_returned == "PENDING") {
+
+                            if(checkPayment){
+                                runOnUiThread {
+                                    tv_message.text = "Waiting for payment.."
+                                    (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
+
+                                }
+                                TimeUnit.SECONDS.sleep(3L)
+                                checkPayment(accountReference,payBillNumber,amount)
+                            }
+
+                        }
+                        else {
+                            runOnUiThread {
+                                messageBoxInstance.dismiss()
+                                tv_message.text = response.data.push.message
+                                tvSendPush.visibility = View.VISIBLE
+                                tvSendPushDisabled.visibility = View.GONE
+                                showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
+
+                            }
+                        }
+
+                    } else {
+                        if(checkPayment){
+                            runOnUiThread { tv_message.text = "Waiting for payment.." }
+                            TimeUnit.SECONDS.sleep(3L)
+                            checkPayment(accountReference,payBillNumber,amount)
+                        }
+                    }
+                }
+
+            })
+        }
+
+    }
+    private fun showMessageBoxPay(amount: String,accNo: String) {
+        showTimeout = false
+        // Check if messageBoxView has a parent
+        if (messageBoxViewPay.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewPay.parent as ViewGroup).removeView(messageBoxViewPay)
+        }
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxViewPay as View?)
+        messageBoxInstancePay = messageBoxBuilder.show()
+        messageBoxInstancePay.setCanceledOnTouchOutside(false)
+        messageBoxViewPay.tvAmount.text ="KES ${amount}"
+        messageBoxViewPay.tv_close_button.setOnClickListener {messageBoxInstancePay.dismiss() }
+        messageBoxViewPay.tvSendPush.setOnClickListener {
+            showMessageBox()
+            customerPayBillOnline(
+                accNo,
+                "440112",
+                amount
+            )
+        }
+
+
+
+    }
+    private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        showTimeout = false
+        // Check if messageBoxView has a parent
+        if (messageBoxViewTimeOut.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewTimeOut.parent as ViewGroup).removeView(messageBoxViewTimeOut)
+        }
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxViewTimeOut as View?)
+        messageBoxInstanceTimeOut = messageBoxBuilder.show()
+        messageBoxInstanceTimeOut.setCanceledOnTouchOutside(false)
+        messageBoxViewTimeOut.tv_paybill.text = payBillNumber
+        messageBoxViewTimeOut.tv_acc_no.text = accountReference
+        messageBoxViewTimeOut.tv_amount_.text = "KES ${amount}"
+        messageBoxViewTimeOut.btn_resend.setOnClickListener {
+            messageBoxInstanceTimeOut.dismiss()
+            showMessageBox()
+            customerPayBillOnline(
+                accountReference,
+                payBillNumber,
+                amount
+            )
+        }
+        messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+        messageBoxViewTimeOut.btn_verify_payment.setOnClickListener {
+
+            messageBoxViewTimeOut.btn_verify_payment.text = "Please Wait.."
+            checkPayment = true
+            checkPayment(accountReference,payBillNumber,amount)
+
+        }
+
+    }
+    private fun showMessageBox() {
+        // Check if messageBoxView has a parent
+        if (messageBoxView.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxView.parent as ViewGroup).removeView(messageBoxView)
+        }
+        val messageBoxBuilder =
+            androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
+        messageBoxInstance = messageBoxBuilder.show()
+        messageBoxInstance.setCanceledOnTouchOutside(false)
+    }
+    private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+        stopTimer()
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewPaid.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewPaid.parent as ViewGroup).removeView(messageBoxViewPaid)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewPaid as View?
+        )
+        messageBoxInstancePaid = messageBoxBuilder.show()
+        messageBoxInstancePaid.setCanceledOnTouchOutside(false)
+
+        messageBoxViewPaid.tv_transaction.text = transaction
+        messageBoxViewPaid.tv_payer.text = payer
+        messageBoxViewPaid.tv_amount.text = amount
+        messageBoxViewPaid.tv_des.text = des
+        messageBoxViewPaid.tv_category.text = category
+        messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
+
+    }
+    private fun showMessageBoxPaymentFail(message: String,accountReference: String,payBillNumber: String, amount: String) {
+        stopTimer()
+
+        // Check if messageBoxView has a parent
+        if (messageBoxViewFailed.parent != null) {
+            // Remove messageBoxView from its parent
+            (messageBoxViewFailed.parent as ViewGroup).removeView(messageBoxViewFailed)
+        }
+
+        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
+            messageBoxViewFailed as View?
+        )
+        messageBoxInstanceFailed = messageBoxBuilder.show()
+        messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
+
+        if (message.contains("invalid")) {
+            (messageBoxViewFailed as View?)!!.tv_title.text = "Wrong PIN"
+            (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                "The Payer typed an incorrect pin. Send the request again to retry."
+            (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.wrong_pin)
+        } else
+            if (message.contains("insufficient")) {
+                (messageBoxViewFailed as View?)!!.tv_title.text = "Insufficient Funds"
+                (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                    "Payer needs more money. Tell them to top up MPESA to pay."
+                (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.insufficient)
+            } else
+                if (message.contains("cancel")) {
+                    (messageBoxViewFailed as View?)!!.tv_title.text = "Request Canceled !"
+                    (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                        "Payer canceled payment. Click Resend request to try again."
+                    (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                } else
+                    if (message.contains("timeout")) {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "Phone unreachable"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text =
+                            "Phone unreachable. Ask payer to switch On their phone"
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.phone_unreachable)
+                    } else {
+                        (messageBoxViewFailed as View?)!!.tv_title.text = "No Payment"
+                        (messageBoxViewFailed as View?)!!.tv_message_unpaid.text = message
+                        (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
+                    }
+
+        (messageBoxViewFailed as View?)!!.btnPayOffline.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            showMessageBoxTimeOut(accountReference,payBillNumber,amount)
+        }
+        (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
+        (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+           Toast.makeText(this,"to generate Bill I guess to get parking again",Toast.LENGTH_LONG).show()
+        }
+
+    }
+
+
 
 
     //OCR STARTS HERE

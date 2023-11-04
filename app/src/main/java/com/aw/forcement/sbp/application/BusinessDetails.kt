@@ -68,7 +68,7 @@ class BusinessDetails : AppCompatActivity() {
         val roomNo = ed_room_no.text.toString ()
 
        // Check if any of them is empty
-        if (businessName.isEmpty () || subCountyID.isEmpty () || subCountyName.isEmpty () || wardName.isEmpty () || wardID.isEmpty () || plotNumber.isEmpty () || physicalAddress.isEmpty () || buildingName.isEmpty () || buildingOccupancy.isEmpty () || floorNo.isEmpty () || roomNo.isEmpty ()) {
+        if (businessName.isEmpty () || subCountyID.isEmpty () || subCountyName.isEmpty () || wardName.isEmpty () || wardID.isEmpty () || plotNumber.isEmpty () || physicalAddress.isEmpty ()) {
            // Show a toast message or an error message
             Toast.makeText (this, "Please fill all the fields", Toast.LENGTH_SHORT).show ()
         } else {
@@ -145,7 +145,6 @@ class BusinessDetails : AppCompatActivity() {
                         for(data in response.data.wards){
                             arrayList3.add(data.wardName)
                         }
-
                         //Spinner
                         val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList3)
                         adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
@@ -154,20 +153,14 @@ class BusinessDetails : AppCompatActivity() {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 wardID =response.data.wards[postion].wardID.toString()
                                 wardName =response.data.wards[postion].wardName.toString()
-
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
-
                             }
                         }
-
                     }
-
                 }else{
-                    runOnUiThread {  Toast.makeText(this@BusinessDetails,response.message, Toast.LENGTH_LONG).show()}
-
+                    runOnUiThread { Toast.makeText(this@BusinessDetails,response.message, Toast.LENGTH_LONG).show()}
                 }
-
             }
 
         })
@@ -194,13 +187,11 @@ class BusinessDetails : AppCompatActivity() {
                         spinner_floor.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                 floorNo =response.data.floors[postion].floor
-
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 
                             }
                         }
-
                     }
 
                 }else{

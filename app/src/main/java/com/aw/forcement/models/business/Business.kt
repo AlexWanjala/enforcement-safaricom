@@ -54,10 +54,9 @@ data class Business (
 	@SerializedName("dateCreated") val dateCreated : String,
 	@SerializedName("lat") val lat : String,
 	@SerializedName("lng") val lng : String,
-	@SerializedName("liquor") val liquor : String,
 	@SerializedName("conservancy") val conservancy : String,
 	@SerializedName("fireLicence") val fireLicence : String,
-	@SerializedName("liquorLicence") val liquorLicence : String,
+	@SerializedName("liquorLicence") val liquorLicence : String ,
 	@SerializedName("businessType") val businessType : String,
 )
 

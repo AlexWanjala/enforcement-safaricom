@@ -13,11 +13,27 @@ class Const public constructor() {
 
     private lateinit var feesAndCharges: List<FeesAndCharges>
 
+    // A mutable list to store the selected fees and charges
+    private var selectedFeesAndCharges = mutableListOf<FeesAndCharges>()
+
+    // A method to add a fee and charge to the list
+    fun addFeeAndCharge(feeAndCharge: FeesAndCharges) {
+        selectedFeesAndCharges.add(feeAndCharge)
+    }
+
+    // A method to remove a fee and charge from the list
+    fun removeFeeAndCharge(feeAndCharge: FeesAndCharges) {
+        selectedFeesAndCharges.remove(feeAndCharge)
+    }
+
+    // A method to get the list of selected fees and charges
+    fun getSelectedFeesAndCharges(): List<FeesAndCharges> {
+        return selectedFeesAndCharges
+    }
 
     fun setFeesAndCharges(feesAndCharges: List<FeesAndCharges>) {
         this.feesAndCharges = feesAndCharges
     }
-
     fun getFeesAndCharges(): List<FeesAndCharges> {
         return feesAndCharges
     }

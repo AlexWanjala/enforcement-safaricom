@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
+import com.aw.forcement.fines.Fines
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.mazenrashed.printooth.Printooth
@@ -28,6 +29,14 @@ import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
 import kotlinx.android.synthetic.main.activity_cess_payments_matatus.*
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.edPlate
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.imageClose
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.spinnerFeeAndCharges
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.spinnerIncomeType
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.tvAmount
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.tvSendPush
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.tvSendPushDisabled
+import kotlinx.android.synthetic.main.activity_cess_payments_matatus.tv_message
 import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_offline.view.*
 import kotlinx.android.synthetic.main.payment_offline.view.imageIcon
@@ -90,7 +99,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
             if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Number Plate Required",Toast.LENGTH_LONG).show()
             }else{
-                if(edPhoneNumber.text.isEmpty()){
+                if(edPhone.text.isEmpty()){
                     Toast.makeText(this,"Phone Required",Toast.LENGTH_LONG).show()
                 }else{
 
@@ -101,9 +110,9 @@ class CessPaymentsMatatus : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-      /*  if (Printooth.hasPairedPrinter())
+        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()*/
+        initListeners()
     }
 
     private fun generateBill (){
@@ -125,7 +134,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "names" to getValue(this,"username").toString(),
-            "customerPhoneNumber" to edPhoneNumber.text.toString()
+            "customerPhoneNumber" to edPhone.text.toString()
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -192,6 +201,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                     save(this@CessPaymentsMatatus,"incomeType",postion.toString())
                                 }
                                 incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+                                save(this@CessPaymentsMatatus,"incomeTypeDescription",incomeTypeDescription)
                                 spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
 
                             }
@@ -243,8 +253,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                     save(this@CessPaymentsMatatus,"psvTypeSelection",postion.toString())
                                 }
 
-
                                 feeDescription = response.data.feesAndCharges[postion].feeDescription
+                                save(this@CessPaymentsMatatus,"feeDescription",feeDescription)
                                 amount = response.data.feesAndCharges[postion].unitFeeAmount
                                 feeId = response.data.feesAndCharges[postion].feeId
                                 runOnUiThread {
@@ -270,33 +280,40 @@ class CessPaymentsMatatus : AppCompatActivity() {
     }
 
 
-    //payment Process
+    lateinit var timer: TimerTask
+    private fun stopTimer() {
+        timer.cancel()
+    }
     private fun customerPayBillOnline(accountReference: String, payBillNumber: String, amount: String) {
 
         checkPayment = true
 
-        Timer().schedule(30000) {
+        timer = Timer().schedule(65000) {
             runOnUiThread {
                 if(showTimeout){
                     pushButton = true
                     checkPayment = false
 
-                    tv_message.text =""
-                    tvSendPush.visibility = View.VISIBLE
-                    tvSendPushDisabled.visibility = View.GONE
+                    if (showTimeout){
+                        tv_message.text =""
+                        tvSendPush.visibility = View.VISIBLE
+                        tvSendPushDisabled.visibility = View.GONE
 
-                    messageBoxInstance.dismiss()
-                    // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
-                    if (::messageBoxInstanceFailed.isInitialized) {
-                        messageBoxInstanceFailed.dismiss()
+                        messageBoxInstance.dismiss()
+                        // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
+                        if (::messageBoxInstanceFailed.isInitialized) {
+                            messageBoxInstanceFailed.dismiss()
+                        }
+                        showMessageBoxTimeOut(
+                            accountReference,
+                            payBillNumber,
+                            amount)
                     }
-                    showMessageBoxTimeOut(
-                        accountReference,
-                        payBillNumber,
-                        amount)
                 }
             }
         }
+
+
         // progressBar1.visibility = View.VISIBLE
         runOnUiThread {
             tv_message.text = "Sending Payment Request.."
@@ -309,7 +326,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "amount" to amount,
             "accountReference" to accountReference,
             "transactionDesc" to accountReference,
-            "phoneNumber" to edPhoneNumber.text.toString(),
+            "phoneNumber" to edPhone.text.toString(),
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
         executePaysolRequest(formData, paysol, object : CallBack {
@@ -320,7 +337,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
                     runOnUiThread {
                         // progressBar1.visibility = View.GONE
-                        checkPayment(accountReference)
+                        checkPayment(accountReference, payBillNumber, amount)
                     }
 
                 } else {
@@ -337,7 +354,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         })
 
     }
-    fun checkPayment(accountReference: String) {
+    fun checkPayment(accountReference: String,payBillNumber: String, amount: String) {
 
         if(checkPayment){
 
@@ -382,7 +399,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                     response.data.transaction.transaction_code,
                                     response.data.transaction.names,
                                     response.data.transaction.amount,
-                                    "${feeDescription} ${edPhoneNumber.text}",
+                                    "${feeDescription} ${edPhone.text}",
                                     incomeTypeDescription
                                 )
 /*
@@ -408,8 +425,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                     (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
                                 }
-                                TimeUnit.SECONDS.sleep(2L)
-                                checkPayment(accountReference)
+                                TimeUnit.SECONDS.sleep(3L)
+                                checkPayment(accountReference,payBillNumber,amount)
                             }
 
                         }
@@ -419,7 +436,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
                                 tv_message.text = response.data.push.message
                                 tvSendPush.visibility = View.VISIBLE
                                 tvSendPushDisabled.visibility = View.GONE
-                                showMessageBoxPaymentFail(response.data.push.message)
+                                showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
 
                             }
                         }
@@ -427,8 +444,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     } else {
                         if(checkPayment){
                             runOnUiThread { tv_message.text = "Waiting for payment.." }
-                            TimeUnit.SECONDS.sleep(2L)
-                            checkPayment(accountReference)
+                            TimeUnit.SECONDS.sleep(3L)
+                            checkPayment(accountReference,payBillNumber,amount)
                         }
                     }
                 }
@@ -438,6 +455,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
     }
     private fun showMessageBoxTimeOut( accountReference: String, payBillNumber: String, amount: String) {
+        showTimeout = false
         // Check if messageBoxView has a parent
         if (messageBoxViewTimeOut.parent != null) {
             // Remove messageBoxView from its parent
@@ -459,6 +477,13 @@ class CessPaymentsMatatus : AppCompatActivity() {
             )
         }
         messageBoxViewTimeOut.tv_close_.setOnClickListener { messageBoxInstanceTimeOut.dismiss()}
+        messageBoxViewTimeOut.btn_verify_payment.setOnClickListener {
+
+            messageBoxViewTimeOut.btn_verify_payment.text = "Please Wait.."
+            checkPayment = true
+            checkPayment(accountReference,payBillNumber,amount)
+
+        }
 
     }
     private fun showMessageBox() {
@@ -473,6 +498,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         messageBoxInstance.setCanceledOnTouchOutside(false)
     }
     private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -494,7 +520,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
         messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
 
     }
-    private fun showMessageBoxPaymentFail(message: String) {
+    private fun showMessageBoxPaymentFail(message: String,accountReference: String,payBillNumber: String, amount: String) {
+        stopTimer()
 
         // Check if messageBoxView has a parent
         if (messageBoxViewFailed.parent != null) {
@@ -537,6 +564,10 @@ class CessPaymentsMatatus : AppCompatActivity() {
                         (messageBoxViewFailed as View?)?.imageIcon?.setImageResource(R.drawable.explamation)
                     }
 
+        (messageBoxViewFailed as View?)!!.btnPayOffline.setOnClickListener {
+            messageBoxInstanceFailed.dismiss()
+            showMessageBoxTimeOut(accountReference,payBillNumber,amount)
+        }
         (messageBoxViewFailed as View?)!!.tv_close.setOnClickListener { messageBoxInstanceFailed.dismiss() }
         (messageBoxViewFailed as View?)!!.resend.setOnClickListener {
             messageBoxInstanceFailed.dismiss()
@@ -627,6 +658,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
             override fun disconnected() {
                 Toast.makeText(this@CessPaymentsMatatus, "Disconnected Printer", Toast.LENGTH_SHORT).show()
+                finish()
+                startActivity(Intent(this@CessPaymentsMatatus, CessPaymentsMatatus::class.java))
             }
 
         }
@@ -675,7 +708,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
         val username = getValue(this@CessPaymentsMatatus,"username")
         val names = getValue(this@CessPaymentsMatatus,"payer_names")
         val phone = getValue(this@CessPaymentsMatatus,"payer_phone")
-        val incomeTypeDescription = getValue(this@CessPaymentsMatatus,"incomeTypeDescription")?.capitalize()
+        val feeDescription = getValue(this@CessPaymentsMatatus, "feeDescription")
+        val incomeTypeDescription = getValue(this@CessPaymentsMatatus, "incomeTypeDescription")?.capitalize()
         val description = getValue(this@CessPaymentsMatatus,"description")
         val date = getValue(this@CessPaymentsMatatus,"date")
 
@@ -687,7 +721,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
          val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
         val zone = getValue(this@CessPaymentsMatatus,"zone")
-        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message = "\n\nIncomeType:${incomeTypeDescription}\nDescription ${feeDescription}\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
