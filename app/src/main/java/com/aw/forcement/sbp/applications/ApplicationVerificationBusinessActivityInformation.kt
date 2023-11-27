@@ -6,10 +6,8 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -59,9 +57,9 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                 // updating some data in the const
                 val currentBusiness = Const.instance.getBusiness()
                 val newBusiness = currentBusiness
-                    .copy(lat = getValue(this, "latitude").toString())
-                    .copy(lng = getValue(this, "longitude").toString())
-                    .copy(physicalAddress = getValue(this, "address").toString())
+                    ?.copy(lat = getValue(this, "latitude").toString())
+                    ?.copy(lng = getValue(this, "longitude").toString())
+                    ?.copy(physicalAddress = getValue(this, "address").toString())
                 Const.instance.setBusiness(newBusiness)
 
 
@@ -69,9 +67,9 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                 // The checkbox is unchecked
                 val currentBusiness = Const.instance.getBusiness()
                 val newBusiness = currentBusiness
-                    .copy(lat = business.lat)
-                    .copy(lng = business.lng)
-                    .copy(physicalAddress = business.physicalAddress)
+                    ?.copy(lat = business!!.lat)
+                    ?.copy(lng = business.lng)
+                    ?.copy(physicalAddress = business.physicalAddress)
                 Const.instance.setBusiness(newBusiness)
 
             }
@@ -83,9 +81,9 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
     }
 
     private fun displayValues() {
-        tv_premise.text = Const.instance.getBusiness().premiseSize
-        tv_business_des.text = Const.instance.getBusiness().businessDes
-        ed_number_of_employees.setText(Const.instance.getBusiness().numberOfEmployees)
+        tv_premise.text = Const.instance.getBusiness()?.premiseSize
+        tv_business_des.text = Const.instance.getBusiness()?.businessDes
+        ed_number_of_employees.setText(Const.instance.getBusiness()?.numberOfEmployees)
 
     }
 
@@ -111,7 +109,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                         for (data in response.data.incomeTypes) {
                             arrayList.add(data.incomeTypeDescription)
-                            if (data.incomeTypeId == Const.instance.getBusiness().incomeTypeID) {
+                            if (data.incomeTypeId == Const.instance.getBusiness()?.incomeTypeID) {
                                 position = x
                             }
                             x++
@@ -150,8 +148,8 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                                     val newBusiness =
                                         currentBusiness
-                                            .copy(incomeTypeID = incomeTypeId_)
-                                            .copy(businessCategory = business_category)
+                                            ?.copy(incomeTypeID = incomeTypeId_)
+                                            ?.copy(businessCategory = business_category)
                                     Const.instance.setBusiness(newBusiness)
 
                                     // Get the wards based on the sub-county ID
@@ -209,7 +207,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                             for (data in response.data.feesAndCharges) {
                                 arrayList2.add(data.feeDescription)
-                                if (data.feeId == Const.instance.getBusiness().feeID) {
+                                if (data.feeId == Const.instance.getBusiness()?.feeID) {
                                     position = x
                                 }
                                 x++
@@ -244,8 +242,8 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                                         val currentBusiness = Const.instance.getBusiness()
                                         val newBusiness = currentBusiness
-                                            .copy(feeID = feeId)
-                                            .copy(businessSubCategory = business_sub_category)
+                                            ?.copy(feeID = feeId)
+                                            ?.copy(businessSubCategory = business_sub_category)
                                         Const.instance.setBusiness(newBusiness)
 
                                         //Update the BillTotal
@@ -294,7 +292,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                         for (data in response.data.tonnage) {
                             arrayList3.add(data.tonnage)
-                            if (data.tonnage == Const.instance.getBusiness().tonnage) {
+                            if (data.tonnage == Const.instance.getBusiness()?.tonnage) {
                                 position = x
                             }
                             x++
@@ -327,7 +325,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                                     tonnage_ = response.data.tonnage[postion].tonnage
 
                                     val currentBusiness = Const.instance.getBusiness()
-                                    val newBusiness = currentBusiness.copy(tonnage = tonnage_)
+                                    val newBusiness = currentBusiness?.copy(tonnage = tonnage_)
                                     Const.instance.setBusiness(newBusiness)
 
                                 }
@@ -377,13 +375,13 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
             if (title == "Business Premise") {
                 val currentBusiness = Const.instance.getBusiness()
                 val newBusiness =
-                    currentBusiness.copy(premiseSize = messageBoxView.ed_message.text.toString())
+                    currentBusiness?.copy(premiseSize = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
             if (title == "Business Description") {
                 val currentBusiness = Const.instance.getBusiness()
                 val newBusiness =
-                    currentBusiness.copy(businessDes = messageBoxView.ed_message.text.toString())
+                    currentBusiness?.copy(businessDes = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
@@ -398,11 +396,11 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
     fun update(view: View) {
         when (view.id) {
             R.id.btn_business_premise -> {
-                showMessageBox("Business Premise", Const.instance.getBusiness().premiseSize)
+                showMessageBox("Business Premise", Const.instance.getBusiness()!!.premiseSize)
             }
 
             R.id.btn_business_des -> {
-                showMessageBox("Business Description", Const.instance.getBusiness().businessDes)
+                showMessageBox("Business Description", Const.instance.getBusiness()!!.businessDes)
             }
 
 

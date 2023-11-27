@@ -68,6 +68,10 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 
 		holder.layoutView.setOnClickListener {
 
+
+
+
+
 			save(context,"transaction_code",list.transaction_code)
 			save(context,"amount",list.amount)
 			save(context,"ref",list.account_ref)

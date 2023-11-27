@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.RequiresApi
@@ -31,11 +30,11 @@ class ApplicationVerificationOwner : AppCompatActivity() {
     }
 
     private fun displayValues(){
-        tv_name.text = Const.instance.getBusiness().fullNames
-        tv_owners_id.text = Const.instance.getBusiness().ownerID
-        tv_phone.text = Const.instance.getBusiness().ownerPhone
-        tv_email.text = Const.instance.getBusiness().ownerEmail
-        tv_kra.text = Const.instance.getBusiness().kraPin
+        tv_name.text = Const.instance.getBusiness()?.fullNames
+        tv_owners_id.text = Const.instance.getBusiness()?.ownerID
+        tv_phone.text = Const.instance.getBusiness()?.ownerPhone
+        tv_email.text = Const.instance.getBusiness()?.ownerEmail
+        tv_kra.text = Const.instance.getBusiness()?.kraPin
     }
 
     private lateinit var messageBoxInstance: AlertDialog
@@ -61,29 +60,29 @@ class ApplicationVerificationOwner : AppCompatActivity() {
 
             if (title == "Name") {
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(fullNames = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(fullNames = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
             if(title=="ID NO"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(ownerID = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(ownerID = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
             if(title=="Phone"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(ownerPhone = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(ownerPhone = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
             if(title=="Email"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(ownerEmail = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(ownerEmail = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
             if(title=="Pin"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(kraPin = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(kraPin = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
 
             }
@@ -98,23 +97,23 @@ class ApplicationVerificationOwner : AppCompatActivity() {
     fun update(view: View) {
         when (view.id) {
             R.id.btn_name -> {
-                showMessageBox("Name", Const.instance.getBusiness().fullNames)
+                showMessageBox("Name", Const.instance.getBusiness()!!.fullNames)
             }
 
             R.id.btn_id_no -> {
-                showMessageBox("ID NO",Const.instance.getBusiness().ownerID)
+                showMessageBox("ID NO",Const.instance.getBusiness()!!.ownerID)
             }
 
             R.id.btn_phone -> {
-                showMessageBox("Phone",Const.instance.getBusiness().ownerPhone)
+                showMessageBox("Phone", Const.instance.getBusiness()!!.ownerPhone)
             }
 
             R.id.btn_email -> {
-                showMessageBox("Email",Const.instance.getBusiness().ownerEmail)
+                showMessageBox("Email",Const.instance.getBusiness()!!.ownerEmail)
             }
 
             R.id.btn_pin -> {
-                showMessageBox("Pin",Const.instance.getBusiness().kraPin)
+                showMessageBox("Pin",Const.instance.getBusiness()!!.kraPin)
             }
 
             else -> {

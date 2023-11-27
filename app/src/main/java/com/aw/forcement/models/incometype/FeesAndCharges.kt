@@ -38,5 +38,6 @@ data class FeesAndCharges (
 	@SerializedName("names") var names : String,
 	@SerializedName("customerPhoneNumber") var customerPhoneNumber : String,
 	@SerializedName("description") var description : String,
-	@SerializedName("fiscalYear") var fiscalYear : String
+	@SerializedName("fiscalYear") var fiscalYear : String,
+	@SerializedName("brimsCode") var brimsCode : String
 )

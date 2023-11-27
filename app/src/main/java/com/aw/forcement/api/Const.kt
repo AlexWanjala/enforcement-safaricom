@@ -2,7 +2,7 @@
 class Const public constructor() {
 
     // A late-initialized immutable property for the business object
-    private lateinit var business: Business
+    private var business: Business? = null
     private lateinit var originalBusiness: Business
     private lateinit var entries: Entries
 
@@ -56,12 +56,12 @@ class Const public constructor() {
     }
 
     // A function to set the business object
-    fun setBusiness(business: Business) {
+    fun setBusiness(business: Business?) {
         this.business = business
     }
 
     // A function to get the business object
-    fun getBusiness(): Business {
+    fun getBusiness(): Business? {
         return business
     }
 

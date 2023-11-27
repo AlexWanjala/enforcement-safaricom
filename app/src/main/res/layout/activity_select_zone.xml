@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectZone">
 <LinearLayout
     android:padding="20sp"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,6 +28,72 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+
+    <LinearLayout
+        android:id="@+id/layout_subs"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat"
+            android:textColor="@color/labels"
+            android:text="@string/sub_county"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rectangle_background"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:gravity="center"
+                android:elevation="5dp"
+                android:id="@+id/spinner_sub_county"
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+    <TextView
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/labels"
+        android:text="@string/select_ward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinner_ward"
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+
+
+
     <TextView
         android:layout_marginTop="25dp"
         android:fontFamily="@font/montserrat"
@@ -26,8 +101,6 @@
         android:text="@string/select_zone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
-
 
     <LinearLayout
         android:padding="10dp"
@@ -64,3 +137,5 @@
 
 
 </LinearLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

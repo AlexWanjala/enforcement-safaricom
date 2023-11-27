@@ -98,12 +98,12 @@ class Home : AppCompatActivity() {
         setContentView(R.layout.activity_main_page_home)
          AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-         val formatter = SimpleDateFormat("yyyy-MM-dd")
+        /* val formatter = SimpleDateFormat("yyyy-MM-dd")
          val date = formatter.format(Date())
          if(getValue(this,"date").toString()!=date){
              startActivity(Intent(this, SelectZone::class.java))
          }
-
+*/
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(
@@ -127,13 +127,40 @@ class Home : AppCompatActivity() {
             finishAffinity()
         }
 
+         val category = getValue(this,"category")
 
-        /* if (getValue(this,"category").toString() == "LICENCING OFFICERS"){
-             fl_application_validation.visibility = View.GONE
+         if (category == "LICENCING OFFICER" ||  category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN"){
+             fl_initiate_application.visibility = View.VISIBLE
          }
          else{
+             fl_initiate_application.visibility = View.GONE
+         }
+
+         if (category == "SUPER ADMIN"){
              fl_application_validation.visibility = View.VISIBLE
          }
+         else{
+             fl_application_validation.visibility = View.GONE
+         }
+
+
+         if (category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN" || category == "ACCOUNTANTS"){
+             fl_application_inspection.visibility = View.VISIBLE
+         }
+         else{
+             fl_application_inspection.visibility = View.GONE
+         }
+
+         if (category == "DEPUTY DIRECTOR"){
+             fl_application_approval.visibility = View.VISIBLE
+         }
+         else{
+             fl_application_approval.visibility = View.GONE
+         }
+
+
+
+        /*
 
          if (getValue(this,"category").toString() == "REVENUE DIRECTOR"){
              fl_application_approval.visibility = View.VISIBLE
@@ -189,8 +216,11 @@ class Home : AppCompatActivity() {
         cess.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","CESS")) }
         //Markets
         markets.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","MKT")) }
+
+         toilet_module.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","TOILETS")) }
         //Receipt inspection
-        receipt_inspection.setOnClickListener { toggleBottomSheet("cess") }
+        receipt_inspection.setOnClickListener { toggleBottomSheet("Receipting Searching","TRANSACTION") }
+        invoices_print.setOnClickListener { toggleBottomSheet("Invoice Searching","INVOICE") }
         //No Plate Verification
         plate_verification.setOnClickListener {  startActivity(Intent(this, Street::class.java)) }
         //document_verification
@@ -207,9 +237,8 @@ class Home : AppCompatActivity() {
         profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
             finish()}
 
-        //contact
+         //contact
          contact.setOnClickListener { toggleBottomSheetContact() }
-
 
          //SBP
          sbpDataCollection.setOnClickListener { toggleBottomSheetSbpDataSheet() }
@@ -266,8 +295,6 @@ class Home : AppCompatActivity() {
          fl_promised_payments.setOnClickListener {  startActivity(Intent(this, PromisedPayments::class.java)) }
          fl_rentals_register.setOnClickListener {  startActivity(Intent(this, TenancyRegister::class.java)) }
 
-
-
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
@@ -275,7 +302,6 @@ class Home : AppCompatActivity() {
         // Home
         DrawableCompat.setTint(DrawableCompat.wrap(imageHome.drawable), ContextCompat.getColor(this, R.color.bg_button))
         tvHome.setTextColor(resources.getColor(R.color.bg_button))
-
 
 
          bottomSheetLayoutRental = BottomSheetBehavior.from(bottomSheetLayoutRentals)
@@ -286,12 +312,9 @@ class Home : AppCompatActivity() {
          bottomSheetBehaviorSbpDataCollection = BottomSheetBehavior.from(bottomSheetLayoutDataCollection)
 
 
-
        // business.setOnClickListener { toggleBottomSheet("business") }
        // cess.setOnClickListener { toggleBottomSheet("cess") }
        // parking.setOnClickListener { startActivity(Intent(this, Offstreet::class.java)) }
-
-
 
 
        // transaction.setOnClickListener {  startActivity(Intent(this, Transactions::class.java)) }
@@ -301,9 +324,9 @@ class Home : AppCompatActivity() {
          closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbpData.setOnClickListener {   bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED }
-       // streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
+        //streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
-       // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
+        // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
 
         collectionOverview()
 
@@ -318,7 +341,8 @@ class Home : AppCompatActivity() {
         timer.schedule(task, 0, 8000) // 0 delay, 3000 period
 
         //Disable navigation drawer
-        val category = getValue(this,"category")
+
+
         if(category =="COLLECTOR" || category=="INSPECTOR" || category =="ENFORCEMENT"){
             // Get a reference to the drawer layout
             val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
@@ -361,9 +385,12 @@ class Home : AppCompatActivity() {
         }
 
     }
-     private fun toggleBottomSheet(type: String){
-        runOnUiThread {   tvMessage.text = ""
+     private fun toggleBottomSheet(title: String, type: String){
+        runOnUiThread {
+            tvTitle.text = title
+            tvMessage.text = ""
             edSearch.text.clear()
+            buttonSearch.text = type
         }
 
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -372,10 +399,13 @@ class Home : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
         buttonSearch.setOnClickListener {
-            getTransactions()
+            if(type=="TRANSACTION"){
+                getTransactions()
+            }else{
+                getBillsPaginate()
+            }
+
         }
-
-
 
     }
 
@@ -399,8 +429,6 @@ class Home : AppCompatActivity() {
         buttonSearch.setOnClickListener {
             getTransactions()
         }
-
-
 
     }
      private fun toggleBottomSheetContact(){
@@ -487,6 +515,45 @@ class Home : AppCompatActivity() {
 
 
      }
+      private fun getBillsPaginate(){
+
+        if(edSearch.text.toString().isEmpty()){
+            Toast.makeText(this,"Empty",Toast.LENGTH_LONG).show()
+            return
+        }
+
+        tvMessage.text =""
+        progress_circular.visibility = View.VISIBLE
+        val formData = listOf(
+            "function" to "getBillsPaginate",
+            "keyword" to edSearch.text.toString().trim(),
+            "latitude" to getValue(this,"latitude").toString(),
+            "longitude" to getValue(this,"longitude").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "addressString" to getValue(this,"addressString").toString(),
+            "page" to "1",
+            "rows_per_page" to "10",
+            "responseName" to "billDetailsList"
+        )
+        executeRequest(formData, biller,object : CallBack{
+            override fun onSuccess(result: String?) {
+                runOnUiThread {  progress_circular.visibility = View.GONE }
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+
+                if(response.success){
+                    // runOnUiThread { bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
+                    startActivity(Intent(this@Home,BillInvoices::class.java).putExtra("result",result))
+                }else{
+                    runOnUiThread {
+                        tvMessage.text = response.message
+                    }
+                }
+            }
+
+        })
+
+    }
      private fun collectionOverview(){
 
         val formData = listOf(

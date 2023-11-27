@@ -19,19 +19,22 @@ class Business : AppCompatActivity() {
 
         back.setOnClickListener { finish() }
         val response = Gson().fromJson(intent.getStringExtra("result"), Json4Kotlin_Base::class.java)
-    /*    tvBusinessId.text = response.data.permit.businessID
+
+        tvBusinessId.text = response.data.permit.businessID
         tvBusinessName.text = response.data.permit.businessName
-        tvOwner.text = response.data.permit.telephone1 +"-"+ response.data.permit.telephone2
-        tvActivity.text = response.data.permit.brimsCode+"-"+ response.data.permit.businessActivity
-        tvPlotNumber.text = response.data.permit.plotNo
+
+        tvOwner.text = response.data.permit.ownerPhone +"-"+ response.data.permit.contactPersonNames
+        tvActivity.text =  response.data.permit.businessCategory
+        tvPlotNumber.text = response.data.permit.plotNumber
         tvPhysicalAddress.text = response.data.permit.physicalAddress
         tvStart.text = response.data.permit.startDate
         tvEnd.text = response.data.permit.endDate
-        tvKRAPin.text =response.data.permit.pinNumber
+        tvKRAPin.text =response.data.permit.kraPin
         tvBox.text = response.data.permit.postalCode
-        tvDetailedActivity.text = response.data.permit.businessActivityDescription
+        tvDetailedActivity.text = response.data.permit.businessSubCategory
         tvStatus.text = response.data.permit.status
-        tvSBPFee.text = response.data.permit.receiptAmount*/
+        tvSBPFee.text = response.data.permit.receiptAmount
+        tvStatus.text =  response.data.permit.stageStatus
 
     }
 }

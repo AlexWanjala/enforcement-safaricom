@@ -20,6 +20,8 @@ data class Data (
 	@SerializedName("categories") val categories : List<Categories>,
 	@SerializedName("durations") val durations : List<Durations>,
 	@SerializedName("billDetails") val billDetails : BillDetails,
+	@SerializedName("billDetailsList") val billDetailsList : List<BillDetails>,
+	@SerializedName("summary") val summary : Summary,
 	@SerializedName("billInfo") val billInfo : List<BillInfo>,
 	@SerializedName("addresses") val addresses : List<Addresses>,
 	@SerializedName("wards") val wards : List<Wards>,
@@ -48,6 +50,6 @@ data class Data (
 	@SerializedName("receipt") val receipt : Receipt,
 	@SerializedName("businessTypes") val businessTypes : List<BusinessTypes>,
 	@SerializedName("clamped") val clamped : List<Clamped>,
-	@SerializedName("years") val years : List<Years>
-
+	@SerializedName("years") val years : List<Years>,
+	@SerializedName("payBill") val payBill : PayBill,
 )

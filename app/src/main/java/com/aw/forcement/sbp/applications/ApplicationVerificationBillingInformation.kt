@@ -114,7 +114,7 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
 
             tv_message_validation.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].description
 
-            if(Const.instance.getBusiness().feeID == Const.instance.getBill().billDetails.feeID){
+            if(Const.instance.getBusiness()?.feeID == Const.instance.getBill().billDetails.feeID){
                 val color = Color.parseColor("#F2F3F8")
                 layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
                 tv_message_validation.setTextColor(Color.parseColor("#5A5A5A"))
@@ -141,7 +141,7 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
             tv_message_validation.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-2].description +" "+ Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-2].comments
             tv_message_inspection.text = Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].description + " "+  Const.instance.getStatuses()[Const.instance.getEntries().statusID.toInt()-1].comments
 
-            if(Const.instance.getBusiness().feeID == Const.instance.getBill().billDetails.feeID){
+            if(Const.instance.getBusiness()?.feeID == Const.instance.getBill().billDetails.feeID){
                 val color = Color.parseColor("#F2F3F8")
                 layoutValidation.backgroundTintList = ColorStateList.valueOf(color)
                 tv_message_validation.setTextColor(Color.parseColor("#5A5A5A"))
@@ -277,9 +277,9 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         var changes = 0
 
        // Use the equals function to compare the properties of the business objects
-        if (originalBusiness.id != updatedBusiness.id) changes++
-        if (originalBusiness.businessID != updatedBusiness.businessID) changes++
-        if (originalBusiness.businessName != updatedBusiness.businessName) changes++
+        if (originalBusiness.id != updatedBusiness?.id) changes++
+        if (originalBusiness.businessID != updatedBusiness?.businessID) changes++
+        if (originalBusiness.businessName != updatedBusiness?.businessName) changes++
         // ... other properties
         // Print the result
         println("The total number of changes made is $changes")
@@ -293,40 +293,40 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
 
         val changedProperties = mutableListOf<Pair<String, String>>()
 
-        if (originalBusiness.id != updatedBusiness.id) changedProperties.add(Pair("id", "${originalBusiness.id} -> ${updatedBusiness.id}"))
-        if (originalBusiness.businessID != updatedBusiness.businessID) changedProperties.add(Pair("businessID", "${originalBusiness.businessID} -> ${updatedBusiness.businessID}"))
-        if (originalBusiness.businessName != updatedBusiness.businessName) changedProperties.add(Pair("businessName", "${originalBusiness.businessName} -> ${updatedBusiness.businessName}"))
-        if (originalBusiness.subCountyID != updatedBusiness.subCountyID) changedProperties.add(Pair("subCountyID", "${originalBusiness.subCountyID} -> ${updatedBusiness.subCountyID}"))
-        if (originalBusiness.subCountyName != updatedBusiness.subCountyName) changedProperties.add(Pair("businessName", "${originalBusiness.subCountyName} -> ${updatedBusiness.subCountyName}"))
-        if (originalBusiness.wardName != updatedBusiness.wardName) changedProperties.add(Pair("wardName", "${originalBusiness.wardName} -> ${updatedBusiness.wardName}"))
-        if (originalBusiness.plotNumber != updatedBusiness.plotNumber) changedProperties.add(Pair("plotNumber", "${originalBusiness.plotNumber} -> ${updatedBusiness.plotNumber}"))
-        if (originalBusiness.physicalAddress != updatedBusiness.physicalAddress) changedProperties.add(Pair("physicalAddress", "${originalBusiness.physicalAddress} -> ${updatedBusiness.physicalAddress}"))
-        if (originalBusiness.buildingName != updatedBusiness.buildingName) changedProperties.add(Pair("buildingName", "${originalBusiness.buildingName} -> ${updatedBusiness.buildingName}"))
-        if (originalBusiness.buildingOccupancy != updatedBusiness.buildingOccupancy) changedProperties.add(Pair("buildingOccupancy", "${originalBusiness.buildingOccupancy} -> ${updatedBusiness.buildingOccupancy}"))
-        if (originalBusiness.floorNo != updatedBusiness.floorNo) changedProperties.add(Pair("floorNo", "${originalBusiness.floorNo} -> ${updatedBusiness.floorNo}"))
-        if (originalBusiness.roomNo != updatedBusiness.roomNo) changedProperties.add(Pair("roomNo", "${originalBusiness.roomNo} -> ${updatedBusiness.roomNo}"))
-        if (originalBusiness.premiseSize != updatedBusiness.premiseSize) changedProperties.add(Pair("premiseSize", "${originalBusiness.premiseSize} -> ${updatedBusiness.premiseSize}"))
-        if (originalBusiness.numberOfEmployees != updatedBusiness.numberOfEmployees) changedProperties.add(Pair("numberOfEmployees", "${originalBusiness.numberOfEmployees} -> ${updatedBusiness.numberOfEmployees}"))
-        if (originalBusiness.tonnage != updatedBusiness.tonnage) changedProperties.add(Pair("tonnage", "${originalBusiness.tonnage} -> ${updatedBusiness.tonnage}"))
-        if (originalBusiness.businessDes != updatedBusiness.businessDes) changedProperties.add(Pair("businessDes", "${originalBusiness.businessDes} -> ${updatedBusiness.businessDes}"))
-        if (originalBusiness.businessSubCategory != updatedBusiness.businessSubCategory) changedProperties.add(Pair("businessSubCategory", "${originalBusiness.businessSubCategory} -> ${updatedBusiness.businessSubCategory}"))
-        if (originalBusiness.businessEmail != updatedBusiness.businessEmail) changedProperties.add(Pair("businessEmail", "${originalBusiness.businessEmail} -> ${updatedBusiness.businessEmail}"))
-        if (originalBusiness.postalAddress != updatedBusiness.postalAddress) changedProperties.add(Pair("postalAddress", "${originalBusiness.postalAddress} -> ${updatedBusiness.postalAddress}"))
-        if (originalBusiness.postalCode != updatedBusiness.postalCode) changedProperties.add(Pair("postalCode", "${originalBusiness.postalCode} -> ${updatedBusiness.postalCode}"))
-        if (originalBusiness.businessPhone != updatedBusiness.businessPhone) changedProperties.add(Pair("businessPhone", "${originalBusiness.businessPhone} -> ${updatedBusiness.businessPhone}"))
-        if (originalBusiness.contactPersonNames != updatedBusiness.contactPersonNames) changedProperties.add(Pair("contactPersonNames", "${originalBusiness.contactPersonNames} -> ${updatedBusiness.contactPersonNames}"))
-        if (originalBusiness.businessRole != updatedBusiness.businessRole) changedProperties.add(Pair("businessRole", "${originalBusiness.businessRole} -> ${updatedBusiness.businessRole}"))
-        if (originalBusiness.contactPersonPhone != updatedBusiness.contactPersonPhone) changedProperties.add(Pair("contactPersonPhone", "${originalBusiness.contactPersonPhone} -> ${updatedBusiness.contactPersonPhone}"))
-        if (originalBusiness.contactPersonEmail != updatedBusiness.contactPersonEmail) changedProperties.add(Pair("contactPersonEmail", "${originalBusiness.contactPersonEmail} -> ${updatedBusiness.contactPersonEmail}"))
-        if (originalBusiness.fullNames != updatedBusiness.fullNames) changedProperties.add(Pair("fullNames", "${originalBusiness.fullNames} -> ${updatedBusiness.fullNames}"))
-        if (originalBusiness.ownerID != updatedBusiness.ownerID) changedProperties.add(Pair("ownerID", "${originalBusiness.ownerID} -> ${updatedBusiness.ownerID}"))
-        if (originalBusiness.ownerPhone != updatedBusiness.ownerPhone) changedProperties.add(Pair("ownerPhone", "${originalBusiness.ownerPhone} -> ${updatedBusiness.ownerPhone}"))
-        if (originalBusiness.ownerEmail != updatedBusiness.ownerEmail) changedProperties.add(Pair("ownerEmail", "${originalBusiness.ownerEmail} -> ${updatedBusiness.ownerEmail}"))
-        if (originalBusiness.kraPin != updatedBusiness.kraPin) changedProperties.add(Pair("kraPin", "${originalBusiness.kraPin} -> ${updatedBusiness.kraPin}"))
-        if (originalBusiness.createdBy != updatedBusiness.createdBy) changedProperties.add(Pair("createdBy", "${originalBusiness.createdBy} -> ${updatedBusiness.createdBy}"))
-        if (originalBusiness.dateCreated != updatedBusiness.dateCreated) changedProperties.add(Pair("dateCreated", "${originalBusiness.dateCreated} -> ${updatedBusiness.dateCreated}"))
-        if (originalBusiness.lat != updatedBusiness.lat) changedProperties.add(Pair("lat", "${originalBusiness.lat} -> ${updatedBusiness.lat}"))
-        if (originalBusiness.lng != updatedBusiness.lng) changedProperties.add(Pair("lng", "${originalBusiness.lng} -> ${updatedBusiness.lng}"))
+        if (originalBusiness.id != updatedBusiness?.id) changedProperties.add(Pair("id", "${originalBusiness.id} -> ${updatedBusiness?.id}"))
+        if (originalBusiness.businessID != updatedBusiness?.businessID) changedProperties.add(Pair("businessID", "${originalBusiness.businessID} -> ${updatedBusiness?.businessID}"))
+        if (originalBusiness.businessName != updatedBusiness?.businessName) changedProperties.add(Pair("businessName", "${originalBusiness.businessName} -> ${updatedBusiness?.businessName}"))
+        if (originalBusiness.subCountyID != updatedBusiness?.subCountyID) changedProperties.add(Pair("subCountyID", "${originalBusiness.subCountyID} -> ${updatedBusiness?.subCountyID}"))
+        if (originalBusiness.subCountyName != updatedBusiness?.subCountyName) changedProperties.add(Pair("businessName", "${originalBusiness.subCountyName} -> ${updatedBusiness?.subCountyName}"))
+        if (originalBusiness.wardName != updatedBusiness?.wardName) changedProperties.add(Pair("wardName", "${originalBusiness.wardName} -> ${updatedBusiness?.wardName}"))
+        if (originalBusiness.plotNumber != updatedBusiness?.plotNumber) changedProperties.add(Pair("plotNumber", "${originalBusiness.plotNumber} -> ${updatedBusiness?.plotNumber}"))
+        if (originalBusiness.physicalAddress != updatedBusiness?.physicalAddress) changedProperties.add(Pair("physicalAddress", "${originalBusiness.physicalAddress} -> ${updatedBusiness?.physicalAddress}"))
+        if (originalBusiness.buildingName != updatedBusiness?.buildingName) changedProperties.add(Pair("buildingName", "${originalBusiness.buildingName} -> ${updatedBusiness?.buildingName}"))
+        if (originalBusiness.buildingOccupancy != updatedBusiness?.buildingOccupancy) changedProperties.add(Pair("buildingOccupancy", "${originalBusiness.buildingOccupancy} -> ${updatedBusiness?.buildingOccupancy}"))
+        if (originalBusiness.floorNo != updatedBusiness?.floorNo) changedProperties.add(Pair("floorNo", "${originalBusiness.floorNo} -> ${updatedBusiness?.floorNo}"))
+        if (originalBusiness.roomNo != updatedBusiness?.roomNo) changedProperties.add(Pair("roomNo", "${originalBusiness.roomNo} -> ${updatedBusiness?.roomNo}"))
+        if (originalBusiness.premiseSize != updatedBusiness?.premiseSize) changedProperties.add(Pair("premiseSize", "${originalBusiness.premiseSize} -> ${updatedBusiness?.premiseSize}"))
+        if (originalBusiness.numberOfEmployees != updatedBusiness?.numberOfEmployees) changedProperties.add(Pair("numberOfEmployees", "${originalBusiness.numberOfEmployees} -> ${updatedBusiness?.numberOfEmployees}"))
+        if (originalBusiness.tonnage != updatedBusiness?.tonnage) changedProperties.add(Pair("tonnage", "${originalBusiness.tonnage} -> ${updatedBusiness?.tonnage}"))
+        if (originalBusiness.businessDes != updatedBusiness?.businessDes) changedProperties.add(Pair("businessDes", "${originalBusiness.businessDes} -> ${updatedBusiness?.businessDes}"))
+        if (originalBusiness.businessSubCategory != updatedBusiness?.businessSubCategory) changedProperties.add(Pair("businessSubCategory", "${originalBusiness.businessSubCategory} -> ${updatedBusiness?.businessSubCategory}"))
+        if (originalBusiness.businessEmail != updatedBusiness?.businessEmail) changedProperties.add(Pair("businessEmail", "${originalBusiness.businessEmail} -> ${updatedBusiness?.businessEmail}"))
+        if (originalBusiness.postalAddress != updatedBusiness?.postalAddress) changedProperties.add(Pair("postalAddress", "${originalBusiness.postalAddress} -> ${updatedBusiness?.postalAddress}"))
+        if (originalBusiness.postalCode != updatedBusiness?.postalCode) changedProperties.add(Pair("postalCode", "${originalBusiness.postalCode} -> ${updatedBusiness?.postalCode}"))
+        if (originalBusiness.businessPhone != updatedBusiness?.businessPhone) changedProperties.add(Pair("businessPhone", "${originalBusiness.businessPhone} -> ${updatedBusiness?.businessPhone}"))
+        if (originalBusiness.contactPersonNames != updatedBusiness?.contactPersonNames) changedProperties.add(Pair("contactPersonNames", "${originalBusiness.contactPersonNames} -> ${updatedBusiness?.contactPersonNames}"))
+        if (originalBusiness.businessRole != updatedBusiness?.businessRole) changedProperties.add(Pair("businessRole", "${originalBusiness.businessRole} -> ${updatedBusiness?.businessRole}"))
+        if (originalBusiness.contactPersonPhone != updatedBusiness?.contactPersonPhone) changedProperties.add(Pair("contactPersonPhone", "${originalBusiness.contactPersonPhone} -> ${updatedBusiness?.contactPersonPhone}"))
+        if (originalBusiness.contactPersonEmail != updatedBusiness?.contactPersonEmail) changedProperties.add(Pair("contactPersonEmail", "${originalBusiness.contactPersonEmail} -> ${updatedBusiness?.contactPersonEmail}"))
+        if (originalBusiness.fullNames != updatedBusiness?.fullNames) changedProperties.add(Pair("fullNames", "${originalBusiness.fullNames} -> ${updatedBusiness?.fullNames}"))
+        if (originalBusiness.ownerID != updatedBusiness?.ownerID) changedProperties.add(Pair("ownerID", "${originalBusiness.ownerID} -> ${updatedBusiness?.ownerID}"))
+        if (originalBusiness.ownerPhone != updatedBusiness?.ownerPhone) changedProperties.add(Pair("ownerPhone", "${originalBusiness.ownerPhone} -> ${updatedBusiness?.ownerPhone}"))
+        if (originalBusiness.ownerEmail != updatedBusiness?.ownerEmail) changedProperties.add(Pair("ownerEmail", "${originalBusiness.ownerEmail} -> ${updatedBusiness?.ownerEmail}"))
+        if (originalBusiness.kraPin != updatedBusiness?.kraPin) changedProperties.add(Pair("kraPin", "${originalBusiness.kraPin} -> ${updatedBusiness?.kraPin}"))
+        if (originalBusiness.createdBy != updatedBusiness?.createdBy) changedProperties.add(Pair("createdBy", "${originalBusiness.createdBy} -> ${updatedBusiness?.createdBy}"))
+        if (originalBusiness.dateCreated != updatedBusiness?.dateCreated) changedProperties.add(Pair("dateCreated", "${originalBusiness.dateCreated} -> ${updatedBusiness?.dateCreated}"))
+        if (originalBusiness.lat != updatedBusiness?.lat) changedProperties.add(Pair("lat", "${originalBusiness.lat} -> ${updatedBusiness?.lat}"))
+        if (originalBusiness.lng != updatedBusiness?.lng) changedProperties.add(Pair("lng", "${originalBusiness.lng} -> ${updatedBusiness?.lng}"))
 
 
         // Print the result
@@ -355,9 +355,9 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
         val updatedBusiness = Const.instance.getBusiness()
 
         // Use a conditional statement to check if there was a mismatch between the subCountyName and the wardName on the original business object
-        if (originalBusiness.feeID != updatedBusiness.feeID) {
+        if (originalBusiness.feeID != updatedBusiness?.feeID) {
 
-            return "There was a change in Sub Category. ${originalBusiness.businessSubCategory} changed to ${updatedBusiness.businessSubCategory} The applicant will be required to make additional payment for this."
+            return "There was a change in Sub Category. ${originalBusiness.businessSubCategory} changed to ${updatedBusiness?.businessSubCategory} The applicant will be required to make additional payment for this."
         } else {
 
             return ""

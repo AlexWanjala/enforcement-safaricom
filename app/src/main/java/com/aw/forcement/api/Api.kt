@@ -23,6 +23,7 @@ import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.extensions.jsonBody
+import com.github.kittinunf.fuel.httpPost
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -64,19 +65,24 @@ interface CallBack {
     fun onSuccess(result: String?)
 }
 
+
+
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
 
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
     Fuel.post(URL+stream, formData)
-        .timeout(0)
-                .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
+        .timeout(1000)
+        .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
         .responseString {request, response, result ->
             println("##Request$request")
             println("##Response$result")
             callback.onSuccess(result.get())
         }
 }
+
+
+
 
 fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
 

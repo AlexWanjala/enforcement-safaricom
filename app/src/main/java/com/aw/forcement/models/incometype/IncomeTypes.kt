@@ -19,5 +19,6 @@ data class IncomeTypes (
 	@SerializedName("incomeTypeDescription") val incomeTypeDescription : String,
 	@SerializedName("incomeTypePrefix") val incomeTypePrefix : String,
 	@SerializedName("fundDescription") val fundDescription : String,
-	@SerializedName("status") val status : String
+	@SerializedName("status") val status : String,
+	@SerializedName("brimsCode") val brimsCode : String
 )

@@ -52,7 +52,7 @@ class AdapterOther(private val context: Context, mList: List<FeesAndCharges>) :
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val list: FeesAndCharges = mList[position]
 
-		holder.checkbox.text = list.feeDescription
+		holder.checkbox.text = "${list.feeDescription} ${list.zone} KES ${list.unitFeeAmount}"
 		holder.checkbox.isChecked = checkedPositions.contains(position)
 		holder.checkbox.setOnClickListener {
 			if (holder.checkbox.isChecked) {

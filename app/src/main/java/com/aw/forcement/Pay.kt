@@ -40,7 +40,7 @@ class Pay : AppCompatActivity() {
         progressBar1.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "customerPayBillOnline",
-            "payBillNumber" to "4087493",
+            "payBillNumber" to "",
             "amount" to edAmount.text.toString(),
             "accountReference" to edAccount.text.toString(),
             "transactionDesc" to edAccount.text.toString(),

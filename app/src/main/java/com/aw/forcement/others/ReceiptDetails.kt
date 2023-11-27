@@ -41,6 +41,7 @@ class ReceiptDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_receipt_details)
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         imageClose.setOnClickListener { finish() }
         tv_verify.setOnClickListener {
@@ -129,6 +130,22 @@ class ReceiptDetails : AppCompatActivity() {
                             tv_status.text = "Receipt inspected"
                           //  tv_status.setTextColor(Color.parseColor("#b30000"))
                         }
+
+                        var descriptions ="";
+
+                        for (receiptInfo in response.data.receiptInfos) {
+
+                            val feeDescription = receiptInfo.customer
+                            val  customer = receiptInfo.customer
+                            val  description = receiptInfo.description
+
+                            descriptions += "${customer} ${description} ${feeDescription}";
+
+                        }
+
+                        save(this@ReceiptDetails,"incomeTypeDescription",response.data.receiptDetails.incomeTypeDescription)
+                        save(this@ReceiptDetails,"description",descriptions)
+                        save(this@ReceiptDetails,"date",response.data.receiptDetails.dateCreated)
 
                     }
                 }else{

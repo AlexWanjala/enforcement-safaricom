@@ -31,6 +31,8 @@
     <string name="cess">Cess</string>
     <string name="markets">Market Fees</string>
     <string name="receipt_inspection">Receipt inspection</string>
+    <string name="invoices">Search Invoice(Print)</string>
+    <string name="invoices_des">View invoice details and issue print</string>
     <string name="plate_verification">No. Plate Verification</string>
     <string name="plate_verification_des">Verify compliance for parking,Cess, bus station taxes etc..</string>
     <string name="receipt_inspection_des">Check for valid receipt and enforce compliance.</string>
@@ -251,6 +253,7 @@
     <string name="collected_today">Collected Today</string>
     <string name="matatu">Matatu/Bus Park</string>
     <string name="receipt_searching">Receipt Searching</string>
+    <string name="invoice">Invoice Details</string>
     <string name="receipt_searching_des">Find a receipt by entering any of these: payer\'s phone, name, MPESA code, car number, etc.</string>
     <string name="receipt_searching_des_two">Only search for today\'s transactions. For other ones, contact support team.</string>
     <string name="payment_made">Payment Made By</string>
@@ -259,6 +262,9 @@
     <string name="collected_by">COLLECTED BY</string>
     <string name="validity_status">validity status</string>
     <string name="print_receipt">print receipt</string>
+    <string name="print_invoice">Print Invoice</string>
+    <string name="toilet">Toilet</string>
+    <string name="toilet_des">Charge for toiled fee</string>
     <string name="verify">Verify</string>
     <string name="manual_entry">Manual Entry</string>
     <string name="enter_plate">Enter No. Plate Manually</string>
@@ -311,12 +317,14 @@
     <string name="revenue_collection_break_des">Collections Breakdown by Revenue streams</string>
     <string name="alert_Kelvin">Alert Kelvin</string>
     <string name="all_">All</string>
+    <string name="description">Description</string>
     <string name="collectors">Collectors</string>
     <string name="inspectors">Inspectors</string>
     <string name="enforcers">Enforcers</string>
     <string name="collections_">Collections</string>
     <string name="title_activity_select_zone">SelectZone</string>
     <string name="select_zone">Select Zone</string>
+    <string name="select_ward">Select Ward</string>
     <string name="select_date">Select Date</string>
     <string name="done">Done</string>
     <string name="change_zone">Change Zone</string>
@@ -476,6 +484,7 @@
     <string name="transaction_timeout">Mpesa Transaction Timeout</string>
     <string name="timeout_message">No response. Press Resend or ask the payer to follow these steps to pay by themselves:</string>
     <string name="other">Other Applicable Charges</string>
+    <string name="delete">delete</string>
 
 
 </resources>

@@ -106,16 +106,32 @@ class ScanClass : AppCompatActivity() {
             override fun receiveDetections(detections: Detector.Detections<Barcode>) {
                 val barcodes = detections.detectedItems
                 if (barcodes.size() == 1) {
+
                     scannedValue = barcodes.valueAt(0).rawValue
+
+                    Log.e("########",scannedValue)
+                    if(scannedValue.contains("Business")){
+                        val businessID = scannedValue.split("|")[0].split(":")[1].trim()
+                        runOnUiThread {
+                            cameraSource.stop()
+                            if(boolean){
+                                boolean = false
+                                checkBusiness(businessID)
+                            }
+                        }
+                    }else{
+                        runOnUiThread {
+                            cameraSource.stop()
+                            if(boolean){
+                                boolean = false
+                                getTransactions(scannedValue)
+                            }
+                        }
+
 
 
                     //Don't forget to add this line printing value or finishing activity must run on main thread
-                    runOnUiThread {
-                        cameraSource.stop()
-                        if(boolean){
-                            boolean = false
-                            getTransactions(scannedValue)
-                        }
+
 
                         //Toast.makeText(this@ScanClass, "valuejjj- $scannedValue", Toast.LENGTH_SHORT).show()
                        /* if(intent.getStringExtra("type").toString() == "receipt"){
@@ -178,7 +194,7 @@ class ScanClass : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getTransactions",
-            "keyword" to "RI785YQJCM",//ReceiptNo.split(",")[0].replace(" ","").split(":")[1],//RGG1PKMB2
+            "keyword" to ReceiptNo.split(",")[0].replace(" ","").split(":")[1].toString(),//RGG1PKMB2
             "latitude" to getValue(this,"latitude").toString(),
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
@@ -195,7 +211,7 @@ class ScanClass : AppCompatActivity() {
                     finish()
                 }else{
                     runOnUiThread {
-                        tvMessage.text = response.message
+                       Toast.makeText(this@ScanClass,response.message,Toast.LENGTH_LONG).show()
                         finish()
                     }
                 }

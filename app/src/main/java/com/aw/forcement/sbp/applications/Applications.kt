@@ -58,7 +58,8 @@ class Applications : AppCompatActivity() {
         val formData = listOf(
             "function" to "getApplications",
             "keyword" to   intent.getStringExtra("keyword").toString(),
-            "search" to   search
+            "search" to   search,
+            "subCountyName" to getValue(this,"subCountyName").toString()
 
         )
         executeRequest(formData, trade,object : CallBack {

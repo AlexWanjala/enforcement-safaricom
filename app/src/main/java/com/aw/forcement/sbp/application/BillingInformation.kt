@@ -5,9 +5,9 @@ import Business
 import Const
 import FeesAndCharges
 import Json4Kotlin_Base
+import ReceiptDetails
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +15,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aw.forcement.InvoiceDetials
 import com.aw.forcement.R
 import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.synthetic.main.activity_billing_information.*
 import kotlinx.android.synthetic.main.activity_billing_information.btn_previous
 import kotlinx.android.synthetic.main.activity_billing_information.edPhone
@@ -30,6 +30,8 @@ import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import kotlinx.android.synthetic.main.recycler_view.*
+import kotlinx.android.synthetic.main.send_later.*
+import kotlinx.android.synthetic.main.send_later.view.*
 import java.util.concurrent.TimeUnit
 
 class BillingInformation : AppCompatActivity() {
@@ -49,6 +51,7 @@ class BillingInformation : AppCompatActivity() {
     var description =""
     var payNow =""
     var totalAmount = 0.0
+    var billNo =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -236,6 +239,7 @@ class BillingInformation : AppCompatActivity() {
         return Const.instance.getSelectedFeesAndCharges()
     }
 
+    //	context.startActivity(Intent(context,InvoiceDetials::class.java).putExtra("billNo",list.billNo)
     private fun generateBill (){
 
         tv_message.text ="Generating bill please wait.."
@@ -257,6 +261,13 @@ class BillingInformation : AppCompatActivity() {
                             tv_message.text ="Bill generated success.."
                             tv_proceed.visibility = View.GONE
                             tvSendPushDisabled.visibility = View.VISIBLE
+
+                            print_invoice.visibility = View.VISIBLE
+
+                            billNo =  response.data.billGenerated.billNo
+                            print_invoice.setOnClickListener {
+                                startActivity(Intent(this@BillingInformation, InvoiceDetials::class.java).putExtra("billNo", billNo))
+                            }
 
                             if (payNow=="true"){
 
@@ -398,7 +409,7 @@ class BillingInformation : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(messageBoxView as View?)
         messageBoxInstance = messageBoxBuilder.show()
     }
-    private fun showMessageBoxPayment(transaction: String,payer: String,amount: String, des: String,category:String){
+    private fun showMessageBoxPayment(transaction_code: String,payer: String,amount: String, des: String,category:String){
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -411,11 +422,16 @@ class BillingInformation : AppCompatActivity() {
         )
         messageBoxInstancePaid = messageBoxBuilder.show()
 
-        messageBoxViewPaid.tv_transaction.text = transaction
+        messageBoxViewPaid.tv_transaction.text = transaction_code
         messageBoxViewPaid.tv_payer.text = payer
         messageBoxViewPaid.tv_amount.text = amount
         messageBoxViewPaid.tv_des.text = des
         messageBoxViewPaid.tv_category.text = category
+
+        messageBoxViewPaid.print_receipt.setOnClickListener {
+            startActivity(Intent(this@BillingInformation, com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code", transaction_code))
+        }
+
         messageBoxViewPaid.okay.setOnClickListener {
             messageBoxInstancePaid.dismiss()
 
@@ -487,8 +503,13 @@ class BillingInformation : AppCompatActivity() {
         messageBoxInstanceInfo = messageBoxBuilder.show()
         messageBoxInstanceInfo.setCanceledOnTouchOutside (false)
 
-        messageBoxViewInfo.okay.setOnClickListener {
+        messageBoxInstanceInfo.print_invoice_.setOnClickListener {
+            startActivity(Intent(this@BillingInformation, InvoiceDetials::class.java).putExtra("billNo", billNo))
+        }
+
+        messageBoxViewInfo.okay_later.setOnClickListener {
             messageBoxInstanceInfo.dismiss()
+            Const.instance.setBusiness(null)
             finishAffinity()
             startActivity(Intent(this,Businesses::class.java))
         }

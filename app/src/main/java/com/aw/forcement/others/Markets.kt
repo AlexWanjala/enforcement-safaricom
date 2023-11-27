@@ -132,6 +132,8 @@ class Markets : AppCompatActivity() {
        if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
         initListeners()
+
+        tv_category.text = intent.getStringExtra("incomeTypePrefix")
     }
 
     fun amountDisplay(){

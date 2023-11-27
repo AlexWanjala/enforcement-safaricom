@@ -57,6 +57,7 @@ class Login : AppCompatActivity() {
 
     private val appUpdateManager by lazy { AppUpdateManagerFactory.create(this) }
 
+    @RequiresApi(34)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -238,6 +239,10 @@ class Login : AppCompatActivity() {
                     save(this@Login,"wardName",response.data.user.wardName)
                     save(this@Login,"target",response.data.user.target)
                     save(this@Login,"category",response.data.user.category)
+                    save(this@Login,"permission",response.data.user.permission)
+                    save(this@Login,"email",response.data.user.email)
+                    save(this@Login,"id",response.data.user.id.toString())
+                    save(this@Login,"gender",response.data.user.gender.toString())
                    // startActivity(Intent(this@Login, MainRoActivity::class.java))
                     startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
@@ -253,7 +258,9 @@ class Login : AppCompatActivity() {
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
                     save(this@Login,"target",response.data.user.target)
-                    save(this@Login,"category",response.data.user.category)
+                    save(this@Login,"permission",response.data.user.permission)
+                    save(this@Login,"id",response.data.user.id.toString())
+                    save(this@Login,"gender",response.data.user.gender.toString())
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))
@@ -306,9 +313,9 @@ class Login : AppCompatActivity() {
 
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                 // Request the update.
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, this, AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build(), 1)
+                appUpdateManager.startUpdateFlowForResult(appUpdateInfo, this, AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE ).build(), 1)
 
                 val listener = InstallStateUpdatedListener { state ->
                     // (Optional) Provide a download progress bar.

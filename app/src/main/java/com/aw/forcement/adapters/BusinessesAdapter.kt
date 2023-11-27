@@ -37,6 +37,7 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_status: TextView = itemView.findViewById<View>(R.id.tv_status) as TextView
 		var btn_sms: Button = itemView.findViewById<View>(R.id.btn_sms) as Button
+		var btn_delete: Button = itemView.findViewById<View>(R.id.btn_delete) as Button
 		var progress_circular: ProgressBar = itemView.findViewById<View>(R.id.progress_circular) as ProgressBar
 
 	}
@@ -82,6 +83,30 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 				}
 			})
 
+		}
+
+		if(getValue(context,"permission").toString()==="WRITE"){
+			holder.btn_delete.visibility = View.VISIBLE
+
+			holder.btn_delete.setOnClickListener {
+
+				holder.btn_sms.text = "Deleting..."
+
+				val formData = listOf(
+					"function" to "deleteBusiness",
+					"businessID" to list.businessID,
+				)
+				executeRequest(formData, trade,object : CallBack {
+					override fun onSuccess(result: String?) {
+						val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+						holder.btn_sms.text = response.message
+						//Toast.makeText(context,response.message, Toast.LENGTH_LONG).show()
+					}
+				})
+
+			}
+		}else{
+			holder.btn_delete.visibility = View.GONE
 		}
 
 

@@ -34,5 +34,6 @@ data class User (
 	@SerializedName("lastSeen") val lastSeen : String,
 	@SerializedName("status") val status : String,
 	@SerializedName("target") val target : String,
+	@SerializedName("permission") val permission : String,
 
 )

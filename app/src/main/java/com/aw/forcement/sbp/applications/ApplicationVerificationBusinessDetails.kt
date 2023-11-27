@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +19,6 @@ import com.aw.forcement.R
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.biller
 import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.save
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_application_verification_business_details.*
 import kotlinx.android.synthetic.main.update.view.*
@@ -48,13 +46,13 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
     private fun displayValues(){
 
-        tv_business_name.text = Const.instance.getBusiness().businessName
-        tv_sub_county.text = Const.instance.getBusiness().subCountyName
-        tv_ward.text = Const.instance.getBusiness().wardName
-        tv_address.text = Const.instance.getBusiness().physicalAddress
-        tv_business_building.text = Const.instance.getBusiness().buildingName
-        tv_floor.text = Const.instance.getBusiness().floorNo
-        tv_room_number.text = Const.instance.getBusiness().roomNo
+        tv_business_name.text = Const.instance.getBusiness()?.businessName
+        tv_sub_county.text = Const.instance.getBusiness()?.subCountyName
+        tv_ward.text = Const.instance.getBusiness()?.wardName
+        tv_address.text = Const.instance.getBusiness()?.physicalAddress
+        tv_business_building.text = Const.instance.getBusiness()?.buildingName
+        tv_floor.text = Const.instance.getBusiness()?.floorNo
+        tv_room_number.text = Const.instance.getBusiness()?.roomNo
 
     }
 
@@ -78,29 +76,29 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
             if (title == "Business Name") {
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(businessName = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(businessName = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
             if(title=="Physical Address"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(physicalAddress = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(physicalAddress = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
             if(title=="Building Name"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(buildingName = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(buildingName = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
             if(title=="Floor No"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(floorNo = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(floorNo = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
             if(title=="Room No"){
                 val currentBusiness = Const.instance.getBusiness()
-                val newBusiness = currentBusiness.copy(roomNo = messageBoxView.ed_message.text.toString())
+                val newBusiness = currentBusiness?.copy(roomNo = messageBoxView.ed_message.text.toString())
                 Const.instance.setBusiness(newBusiness)
             }
 
@@ -129,7 +127,7 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
                         for (data in response.data.subCounties) {
                             arrayList2.add(data.subCountyName)
-                            if (data.subCountyID == Const.instance.getBusiness().subCountyID) {
+                            if (data.subCountyID == Const.instance.getBusiness()?.subCountyID) {
                                 position = x
                             }
                             x++
@@ -203,10 +201,10 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
         messageBoxViewDemo.okay.setOnClickListener {
             val currentBusiness = Const.instance.getBusiness()
             val newBusiness = currentBusiness
-                .copy(wardID = wardID)
-                .copy(subCountyID = subCountyID)
-                .copy(subCountyName= subCountyName)
-                .copy(wardName = wardName)
+                ?.copy(wardID = wardID)
+                ?.copy(subCountyID = subCountyID)
+                ?.copy(subCountyName= subCountyName)
+                ?.copy(wardName = wardName)
 
             Const.instance.setBusiness(newBusiness)
 
@@ -236,7 +234,7 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
                         for (data in response.data.wards) {
                             arrayList3.add(data.wardName)
-                            if (data.wardID == Const.instance.getBusiness().wardID) {
+                            if (data.wardID == Const.instance.getBusiness()?.wardID) {
                                 position = x
                             }
                             x++
@@ -281,31 +279,31 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
     fun update(view: View) {
         when (view.id) {
             R.id.btn_business_name -> {
-                showMessageBox("Business Name", Const.instance.getBusiness().businessName)
+                showMessageBox("Business Name", Const.instance.getBusiness()!!.businessName)
             }
 
             R.id.btn_sub_county -> {
-                showMessageBoxDemo("Sub County",Const.instance.getBusiness().subCountyID)
+                showMessageBoxDemo("Sub County",Const.instance.getBusiness()!!.subCountyID)
             }
 
             R.id.btn_ward -> {
-                showMessageBoxDemo("Ward",Const.instance.getBusiness().wardID)
+                showMessageBoxDemo("Ward",Const.instance.getBusiness()!!.wardID)
             }
 
             R.id.btn_physical_address -> {
-                showMessageBox("Physical Address",Const.instance.getBusiness().physicalAddress)
+                showMessageBox("Physical Address",Const.instance.getBusiness()!!.physicalAddress)
             }
 
             R.id.btn_building_name -> {
-                showMessageBox("Building Name",Const.instance.getBusiness().buildingName)
+                showMessageBox("Building Name",Const.instance.getBusiness()!!.buildingName)
             }
 
             R.id.btn_floor_no -> {
-                showMessageBox("Floor No",Const.instance.getBusiness().floorNo)
+                showMessageBox("Floor No",Const.instance.getBusiness()!!.floorNo)
             }
 
             R.id.btn_room_no -> {
-                showMessageBox("Room No",Const.instance.getBusiness().roomNo)
+                showMessageBox("Room No",Const.instance.getBusiness()!!.roomNo)
             }
 
             else -> {

@@ -114,6 +114,7 @@ class BusinessActivityInformation : AppCompatActivity() {
             save (this, "feeID", feeID)
             save (this, "liquor", liquor)
             save (this, "conservancy", conservancy)
+            Const.instance.removeFeeAndCharge(feesAndCharges)
             Const.instance.addFeeAndCharge(feesAndCharges)
             startActivity(Intent(this, BillingInformation::class.java))
         }
@@ -136,7 +137,7 @@ class BusinessActivityInformation : AppCompatActivity() {
                     runOnUiThread {
 
                         for(data in response.data.incomeTypes){
-                            arrayList.add(data.incomeTypeDescription)
+                            arrayList.add("${data.brimsCode} ${data.incomeTypeDescription}")
                         }
 
                         //Spinner
@@ -178,7 +179,7 @@ class BusinessActivityInformation : AppCompatActivity() {
                     if(response.success){
                         runOnUiThread {
                             for(data in response.data.feesAndCharges){
-                                arrayList2.add(data.feeDescription)
+                                arrayList2.add("${data.brimsCode} ${data.feeDescription} ${data.zone} KES ${data.unitFeeAmount}")
                             }
 
                             //Spinner
@@ -259,7 +260,8 @@ class BusinessActivityInformation : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to "SBP"
+            "incomeTypePrefix" to "SBP",
+            "keyword" to "Other"
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -309,7 +311,6 @@ class BusinessActivityInformation : AppCompatActivity() {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 runOnUiThread {
-
                     if(response.success){
                         recyclerView.adapter = null
                         adapter = AdapterOther(this@BusinessActivityInformation, response.data.feesAndCharges)
