@@ -175,6 +175,11 @@ class InvoiceDetials : AppCompatActivity() {
                 }
             }
 
+            override fun onFailure(result: String?) {
+                Toast.makeText(this@InvoiceDetials,result, Toast.LENGTH_LONG).show()
+                progress_circular.visibility = View.GONE
+            }
+
         })
 
 

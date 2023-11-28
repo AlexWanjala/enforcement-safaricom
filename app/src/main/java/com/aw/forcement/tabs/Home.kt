@@ -129,75 +129,45 @@ class Home : AppCompatActivity() {
 
          val category = getValue(this,"category")
 
-         if (category == "LICENCING OFFICER" ||  category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN"){
-             fl_initiate_application.visibility = View.VISIBLE
-         }
-         else{
-             fl_initiate_application.visibility = View.GONE
-         }
-
-         if (category == "SUPER ADMIN"){
-             fl_application_validation.visibility = View.VISIBLE
-         }
-         else{
-             fl_application_validation.visibility = View.GONE
-         }
-
-
-         if (category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN" || category == "ACCOUNTANTS"){
-             fl_application_inspection.visibility = View.VISIBLE
-         }
-         else{
-             fl_application_inspection.visibility = View.GONE
-         }
-
-         if (category == "DEPUTY DIRECTOR"){
-             fl_application_approval.visibility = View.VISIBLE
-         }
-         else{
-             fl_application_approval.visibility = View.GONE
-         }
+         if(BuildConfig.FLAVOR==="homabay"){
 
 
 
-        /*
+             if (category == "LICENCING OFFICER" ||  category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN"){
+                 fl_initiate_application.visibility = View.VISIBLE
+             }
+             else{
+                 fl_initiate_application.visibility = View.GONE
+             }
 
-         if (getValue(this,"category").toString() == "REVENUE DIRECTOR"){
-             fl_application_approval.visibility = View.VISIBLE
-         }
-         else{
-             fl_application_approval.visibility = View.GONE
+             if (category == "SUPER ADMIN"){
+                 fl_application_validation.visibility = View.VISIBLE
+             }
+             else{
+                 fl_application_validation.visibility = View.GONE
+             }
+
+
+             if (category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN" || category == "ACCOUNTANTS"){
+                 fl_application_inspection.visibility = View.VISIBLE
+             }
+             else{
+                 fl_application_inspection.visibility = View.GONE
+             }
+
+             if (category == "DEPUTY DIRECTOR"){
+                 fl_application_approval.visibility = View.VISIBLE
+             }
+             else{
+                 fl_application_approval.visibility = View.GONE
+             }
+
+
          }
 
-         if (getValue(this,"category").toString() == "ACCOUNTANTS" ||
-             getValue(this,"category").toString() == "REVENUE OFFICER" ||
-             getValue(this,"category").toString() == "REVENUE DIRECTOR" ||
-             getValue(this,"category").toString() == "ICT ADMIN" ||
-             getValue(this,"category").toString() == "ICT OFFICER" ||
-             getValue(this,"category").toString() == "DEPUTY DIRECTOR"){
-             fl_application_inspection.visibility = View.VISIBLE
-         }else{
-             fl_application_inspection.visibility = View.GONE
-         }
 
-        if(
-            getValue(this,"category").toString() == "LICENCING OFFICERS" ||
-            getValue(this,"category").toString() == "REVENUE OFFICER" ||
-            getValue(this,"category").toString() == "REVENUE DIRECTOR" ||
-            getValue(this,"category").toString() == "DEPUTY DIRECTOR" ||
-            getValue(this,"category").toString() == "ICT ADMIN" ||
-            getValue(this,"category").toString() == "ICT OFFICER" ||
-            getValue(this,"category").toString() == "SUPERVISORS" ||
-            getValue(this,"category").toString() == "ACCOUNTANTS" ||
-            getValue(this,"category").toString() == "EXECUTIVE"
-        ){
-             sbpDataCollection.visibility = View.VISIBLE
-            sbp.visibility = View.VISIBLE
-         }
-        else{
-             sbpDataCollection.visibility = View.GONE
-              sbp.visibility = View.GONE
-         }*/
+
+
 
          sbpDataCollection.setOnClickListener {
              startActivity(Intent(this, DataCollection::class.java))
@@ -476,6 +446,15 @@ class Home : AppCompatActivity() {
 
             }
 
+            override fun onFailure(result: String?) {
+
+                runOnUiThread {
+                    progress_circular.visibility = View.GONE
+                    Toast.makeText(this@Home,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
+
         })
     }
      private fun getTransactions(){
@@ -510,8 +489,15 @@ class Home : AppCompatActivity() {
                          tvMessage.text = response.message }
                  }
              }
+             override fun onFailure(result: String?) {
+                 runOnUiThread {
+                     progress_circular.visibility = View.GONE
+                     Toast.makeText(this@Home,result, Toast.LENGTH_LONG).show()
+                 }
+             }
 
          })
+
 
 
      }
@@ -548,6 +534,13 @@ class Home : AppCompatActivity() {
                     runOnUiThread {
                         tvMessage.text = response.message
                     }
+                }
+            }
+            override fun onFailure(result: String?) {
+
+                runOnUiThread {
+                    progress_circular.visibility = View.GONE
+                    Toast.makeText(this@Home,result, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -589,6 +582,13 @@ class Home : AppCompatActivity() {
                 }else{
                     runOnUiThread {
                         tvMessage.text = response.message }
+                }
+            }
+            override fun onFailure(result: String?) {
+
+                runOnUiThread {
+                    progress_circular.visibility = View.GONE
+                    Toast.makeText(this@Home,result, Toast.LENGTH_LONG).show()
                 }
             }
 

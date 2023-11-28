@@ -150,6 +150,13 @@ class Offstreet : AppCompatActivity(){
                     }
                 }
             }
+
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Offstreet,result, Toast.LENGTH_LONG).show()
+                }
+
+            }
         })
     }
     private fun matatuPayment(){
@@ -188,6 +195,13 @@ class Offstreet : AppCompatActivity(){
                     }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    tv_message.text = result
+                    Toast.makeText(this@Offstreet,result, Toast.LENGTH_LONG).show()
+                }
+
+            }
         })
 
     }
@@ -221,6 +235,13 @@ class Offstreet : AppCompatActivity(){
                         tv_message.text = response.message
                     }
 
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    tv_message.text = result
+                    Toast.makeText(this@Offstreet,result, Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -280,6 +301,11 @@ class Offstreet : AppCompatActivity(){
 
             }
 
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Offstreet,result, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 

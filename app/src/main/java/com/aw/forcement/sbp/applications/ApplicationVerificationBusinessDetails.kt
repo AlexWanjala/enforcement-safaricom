@@ -168,6 +168,11 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBusinessDetails,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -270,6 +275,11 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBusinessDetails,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

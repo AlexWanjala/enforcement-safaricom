@@ -166,6 +166,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -216,6 +221,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -274,6 +284,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
                     Toast.makeText(this@CessPaymentsMatatus,response.message, Toast.LENGTH_LONG).show() }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -349,6 +364,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -447,6 +467,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
+                    }
+                }
+                override fun onFailure(result: String?) {
+                    runOnUiThread {
+                        Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -617,6 +642,11 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPaymentsMatatus,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

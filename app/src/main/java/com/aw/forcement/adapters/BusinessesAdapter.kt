@@ -81,6 +81,10 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 					holder.btn_sms.text = response.message
 					//Toast.makeText(context,response.message, Toast.LENGTH_LONG).show()
 				}
+				override fun onFailure(result: String?) {
+					Toast.makeText(context,result,Toast.LENGTH_LONG).show()
+
+				}
 			})
 
 		}
@@ -101,6 +105,10 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 						val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 						holder.btn_sms.text = response.message
 						//Toast.makeText(context,response.message, Toast.LENGTH_LONG).show()
+					}
+
+					override fun onFailure(result: String?) {
+						Toast.makeText(context,result,Toast.LENGTH_LONG).show()
 					}
 				})
 

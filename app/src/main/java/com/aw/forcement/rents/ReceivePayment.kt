@@ -180,6 +180,11 @@ class ReceivePayment : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -221,6 +226,11 @@ class ReceivePayment : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -269,6 +279,11 @@ class ReceivePayment : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -303,6 +318,11 @@ class ReceivePayment : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -380,6 +400,11 @@ class ReceivePayment : AppCompatActivity() {
                     checkPayment(accountReference)
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

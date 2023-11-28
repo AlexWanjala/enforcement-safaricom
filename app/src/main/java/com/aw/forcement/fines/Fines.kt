@@ -189,6 +189,13 @@ class Fines : AppCompatActivity() {
 
             }
 
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    tv_message.text = result
+                    Toast.makeText(this@Fines,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
         })
     }
     private fun getIncomeTypes (){
@@ -229,6 +236,11 @@ class Fines : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Fines,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -277,6 +289,12 @@ class Fines : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    tv_message.text = result
+                    Toast.makeText(this@Fines,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -311,6 +329,11 @@ class Fines : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Fines,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -388,6 +411,11 @@ class Fines : AppCompatActivity() {
                     checkPayment(accountReference)
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Fines,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

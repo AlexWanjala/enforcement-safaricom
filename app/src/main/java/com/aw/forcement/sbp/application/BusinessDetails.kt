@@ -127,6 +127,11 @@ class BusinessDetails : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessDetails,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -160,6 +165,11 @@ class BusinessDetails : AppCompatActivity() {
                     }
                 }else{
                     runOnUiThread { Toast.makeText(this@BusinessDetails,response.message, Toast.LENGTH_LONG).show()}
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessDetails,result, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -199,6 +209,11 @@ class BusinessDetails : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessDetails,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

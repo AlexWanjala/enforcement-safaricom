@@ -107,6 +107,10 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 						}
 					}
 
+					override fun onFailure(result: String?) {
+						Toast.makeText(context,result,Toast.LENGTH_LONG).show()
+					}
+
 				})
 			}
 			builder.setNegativeButton(android.R.string.no) { dialog, which ->

@@ -70,6 +70,11 @@ class CollectionsSBP : AppCompatActivity() {
                     runOnUiThread { Toast.makeText(this@CollectionsSBP,response.message, Toast.LENGTH_LONG).show() }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CollectionsSBP,result, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 }

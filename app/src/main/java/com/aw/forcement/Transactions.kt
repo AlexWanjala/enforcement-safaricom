@@ -121,6 +121,12 @@ class Transactions : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Transactions,result,Toast.LENGTH_LONG).show()
+
+                }
+            }
 
         })
     }
@@ -164,6 +170,12 @@ class Transactions : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Transactions,result,Toast.LENGTH_LONG).show()
+
+                }
             }
 
         })

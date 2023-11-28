@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
@@ -200,6 +201,11 @@ class TransactionsBreakDown : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@TransactionsBreakDown,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

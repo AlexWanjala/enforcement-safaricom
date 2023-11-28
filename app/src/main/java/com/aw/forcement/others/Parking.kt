@@ -125,6 +125,11 @@ class Parking : AppCompatActivity() {
                }
 
            }
+           override fun onFailure(result: String?) {
+               runOnUiThread {
+                   Toast.makeText(this@Parking,result, Toast.LENGTH_LONG).show()
+               }
+           }
 
        })
 
@@ -159,6 +164,11 @@ class Parking : AppCompatActivity() {
                     }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Parking,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

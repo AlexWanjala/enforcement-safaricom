@@ -72,6 +72,11 @@ class Businesses : AppCompatActivity() {
                     runOnUiThread { Toast.makeText(this@Businesses,response.message, Toast.LENGTH_LONG).show() }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Businesses,result, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 }

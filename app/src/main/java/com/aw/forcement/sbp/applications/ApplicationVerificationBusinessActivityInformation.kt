@@ -176,6 +176,11 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -271,6 +276,11 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -348,6 +358,11 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

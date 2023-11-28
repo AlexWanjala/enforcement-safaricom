@@ -15,15 +15,23 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.ResponseResultOf
 import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.extensions.jsonBody
 import com.github.kittinunf.fuel.httpPost
+import com.github.kittinunf.result.failure
+import com.github.kittinunf.result.onError
+import com.github.kittinunf.result.success
+
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.net.HttpURLConnection
@@ -31,8 +39,15 @@ import java.net.MalformedURLException
 import java.net.URL
 import java.text.NumberFormat
 import java.util.*
+import java.util.concurrent.TimeoutException
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLSocketFactory
+import kotlinx.coroutines.*
+
+import com.github.kittinunf.result.Result
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.retryWhen
 
 
 /*
@@ -63,11 +78,47 @@ var authentication ="authentication/"
 
 interface CallBack {
     fun onSuccess(result: String?)
+    fun onFailure(result: String?)
 }
 
 
-
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
+
+    var retryNumber = 0
+    fun process(){
+        FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
+        FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
+        Fuel.post(URL+stream, formData)
+            .timeout(1000)
+            .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
+            .responseString {request, response, result ->
+                println("##Request$request")
+                println("##Response$result")
+
+                result.success {
+                    callback.onSuccess(result.get())
+                }
+
+                result.failure {
+                    Thread.sleep(2000)
+                    retryNumber++
+                    if(retryNumber<20){
+                        process()
+                    }else{
+
+                        callback.onFailure("Network Issue Detected")
+                    }
+
+                }
+
+            }
+    }
+
+    process()
+
+}
+
+fun executeRequest3(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
 
     FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
@@ -80,7 +131,6 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
             callback.onSuccess(result.get())
         }
 }
-
 
 
 
@@ -269,6 +319,10 @@ fun uploadImage(bitmap: Bitmap, fileName: String){
         )
         executeRequest(formData as List<Pair<String, String>>,"login", object : CallBack {
             override fun onSuccess(result: String?) {
+
+            }
+
+            override fun onFailure(result: String?) {
 
             }
         })

@@ -113,6 +113,11 @@ class ApplicationsDetail : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationsDetail,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }

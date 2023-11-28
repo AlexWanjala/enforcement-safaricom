@@ -207,6 +207,11 @@ class BillingInformation : AppCompatActivity() {
                 }else{ }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BillingInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -292,6 +297,11 @@ class BillingInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BillingInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -333,6 +343,11 @@ class BillingInformation : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BillingInformation,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -396,6 +411,11 @@ class BillingInformation : AppCompatActivity() {
                     checkPayment(accountReference)
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BillingInformation,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

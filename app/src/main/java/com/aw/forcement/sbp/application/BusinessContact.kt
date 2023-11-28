@@ -107,6 +107,11 @@ class BusinessContact : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessContact,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }

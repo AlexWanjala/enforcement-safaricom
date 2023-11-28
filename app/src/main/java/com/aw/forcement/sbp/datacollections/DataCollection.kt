@@ -190,6 +190,11 @@ class DataCollection :  AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@DataCollection,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -291,6 +296,11 @@ class DataCollection :  AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@DataCollection,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -350,6 +360,11 @@ class DataCollection :  AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@DataCollection,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -411,6 +426,11 @@ class DataCollection :  AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@DataCollection,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -470,6 +490,11 @@ class DataCollection :  AppCompatActivity() {
                     }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@DataCollection,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

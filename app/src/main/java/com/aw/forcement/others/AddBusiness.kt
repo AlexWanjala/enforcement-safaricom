@@ -91,6 +91,11 @@ class AddBusiness : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -131,6 +136,11 @@ class AddBusiness : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -174,6 +184,11 @@ class AddBusiness : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -220,6 +235,11 @@ class AddBusiness : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -272,6 +292,11 @@ class AddBusiness : AppCompatActivity() {
                 else{
                     runOnUiThread {tv_message.text =response.message }
 
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
                 }
             }
 
@@ -331,6 +356,11 @@ class AddBusiness : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
 
@@ -379,6 +409,11 @@ class AddBusiness : AppCompatActivity() {
                     checkPayment(accountReference)
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@AddBusiness,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

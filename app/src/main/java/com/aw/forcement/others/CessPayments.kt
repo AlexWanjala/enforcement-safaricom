@@ -200,8 +200,14 @@ class CessPayments : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPayments,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
+
     }
     private fun getIncomeTypes (){
 
@@ -242,6 +248,11 @@ class CessPayments : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPayments,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -290,6 +301,11 @@ class CessPayments : AppCompatActivity() {
                     Toast.makeText(this@CessPayments,response.message, Toast.LENGTH_LONG).show() }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPayments,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -365,6 +381,11 @@ class CessPayments : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@CessPayments,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -462,6 +483,11 @@ class CessPayments : AppCompatActivity() {
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
+                    }
+                }
+                override fun onFailure(result: String?) {
+                    runOnUiThread {
+                        Toast.makeText(this@CessPayments,result, Toast.LENGTH_LONG).show()
                     }
                 }
 

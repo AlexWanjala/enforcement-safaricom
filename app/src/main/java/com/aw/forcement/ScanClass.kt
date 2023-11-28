@@ -217,6 +217,14 @@ class ScanClass : AppCompatActivity() {
                 }
             }
 
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ScanClass,result,Toast.LENGTH_LONG).show()
+
+                }
+            }
+
+
         })
 
 
@@ -241,6 +249,12 @@ class ScanClass : AppCompatActivity() {
                     runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG) }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ScanClass,result,Toast.LENGTH_LONG).show()
+
+                }
+            }
         })
 
     }
@@ -262,6 +276,12 @@ class ScanClass : AppCompatActivity() {
                     startActivity(Intent(this@ScanClass,Business::class.java).putExtra("result",result))
                 }else{
                     runOnUiThread {   Toast.makeText(this@ScanClass, response.message,Toast.LENGTH_LONG) }
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ScanClass,result,Toast.LENGTH_LONG).show()
+
                 }
             }
         })

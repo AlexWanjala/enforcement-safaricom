@@ -161,6 +161,11 @@ class BusinessActivityInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -209,6 +214,11 @@ class BusinessActivityInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -250,6 +260,11 @@ class BusinessActivityInformation : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -297,6 +312,11 @@ class BusinessActivityInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -323,6 +343,11 @@ class BusinessActivityInformation : AppCompatActivity() {
                     }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessActivityInformation,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

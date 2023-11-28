@@ -47,17 +47,18 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
             updateUser()
         }
 
+        swipeRefreshLayout.setOnRefreshListener(this)
+
 
         getSubCounty()
-       // getWards(getValue(this,"subCountyID").toString())
-        getZones()
-
         val category = getValue(this,"category")
         if (category == "ICT OFFICER" ||  category == "SUPERVISORS"  || category == "SUPER ADMIN" || category == "DEPUTY DIRECTOR"
             || category == "ACCOUNTANTS" || category == "DIRECTOR REVENUE" || category == "ENFORCEMENT" ){
             layout_subs.visibility = View.VISIBLE
+        }else{
+            getWards(getValue(this,"subCountyID").toString())
         }
-        swipeRefreshLayout.setOnRefreshListener(this)
+
 
 
     }
@@ -103,6 +104,13 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
 
                 }
 
+            }
+
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    progress_circular.visibility = View.GONE
+                    Toast.makeText(this@SelectZone,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -160,6 +168,11 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@SelectZone,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -215,6 +228,12 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@SelectZone,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
 
         })
     }
@@ -274,6 +293,13 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    swipeRefreshLayout.isRefreshing = false
+                    progress_circular.visibility = View.GONE
+                    Toast.makeText(this@SelectZone,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

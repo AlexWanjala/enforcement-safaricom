@@ -219,6 +219,11 @@ class Markets : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -261,6 +266,11 @@ class Markets : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -305,6 +315,11 @@ class Markets : AppCompatActivity() {
                     Toast.makeText(this@Markets,response.message, Toast.LENGTH_LONG).show() }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -380,6 +395,11 @@ class Markets : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -477,6 +497,11 @@ class Markets : AppCompatActivity() {
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
+                    }
+                }
+                override fun onFailure(result: String?) {
+                    runOnUiThread {
+                        Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -646,6 +671,11 @@ class Markets : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Markets,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })

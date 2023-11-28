@@ -78,6 +78,11 @@ class Applications : AppCompatActivity() {
                     runOnUiThread {Toast.makeText(this@Applications,response.message, Toast.LENGTH_LONG).show() }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Applications,result, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 }

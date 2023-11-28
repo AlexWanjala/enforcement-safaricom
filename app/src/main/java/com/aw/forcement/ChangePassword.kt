@@ -60,6 +60,10 @@ class ChangePassword : AppCompatActivity() {
 
             }
 
+            override fun onFailure(result: String?) {
+                runOnUiThread {   tvMessage.text = result }
+            }
+
         })
     }
 

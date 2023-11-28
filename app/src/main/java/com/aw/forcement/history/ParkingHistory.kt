@@ -122,6 +122,11 @@ class ParkingHistory : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ParkingHistory,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }

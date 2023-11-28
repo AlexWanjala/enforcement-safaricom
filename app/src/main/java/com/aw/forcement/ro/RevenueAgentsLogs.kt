@@ -5,6 +5,7 @@ import UsersRoAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
@@ -89,6 +90,11 @@ class RevenueAgentsLogs : AppCompatActivity() {
                 save(this@RevenueAgentsLogs,"status",status)
                 if (result != null) {
                     updateUserUI(result,status)
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@RevenueAgentsLogs,result, Toast.LENGTH_LONG).show()
                 }
             }
 

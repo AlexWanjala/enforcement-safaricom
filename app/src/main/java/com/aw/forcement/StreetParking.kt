@@ -213,6 +213,12 @@ class StreetParking : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@StreetParking,result,Toast.LENGTH_LONG).show()
+
+                }
+            }
 
         })
     }
@@ -273,6 +279,12 @@ class StreetParking : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@StreetParking,result,Toast.LENGTH_LONG).show()
+
+                }
+            }
 
         })
     }
@@ -327,6 +339,12 @@ class StreetParking : AppCompatActivity() {
                     }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@StreetParking,result,Toast.LENGTH_LONG).show()
+
+                }
             }
 
         })
@@ -404,6 +422,12 @@ class StreetParking : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@StreetParking,result,Toast.LENGTH_LONG).show()
+
+                }
             }
 
         })
@@ -502,6 +526,12 @@ class StreetParking : AppCompatActivity() {
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
+                    }
+                }
+                override fun onFailure(result: String?) {
+                    runOnUiThread {
+                        Toast.makeText(this@StreetParking,result,Toast.LENGTH_LONG).show()
+
                     }
                 }
 

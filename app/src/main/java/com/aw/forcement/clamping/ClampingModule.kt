@@ -48,6 +48,14 @@ class ClampingModule : AppCompatActivity() {
                     runOnUiThread { Toast.makeText(this@ClampingModule,response.message, Toast.LENGTH_LONG).show() }
                 }
             }
+
+            override fun onFailure(result: String?) {
+
+                runOnUiThread {
+                    progress_circular.visibility = View.VISIBLE
+                    Toast.makeText(this@ClampingModule,result, Toast.LENGTH_LONG).show()
+                }
+            }
         })
     }
 }

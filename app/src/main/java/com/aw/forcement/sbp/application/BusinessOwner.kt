@@ -75,6 +75,11 @@ class BusinessOwner : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@BusinessOwner,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }

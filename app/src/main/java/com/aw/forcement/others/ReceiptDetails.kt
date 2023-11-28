@@ -67,6 +67,11 @@ class ReceiptDetails : AppCompatActivity() {
                     override fun onSuccess(result: String?) {
 
                     }
+                    override fun onFailure(result: String?) {
+                        runOnUiThread {
+                            Toast.makeText(this@ReceiptDetails,result, Toast.LENGTH_LONG).show()
+                        }
+                    }
 
                 })
             }
@@ -153,6 +158,11 @@ class ReceiptDetails : AppCompatActivity() {
                         Toast.makeText(this@ReceiptDetails,response.message,Toast.LENGTH_LONG).show()
                         finish()
                     }
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceiptDetails,result, Toast.LENGTH_LONG).show()
                 }
             }
 

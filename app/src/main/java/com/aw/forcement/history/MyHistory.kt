@@ -285,6 +285,11 @@ class MyHistory : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@MyHistory,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }

@@ -33,6 +33,7 @@ import android.location.Location
 import android.os.AsyncTask
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
+import com.aw.forcement.api.TextToSpeechUtil
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Tasks
@@ -70,6 +71,10 @@ class Login : AppCompatActivity() {
                // Toast.makeText(this,"jjdjd",Toast.LENGTH_LONG).show()
                 loadPage()
             }
+        }
+
+        TextToSpeechUtil.initialize(this@Login) {
+            // Initialization is complete, you can start using text-to-speech
         }
 
         tvPrivacy.setOnClickListener {
@@ -126,6 +131,11 @@ class Login : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Login,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -269,6 +279,14 @@ class Login : AppCompatActivity() {
                         tvMessage.text = response.message
                     }
                    // startActivity(Intent(this@Login, Home::class.java))
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    TextToSpeechUtil.speak(result.toString())
+                    Toast.makeText(this@Login,result, Toast.LENGTH_LONG).show()
+                    progress_circular.visibility = View.GONE
+
                 }
             }
         })

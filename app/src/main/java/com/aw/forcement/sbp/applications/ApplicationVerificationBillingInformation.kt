@@ -228,6 +228,11 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ApplicationVerificationBillingInformation,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
 

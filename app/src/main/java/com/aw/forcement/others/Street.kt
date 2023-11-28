@@ -232,6 +232,11 @@ class Street : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
 
@@ -279,6 +284,11 @@ class Street : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -320,6 +330,11 @@ class Street : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -367,6 +382,11 @@ class Street : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -409,6 +429,11 @@ class Street : AppCompatActivity() {
 
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -456,6 +481,11 @@ class Street : AppCompatActivity() {
                         Toast.makeText(this@Street,response.message, Toast.LENGTH_LONG).show() }
                 }
 
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
             }
 
         })
@@ -556,6 +586,11 @@ class Street : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
 
@@ -653,6 +688,11 @@ class Street : AppCompatActivity() {
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
+                    }
+                }
+                override fun onFailure(result: String?) {
+                    runOnUiThread {
+                        Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
                     }
                 }
 

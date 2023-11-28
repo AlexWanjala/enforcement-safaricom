@@ -13,7 +13,12 @@ import com.aw.passanger.api.executePaysolRequest
 import com.aw.passanger.api.executeRequest
 import com.aw.passanger.api.paysol
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_offstreet.*
 import kotlinx.android.synthetic.main.activity_pay.*
+import kotlinx.android.synthetic.main.activity_pay.edPhone
+import kotlinx.android.synthetic.main.activity_pay.progressBar1
+import kotlinx.android.synthetic.main.activity_pay.tvSendPush
+import kotlinx.android.synthetic.main.activity_pay.tv_message
 import java.util.concurrent.TimeUnit
 
 class Pay : AppCompatActivity() {
@@ -61,6 +66,14 @@ class Pay : AppCompatActivity() {
                 }else{
                     runOnUiThread {  Toast.makeText(this@Pay,response.message, Toast.LENGTH_LONG).show()}
 
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    progressBar1.visibility = View.GONE
+                    tv_message.text = result
+                    Toast.makeText(this@Pay,result, Toast.LENGTH_LONG).show()
                 }
 
             }
@@ -113,6 +126,14 @@ class Pay : AppCompatActivity() {
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    progressBarPayments.visibility = View.GONE
+                    tv_message.text = result
+                    Toast.makeText(this@Pay,result, Toast.LENGTH_LONG).show()
+                }
+
+            }
 
         })
     }
@@ -158,6 +179,14 @@ class Pay : AppCompatActivity() {
                 }else{
                     runOnUiThread {  Toast.makeText(this@Pay,response.message, Toast.LENGTH_LONG).show()}
 
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    progressBar1.visibility = View.GONE
+                    tv_message.text = result
+                    Toast.makeText(this@Pay,result, Toast.LENGTH_LONG).show()
                 }
 
             }

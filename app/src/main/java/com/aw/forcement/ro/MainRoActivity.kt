@@ -150,6 +150,11 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                         tvMessage.text = response.message }
                 }
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@MainRoActivity,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
 
@@ -193,6 +198,11 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 }
 
             }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@MainRoActivity,result, Toast.LENGTH_LONG).show()
+                }
+            }
 
         })
     }
@@ -222,6 +232,11 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 save(this@MainRoActivity,"status",status)
                 if (result != null) {
                     updateUserUI(result,status)
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@MainRoActivity,result, Toast.LENGTH_LONG).show()
                 }
             }
 
