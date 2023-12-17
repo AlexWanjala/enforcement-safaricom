@@ -1,7 +1,9 @@
 package com.aw.forcement.vet
 
+import Const
 import FeesAndCharges
 import Json4Kotlin_Base
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +11,8 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.aw.forcement.R
+import com.aw.forcement.SelectZone
+import com.aw.forcement.vet.stock.StockMarketFeesSummary
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -35,11 +39,18 @@ class StockMarketFees : AppCompatActivity() {
     private var serviceCounter = 2
 
 
+    override fun onResume() {
+        ed_slaughter_house.setText(getValue(this,"zone"))
+        super.onResume()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_market_fees)
 
+        ed_slaughter_house.setOnClickListener {
+            startActivity(Intent(this, SelectZone::class.java))
+        }
         val layoutService = findViewById<LinearLayout>(R.id.layout_service)
         val btnAddService = findViewById<TextView>(R.id.btn_add_service)
 
@@ -48,7 +59,8 @@ class StockMarketFees : AppCompatActivity() {
         }
 
         btnNext.setOnClickListener {
-            getSelectedFeeAndChargesItems()
+            Const.instance.setSelectedFeesAndChargeList(selectedFeeAndCharges)
+            startActivity(Intent(this, StockMarketFeesSummary::class.java))
         }
 
         getIncomeTypes()
@@ -61,8 +73,7 @@ class StockMarketFees : AppCompatActivity() {
         // Find the views in the new layout
         val spinnerIncomeType =
             newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerIncomeType)
-        val spinnerFeeAndCharges =
-            newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerFeeAndCharges)
+        val spinnerFeeAndCharges = newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerFeeAndCharges)
         val edQuantity = newServiceLayout.findViewById<EditText>(R.id.edQuantity)
         val btnRemoveService = newServiceLayout.findViewById<TextView>(R.id.btn_remove_service)
         btnRemoveService.visibility = View.VISIBLE
@@ -228,7 +239,6 @@ class StockMarketFees : AppCompatActivity() {
             }
         })
     }
-
     private fun getSelectedFeeAndChargesItems() {
         var totalSum: Double = 0.0
 
@@ -255,7 +265,4 @@ class StockMarketFees : AppCompatActivity() {
             tv_amount.text ="KES $totalSum"
         }
     }
-
-
-
 }

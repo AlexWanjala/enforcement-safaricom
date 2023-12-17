@@ -105,6 +105,7 @@ class BillingInformation : AppCompatActivity() {
     }
 
      fun loadSelectedFeeAndCharges(){
+
          totalAmount =0.0
         runOnUiThread {
             val adapter = AdapterFeeAndCharges(this@BillingInformation, Const.instance.getSelectedFeesAndCharges())

@@ -70,7 +70,7 @@
                 android:inputType="number"
                 android:id="@+id/ed_slaughter_house"
                 android:hint="@string/slaughter"
-                android:padding="15dp"
+                android:padding="10dp"
                 android:background="@drawable/rectangle_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -82,7 +82,7 @@
                 android:id="@+id/btn_add_service"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/primay_color"
-                android:padding="15dp"
+                android:padding="12dp"
                 android:layout_marginTop="20sp"
                 android:gravity="center"
                 android:layout_gravity="center"

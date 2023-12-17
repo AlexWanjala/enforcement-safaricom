@@ -1,5 +1,9 @@
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner
+
 // A singleton class that holds a business object as a property
 class Const public constructor() {
+
+    private lateinit var feesAndChargesList: MutableMap<SearchableSpinner, FeesAndCharges>
 
     // A late-initialized immutable property for the business object
     private var business: Business? = null
@@ -12,6 +16,7 @@ class Const public constructor() {
     private lateinit var statuses: List<Statuses>
 
     private lateinit var feesAndCharges: List<FeesAndCharges>
+
 
     // A mutable list to store the selected fees and charges
     private var selectedFeesAndCharges = mutableListOf<FeesAndCharges>()
@@ -34,6 +39,14 @@ class Const public constructor() {
     fun setFeesAndCharges(feesAndCharges: List<FeesAndCharges>) {
         this.feesAndCharges = feesAndCharges
     }
+    fun setSelectedFeesAndChargeList(feesAndCharges: MutableMap<SearchableSpinner, FeesAndCharges>) {
+        this.feesAndChargesList = feesAndCharges
+    }
+
+    fun getSelectedFeesAndChargesList(): MutableMap<SearchableSpinner, FeesAndCharges> {
+        return feesAndChargesList
+    }
+
     fun getFeesAndCharges(): List<FeesAndCharges> {
         return feesAndCharges
     }
