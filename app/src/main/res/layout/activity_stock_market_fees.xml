@@ -121,6 +121,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_amount"
                         android:textColor="@color/labels"
                         android:fontFamily="@font/montserrat"
                         android:textStyle="bold"

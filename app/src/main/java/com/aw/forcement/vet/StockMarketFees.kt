@@ -1,5 +1,6 @@
 package com.aw.forcement.vet
 
+import FeesAndCharges
 import Json4Kotlin_Base
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +31,7 @@ class StockMarketFees : AppCompatActivity() {
     lateinit var feeId: String
 
     private val layoutServiceList = mutableListOf<LinearLayout>()
-    private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, String>()
+    private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, FeesAndCharges>()
     private var serviceCounter = 2
 
 
@@ -98,16 +99,6 @@ class StockMarketFees : AppCompatActivity() {
             }
         }
 
-        // Add a listener to spinnerFeeAndCharges to track selected items
-        spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                // Store the selected item for the corresponding spinnerFeeAndCharges
-                selectedFeeAndCharges[spinnerFeeAndCharges] = arrayList2[position]
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-            }
-        }
     }
 
     private fun updateDynamicSpinnerAdapter(spinner: SearchableSpinner) {
@@ -215,7 +206,8 @@ class StockMarketFees : AppCompatActivity() {
                         spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                                 // Store the selected item for the corresponding spinnerFeeAndCharges
-                                selectedFeeAndCharges[spinnerFeeAndCharges] = arrayList2[position]
+                                selectedFeeAndCharges[spinnerFeeAndCharges] = response.data.feesAndCharges[position]
+                                getSelectedFeeAndChargesItems()
                             }
 
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -237,13 +229,33 @@ class StockMarketFees : AppCompatActivity() {
         })
     }
 
-    // Function to retrieve the selected FeeAndCharges items for each layout
-    // Function to retrieve the selected FeeAndCharges items
     private fun getSelectedFeeAndChargesItems() {
+        var totalSum: Double = 0.0
+
         for ((spinner, selectedValue) in selectedFeeAndCharges) {
             // Log or use the selected values as needed
-            Log.d("SelectedItems", "Spinner: $spinner, Selected Value: $selectedValue")
+            Log.d("SelectedItems", "Spinner: $spinner, Selected Value: ${selectedValue.unitFeeAmount}")
+
+            // Check if unitFeeAmount is not empty before converting to Double
+            if (selectedValue.unitFeeAmount.isNotEmpty()) {
+                // Add the unitFeeAmount to the total sum
+                totalSum += selectedValue.unitFeeAmount.toDouble()
+            } else {
+                Log.e("Error", "Empty or non-numeric unitFeeAmount encountered.")
+                // Handle the error or log a message as needed
+            }
+        }
+
+        // Now, you have the total sum of unitFeeAmount for all selected items
+        Log.d("TotalSum", "Total Sum: $totalSum")
+        // You can use the totalSum as needed, e.g., display it in a TextView or perform further actions
+
+        // You can use the totalSum as needed, e.g., display it in a TextView or perform further actions
+        runOnUiThread {
+            tv_amount.text ="KES $totalSum"
         }
     }
+
+
 
 }
