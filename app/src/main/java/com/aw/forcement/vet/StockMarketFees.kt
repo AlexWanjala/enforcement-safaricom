@@ -64,6 +64,7 @@ class StockMarketFees : AppCompatActivity() {
             newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerFeeAndCharges)
         val edQuantity = newServiceLayout.findViewById<EditText>(R.id.edQuantity)
         val btnRemoveService = newServiceLayout.findViewById<TextView>(R.id.btn_remove_service)
+        btnRemoveService.visibility = View.VISIBLE
         val tvItemNumber = newServiceLayout.findViewById<TextView>(R.id.tv_item_number)
 
         btnRemoveService.setOnClickListener {

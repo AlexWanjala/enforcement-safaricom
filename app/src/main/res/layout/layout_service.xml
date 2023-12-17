@@ -39,6 +39,7 @@
                 android:layout_height="1dp" /> <!-- Add space between the divider and the "Remove" TextView -->
 
             <TextView
+                android:visibility="gone"
                 android:textSize="10dp"
                 android:textAllCaps="true"
                 android:textColor="@color/red"
