@@ -35,7 +35,7 @@ class StockMarketFees : AppCompatActivity() {
     lateinit var feeId: String
 
     private val layoutServiceList = mutableListOf<LinearLayout>()
-    private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, FeesAndCharges>()
+   private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, FeesAndCharges>()
     private var serviceCounter = 2
 
 
