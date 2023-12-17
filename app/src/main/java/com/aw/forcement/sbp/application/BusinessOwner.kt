@@ -12,10 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.biller
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.save
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.activity_business_owner.*
@@ -41,6 +38,7 @@ class BusinessOwner : AppCompatActivity() {
     private fun getYear (){
         val formData = listOf(
             "function" to "getYears",
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, biller,object : CallBack {

@@ -95,7 +95,8 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 				val formData = listOf(
 					"function" to "verifyTransaction",
 					"transaction_code" to list.transaction_code,
-					"idNo" to getValue(context,"idNo").toString()
+					"idNo" to getValue(context,"idNo").toString(),
+					"deviceId" to getDeviceIdNumber(context)
 				)
 
 				executeRequest(formData, biller,object : CallBack {

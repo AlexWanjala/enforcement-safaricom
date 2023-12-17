@@ -188,6 +188,7 @@ class Markets : AppCompatActivity() {
             "names" to getValue(this,"username").toString(),
             "customerPhoneNumber" to edPhone.text.toString(),
             "description" to edDescription.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -232,6 +233,7 @@ class Markets : AppCompatActivity() {
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString(),
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, biller,object : CallBack {
@@ -279,6 +281,7 @@ class Markets : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -324,7 +327,6 @@ class Markets : AppCompatActivity() {
 
         })
     }
-
 
     lateinit var timer: TimerTask
     private fun stopTimer() {
@@ -650,7 +652,8 @@ class Markets : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getBill",
-            "billNo" to billNo
+            "billNo" to billNo,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, stream,object : CallBack {
             override fun onSuccess(result: String?) {

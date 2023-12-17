@@ -11,10 +11,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
-import com.aw.passanger.api.trade
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_applications.*
 import kotlinx.android.synthetic.main.progressbar.*
@@ -54,7 +51,8 @@ class Businesses : AppCompatActivity() {
         val formData = listOf(
             "function" to "getBusinesses",
             "keyword" to   intent.getStringExtra("keyword").toString(),
-            "search" to   search
+            "search" to   search,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {

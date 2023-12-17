@@ -4,6 +4,7 @@ import java.util.Timer
 import kotlin.concurrent.timerTask
 import Json4Kotlin_Base
 import OverviewAdapter
+import com.aw.forcement.vet.StockMarketFees
 import UsersAdapter
 import android.Manifest
 import android.annotation.SuppressLint
@@ -70,6 +71,8 @@ import kotlinx.android.synthetic.main.bottom_sheet_contact.*
 import kotlinx.android.synthetic.main.bottom_sheet_contact.bottomSheetLayoutContact
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.*
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.closeBottomFines
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_application_general
+import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_application_offense
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_constructions
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_illegal
 import kotlinx.android.synthetic.main.bottom_sheet_fines_penalties.fl_licenses
@@ -80,7 +83,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.closeBottomSbp
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_active
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_approval
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_declined
-import java.text.SimpleDateFormat
+import kotlinx.android.synthetic.main.bottom_sheet_vet_services.*
 
 
 class Home : AppCompatActivity() {
@@ -90,6 +93,7 @@ class Home : AppCompatActivity() {
      private lateinit var bottomSheetLayoutFine: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbpDataCollection: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorLivestock: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
 
@@ -102,8 +106,13 @@ class Home : AppCompatActivity() {
          val date = formatter.format(Date())
          if(getValue(this,"date").toString()!=date){
              startActivity(Intent(this, SelectZone::class.java))
+
+             btn_change_zone
          }
 */
+
+
+         btn_change_zone.setOnClickListener {  startActivity(Intent(this, SelectZone::class.java)) }
 
         val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout)
         openDrawer.setOnClickListener {  if (drawerLayout.isDrawerOpen(GravityCompat.START)) {  drawerLayout.closeDrawer(
@@ -129,9 +138,15 @@ class Home : AppCompatActivity() {
 
          val category = getValue(this,"category")
 
+         if(BuildConfig.FLAVOR==="kisumu"){
+
+             if (category == "COLLECTOR"){
+                 imageChangeZone.visibility = View.GONE
+             }
+
+         }
+
          if(BuildConfig.FLAVOR==="homabay"){
-
-
 
              if (category == "LICENCING OFFICER" ||  category == "REVENUE OFFICER"  || category == "DEPUTY DIRECTOR" || category == "DIRECTOR REVENUE" || category == "SUPER ADMIN"){
                  fl_initiate_application.visibility = View.VISIBLE
@@ -209,6 +224,7 @@ class Home : AppCompatActivity() {
 
          //contact
          contact.setOnClickListener { toggleBottomSheetContact() }
+         livestock_module.setOnClickListener { toggleBottomSheetLivestock() }
 
          //SBP
          sbpDataCollection.setOnClickListener { toggleBottomSheetSbpDataSheet() }
@@ -265,6 +281,9 @@ class Home : AppCompatActivity() {
          fl_promised_payments.setOnClickListener {  startActivity(Intent(this, PromisedPayments::class.java)) }
          fl_rentals_register.setOnClickListener {  startActivity(Intent(this, TenancyRegister::class.java)) }
 
+         //Vet & Livestock Services
+         fl_stock_market_fees.setOnClickListener {  startActivity(Intent(this, StockMarketFees::class.java)) }
+
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }
@@ -279,6 +298,7 @@ class Home : AppCompatActivity() {
          bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout)
          bottomSheetBehaviorSbp = BottomSheetBehavior.from(bottomSheetLayoutPermit)
          bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
+         bottomSheetBehaviorLivestock = BottomSheetBehavior.from(bottomSheetLayoutVeterinary)
          bottomSheetBehaviorSbpDataCollection = BottomSheetBehavior.from(bottomSheetLayoutDataCollection)
 
 
@@ -409,8 +429,17 @@ class Home : AppCompatActivity() {
             bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
     }
+     private fun toggleBottomSheetLivestock(){
+
+        if (bottomSheetBehaviorLivestock.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorLivestock.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorLivestock.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+    }
      override fun onResume() {
         super.onResume()
+         tvZone.text = getValue(this,"zone")
         //name.text = getValue(this,"username")
         //nameTag.text = getValue(this,"firstName").toString()[0].toString()+""+getValue(this,"lastName").toString()[0].toString()
 
@@ -424,7 +453,8 @@ class Home : AppCompatActivity() {
             "page" to "1",
             "rows_per_page" to "100",
             "category" to "ICT OFFICER",
-            "search" to ""
+            "search" to "",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -474,7 +504,8 @@ class Home : AppCompatActivity() {
              "longitude" to getValue(this,"longitude").toString(),
              "idNo" to getValue(this,"idNo").toString(),
              "username" to getValue(this,"username").toString(),
-             "addressString" to getValue(this,"addressString").toString()
+             "addressString" to getValue(this,"addressString").toString(),
+             "deviceId" to getDeviceIdNumber(this)
          )
          executeRequest(formData, biller,object : CallBack{
              override fun onSuccess(result: String?) {
@@ -520,7 +551,8 @@ class Home : AppCompatActivity() {
             "addressString" to getValue(this,"addressString").toString(),
             "page" to "1",
             "rows_per_page" to "10",
-            "responseName" to "billDetailsList"
+            "responseName" to "billDetailsList",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack{
             override fun onSuccess(result: String?) {
@@ -556,7 +588,8 @@ class Home : AppCompatActivity() {
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack{
             override fun onSuccess(result: String?) {
@@ -605,6 +638,7 @@ class Home : AppCompatActivity() {
             bottomSheetLayoutFine.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             bottomSheetBehaviorContact.state = BottomSheetBehavior.STATE_COLLAPSED
+            bottomSheetBehaviorLivestock.state = BottomSheetBehavior.STATE_COLLAPSED
 
             exit = true
         }

@@ -161,6 +161,7 @@ class StreetParking : AppCompatActivity() {
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to "PKN",
+            "deviceId" to getDeviceIdNumber(this)
 
             )
         executeRequest(formData, biller, object : CallBack {
@@ -226,6 +227,7 @@ class StreetParking : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {
@@ -309,7 +311,8 @@ class StreetParking : AppCompatActivity() {
             "wardID" to getValue(this, "wardID").toString(),
             "wardName" to getValue(this, "wardName").toString(),
             "customerPhoneNumber" to edPhone.text.toString(),
-            "description" to ""
+            "description" to "",
+            "deviceId" to getDeviceIdNumber(this)
         )
 
         executeRequest(formData, parking, object : CallBack {
@@ -320,8 +323,6 @@ class StreetParking : AppCompatActivity() {
                         tv_message.text = "Bill generated success.."
                         (messageBoxView as View?)!!.tv_message.text = "Bill generated success.."
                     }
-
-
 
                     customerPayBillOnline(
                         response.data.billGenerated.billNo,

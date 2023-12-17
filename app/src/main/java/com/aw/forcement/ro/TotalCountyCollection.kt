@@ -126,7 +126,8 @@ class TotalCountyCollection : AppCompatActivity() {
             "page" to  "1",
             "rows_per_page" to "20",
             "dateFrom" to dateFrom,//2023-07-01
-            "dateTo" to dateTo//2023-08-10
+            "dateTo" to dateTo,//2023-08-10
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

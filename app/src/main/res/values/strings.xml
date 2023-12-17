@@ -265,6 +265,7 @@
     <string name="print_invoice">Print Invoice</string>
     <string name="toilet">Toilet</string>
     <string name="toilet_des">Charge for toiled fee</string>
+    <string name="allocated_zone">Allocated Zone,</string>
     <string name="verify">Verify</string>
     <string name="manual_entry">Manual Entry</string>
     <string name="enter_plate">Enter No. Plate Manually</string>
@@ -485,6 +486,27 @@
     <string name="timeout_message">No response. Press Resend or ask the payer to follow these steps to pay by themselves:</string>
     <string name="other">Other Applicable Charges</string>
     <string name="delete">delete</string>
+    <string name="vet_livestock_services">Vet &amp; Livestock Services</string>
+    <string name="vet_livestock_services_des">Initiate tax collection for diverse livestock-related services efficiently.</string>
+    <string name="stock_market_fees">Stock Market Fees </string>
+    <string name="stock_market_fees_desc">Taxation at cattle rings</string>
+    <string name="livestock_movement">Livestock Movement  Permit (Local)</string>
+    <string name="livestock_movement_des">Taxation on animal movement within the county</string>
+    <string name="slaughter">Slaughter &amp; Inspection Revenue Hub</string>
+    <string name="slaughter_des">Slaughter, Inspection, &amp; Storage Services</string>
+    <string name="livestock_licensing_hub">Livestock Licensing Hub</string>
+    <string name="livestock_licensing_des">Streamlined Animal Licensing and Taxation Services</string>
+    <string name="vet">Vet &amp; Health Fusion Hub</string>
+    <string name="vet_des">Comprehensive Livestock Vaccination &amp; Health Servicesb</string>
+    <string name="veterinary_services">Veterinary services</string>
+    <string name="slaughter_meat_inspections">Slaughter &amp; Meat Inspections</string>
+    <string name="slaughter_house">Slaughter House</string>
+    <string name="bill_item">Bill item no 1.</string>
+    <string name="service">Service</string>
+    <string name="animal_item">Animal/Item</string>
+    <string name="add_service">ADD A SERVICE</string>
+    <string name="remove">Remove item</string>
+
 
 
 </resources>

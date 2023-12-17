@@ -186,6 +186,7 @@ class BillingInformation : AppCompatActivity() {
         val formData = listOf(
             "function" to "registerBusiness",
             "business" to getJsonData(),
+            "deviceId" to getDeviceIdNumber(this)
 
             )
         executeRequest(formData, trade,object : CallBack {
@@ -253,6 +254,7 @@ class BillingInformation : AppCompatActivity() {
             "billItem" to  Gson().toJson(getBillItem()),
             "payNow" to payNow,
             "customerPhoneNumber" to edPhone.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

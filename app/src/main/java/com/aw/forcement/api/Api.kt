@@ -11,6 +11,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.AsyncTask
 import android.os.Build
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import android.view.View
@@ -84,6 +85,7 @@ interface CallBack {
 
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
 
+
     var retryNumber = 0
     fun process(){
         FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
@@ -100,9 +102,9 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
                 }
 
                 result.failure {
-                    Thread.sleep(2000)
+                    Thread.sleep(3000)
                     retryNumber++
-                    if(retryNumber<20){
+                    if(retryNumber<5){
                         process()
                     }else{
 
@@ -116,6 +118,12 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
 
     process()
 
+}
+
+
+
+fun getDeviceIdNumber(context: Context): String {
+    return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID).toString()
 }
 
 fun executeRequest3(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {

@@ -83,7 +83,8 @@ class Parking : AppCompatActivity() {
         progress.visibility = View.VISIBLE
 
        val formData = listOf(
-           "function" to "clampreasons"
+           "function" to "clampreasons",
+           "deviceId" to getDeviceIdNumber(this)
        )
        executeRequest(formData, com.aw.passanger.api.parking,object : CallBack{
            override fun onSuccess(result: String?) {
@@ -142,7 +143,8 @@ class Parking : AppCompatActivity() {
             "numberPlate" to getValue(this,"numberPlate").toString(),
             "padlockNumber" to padlockNumber.text.toString(),
             "reason" to reasonId,
-            "TownId" to getValue(this,"TownId").toString()
+            "TownId" to getValue(this,"TownId").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack{
             override fun onSuccess(result: String?) {

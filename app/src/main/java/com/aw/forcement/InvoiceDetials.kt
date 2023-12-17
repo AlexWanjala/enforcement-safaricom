@@ -110,7 +110,8 @@ class InvoiceDetials : AppCompatActivity() {
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

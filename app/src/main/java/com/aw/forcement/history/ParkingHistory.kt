@@ -101,7 +101,8 @@ class ParkingHistory : AppCompatActivity() {
         val formData = listOf(
             "function" to "getQueries",
             "keyword" to keyword,
-            "range" to range
+            "range" to range,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {

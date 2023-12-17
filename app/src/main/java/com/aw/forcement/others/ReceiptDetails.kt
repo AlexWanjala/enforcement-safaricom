@@ -60,7 +60,8 @@ class ReceiptDetails : AppCompatActivity() {
                 val formData = listOf(
                     "function" to "verifyTransaction",
                     "transaction_code" to  intent.getStringExtra("transaction_code").toString(),
-                    "idNo" to getValue(this,"idNo").toString()
+                    "idNo" to getValue(this,"idNo").toString(),
+                    "deviceId" to getDeviceIdNumber(this)
                 )
 
                 executeRequest(formData, biller,object : CallBack {
@@ -107,7 +108,8 @@ class ReceiptDetails : AppCompatActivity() {
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -264,12 +266,12 @@ class ReceiptDetails : AppCompatActivity() {
 
 
 
-       /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-        val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
-        val date = input?.let { inputFormat.parse(it) }
-        val humanDate = date?.let { outputFormat.format(it) }*/
+        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+         val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
+         val date = input?.let { inputFormat.parse(it) }
+         val humanDate = date?.let { outputFormat.format(it) }*/
         val humanDate = date
-         val zone = getValue(this@ReceiptDetails,"zone")
+        val zone = getValue(this@ReceiptDetails,"zone")
         val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
@@ -301,6 +303,202 @@ class ReceiptDetails : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .setText(footer)
                 .build())
+
+
+    }
+    private fun getSomePrintables1() = java.util.ArrayList<Printable>().apply {
+
+        val title ="\n\nLALJI RAMJI FILLING STATION LTD - SKNR\nP.O BOX 385 - 60200\nMERU, KENYA\nPIN: P051318387R"
+        add(
+            TextPrintable.Builder()
+                .setText(title)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        add(
+            TextPrintable.Builder()
+                .setText("  \n")
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val title2="CASH SALE"
+        add(
+            TextPrintable.Builder()
+                .setText(title2)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+        //Todo change  CS No date, MPESA CODE AND user
+         val message ="\nCS No: CSH98372   Time: 15:10hrs\nDate: 27-Nov-23   User: Samuel\nParty: 2. MPESA- 9DRR\nPIN:\nVehicle: KCG 833Q   Order NO:\n"
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message3 ="----------------------\n"
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message3)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message4 ="SI  Desc    Qty     Rate Amount\n"
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message4)
+                // .setNewLinesAfter(1)
+                .build())
+
+        //Todo change  quantity, rate and amount
+        val message5 ="1 VPOWER 43.67 229.00/LTR 10,000\n"
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message5)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message6 ="----------------------\n"
+
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message6)
+                // .setNewLinesAfter(1)
+                .build())
+
+        //todo change amount
+        val message8 ="Round Off Total          10,000\n"
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message8)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message9 ="----------------------\n"
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message9)
+                // .setNewLinesAfter(1)
+                .build())
+
+
+        val message10 ="                         E.&O.E\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message10)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message11 ="              Assessable Value\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message11)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message12 ="              ---------------\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message12)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        //todo change
+        val message13 ="          54 14,045.55 564.45\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message13)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+        val message14 ="              ---------------\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message14)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        //todo change
+        val message15 ="             14,045.55 564.45\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message15)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message16 ="----------------------------\n"
+        add(
+            TextPrintable.Builder()
+                .setText(message16)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message17 ="Terms $ Conditions:\n1.Goods once sold are not returnable.\n2.Price inclusive of tax where applicable"
+        add(
+            TextPrintable.Builder()
+                .setText(message17)
+                // .setNewLinesAfter(1)
+                .build())
+
+
+
+        val message7 ="\n\n\n"
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message7)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val message2 ="VAT can be verified through itax where applicable. https://itax.kra.go.ke/"
+
+        val qr: Bitmap = QRCode.from(message2)
+            .withSize(200, 200).bitmap()
+        add(
+            ImagePrintable.Builder(qr)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        val message78 ="\n\n\n"
+        add(
+            TextPrintable.Builder()
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .setFontSize(DefaultPrinter.FONT_SIZE_NORMAL)
+                .setText(message78)
+                // .setNewLinesAfter(1)
+                .build())
+
+
 
 
     }

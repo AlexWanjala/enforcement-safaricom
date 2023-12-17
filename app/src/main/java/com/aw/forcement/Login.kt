@@ -99,7 +99,6 @@ class Login : AppCompatActivity() {
         }*/
 
         initBroadCast()
-
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         updateApp()
     }
@@ -109,7 +108,8 @@ class Login : AppCompatActivity() {
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "email" to edUsername.text.toString(),
-            "TownId" to getValue(this,"TownId").toString()
+            "TownId" to getValue(this,"TownId").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData,"forgetpassword",object : CallBack{
             override fun onSuccess(result: String?) {
@@ -193,7 +193,6 @@ class Login : AppCompatActivity() {
         }
 
     }
-
     fun showGPSDisabledAlertToUser() {
         val alertDialogBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
         alertDialogBuilder.setMessage("GPS is disabled in your device. Would you like to enable it?")
@@ -211,9 +210,6 @@ class Login : AppCompatActivity() {
         alert.show()
     }
 
-    private fun getDeviceId(context: Context): String {
-        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
-    }
 
     @RequiresApi(34)
     private fun login (){
@@ -229,13 +225,15 @@ class Login : AppCompatActivity() {
             "address" to getValue(this,"address").toString(),
             "locality" to getValue(this,"locality").toString(),
             "versionCode" to versionCode.toString(),
-            "deviceId" to getDeviceId(this)
+            "deviceId" to getDeviceIdNumber(this),
+
         )
         executeRequest(formData, authentication,object : CallBack{
             override fun onSuccess(result: String?) {
                 runOnUiThread {  progress_circular.visibility = View.GONE }
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
+                    save(this@Login,"idNo", edUsername.text.toString() )
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )
                     save(this@Login,"userid", response.data.user.id.toString())
@@ -271,6 +269,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"permission",response.data.user.permission)
                     save(this@Login,"id",response.data.user.id.toString())
                     save(this@Login,"gender",response.data.user.gender.toString())
+                    save(this@Login,"idNo", edUsername.text.toString() )
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))
@@ -293,7 +292,8 @@ class Login : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        edUsername.setText(getValue(this@Login,"email").toString())
+
+        edUsername.setText(getValue(this@Login,"idNo").toString())
         edPassword.setText(getValue(this@Login,"pass").toString())
         registerReceiver(smsReceiver, intentFilter)
 
@@ -357,7 +357,6 @@ class Login : AppCompatActivity() {
             }
         }
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
@@ -367,7 +366,6 @@ class Login : AppCompatActivity() {
             }
         }
     }
-
     private fun initBroadCast() {
         intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
         smsReceiver = SMSReceiver()

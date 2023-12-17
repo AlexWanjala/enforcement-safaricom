@@ -92,7 +92,8 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to "SBP"
+            "incomeTypePrefix" to "SBP",
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, biller, object : CallBack {
@@ -189,6 +190,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {
@@ -289,6 +291,7 @@ class ApplicationVerificationBusinessActivityInformation : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getTonnage",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade, object : CallBack {
             override fun onSuccess(result: String?) {

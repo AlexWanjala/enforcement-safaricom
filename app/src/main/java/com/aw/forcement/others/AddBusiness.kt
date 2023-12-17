@@ -55,7 +55,8 @@ class AddBusiness : AppCompatActivity() {
     private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounties",
-            "countyID" to "43"
+            "countyID" to "43",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -102,7 +103,8 @@ class AddBusiness : AppCompatActivity() {
     private fun getWards (){
         val formData = listOf(
             "function" to "getWards",
-            "subCountyID" to subCountyID
+            "subCountyID" to subCountyID,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -149,6 +151,7 @@ class AddBusiness : AppCompatActivity() {
     private fun getTradeCategory (){
         val formData = listOf(
             "function" to "getTradeCategory",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -196,7 +199,8 @@ class AddBusiness : AppCompatActivity() {
     private fun getTradeSubCategory (){
         val formData = listOf(
             "function" to "getTradeSubCategory",
-            "brimsCode" to parentBrimsCode
+            "brimsCode" to parentBrimsCode,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -271,6 +275,7 @@ class AddBusiness : AppCompatActivity() {
             "registrationFee" to registrationFee,
             "sbpFee" to sbpFee,
             "email" to edEmail.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {

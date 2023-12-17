@@ -15,6 +15,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -90,6 +92,19 @@ class Street : AppCompatActivity() {
         messageBoxViewPaid = LayoutInflater.from(this).inflate(R.layout.payment_recieved, null)
         messageBoxViewPay = LayoutInflater.from(this).inflate(R.layout.pay, null)
 
+
+        tvSubmit.setOnClickListener {
+            if(edPlate.text.toString().isEmpty()){
+
+                Thread {
+                    tts!!.speak("Please Scan or enter plate number", TextToSpeech.QUEUE_ADD, null, "DEFAULT")
+                }.start()
+
+            }else{
+                getParking(edPlate.text.toString().replace("",""))
+            }
+        }
+
         btnClamp.setOnClickListener {
             if(edPlate.text.isEmpty()){
                 Toast.makeText(this,"Enter Plate Number",Toast.LENGTH_LONG).show()
@@ -111,15 +126,8 @@ class Street : AppCompatActivity() {
             }
         }
 
-        initOCR()
 
-        tvSubmit.setOnClickListener {
-            if(edPlate.text.toString().isEmpty()){
-                tts!!.speak("Please Scan or enter plate number", TextToSpeech.QUEUE_ADD, null, "DEFAULT")
-            }else{
-                getParking(edPlate.text.toString().replace("",""))
-            }
-        }
+        initOCR()
 
     }
 
@@ -168,7 +176,8 @@ class Street : AppCompatActivity() {
             "longitude" to getValue(this,"longitude").toString(),
             "idNo" to getValue(this,"idNo").toString(),
             "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -264,6 +273,7 @@ class Street : AppCompatActivity() {
             "address" to getValue(this,"address").toString(),
             "customerPhoneNumber" to "",
             "description" to messageBoxViewClamp.ed_reason.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -297,6 +307,7 @@ class Street : AppCompatActivity() {
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to "PKN",
+            "deviceId" to getDeviceIdNumber(this)
 
             )
         executeRequest(formData, biller,object : CallBack {
@@ -343,6 +354,7 @@ class Street : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -395,7 +407,8 @@ class Street : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to "CLMP"
+            "incomeTypePrefix" to "CLMP",
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, biller,object : CallBack {
@@ -442,6 +455,7 @@ class Street : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -871,7 +885,8 @@ class Street : AppCompatActivity() {
            }
            gestureDetector = GestureDetector(this, CaptureGestureListener())
            scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
-           Snackbar.make(graphicOverlay!!, "Tap to Speak. Pinch/Stretch to zoom", Snackbar.LENGTH_LONG).show()
+
+         //  Snackbar.make(graphicOverlay!!, "Tap to Speak. Pinch/Stretch to zoom", Snackbar.LENGTH_LONG).show()
            // Set up the Text To Speech engine.
            val listener = TextToSpeech.OnInitListener { status ->
                if (status == TextToSpeech.SUCCESS) {

@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
-import com.aw.passanger.api.trade
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_applications.*
 import kotlinx.android.synthetic.main.progressbar.*
@@ -59,7 +56,8 @@ class Applications : AppCompatActivity() {
             "function" to "getApplications",
             "keyword" to   intent.getStringExtra("keyword").toString(),
             "search" to   search,
-            "subCountyName" to getValue(this,"subCountyName").toString()
+            "subCountyName" to getValue(this,"subCountyName").toString(),
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, trade,object : CallBack {

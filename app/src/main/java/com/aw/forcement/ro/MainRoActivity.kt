@@ -120,7 +120,9 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             "subCountyID" to getValue(this,"subCountyID").toString(),
             "subCountyName" to getValue(this,"subCountyName").toString(),
             "username" to getValue(this,"username").toString(),
-            "addressString" to getValue(this,"addressString").toString()
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this),
+
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -177,7 +179,8 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             "page" to "1",
             "rows_per_page" to "100",
             "category" to "ICT OFFICER",
-            "search" to ""
+            "search" to "",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -223,7 +226,8 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val formData = listOf(
             "function" to "getUsersBySubCounty",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
-            "status" to  status
+            "status" to  status,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {

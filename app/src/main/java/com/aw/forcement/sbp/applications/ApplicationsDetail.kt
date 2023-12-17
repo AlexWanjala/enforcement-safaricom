@@ -57,6 +57,7 @@ class ApplicationsDetail : AppCompatActivity() {
         val formData = listOf(
             "function" to "getBusinessDetails",
             "id" to intent.getStringExtra("id").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, trade,object : CallBack {
             override fun onSuccess(result: String?) {

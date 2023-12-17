@@ -74,6 +74,7 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 			val formData = listOf(
 				"function" to "resendSBPMessage",
 				"businessID" to list.businessID,
+				"deviceId" to getDeviceIdNumber(context)
 			)
 			executeRequest(formData, biller,object : CallBack {
 				override fun onSuccess(result: String?) {
@@ -99,6 +100,7 @@ class BusinessesAdapter(private val context: Context, mList: List<Businesses>) :
 				val formData = listOf(
 					"function" to "deleteBusiness",
 					"businessID" to list.businessID,
+					"deviceId" to getDeviceIdNumber(context)
 				)
 				executeRequest(formData, trade,object : CallBack {
 					override fun onSuccess(result: String?) {

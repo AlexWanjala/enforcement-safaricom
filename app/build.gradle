@@ -23,8 +23,8 @@ android {
         applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 99
-        versionName "99"
+        versionCode 105
+        versionName "105"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,6 +76,16 @@ android {
             buildConfigField "String", 'version_code', '"1.1"'
             resValue "string", "icon_name", "@drawable/county_kisumu"
             buildConfigField "String", "URL", '"https://api.kisumu.go.ke/"'
+
+        }
+        nairobi {
+            dimension "entity"
+            applicationIdSuffix ".nairobi"
+            versionNameSuffix "-nairobi"
+            resValue "string", "app_name", "Nairobi Revenue"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_nairobi"
+            buildConfigField "String", "URL", '"https://api.paysol.co.ke/rms/"'
 
         }
     }

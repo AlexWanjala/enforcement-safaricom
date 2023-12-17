@@ -81,7 +81,8 @@ class RevenueAgentsLogs : AppCompatActivity() {
             "function" to "getUsersBySubCounty",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
             "status" to  status,
-            "category" to category
+            "category" to category,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {

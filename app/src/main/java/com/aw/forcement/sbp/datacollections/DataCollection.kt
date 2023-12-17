@@ -162,7 +162,8 @@ class DataCollection :  AppCompatActivity() {
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "dataCollection",
-            "business" to getJsonData()
+            "business" to getJsonData(),
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, trade, object : CallBack {
@@ -243,6 +244,7 @@ class DataCollection :  AppCompatActivity() {
     private fun getSubCounties() {
         val formData = listOf(
             "function" to "getSubCounty",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {
@@ -308,7 +310,8 @@ class DataCollection :  AppCompatActivity() {
     private fun getWards() {
         val formData = listOf(
             "function" to "getWards",
-            "subCountyID" to subCountyID
+            "subCountyID" to subCountyID,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {
@@ -374,7 +377,8 @@ class DataCollection :  AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to "SBP"
+            "incomeTypePrefix" to "SBP",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {
@@ -440,6 +444,7 @@ class DataCollection :  AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller, object : CallBack {
             override fun onSuccess(result: String?) {

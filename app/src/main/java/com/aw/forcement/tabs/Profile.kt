@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -14,8 +15,10 @@ import androidx.core.graphics.drawable.DrawableCompat
 import com.aw.forcement.*
 import com.aw.forcement.history.MyHistory
 import com.aw.passanger.api.getValue
+import kotlinx.android.synthetic.main.activity_main_page.*
 
 import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.activity_profile.btn_change_zone
 import kotlinx.android.synthetic.main.bottom_nav.*
 
 class Profile : AppCompatActivity() {
@@ -49,6 +52,15 @@ class Profile : AppCompatActivity() {
         imageHistory.setOnClickListener {
             startActivity(Intent(this,MyHistory::class.java))
             finish()
+        }
+
+        if(BuildConfig.FLAVOR==="kisumu"){
+            val category = getValue(this,"category")
+
+            if (category == "COLLECTOR"){
+                btn_change_zone.visibility = View.GONE
+            }
+
         }
 
     }

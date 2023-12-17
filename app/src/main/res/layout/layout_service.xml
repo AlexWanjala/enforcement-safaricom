@@ -1,0 +1,148 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_service"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_item_number"
+                android:textAllCaps="true"
+                android:textColor="@color/primay_color"
+                android:layout_gravity="center"
+                android:text="@string/bill_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:background="@color/primay_color"
+                android:layout_width="100dp"
+                android:layout_height="1dp"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="1dp" /> <!-- Add space between the divider and the "Remove" TextView -->
+
+            <TextView
+                android:textSize="10dp"
+                android:textAllCaps="true"
+                android:textColor="@color/red"
+                android:text="@string/remove"
+                android:id="@+id/btn_remove_service"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/labels"
+        android:textStyle="bold"
+        android:text="@string/service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/rectangle_background"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:gravity="center"
+            android:elevation="5dp"
+            android:id="@+id/spinnerIncomeType"
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/animal_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerFeeAndCharges"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:textStyle="bold"
+                android:layout_marginTop="10sp"
+                android:text="@string/quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/montserrat"
+                android:textSize="12sp"
+                android:inputType="number"
+                android:id="@+id/edQuantity"
+                android:hint="@string/quantity"
+                android:padding="15dp"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>

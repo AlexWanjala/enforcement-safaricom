@@ -118,7 +118,55 @@
                         android:textSize="15dp"
                         tools:text="Hello Alex," />
 
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/btn_change_zone"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/labels"
+                            android:drawablePadding="5dp"
+                            android:drawableStart="@drawable/location"
+                            android:layout_gravity="center"
+                            android:text="@string/allocated_zone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tvZone"
+                            android:layout_marginStart="5dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/text_color"
+                            android:drawablePadding="5dp"
+                            android:layout_gravity="center"
+                            tools:text="Kindu Bay Bus Park"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                        <ImageView
+                            android:id="@+id/imageChangeZone"
+                            android:padding="10dp"
+                            android:backgroundTintMode="multiply"
+                            android:backgroundTint="@color/text_color"
+                            android:background="@drawable/bg_round_corner"
+                            android:layout_marginStart="10dp"
+                            android:src="@drawable/change"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            />
+
+
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/montserrat"
@@ -820,6 +868,47 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:id="@+id/livestock_module"
+                            android:layout_width="0dp"
+                            android:layout_height="177dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="10sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_fill_white"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/cow" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/vet_livestock_services"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="140dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/vet_livestock_services"
+                                android:textColor="@color/black"
+                                android:textSize="9sp" />
+
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -851,6 +940,7 @@
         <include layout="@layout/bottom_sheet_sbp_permit"/>
         <include layout="@layout/bottom_sheet_fines_penalties"/>
         <include layout="@layout/bottom_sheet_sbp_data"/>
+        <include layout="@layout/bottom_sheet_vet_services"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
-import com.aw.passanger.api.save
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_change_password.*
 import kotlinx.android.synthetic.main.activity_login.edPassword
@@ -41,7 +38,8 @@ class ChangePassword : AppCompatActivity() {
             "newpassword" to edNewPassword.text.toString(),
             "confirmpassword" to edPassword.text.toString(),
             "UserID" to getValue(this,"UserID").toString(),
-            "TownId" to getValue(this,"TownId").toString()
+            "TownId" to getValue(this,"TownId").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData,"changepassword",object : CallBack {
             override fun onSuccess(result: String?) {

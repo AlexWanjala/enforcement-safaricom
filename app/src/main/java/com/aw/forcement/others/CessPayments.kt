@@ -169,6 +169,7 @@ class CessPayments : AppCompatActivity() {
             "customerPhoneNumber" to edPhone.text.toString(),
             "names" to getValue(this,"username").toString(),
             "description" to edDescription.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -213,7 +214,8 @@ class CessPayments : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString()
+            "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString(),
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, biller,object : CallBack {
@@ -261,6 +263,7 @@ class CessPayments : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

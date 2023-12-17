@@ -51,18 +51,20 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
 
 
         getSubCounty()
+
         val category = getValue(this,"category")
+
         if (category == "ICT OFFICER" ||  category == "SUPERVISORS"  || category == "SUPER ADMIN" || category == "DEPUTY DIRECTOR"
             || category == "ACCOUNTANTS" || category == "DIRECTOR REVENUE" || category == "ENFORCEMENT" ){
             layout_subs.visibility = View.VISIBLE
         }else{
+
             getWards(getValue(this,"subCountyID").toString())
+            getZones()
+
         }
 
-
-
     }
-
 
     private fun updateUser(){
         progress_circular.visibility = View.VISIBLE
@@ -80,7 +82,8 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
             "wardID" to getValue(this,"wardID").toString(),
             "wardName" to getValue(this,"wardName").toString(),
             "gender" to getValue(this,"gender").toString(),
-            "id" to getValue(this,"id").toString()
+            "id" to getValue(this,"id").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -123,7 +126,9 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
 
         val formData = listOf(
             "function" to "getZones",
-            "subCountyID" to getValue(this,"subCountyID").toString())
+            "subCountyID" to getValue(this,"subCountyID").toString(),
+            "deviceId" to getDeviceIdNumber(this)
+        )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
@@ -181,7 +186,8 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
         arrayList2.clear()
         val formData = listOf(
             "function" to "getWards",
-            "subCountyID" to subCountyID
+            "subCountyID" to subCountyID,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -243,6 +249,7 @@ class SelectZone : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener  {
         arrayList3.clear()
         val formData = listOf(
             "function" to "getSubCounty",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

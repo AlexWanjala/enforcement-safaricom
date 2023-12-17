@@ -19,6 +19,7 @@ import com.aw.forcement.R
 import com.aw.passanger.api.CallBack
 import com.aw.passanger.api.biller
 import com.aw.passanger.api.executeRequest
+import com.aw.passanger.api.getDeviceIdNumber
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_application_verification_business_details.*
 import kotlinx.android.synthetic.main.update.view.*
@@ -112,6 +113,7 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getSubCounty",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -225,7 +227,8 @@ class ApplicationVerificationBusinessDetails : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getWards",
-            "subCountyID" to subCountyID
+            "subCountyID" to subCountyID,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

@@ -100,7 +100,8 @@ class Transactions : AppCompatActivity() {
             "keyword" to keyword,
             "range" to range,
             "idNo" to getValue(this,"idNo").toString(),
-            "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
+            "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -149,7 +150,8 @@ class Transactions : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getBill",
-            "billNo" to billNo
+            "billNo" to billNo,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, stream,object : CallBack {
             override fun onSuccess(result: String?) {

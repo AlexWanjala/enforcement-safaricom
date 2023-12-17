@@ -11,10 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.biller
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getValue
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_my_history.radio_collections
 import kotlinx.android.synthetic.main.activity_my_history.radio_enforcement
@@ -154,7 +151,8 @@ class TransactionsBreakDown : AppCompatActivity() {
             "collectionBy" to collectionBy,
             "subCountyID" to  getValue(this,"subCountyID").toString(),
             "dateFrom" to dateFrom,//2023-07-01
-            "dateTo" to dateTo//2023-08-10
+            "dateTo" to dateTo,//2023-08-10
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

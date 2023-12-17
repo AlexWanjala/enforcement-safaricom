@@ -8,10 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.parking
-import com.aw.passanger.api.trade
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
@@ -29,6 +26,7 @@ class ClampingModule : AppCompatActivity() {
         runOnUiThread {  progress_circular.visibility = View.VISIBLE }
         val formData = listOf(
             "function" to "getClamped",
+            "deviceId" to getDeviceIdNumber(this)
 
         )
         executeRequest(formData, parking,object : CallBack {

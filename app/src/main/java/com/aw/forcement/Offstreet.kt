@@ -97,6 +97,7 @@ class Offstreet : AppCompatActivity(){
         progressBar1.visibility = View.VISIBLE
         val formData = listOf(
             "function" to "getZones",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -175,6 +176,7 @@ class Offstreet : AppCompatActivity(){
             "subCountyName" to getValue(this,"subCountyName").toString(),
             "wardID" to getValue(this,"wardID").toString(),
             "wardName" to getValue(this,"wardName").toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
             override fun onSuccess(result: String?) {

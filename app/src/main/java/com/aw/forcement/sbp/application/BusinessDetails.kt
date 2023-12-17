@@ -91,6 +91,7 @@ class BusinessDetails : AppCompatActivity() {
     private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounty",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -138,7 +139,8 @@ class BusinessDetails : AppCompatActivity() {
     private fun getWards (){
         val formData = listOf(
             "function" to "getWards",
-            "subCountyID" to subCountyID
+            "subCountyID" to subCountyID,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -178,6 +180,7 @@ class BusinessDetails : AppCompatActivity() {
     private fun getFloor (){
         val formData = listOf(
             "function" to "getFloor",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData,trade,object : CallBack {
             override fun onSuccess(result: String?) {

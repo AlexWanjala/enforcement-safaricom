@@ -134,7 +134,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "names" to getValue(this,"username").toString(),
-            "customerPhoneNumber" to edPhone.text.toString()
+            "customerPhoneNumber" to edPhone.text.toString(),
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -177,7 +178,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
     private fun getIncomeTypes (){
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to  "MATATUPARK"
+            "incomeTypePrefix" to  "MATATUPARK",
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -234,6 +236,7 @@ class CessPaymentsMatatus : AppCompatActivity() {
         val formData = listOf(
             "function" to "getFeesAndCharges",
             "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -620,7 +623,8 @@ class CessPaymentsMatatus : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getBill",
-            "billNo" to billNo
+            "billNo" to billNo,
+            "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, stream,object : CallBack {
             override fun onSuccess(result: String?) {
