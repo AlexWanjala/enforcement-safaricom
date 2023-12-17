@@ -124,7 +124,6 @@ class StockMarketFees : AppCompatActivity() {
 
             // Remove the specific entry from the map when a layout is removed
             selectedFeeAndCharges.remove(spinnerFeeAndCharges)
-
             // Remove the last added layout from the parent layout and the list
             layoutServiceList.remove(serviceLayout)
             val parentLayout = serviceLayout.parent as LinearLayout
@@ -210,6 +209,18 @@ class StockMarketFees : AppCompatActivity() {
                         adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
                         spinnerFeeAndCharges.adapter = adapters
                         // Add any additional configuration or listener if needed
+
+                        //so that the first one that is not dynamically added can be selected
+                        spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                                // Store the selected item for the corresponding spinnerFeeAndCharges
+                                selectedFeeAndCharges[spinnerFeeAndCharges] = arrayList2[position]
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
+                        }
+
                     } else {
                         spinnerFeeAndCharges.adapter = null
                         Toast.makeText(this@StockMarketFees, response.message, Toast.LENGTH_LONG).show()
