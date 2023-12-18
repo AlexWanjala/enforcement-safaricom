@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.aw.forcement.R
 import com.aw.forcement.SelectZone
 import com.aw.forcement.vet.stock.StockMarketFeesSummary
@@ -22,28 +23,24 @@ import kotlinx.android.synthetic.main.layout_service.*
 
 class StockMarketFees : AppCompatActivity() {
     // Declare response variable at the class level
-    private lateinit var response: Json4Kotlin_Base
 
+    private lateinit var response: Json4Kotlin_Base
     private val arrayList = ArrayList<String>()
     private val arrayList2 = ArrayList<String>()
-
     lateinit var feeDescription: String
     lateinit var incomeTypeDescription: String
     lateinit var payer: String
-
     lateinit var amount: String
     lateinit var feeId: String
-
     private val layoutServiceList = mutableListOf<LinearLayout>()
-   private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, FeesAndCharges>()
+    private val selectedFeeAndCharges = mutableMapOf<SearchableSpinner, FeesAndCharges>()
+    private var selectedFeeAndPositionPosition = mutableMapOf<SearchableSpinner, String>()
     private var serviceCounter = 2
-
 
     override fun onResume() {
         ed_slaughter_house.setText(getValue(this,"zone"))
         super.onResume()
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_market_fees)
@@ -65,7 +62,6 @@ class StockMarketFees : AppCompatActivity() {
 
         getIncomeTypes()
     }
-
     private fun addNewServiceLayout(parentLayout: LinearLayout) {
         // Increment the counter when adding a new service layout
         val newServiceLayout = LayoutInflater.from(this).inflate(R.layout.layout_service, null)
@@ -75,6 +71,29 @@ class StockMarketFees : AppCompatActivity() {
             newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerIncomeType)
         val spinnerFeeAndCharges = newServiceLayout.findViewById<SearchableSpinner>(R.id.spinnerFeeAndCharges)
         val edQuantity = newServiceLayout.findViewById<EditText>(R.id.edQuantity)
+
+        edQuantity.addTextChangedListener { text ->
+            // Retrieve the position for the corresponding spinnerFeeAndCharges
+            val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+
+            // Check if the position exists in the map
+            if (position != null) {
+                // Retrieve the FeesAndCharges object associated with the selected spinner
+                val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                // Check if the FeesAndCharges object exists
+                if (selectedFeesAndCharges != null) {
+                    // Update the quantity in the FeesAndCharges object
+                    selectedFeesAndCharges.quantity = text.toString()
+
+                    // You may want to log or perform additional actions here
+                   // Log.d("QuantityUpdate", "Spinner: $spinnerFeeAndCharges, Quantity: ${text.toString()}")
+                    getSelectedFeeAndChargesItems()
+                }
+            }
+        }
+
+
         val btnRemoveService = newServiceLayout.findViewById<TextView>(R.id.btn_remove_service)
         btnRemoveService.visibility = View.VISIBLE
         val tvItemNumber = newServiceLayout.findViewById<TextView>(R.id.tv_item_number)
@@ -111,7 +130,6 @@ class StockMarketFees : AppCompatActivity() {
         }
 
     }
-
     private fun updateDynamicSpinnerAdapter(spinner: SearchableSpinner) {
         // Assuming you have a list of items for the spinner (e.g., arrayList or arrayList2)
         val adapter = ArrayAdapter<String>(this, R.layout.simple_spinner_dropdown_item, arrayList)
@@ -119,7 +137,6 @@ class StockMarketFees : AppCompatActivity() {
         spinner.adapter = adapter
         // Add any additional configuration or listener if needed
     }
-
     private fun removeLastServiceLayout(serviceLayout: LinearLayout, spinnerFeeAndCharges: SearchableSpinner) {
         if (layoutServiceList.contains(serviceLayout)) {
             // Decrement the counter when removing a service layout
@@ -133,9 +150,6 @@ class StockMarketFees : AppCompatActivity() {
             parentLayout.removeView(serviceLayout)
         }
     }
-
-
-
     private fun getIncomeTypes () {
         val formData = listOf(
             "function" to "getIncomeTypes",
@@ -184,7 +198,6 @@ class StockMarketFees : AppCompatActivity() {
             }
         })
     }
-
     private fun spinnerFeeAndCharges(incomeTypeId: String, spinnerFeeAndCharges: SearchableSpinner) {
         val formData = listOf(
             "function" to "getFeesAndCharges",
@@ -216,9 +229,31 @@ class StockMarketFees : AppCompatActivity() {
                         //so that the first one that is not dynamically added can be selected
                         spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                                selectedFeeAndPositionPosition[spinnerFeeAndCharges] = position.toString()
                                 // Store the selected item for the corresponding spinnerFeeAndCharges
                                 selectedFeeAndCharges[spinnerFeeAndCharges] = response.data.feesAndCharges[position]
                                 getSelectedFeeAndChargesItems()
+
+                                edQuantity.addTextChangedListener { text ->
+                                    // Retrieve the position for the corresponding spinnerFeeAndCharges
+                                    val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+
+                                    // Check if the position exists in the map
+                                    if (position != null) {
+                                        // Retrieve the FeesAndCharges object associated with the selected spinner
+                                        val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                                        // Check if the FeesAndCharges object exists
+                                        if (selectedFeesAndCharges != null) {
+                                            // Update the quantity in the FeesAndCharges object
+                                            selectedFeesAndCharges.quantity = text.toString()
+
+                                            // You may want to log or perform additional actions here
+                                            // Log.d("QuantityUpdate", "Spinner: $spinnerFeeAndCharges, Quantity: ${text.toString()}")
+                                            getSelectedFeeAndChargesItems()
+                                        }
+                                    }
+                                }
                             }
 
                             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -239,23 +274,27 @@ class StockMarketFees : AppCompatActivity() {
             }
         })
     }
+
     private fun getSelectedFeeAndChargesItems() {
         var totalSum: Double = 0.0
 
         for ((spinner, selectedValue) in selectedFeeAndCharges) {
             // Log or use the selected values as needed
-            Log.d("SelectedItems", "Spinner: $spinner, Selected Value: ${selectedValue.unitFeeAmount}")
+            Log.d("SelectedItems", "Spinner: $spinner, Selected Value: ${selectedValue.feeDescription} Quantity: ${selectedValue.quantity}")
 
             // Check if unitFeeAmount is not empty before converting to Double
             if (selectedValue.unitFeeAmount.isNotEmpty()) {
-                // Add the unitFeeAmount to the total sum
-                totalSum += selectedValue.unitFeeAmount.toDouble()
+                // Check if selectedValue.quantity is not empty or null
+                val quantity = if (selectedValue.quantity.isNullOrEmpty()) "1" else selectedValue.quantity
+                // Add the unitFeeAmount multiplied by quantity to the total sum
+                totalSum += selectedValue.unitFeeAmount.toDouble() * quantity.toInt()
+                // Log or perform additional actions as needed
+                Log.d("Calculation", "UnitFeeAmount: ${selectedValue.unitFeeAmount}, Quantity: $quantity")
             } else {
                 Log.e("Error", "Empty or non-numeric unitFeeAmount encountered.")
                 // Handle the error or log a message as needed
             }
         }
-
         // Now, you have the total sum of unitFeeAmount for all selected items
         Log.d("TotalSum", "Total Sum: $totalSum")
         // You can use the totalSum as needed, e.g., display it in a TextView or perform further actions
@@ -265,4 +304,5 @@ class StockMarketFees : AppCompatActivity() {
             tv_amount.text ="KES $totalSum"
         }
     }
+
 }

@@ -33,6 +33,7 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 		var tv_fee_description: TextView = itemView.findViewById<View>(R.id.tv_fee_description) as TextView
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_accountDesc: TextView = itemView.findViewById<View>(R.id.tv_accountDesc) as TextView
+		var tv_quantity: TextView = itemView.findViewById<View>(R.id.tv_quantity) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -50,21 +51,14 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 			holder.layoutView.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
 		}
-		holder.layoutView.setOnClickListener {
 
-			Toast.makeText(context,"Long Press to Remove",Toast.LENGTH_LONG).show()
-		}
-		holder.layoutView.setOnLongClickListener( object : View.OnLongClickListener {
-			override fun onLongClick(p0: View?): Boolean {
-				Const.instance.removeFeeAndCharge(list)
-				(context as BillingInformation).loadSelectedFeeAndCharges()
-				return true
-			}
+		val quantity = if (list.quantity.isNullOrEmpty()) "1" else list.quantity
 
-		})
+		holder.tv_quantity.text = quantity
+
 
 		holder.tv_fee_description.text = list.feeDescription
-		holder.tv_amount.text = "KES ${list.unitFeeAmount}"
+		holder.tv_amount.text = "KES ${list.unitFeeAmount.toDouble() * quantity.toInt()}"
 		holder.tv_accountDesc.text = list.accountDesc
 
 	}
@@ -109,7 +103,6 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 		)
 		return nameMap[subCountyID] ?: "Unknown"
 	}
-
 	fun covertTimeToText(dataDate: String?): String? {
 		var convTime: String? = null
 		try {
@@ -144,7 +137,6 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 		}
 		return convTime
 	}
-
 	private fun toTitleCase(str: String?): String? {
 		if (str == null) {
 			return null

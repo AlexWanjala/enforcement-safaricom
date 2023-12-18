@@ -9,6 +9,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,8 +29,10 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
+import kotlinx.android.synthetic.main.activity_stock_market_fees.*
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.*
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.edPhone
+import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.ed_slaughter_house
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.tvAmount
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.tvSendPush
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.tvSendPushDisabled
@@ -101,6 +104,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
         super.onResume()
     }
 
+
     private fun loadSelectedFeeAndCharges(){
 
 
@@ -112,12 +116,25 @@ class StockMarketFeesSummary : AppCompatActivity() {
             recyclerView.setHasFixedSize(false)
         }
 
-        // Loop through the selected fees and charges
         for ((spinner, selectedValue) in Const.instance.getSelectedFeesAndChargesList()) {
-            // Parse the unitFeeAmount as a double and add it to the total amount
-            totalAmount += selectedValue.unitFeeAmount.toDouble()
+            // Log or use the selected values as needed
+            Log.d("SelectedItems", "Spinner: $spinner, Selected Value: ${selectedValue.feeDescription} Quantity: ${selectedValue.quantity}")
 
+            // Check if unitFeeAmount is not empty before converting to Double
+            if (selectedValue.unitFeeAmount.isNotEmpty()) {
+                // Check if selectedValue.quantity is not empty or null
+                val quantity = if (selectedValue.quantity.isNullOrEmpty()) "1" else selectedValue.quantity
+                // Add the unitFeeAmount multiplied by quantity to the total sum
+                totalAmount += selectedValue.unitFeeAmount.toDouble() * quantity.toInt()
+                // Log or perform additional actions as needed
+                Log.d("Calculation", "UnitFeeAmount: ${selectedValue.unitFeeAmount}, Quantity: $quantity")
+            }
+            else {
+                Log.e("Error", "Empty or non-numeric unitFeeAmount encountered.")
+                // Handle the error or log a message as needed
+            }
         }
+
         tvAmount.text ="KES "+ totalAmount
     }
 
@@ -127,11 +144,14 @@ class StockMarketFeesSummary : AppCompatActivity() {
 
           // Iterate through the map and update the fields
         for ((spinner, feesAndCharges) in feesAndChargesMap) {
+
+            val quantity = if (feesAndCharges.quantity.isNullOrEmpty()) "1" else feesAndCharges.quantity
+            val desc ="Qty ${quantity} X KES ${feesAndCharges.unitFeeAmount}"
             // Modify the fields as needed
             feesAndCharges.zone = getValue(this, "zone").toString()
             feesAndCharges.customer = ""
             feesAndCharges.revenueStreamItem = getValue(this, "subCountyName").toString()
-            feesAndCharges.amount = feesAndCharges.unitFeeAmount
+            feesAndCharges.amount = (feesAndCharges.unitFeeAmount.toDouble()* quantity.toInt()).toString()
             feesAndCharges.subCountyName = getValue(this, "subCountyName").toString()
             feesAndCharges.subCountyID = getValue(this, "subCountyID").toString()
             feesAndCharges.wardID = getValue(this, "wardID").toString()
@@ -140,7 +160,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
             feesAndCharges.phoneNumber = getValue(this, "phoneNumber").toString()
             feesAndCharges.names = getValue(this, "names").toString()
             feesAndCharges.customerPhoneNumber = edPhone.text.toString()
-            feesAndCharges.description = ""
+            feesAndCharges.description = desc
 
         }
 

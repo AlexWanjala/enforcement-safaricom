@@ -507,6 +507,9 @@
     <string name="add_service">ADD A SERVICE</string>
     <string name="remove">Remove item</string>
     <string name="slaughter_house_services">Slaughter House services</string>
+    <string name="details_label">Details</string>
+    <string name="qty">qty</string>
+    <string name="amt">amt</string>
 
 
 </resources>

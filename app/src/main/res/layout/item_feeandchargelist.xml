@@ -9,37 +9,59 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
+    <LinearLayout
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:id="@+id/tv_accountDesc"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="All other non-automatic weighing instruments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
         <TextView
             android:gravity="left"
             android:layout_weight="1"
-            android:id="@+id/tv_accountDesc"
+            android:id="@+id/tv_fee_description"
             android:layout_gravity="left"
             android:fontFamily="@font/montserrat"
             android:textStyle="bold"
             android:textSize="10dp"
             android:textColor="@color/black"
             android:textAllCaps="true"
-            android:text="MEAT INSPECTION"
-            android:layout_width="0dp"
+            android:text="Exceeding 500kg but not exceeding 1 tonne"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <TextView
         android:gravity="center"
-        android:layout_weight="1"
-        android:id="@+id/tv_fee_description"
-        android:layout_gravity="left"
+        android:layout_weight="0.2"
+        android:id="@+id/tv_quantity"
+        android:layout_gravity="right"
         android:fontFamily="@font/montserrat"
         android:textStyle="bold"
         android:textSize="10dp"
         android:textColor="@color/black"
         android:textAllCaps="true"
-        android:text="Goat"
+        tools:text="10"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
 
-        <TextView
+    <TextView
             android:gravity="right"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:id="@+id/tv_amount"
             android:layout_gravity="right"
             android:fontFamily="@font/montserrat"
