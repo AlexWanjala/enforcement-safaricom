@@ -4,7 +4,7 @@ import java.util.Timer
 import kotlin.concurrent.timerTask
 import Json4Kotlin_Base
 import OverviewAdapter
-import com.aw.forcement.vet.StockMarketFees
+import com.aw.forcement.vet.stock.StockMarketFees
 import UsersAdapter
 import android.Manifest
 import android.annotation.SuppressLint
@@ -60,6 +60,9 @@ import com.aw.forcement.sbp.application.BusinessOwner
 import com.aw.forcement.sbp.application.Businesses
 import com.aw.forcement.sbp.applications.Applications
 import com.aw.forcement.sbp.datacollections.CollectionsSBP
+import com.aw.forcement.vet.movement.MovementFees
+import com.aw.forcement.vet.slaughter.SlaughterFees
+import com.aw.forcement.vet.vet.VetFees
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main_page.contact
 import kotlinx.android.synthetic.main.activity_main_page.openDrawer
@@ -282,7 +285,11 @@ class Home : AppCompatActivity() {
          fl_rentals_register.setOnClickListener {  startActivity(Intent(this, TenancyRegister::class.java)) }
 
          //Vet & Livestock Services
-         fl_stock_market_fees.setOnClickListener {  startActivity(Intent(this, StockMarketFees::class.java)) }
+         fl_live_stock_licencing.visibility = View.GONE
+         fl_stock_market_fees.setOnClickListener { startActivity(Intent(this, StockMarketFees::class.java))}
+         fl_slaughter.setOnClickListener { startActivity(Intent(this, SlaughterFees::class.java)) }
+         fl_vet_and_health_hub.setOnClickListener { startActivity(Intent(this, VetFees::class.java)) }
+         fl_live_stock.setOnClickListener { startActivity(Intent(this, MovementFees::class.java)) }
 
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }

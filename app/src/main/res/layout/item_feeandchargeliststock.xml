@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        android:weightSum="3"
+        android:id="@+id/layoutView"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <FrameLayout
+        android:padding="5dp"
+        android:background="#F4F4F4"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/animal_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_item"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Cows (x3)"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/seller_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_seller_name"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Kelvin Kinoti"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="#F4F4F4"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/seller_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_seller_id"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="2344444"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/buyer_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:id="@+id/tv_buyer_name"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Amondi Sam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="#F4F4F4"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/buyer_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_buyer_id"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="434343443"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/assistant_chief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_assistant_chief"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="James Omondi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:background="#F4F4F4"
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/Chief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_chief"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Ann Cheif"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:padding="5dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="left"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:text="@string/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+        <TextView
+            android:gravity="right"
+            android:layout_weight="1"
+            android:id="@+id/tv_location"
+            android:layout_gravity="left"
+            android:fontFamily="@font/montserrat"
+            android:textStyle="bold"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:textAllCaps="true"
+            android:text="Nyasoma place Kenya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+</LinearLayout>

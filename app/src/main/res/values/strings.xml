@@ -504,12 +504,18 @@
     <string name="bill_item">Bill item no 1.</string>
     <string name="service">Service</string>
     <string name="animal_item">Animal/Item</string>
+    <string name="item_vaccine">Vaccine/Item</string>
     <string name="add_service">ADD A SERVICE</string>
     <string name="remove">Remove item</string>
     <string name="slaughter_house_services">Slaughter House services</string>
     <string name="details_label">Details</string>
     <string name="qty">qty</string>
     <string name="amt">amt</string>
-
+    <string name="seller_name">Seller\'s Name</string>
+    <string name="seller_id">Seller\'s ID No.</string>
+    <string name="buyer_name">Buyer\'s Name</string>
+    <string name="buyer_id">Buyer\'s ID No.</string>
+    <string name="assistant_chief">Assistant Chief</string>
+    <string name="Chief">Chief</string>
 
 </resources>

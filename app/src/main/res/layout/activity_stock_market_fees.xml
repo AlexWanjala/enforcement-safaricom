@@ -12,7 +12,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
@@ -34,7 +34,7 @@
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:text="@string/slaughter_meat_inspections"
+                    android:text="@string/stock_market_fees"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"/>
 
 
-            <include layout="@layout/layout_service"/>
+            <include layout="@layout/layout_service_stock"/>
 
             <TextView
                 android:id="@+id/btn_add_service"

@@ -1,6 +1,7 @@
 package com.aw.forcement.vet.stock
 
 import AdapterFeeAndChargesList
+import AdapterFeeAndChargesListStock
 import Const
 import Json4Kotlin_Base
 import android.app.Activity
@@ -29,7 +30,6 @@ import com.mazenrashed.printooth.data.printer.DefaultPrinter
 import com.mazenrashed.printooth.ui.ScanningActivity
 import com.mazenrashed.printooth.utilities.Printing
 import com.mazenrashed.printooth.utilities.PrintingCallback
-import kotlinx.android.synthetic.main.activity_stock_market_fees.*
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.*
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.edPhone
 import kotlinx.android.synthetic.main.activity_stock_market_fees_summary.ed_slaughter_house
@@ -76,6 +76,8 @@ class StockMarketFeesSummary : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stock_market_fees_summary)
 
+        imageClose.setOnClickListener { finish() }
+
         //Initialize messageBoxView here
         messageBoxViewTimeOut = LayoutInflater.from(this).inflate(R.layout.payment_offline, null)
         messageBoxView = LayoutInflater.from(this).inflate(R.layout.message_box, null)
@@ -109,7 +111,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
 
 
         runOnUiThread {
-            val adapter = AdapterFeeAndChargesList(this, Const.instance.getSelectedFeesAndChargesList())
+            val adapter = AdapterFeeAndChargesListStock(this, Const.instance.getSelectedFeesAndChargesList())
             adapter.notifyDataSetChanged()
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = adapter
@@ -147,6 +149,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
 
             val quantity = if (feesAndCharges.quantity.isNullOrEmpty()) "1" else feesAndCharges.quantity
             val desc ="Qty ${quantity} X KES ${feesAndCharges.unitFeeAmount}"
+            val des =""
             // Modify the fields as needed
             feesAndCharges.zone = getValue(this, "zone").toString()
             feesAndCharges.customer = ""
@@ -160,7 +163,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
             feesAndCharges.phoneNumber = getValue(this, "phoneNumber").toString()
             feesAndCharges.names = getValue(this, "names").toString()
             feesAndCharges.customerPhoneNumber = edPhone.text.toString()
-            feesAndCharges.description = desc
+            feesAndCharges.description = "Seller: ${feesAndCharges.sellerName}, Seller ID No: ${feesAndCharges.sellerID}, Buyer: ${feesAndCharges.buyerName}, Buyer ID: ${feesAndCharges.buyerID}, Assistant Chief: ${feesAndCharges.assistanceChief}, Chief: ${feesAndCharges.chief}, Location: ${feesAndCharges.location}"
 
         }
 
@@ -176,7 +179,6 @@ class StockMarketFeesSummary : AppCompatActivity() {
         tv_message.text = "Generating bill please wait.."
         (messageBoxView as View?)!!.tv_message.text =
             "Generating bill please wait.."
-
 
         val formData = listOf(
             "function" to "generateBill3",

@@ -34,7 +34,7 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:text="@string/slaughter_meat_inspections"
+                    android:text="@string/stock_market_fees_desc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -79,7 +79,7 @@
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
                 android:textStyle="bold"
-                android:text="@string/slaughter_house"
+                android:text="@string/zone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -196,7 +196,7 @@
                     <TextView
                         android:fontFamily="@font/montserrat"
                         android:id="@+id/tvUnits"
-                        android:text="@string/slaughter_house_services"
+                        android:text="@string/stock_market_fees"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
