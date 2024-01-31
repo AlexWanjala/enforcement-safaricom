@@ -49,6 +49,7 @@ import com.github.kittinunf.result.Result
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retryWhen
+import java.text.SimpleDateFormat
 
 
 /*
@@ -84,8 +85,6 @@ interface CallBack {
 
 
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
-
-
     var retryNumber = 0
     fun process(){
         FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
@@ -121,23 +120,13 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
 }
 
 
-
+fun getCurrentDateTime(): String {
+    val dateFormat = SimpleDateFormat("d/MMM/yyyy hh:mm:ss a", Locale.getDefault())
+    val currentDate = Date()
+    return dateFormat.format(currentDate)
+}
 fun getDeviceIdNumber(context: Context): String {
     return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID).toString()
-}
-
-fun executeRequest3(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
-
-    FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
-    FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
-    Fuel.post(URL+stream, formData)
-        .timeout(1000)
-        .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
-        .responseString {request, response, result ->
-            println("##Request$request")
-            println("##Response$result")
-            callback.onSuccess(result.get())
-        }
 }
 
 

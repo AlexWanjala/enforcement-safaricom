@@ -13,16 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import com.aw.forcement.R
 import com.aw.forcement.SelectZone
-import com.aw.forcement.vet.stock.StockMarketFeesSummary
 import com.aw.passanger.api.*
 import com.google.gson.Gson
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import kotlinx.android.synthetic.main.activity_movement.*
-import kotlinx.android.synthetic.main.layout_service.*
 import kotlinx.android.synthetic.main.layout_service.edQuantity
 import kotlinx.android.synthetic.main.layout_service.spinnerFeeAndCharges
 import kotlinx.android.synthetic.main.layout_service.spinnerIncomeType
-import kotlinx.android.synthetic.main.layout_service_stock.*
 
 
 class MovementFees : AppCompatActivity() {

@@ -81,7 +81,7 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 				save(context,"date",list.date)
 
 				if (context is com.aw.forcement.Transactions) {
-					(context as com.aw.forcement.Transactions).getBillPrint()
+					(context as com.aw.forcement.Transactions).getReceipt(list.transaction_code)
 				}
 			}
 			builder.setNeutralButton("Verify") { dialog, which ->

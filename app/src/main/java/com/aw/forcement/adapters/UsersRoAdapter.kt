@@ -61,10 +61,10 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 			""
 		) else "No address available"
 
-		holder.tv_logins.text = list.logins
-		holder.tv_transactions.text = list.transactions
-		holder.tv_inspections.text = list.inspections
-		holder.tv_amount.text = list.amount
+		holder.tv_logins.text = list.logCount
+		holder.tv_transactions.text = list.transactionCount
+		holder.tv_inspections.text = list.inspection
+		holder.tv_amount.text = list.collectionValue
 
 
 
@@ -74,7 +74,7 @@ class UsersRoAdapter(private val context: Context, mList: List<Users>) :
 		//holder.tv_time.text =list.lastSeen.getTimeAgo()
 
 		holder.layoutView.setOnClickListener {
-			context.startActivity(Intent(context,com.aw.forcement.history.MyHistory::class.java).putExtra("bottomBar","hide").putExtra("idNo",list.idNNumber).putExtra("names",list.names))
+			context.startActivity(Intent(context,com.aw.forcement.history.MyHistory::class.java).putExtra("bottomBar","hide").putExtra("idNo",list.idNo).putExtra("names",list.names))
 		}
 
 		holder.call_blue.setOnClickListener {

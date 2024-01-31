@@ -90,6 +90,7 @@
                 </LinearLayout>
 
                 <TextView
+
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/labels"
                     android:layout_marginTop="20dp"
@@ -248,6 +249,22 @@
                     android:gravity="center"
                     android:textSize="12sp"
                     android:text="@string/send_payment"
+                    android:layout_width="match_parent"
+                    android:layout_height="40sp"
+                    />
+
+                <TextView
+                    android:backgroundTint="@color/blue_zuku"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/montserrat"
+                    android:id="@+id/tvCash"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/indicator_state_background_button"
+                    android:textColor="@drawable/indicator_state_color_button"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    android:text="@string/receive_payment"
                     android:layout_width="match_parent"
                     android:layout_height="40sp"
                     />

@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
@@ -52,6 +54,8 @@ import kotlinx.android.synthetic.main.payment_recieved.view.okay
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -339,6 +343,7 @@ class ReceivePayment : AppCompatActivity() {
             "token" to "im05WXYH2rwRruPjCICieOs8m4E8IoltnDEhyPUv6bnB9cU60gD48SnJPC6oh7EpsPaAUGC8wqIdtVVjGlWLxqFssshxMHxHjEQJ"
         )
         executePaysolRequest(formData, paysol,object : CallBack {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
 
@@ -368,13 +373,8 @@ class ReceivePayment : AppCompatActivity() {
                                 incomeTypeDescription
                             )
 
-                            tvSendPayment.text = "Print"
-                            tvSendPayment.setOnClickListener {
-                                //printing
-                                printReceipt()
-                            }
+                            getReceipt(response.data.transaction.transaction_code)
 
-                            printReceipt()
 
 
                         }
@@ -548,8 +548,101 @@ class ReceivePayment : AppCompatActivity() {
 
     }
 
+    private fun getReceipt(transaction_code: String){
+        val formData = listOf(
+            "function" to "getReceipt",
+            "receiptNo" to transaction_code,
+            "latitude" to getValue(this,"latitude").toString(),
+            "longitude" to getValue(this,"longitude").toString(),
+            "idNo" to getValue(this,"idNo").toString(),
+            "username" to getValue(this,"username").toString(),
+            "addressString" to getValue(this,"addressString").toString(),
+            "deviceId" to getDeviceIdNumber(this)
+        )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+                    runOnUiThread {
+
+                        var descriptions =""
+                        var item =""
+
+                        for (receiptInfo in response.data.receiptInfos) {
+
+                            val  customer = receiptInfo.customer
+                            val  des = receiptInfo.description
+
+                            item +="${receiptInfo.feeDescription}:   ${receiptInfo.receiptAmount}\n";
+
+                            if (":" in des && "," in des) {
+                                // Both ":" and "," are present in the description
+                                //Seller: Tdd, Seller ID No: yggg, Buyer: rtt, Buyer ID: tyy, Assistant Chief: ftt, Chief: yy, Location: fgg
+                                val array = des.split(",")
+
+                                array.forEach { element ->
+                                    // Process each element
+                                    val array2 = element.split(":")
+
+                                    descriptions +="${array2[0].trimStart().trimEnd()}:             ${array2[1].trimStart().trimEnd()}\n";
+
+                                }
+
+
+                            }
+
+                        }
+
+                        save(this@ReceivePayment,"r_headline",response.data.county.headline)
+                        save(this@ReceivePayment,"r_dateCreated",response.data.receiptDetails.dateCreated)
+                        save(this@ReceivePayment,"r_source",response.data.receiptDetails.source)
+                        save(this@ReceivePayment,"r_currency",response.data.receiptDetails.currency)
+                        save(this@ReceivePayment,"r_item",item)
+                        save(this@ReceivePayment,"r_ussd",response.data.county.ussd)
+                        save(this@ReceivePayment,"r_incomeTypeDescription",response.data.receiptDetails.incomeTypeDescription)
+                        save(this@ReceivePayment,"r_description",descriptions)
+                        save(this@ReceivePayment,"r_date",response.data.receiptDetails.dateCreated)
+                        save(this@ReceivePayment,"r_subCountyName",response.data.receiptDetails.subCountyName)
+                        save(this@ReceivePayment,"r_zone",response.data.receiptDetails.zone)
+                        save(this@ReceivePayment,"r_names",response.data.receiptDetails.names)
+                        save(this@ReceivePayment,"r_transactionCode",response.data.receiptDetails.transactionCode)
+                        save(this@ReceivePayment,"r_payer",response.data.receiptDetails.paidBy)
+                        save(this@ReceivePayment,"r_payerPhone",response.data.receiptDetails.customerPhoneNumber)
+                        save(this@ReceivePayment,"r_billNo",response.data.receiptDetails.billNo)
+                        save(this@ReceivePayment,"r_receiptNo",response.data.receiptDetails.receiptNo)
+                        save(this@ReceivePayment,"r_receiptAmount",response.data.receiptDetails.receiptAmount)
+
+                        tvSendPayment.text = "Print"
+                        tvSendPayment.setOnClickListener {
+                            //printing
+                            printReceipt()
+                        }
+
+                        printReceipt()
+
+
+                    }
+                }else{
+                    runOnUiThread {
+                        Toast.makeText(this@ReceivePayment,response.message,Toast.LENGTH_LONG).show()
+                        finish()
+                    }
+                }
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+
+
+    }
+
 
     //printer services starts here
+    @RequiresApi(Build.VERSION_CODES.O)
     fun printReceipt(){
         if (!Printooth.hasPairedPrinter())
             resultLauncher.launch(
@@ -591,34 +684,43 @@ class ReceivePayment : AppCompatActivity() {
 
         }
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun printDetails() {
         val printables = getSomePrintables()
         printing?.print(printables)
     }
     /* Customize your printer here with text, logo and QR code */
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun getSomePrintables() = java.util.ArrayList<Printable>().apply {
 
-        val title ="\n\nOFFICIAL RECIEPT\n\n"
-        add(
-            TextPrintable.Builder()
-                .setText(title)
-                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
-                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
-                // .setNewLinesAfter(1)
-                .build())
 
-        val title2 = when (BuildConfig.FLAVOR) {
-            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
-            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
-            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
-        }
+        val dateCreated = getValue(this@ReceivePayment,"r_dateCreated")
+        val source = getValue(this@ReceivePayment,"r_source")
+        val currency = getValue(this@ReceivePayment,"r_currency")
+        val ussd = getValue(this@ReceivePayment,"r_ussd")
+        val payerPhone = getValue(this@ReceivePayment,"r_payerPhone")
+        val payer = getValue(this@ReceivePayment,"r_payer")
+        val receiptNo = getValue(this@ReceivePayment,"r_receiptNo")
+        val item = getValue(this@ReceivePayment,"r_item")
+        val transactioncode = getValue(this@ReceivePayment,"r_transactionCode")
+        val amount = getValue(this@ReceivePayment,"r_receiptAmount")
+        val ref = getValue(this@ReceivePayment,"r_billNo")
+        val username = getValue(this@ReceivePayment,"username")
+        val names = getValue(this@ReceivePayment,"r_names")
+        val phone = getValue(this@ReceivePayment,"payer_phone")
+        val incomeTypeDescription = getValue(this@ReceivePayment,"r_incomeTypeDescription")?.capitalize()
+        val description = getValue(this@ReceivePayment,"r_description")
+        val zone = getValue(this@ReceivePayment,"r_zone")?.toUpperCase()
+        val subCounty = getValue(this@ReceivePayment,"r_subCountyName")?.toUpperCase()
 
 
-        add(
-            TextPrintable.Builder()
-                .setText(title2)
-                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
-                .build())
+        // Parse the input string to LocalDateTime
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val parsedDateTime = LocalDateTime.parse(dateCreated, inputFormatter)
+        val outputFormatter = DateTimeFormatter.ofPattern("d/MMM/yyyy h:mm:ss a")
+        val date = parsedDateTime.format(outputFormatter)
+
+        var time = getCurrentDateTime()
 
 
         val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
@@ -629,22 +731,171 @@ class ReceivePayment : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val transactioncode = getValue(this@ReceivePayment,"transaction_code")
-        val amount = getValue(this@ReceivePayment,"amount")
-        val ref = getValue(this@ReceivePayment,"ref")
-        val username = getValue(this@ReceivePayment,"username")
-        val names = getValue(this@ReceivePayment,"payer_names")
-        val phone = getValue(this@ReceivePayment,"payer_phone")
-        val incomeTypeDescription = getValue(this@ReceivePayment,"incomeTypeDescription")?.capitalize()
-        val description = getValue(this@ReceivePayment,"description")
-        val date = getValue(this@ReceivePayment,"date")
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n"
+            "kisumu" -> "COUNTY GOVERNMENT OF KISUMU\n"
+            "elgeyo" -> "COUNTY GOVERNMENT OF ELGEYO MARAKWET\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n"
+        }
+
+        add(
+            TextPrintable.Builder()
+                .setText(title2)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        val title ="${subCounty}, ${zone}\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title)
+                .setFontSize(0.1.toInt().toByte())
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val title3 ="-----------------------\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title3)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        add(
+            TextPrintable.Builder()
+                .setText("OFFICIAL RECEIPT (KES)\n")
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+
+        var text ="Date:  ${date}\n";
+        text +="Receipt No:  ${receiptNo}\n"
+        text +="Served By:    ${names}\n"
+        text +="Mode:     ${source}(${transactioncode})\n"
+        text +="Payer:         ${payer}\n"
+        text +="Payer Phone:     ${payerPhone}\n"
+        text +="Invoice No:     ${ref}\n\n"
+
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        text ="____________________________\n";
+        text +="Item's                  Total\n";
+        text +="____________________________\n";
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        if (item != null) {
+            text =item
+        }
+
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        text ="_____________________________\n";
+        text +="SUB TOTAL          ${currency} ${amount}\n";
+        text +="____________________________\n";
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        text ="\nDetails\n"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        text ="This Receipt was Printed on ${time} By ${username}\n\n"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        if (description != null) {
+            text = description
+        }
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        text ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $time, Printed By: $username"
+
+        val qr: Bitmap = QRCode.from(text)
+            .withSize(200, 200).bitmap()
+        add(
+            ImagePrintable.Builder(qr)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        text = "${ussd}"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setFontSize(10)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        val title35 ="\n\n\n\n\n\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title35)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
 
 
 
-        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        /*
+
+
+           val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
+           val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
+           val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
+           add(
+               ImagePrintable.Builder(scaledLogo)
+                   .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                   .build())
+
+           val transactioncode = getValue(this@ReceivePayment,"transaction_code")
+           val amount = getValue(this@ReceivePayment,"amount")
+           val ref = getValue(this@ReceivePayment,"ref")
+           val username = getValue(this@ReceivePayment,"username")
+           val names = getValue(this@ReceivePayment,"payer_names")
+           val phone = getValue(this@ReceivePayment,"payer_phone")
+           val incomeTypeDescription = getValue(this@ReceivePayment,"incomeTypeDescription")?.capitalize()
+           val description = getValue(this@ReceivePayment,"description")
+           val date = getValue(this@ReceivePayment,"date")
+
+
+
+           *//* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
          val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
          val date = input?.let { inputFormat.parse(it) }
-         val humanDate = date?.let { outputFormat.format(it) }*/
+         val humanDate = date?.let { outputFormat.format(it) }*//*
         val humanDate = date
         val zone = getValue(this@ReceivePayment,"zone")
         val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
@@ -678,10 +929,11 @@ class ReceivePayment : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .setText(footer)
                 .build())
-
+*/
 
     }
     /* Inbuilt activity to pair device with printer or select from list of pair bluetooth devices */
+    @RequiresApi(Build.VERSION_CODES.O)
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == ScanningActivity.SCANNING_FOR_PRINTER &&  result.resultCode == Activity.RESULT_OK) {
             // There are no request codes

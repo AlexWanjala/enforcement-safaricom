@@ -31,6 +31,8 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.os.AsyncTask
+import android.os.Build
+import android.telephony.TelephonyManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.api.TextToSpeechUtil
@@ -98,10 +100,50 @@ class Login : AppCompatActivity() {
             }
         }*/
 
-        initBroadCast()
+       // initBroadCast()
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         updateApp()
+
+       getIMEI()
     }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun getIMEI() {
+        // Check for the READ_PHONE_STATE permission before accessing the IMEI
+        if (checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+            // Permission already granted, proceed to get the IMEI
+            val telephonyManager = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+            val imei: String? = try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    // Use the getImei() method for Android 10 and above
+                    telephonyManager.imei
+                } else {
+                    // Use the deprecated getDeviceId() method for older versions
+                    telephonyManager.deviceId
+                }
+            } catch (e: SecurityException) {
+                // Handle the case where accessing IMEI is not allowed
+                e.printStackTrace()
+                null
+            }
+
+            // Note: This may return null on devices where the IMEI is not available.
+            val imeiResult = imei ?: "IMEI not available"
+            // Handle the IMEI result as needed, e.g., display it, use it in your app, etc.
+            emei.text = imeiResult
+        } else {
+            // Permission not granted, request it from the user
+            requestPermissions(arrayOf(android.Manifest.permission.READ_PHONE_STATE), PERMISSION_REQUEST_READ_PHONE_STATE)
+        }
+    }
+
+
+    // Define a constant for your permission request code
+    companion object {
+        private const val PERMISSION_REQUEST_READ_PHONE_STATE = 1
+    }
+
 
     private fun forgetPassword() {
         save(this@Login,"pass", "" )
@@ -226,6 +268,7 @@ class Login : AppCompatActivity() {
             "locality" to getValue(this,"locality").toString(),
             "versionCode" to versionCode.toString(),
             "deviceId" to getDeviceIdNumber(this),
+           // "IMEI" to emei.text.toString(),
 
         )
         executeRequest(formData, authentication,object : CallBack{
@@ -241,6 +284,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"phoneNumber", response.data.user.phoneNumber)
                     save(this@Login,"idNo", response.data.user.idNo)
                     save(this@Login,"username",response.data.user.names)
+                    save(this@Login,"names",response.data.user.names)
                     save(this@Login,"subCountyID",response.data.user.subCountyID)
                     save(this@Login,"subCountyName",response.data.user.subCountyName)
                     save(this@Login,"wardID",response.data.user.wardID)
@@ -251,9 +295,12 @@ class Login : AppCompatActivity() {
                     save(this@Login,"email",response.data.user.email)
                     save(this@Login,"id",response.data.user.id.toString())
                     save(this@Login,"gender",response.data.user.gender.toString())
+                    save(this@Login,"clampingDuration",response.data.county.clampingDuration)
+                    save(this@Login,"code",response.data.user.code)
                    // startActivity(Intent(this@Login, MainRoActivity::class.java))
                     startActivity(Intent(this@Login, Home::class.java))
                 }else if(response.status==2){
+                    save(this@Login,"names",response.data.user.names)
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )
                     save(this@Login,"userid", response.data.user.id.toString())
@@ -270,6 +317,7 @@ class Login : AppCompatActivity() {
                     save(this@Login,"id",response.data.user.id.toString())
                     save(this@Login,"gender",response.data.user.gender.toString())
                     save(this@Login,"idNo", edUsername.text.toString() )
+                    save(this@Login,"clampingDuration",response.data.county.clampingDuration)
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))
@@ -295,7 +343,7 @@ class Login : AppCompatActivity() {
 
         edUsername.setText(getValue(this@Login,"idNo").toString())
         edPassword.setText(getValue(this@Login,"pass").toString())
-        registerReceiver(smsReceiver, intentFilter)
+
 
         Log.e("###", AppSignatureHashHelper(this@Login).appSignatures.toString())
        // edUsername.setText(AppSignatureHashHelper(this@Login).appSignatures.toString())
@@ -378,21 +426,11 @@ class Login : AppCompatActivity() {
             }
         })
     }
-    override fun onPause() {
-        super.onPause()
-        unregisterReceiver(smsReceiver)
-    }
+
     private fun showToast(msg: String?) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
     }
-    private fun initSmsListener() {
-        val client = SmsRetriever.getClient(this)
-        client.startSmsRetriever()
-    }
-    override fun onDestroy() {
-        super.onDestroy()
-        smsReceiver = null
-    }
+
 
     //Get location
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
@@ -468,7 +506,7 @@ class Login : AppCompatActivity() {
             permissionId
         )
     }
-    @SuppressLint("MissingSuperCall")
+    /*@SuppressLint("MissingSuperCall")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -480,4 +518,32 @@ class Login : AppCompatActivity() {
             }
         }
     }
+    */
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            permissionId -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    GetLocationTask(this).execute()
+                }
+            }
+            PERMISSION_REQUEST_READ_PHONE_STATE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, now you can call getIMEI() again
+                    getIMEI()
+                } else {
+                    // Permission denied, handle it accordingly (e.g., show a message to the user)
+                    Toast.makeText(this, "Permission denied. Unable to get IMEI.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+
 }

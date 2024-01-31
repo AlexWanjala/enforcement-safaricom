@@ -47,6 +47,8 @@ import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
 import net.glxn.qrgen.android.QRCode
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -129,9 +131,9 @@ class Markets : AppCompatActivity() {
         getIncomeTypes()
 
         //Bluetooth printer
-       if (Printooth.hasPairedPrinter())
+       /*if (Printooth.hasPairedPrinter())
             printing = Printooth.printer()
-        initListeners()
+        initListeners()*/
 
         tv_category.text = intent.getStringExtra("incomeTypePrefix")
     }
@@ -684,6 +686,7 @@ class Markets : AppCompatActivity() {
         })
     }
 
+
     //printer services starts here
     fun printReceipt(){
         if (!Printooth.hasPairedPrinter())
@@ -733,27 +736,50 @@ class Markets : AppCompatActivity() {
     /* Customize your printer here with text, logo and QR code */
     private fun getSomePrintables() = java.util.ArrayList<Printable>().apply {
 
-        val title ="\n\nOFFICIAL RECIEPT\n\n"
-        add(
-            TextPrintable.Builder()
-                .setText(title)
-                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
-                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
-                // .setNewLinesAfter(1)
-                .build())
 
-        val title2 = when (BuildConfig.FLAVOR) {
-            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n\n#\n\n\n"
-            "meru" -> "COUNTY GOVERNMENT OF MERU\n\n#\n\n\n"
-            else -> "COUNTY GOVERNMENT OF UNKNOWN\n\n#\n\n\n"
-        }
+        /*
+        *
+                        save(this@Markets,"r_incomeTypeDescription",response.data.receiptDetails.incomeTypeDescription)
+                        save(this@Markets,"r_description",descriptions)
+                        save(this@Markets,"r_date",response.data.receiptDetails.dateCreated)
+                        save(this@Markets,"r_subCountyName",response.data.receiptDetails.subCountyName)
+                        save(this@Markets,"r_zone",response.data.receiptDetails.zone)
+                        save(this@Markets,"r_names",response.data.receiptDetails.names)
+                        save(this@Markets,"r_transactionCode",response.data.receiptDetails.transactionCode)
+                        save(this@Markets,"r_payer",response.data.receiptDetails.paidBy)
+                        save(this@Markets,"r_payerPhone",response.data.receiptDetails.customerPhoneNumber)
+                        save(this@Markets,"r_billNo",response.data.receiptDetails.billNo)
+                        save(this@Markets,"r_receiptNo",response.data.receiptDetails.receiptNo)
+                        save(this@Markets,"r_receiptAmount",response.data.receiptDetails.receiptAmount)*/
 
 
-        add(
-            TextPrintable.Builder()
-                .setText(title2)
-                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
-                .build())
+        val dateCreated = getValue(this@Markets,"r_dateCreated")
+        val source = getValue(this@Markets,"r_source")
+        val currency = getValue(this@Markets,"r_currency")
+        val ussd = getValue(this@Markets,"r_ussd")
+        val payerPhone = getValue(this@Markets,"r_payerPhone")
+        val payer = getValue(this@Markets,"r_payer")
+        val receiptNo = getValue(this@Markets,"r_receiptNo")
+        val item = getValue(this@Markets,"r_item")
+        val transactioncode = getValue(this@Markets,"r_transactionCode")
+        val amount = getValue(this@Markets,"r_receiptAmount")
+        val ref = getValue(this@Markets,"r_billNo")
+        val username = getValue(this@Markets,"username")
+        val names = getValue(this@Markets,"r_names")
+        val phone = getValue(this@Markets,"payer_phone")
+        val incomeTypeDescription = getValue(this@Markets,"r_incomeTypeDescription")?.capitalize()
+        val description = getValue(this@Markets,"r_description")
+        val zone = getValue(this@Markets,"r_zone")?.toUpperCase()
+        val subCounty = getValue(this@Markets,"r_subCountyName")?.toUpperCase()
+
+
+        // Parse the input string to LocalDateTime
+        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        val parsedDateTime = LocalDateTime.parse(dateCreated, inputFormatter)
+        val outputFormatter = DateTimeFormatter.ofPattern("d/MMM/yyyy h:mm:ss a")
+        val date = parsedDateTime.format(outputFormatter)
+
+        var time = getCurrentDateTime()
 
 
         val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
@@ -764,26 +790,174 @@ class Markets : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .build())
 
-        val transactioncode = getValue(this@Markets,"transaction_code")
-        val amount = getValue(this@Markets,"amount")
-        val ref = getValue(this@Markets,"ref")
-        val username = getValue(this@Markets,"username")
-        val names = getValue(this@Markets,"payer_names")
-        val phone = getValue(this@Markets,"payer_phone")
-        val feeDescription = getValue(this@Markets,"feeDescription")
-        val incomeTypeDescription = getValue(this@Markets,"incomeTypeDescription")?.capitalize()
-        val description = getValue(this@Markets,"description")
-        val date = getValue(this@Markets,"date")
+        val title2 = when (BuildConfig.FLAVOR) {
+            "homabay" -> "COUNTY GOVERNMENT OF HOMABAY\n"
+            "meru" -> "COUNTY GOVERNMENT OF MERU\n"
+            "kisumu" -> "COUNTY GOVERNMENT OF KISUMU\n"
+            "elgeyo" -> "COUNTY GOVERNMENT OF ELGEYO MARAKWET\n"
+            else -> "COUNTY GOVERNMENT OF UNKNOWN\n"
+        }
+
+        add(
+            TextPrintable.Builder()
+                .setText(title2)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        val title ="${subCounty}, ${zone}\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title)
+                .setFontSize(0.1.toInt().toByte())
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        val title3 ="-----------------------\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title3)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+        add(
+            TextPrintable.Builder()
+                .setText("OFFICIAL RECEIPT (KES)\n")
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
+
+
+        var text ="Date:  ${date}\n";
+        text +="Receipt No:  ${receiptNo}\n"
+        text +="Served By:    ${names}\n"
+        text +="Mode:     ${source}(${transactioncode})\n"
+        text +="Payer:         ${payer}\n"
+        text +="Payer Phone:     ${payerPhone}\n"
+        text +="Invoice No:     ${ref}\n\n"
+
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        text ="____________________________\n";
+        text +="Item's                  Total\n";
+        text +="____________________________\n";
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        if (item != null) {
+            text =item
+        }
+
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        text ="_____________________________\n";
+        text +="SUB TOTAL          ${currency} ${amount}\n";
+        text +="____________________________\n";
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        text ="\nDetails\n"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setEmphasizedMode(DefaultPrinter.EMPHASIZED_MODE_BOLD)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        text ="This Receipt was Printed on ${time} By ${username}\n\n"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+        if (description != null) {
+            text = description
+        }
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        text ="Payment Code:$transactioncode, Amount:$amount, Payer:$names, Date: $time, Printed By: $username"
+
+        val qr: Bitmap = QRCode.from(text)
+            .withSize(200, 200).bitmap()
+        add(
+            ImagePrintable.Builder(qr)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                .build())
+
+        text = "${ussd}"
+        add(
+            TextPrintable.Builder()
+                .setText(text)
+                .setFontSize(10)
+                .setAlignment(DefaultPrinter.ALIGNMENT_LEFT)
+                .build())
+
+
+        val title35 ="\n\n\n\n\n\n"
+        add(
+            TextPrintable.Builder()
+                .setText(title35)
+                .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                // .setNewLinesAfter(1)
+                .build())
 
 
 
-        /* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        /*
+
+
+           val bmp = BitmapFactory.decodeResource(resources, R.drawable.print_county_logo)
+           val argbBmp = bmp.copy(Bitmap.Config.ARGB_8888, false)
+           val scaledLogo = Bitmap.createScaledBitmap(argbBmp, 145, 180, true)
+           add(
+               ImagePrintable.Builder(scaledLogo)
+                   .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
+                   .build())
+
+           val transactioncode = getValue(this@Markets,"transaction_code")
+           val amount = getValue(this@Markets,"amount")
+           val ref = getValue(this@Markets,"ref")
+           val username = getValue(this@Markets,"username")
+           val names = getValue(this@Markets,"payer_names")
+           val phone = getValue(this@Markets,"payer_phone")
+           val incomeTypeDescription = getValue(this@Markets,"incomeTypeDescription")?.capitalize()
+           val description = getValue(this@Markets,"description")
+           val date = getValue(this@Markets,"date")
+
+
+
+           *//* val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
          val outputFormat = SimpleDateFormat("EEE dd MMM yy hh:mma", Locale.getDefault())
          val date = input?.let { inputFormat.parse(it) }
-         val humanDate = date?.let { outputFormat.format(it) }*/
+         val humanDate = date?.let { outputFormat.format(it) }*//*
         val humanDate = date
         val zone = getValue(this@Markets,"zone")
-        val message = "\n\nType:${incomeTypeDescription}\nDesc: ${feeDescription}\nFor: $description\nMpesa: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message ="\n\nFor: $description #Mpesa\nTransaction Code: $transactioncode\nAmount: KES $amount\nPayer: $names\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         add(
             TextPrintable.Builder()
@@ -814,7 +988,7 @@ class Markets : AppCompatActivity() {
                 .setAlignment(DefaultPrinter.ALIGNMENT_CENTER)
                 .setText(footer)
                 .build())
-
+*/
 
     }
     /* Inbuilt activity to pair device with printer or select from list of pair bluetooth devices */

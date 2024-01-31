@@ -3,6 +3,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ParseException
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,10 +49,27 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val list: Transactions = mList[position]
 
+		if (getValue(context, "code") == "2") {
+			if (list.code == "2") {
+				holder.layoutView.setBackgroundColor(Color.parseColor("#541E1616"))
+			} else {
+				// Set default background color when the condition is not met
+				holder.layoutView.setBackgroundColor(Color.TRANSPARENT)
+			}
+		} else {
+			// Set default background color when the condition is not met
+			holder.layoutView.setBackgroundColor(Color.TRANSPARENT)
+		}
+
 		if(list.names==null){
 			holder.tv_tag.text = "#"
 		}else{
-			holder.tv_tag.text = "${list.names[0]}${list.names[2]}"
+			if (list.names.length > 2) {
+				holder.tv_tag.text = "${list.names[0]}${list.names[2]}"
+			} else {
+				// Handle the case where the array is not long enough
+				holder.tv_tag.text = "Array is not long enough"
+			}
 		}
 
 
@@ -66,11 +84,9 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 			holder.tv_status.text = "Receipt has not been inspected"
 		}
 
+
+
 		holder.layoutView.setOnClickListener {
-
-
-
-
 
 			save(context,"transaction_code",list.transaction_code)
 			save(context,"amount",list.amount)
@@ -81,6 +97,53 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 
 			context.startActivity(Intent(context,com.aw.forcement.others.ReceiptDetails::class.java).putExtra("transaction_code",list.transaction_code).putExtra("verified",list.verified)
 				.putExtra("amount",list.amount))
+		}
+
+		if(getValue(context,"code")=="2"){
+
+			holder.layoutView.setOnLongClickListener(object : View.OnLongClickListener {
+				override fun onLongClick(p0: View?): Boolean {
+
+					val builder = AlertDialog.Builder(context)
+					builder.setTitle(list.transaction_code)
+					builder.setMessage("Select the options below")
+					builder.setNeutralButton("Archive") { dialog, which ->
+						dialog.dismiss()
+						val formData = listOf(
+							"function" to "updateTransactionStatus",
+							"transaction_code" to  list.transaction_code,
+						)
+
+						val handler = Handler(context.mainLooper)
+
+						executeRequest(formData, biller,object : CallBack {
+							override fun onSuccess(result: String?) {
+
+								handler.post {
+									Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+								}
+							}
+							override fun onFailure(result: String?) {
+
+								handler.post {
+									Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+								}
+
+							}
+
+						})
+					}
+					builder.setNegativeButton(android.R.string.no) { dialog, which ->
+						dialog.dismiss()
+					}
+
+					builder.show()
+
+					return true
+				}
+
+			})
+
 		}
 
 	}

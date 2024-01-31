@@ -12,6 +12,7 @@ import com.aw.forcement.R
 import com.aw.passanger.api.getValue
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -102,14 +103,21 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 	}
 
 	private fun calculateProgress(collected: Double, target: Double): Double {
-		if(target==0.0){
+		if (target == 0.0) {
 			return 0.0
 		}
-		val progress = (collected.toDouble() / target.toDouble()) * 100
-		val decFormat = DecimalFormat("#,##0.00")
+
+		val progress = (collected / target) * 100
+		val decFormat = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale.US))
 		decFormat.roundingMode = RoundingMode.HALF_UP
-		return decFormat.format(progress).toDouble()
+
+		// Remove grouping separator and parse the formatted string
+		val formattedProgress = decFormat.format(progress)
+		val parsedProgress = decFormat.parse(formattedProgress)?.toDouble() ?: 0.0
+
+		return parsedProgress
 	}
+
 	private fun formatNumber(number: Int): String {
 		val numberFormat = NumberFormat.getInstance(Locale.US)
 		return numberFormat.format(number)

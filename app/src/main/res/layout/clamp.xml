@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:background="@color/white"
+<ScrollView android:background="@color/white"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:orientation="vertical"
@@ -37,54 +37,6 @@
                 android:text="@string/clamp_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_marginTop="25dp"
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/labels"
-                android:text="@string/offence_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/rectangle_background"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:gravity="center"
-                    android:elevation="5dp"
-                    android:id="@+id/spinnerIncomeTypeClamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp" />
-
-            </LinearLayout>
-            <TextView
-                android:fontFamily="@font/montserrat"
-                android:textColor="@color/labels"
-                android:layout_marginTop="15dp"
-                android:text="@string/offence_sub_category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_gravity="center"
-                android:background="@drawable/rectangle_background"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                    android:gravity="center"
-                    android:elevation="5dp"
-                    android:id="@+id/spinnerFeeAndChargesClamp"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp" />
-
-            </LinearLayout>
 
             <TextView
                 android:layout_marginTop="10dp"
@@ -138,6 +90,67 @@
 
 
             <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="Select Clamping Charges below"
+                android:background="@color/bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:text="@string/offence_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerIncomeTypeClamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="15dp"
+                android:text="@string/offence_sub_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/rectangle_background"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerFeeAndChargesClamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+
+
+
+            <TextView
                 android:textSize="16dp"
                 android:id="@+id/tv_message_unpaid"
                 android:layout_marginTop="20dp"
@@ -149,14 +162,35 @@
                 android:layout_height="wrap_content"/>
 
 
-            <EditText
-                android:id="@+id/ed_reason"
+            <LinearLayout
                 android:padding="10dp"
-                android:hint="@string/clamp_hint"
-                android:layout_marginTop="20sp"
+                android:layout_gravity="center"
                 android:background="@drawable/rectangle_background"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"/>
+                android:layout_height="wrap_content">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:id="@+id/spinnerClamping"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tv_clamping_duration"
+                android:fontFamily="@font/montserrat"
+                android:textColor="@color/labels"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:padding="10dp"
+                tools:text="@string/clamping_message"
+                android:background="@color/bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:fontFamily="@font/montserrat"
@@ -167,6 +201,9 @@
                 android:text="@string/clamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+
+
 
             <TextView
                 android:layout_marginTop="20dp"

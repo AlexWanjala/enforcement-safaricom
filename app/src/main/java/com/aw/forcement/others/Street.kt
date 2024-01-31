@@ -72,12 +72,14 @@ class Street : AppCompatActivity() {
 
     private val arrayListParking = ArrayList<String>()
     private val arrayListParkingFees = ArrayList<String>()
+    private val arrayListReasons = ArrayList<String>()
     lateinit var amount: String
     lateinit var feeIdClamp: String
     lateinit var feeIdParking: String
 
     lateinit var feeDescription: String
     lateinit var incomeTypeDescription : String
+    lateinit var description : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,7 +130,6 @@ class Street : AppCompatActivity() {
 
 
         initOCR()
-
     }
 
     fun humanDate(input: String): String {
@@ -162,8 +163,12 @@ class Street : AppCompatActivity() {
             messageBoxInstanceClamp.dismiss()
         }
 
+        val clampingDuration = getValue(this,"clampingDuration")
+        messageBoxViewClamp.tv_clamping_duration.text ="If the customer doesn't pay within ${clampingDuration} minutes after we send them the information, then clamping fees will be applicable."
+
         getIncomeTypes()
         getIncomeTypesParking()
+        getClampReasons()
 
     }
     private fun getParking(plateNumber : String){
@@ -187,7 +192,6 @@ class Street : AppCompatActivity() {
                     runOnUiThread {
                         edPlate.setText(response.data.parking.numberPlate)
                         plate.text = response.data.parking.numberPlate
-                        tv_zone.text = response.data.parking.zone
                         tv_for.text = response.data.parking.category
 
                         if (response.data.parking.status!="PAID"){
@@ -197,7 +201,7 @@ class Street : AppCompatActivity() {
 
                             if(response.data.parking.status.equals("CLAMPED")){
                                 btnClamp.text = "PAY"
-                                btnClamp.setOnClickListener { showMessageBoxPay(response.data.parking.billBalance,response.data.parking.parkingCode) }
+                                btnClamp.setOnClickListener { showMessageBoxPay(response.data.parking.billBalance,response.data.parking.parkingCode,response.data.payBill.shortCode) }
 
                             }
 
@@ -215,6 +219,10 @@ class Street : AppCompatActivity() {
 
                         if(response.data.parking.startDate.isNotEmpty())
                          date_paid.text = humanDate(response.data.parking.startDate)
+
+                        if(response.data.parking.endDate.isNotEmpty())
+                            date_expiry.text = humanDate(response.data.parking.endDate)
+
                         tv_last.text = response.data.parking.zone
                       /*  plate.text = response.data.parking.numberPlate.trim()
                         vehicleCategory.text = response.data.parking.category.trim()
@@ -227,7 +235,6 @@ class Street : AppCompatActivity() {
                         }else{
                             status.setTextColor(Color.RED)
                         }*/
-
                       tts!!.speak(response.message, TextToSpeech.QUEUE_ADD, null, "DEFAULT")
                     }
 
@@ -272,7 +279,7 @@ class Street : AppCompatActivity() {
             "names" to getValue(this,"username").toString(),
             "address" to getValue(this,"address").toString(),
             "customerPhoneNumber" to "",
-            "description" to messageBoxViewClamp.ed_reason.text.toString(),
+            "description" to description,
             "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, parking,object : CallBack {
@@ -403,6 +410,61 @@ class Street : AppCompatActivity() {
         })
     }
 
+    private fun getClampReasons (){
+
+        val formData = listOf(
+            "function" to "getClampReasons",
+        )
+        executeRequest(formData, parking,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+                        for (data in response.data.clampreasons) {
+                            arrayListReasons.add(data.reason)
+                        }
+
+                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item, arrayListReasons)
+                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+                        messageBoxViewClamp.spinnerClamping.adapter = adapters
+
+                        messageBoxViewClamp.spinnerClamping.adapter = adapters
+                        messageBoxViewClamp.spinnerClamping.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
+                                val clampReasons = response.data.clampreasons
+                                if (clampReasons.size > postion) {
+                                    val reason = clampReasons[postion].reason
+
+                                    description = reason
+
+                                    // Check if street is not null before calling setDescription
+
+                                } else {
+                                    // Handle the case where clampreasons or clampreasons.size is null or invalid
+                                }
+                            }
+
+                            override fun onNothingSelected(p0: AdapterView<*>?) {
+                            }
+                        }
+                    }
+
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@Street,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@Street,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+    }
     private fun getIncomeTypes (){
 
         val formData = listOf(
@@ -545,9 +607,9 @@ class Street : AppCompatActivity() {
                     checkPayment = false
 
                     if (showTimeout){
-                        tv_message.text =""
+                       /* tv_message.text =""
                         tvSendPush.visibility = View.VISIBLE
-                        tvSendPushDisabled.visibility = View.GONE
+                        tvSendPushDisabled.visibility = View.GONE*/
 
                         messageBoxInstance.dismiss()
                         // Check if messageBoxInstanceFailed has been initialized before trying to dismiss it
@@ -592,9 +654,9 @@ class Street : AppCompatActivity() {
 
                 } else {
                     runOnUiThread {
-                        tvSendPush.visibility = View.VISIBLE
+                        /*tvSendPush.visibility = View.VISIBLE
                         tvSendPushDisabled.visibility = View.GONE
-                        tv_message.text = response.message
+                        tv_message.text = response.message*/
                     }
 
                 }
@@ -632,11 +694,10 @@ class Street : AppCompatActivity() {
 
                                 messageBoxInstance.dismiss()
 
-                                tvSendPush.visibility = View.VISIBLE
+                               /* tvSendPush.visibility = View.VISIBLE
                                 tvSendPushDisabled.visibility = View.GONE
-                                tv_message.text =
-                                    "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
-
+                                tv_message.text = "Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
+*/
                                 save(this@Street, "description", edPlate.text.toString())
                                 save(
                                     this@Street,
@@ -676,7 +737,7 @@ class Street : AppCompatActivity() {
 
                             if(checkPayment){
                                 runOnUiThread {
-                                    tv_message.text = "Waiting for payment.."
+                                 //   tv_message.text = "Waiting for payment.."
                                     (messageBoxView as View?)!!.tv_message.text = "Waiting for payment.."
 
                                 }
@@ -688,9 +749,9 @@ class Street : AppCompatActivity() {
                         else {
                             runOnUiThread {
                                 messageBoxInstance.dismiss()
-                                tv_message.text = response.data.push.message
-                                tvSendPush.visibility = View.VISIBLE
-                                tvSendPushDisabled.visibility = View.GONE
+                              //  tv_message.text = response.data.push.message
+                             //   tvSendPush.visibility = View.VISIBLE
+                            //    tvSendPushDisabled.visibility = View.GONE
                                 showMessageBoxPaymentFail(response.data.push.message,accountReference,payBillNumber,amount)
 
                             }
@@ -698,7 +759,7 @@ class Street : AppCompatActivity() {
 
                     } else {
                         if(checkPayment){
-                            runOnUiThread { tv_message.text = "Waiting for payment.." }
+                          //  runOnUiThread { tv_message.text = "Waiting for payment.." }
                             TimeUnit.SECONDS.sleep(3L)
                             checkPayment(accountReference,payBillNumber,amount)
                         }
@@ -714,7 +775,7 @@ class Street : AppCompatActivity() {
         }
 
     }
-    private fun showMessageBoxPay(amount: String,accNo: String) {
+    private fun showMessageBoxPay(amount: String,accNo: String,payBillNumber: String) {
         showTimeout = false
         // Check if messageBoxView has a parent
         if (messageBoxViewPay.parent != null) {
@@ -730,7 +791,7 @@ class Street : AppCompatActivity() {
             showMessageBox()
             customerPayBillOnline(
                 accNo,
-                "440112",
+                payBillNumber,
                 amount
             )
         }

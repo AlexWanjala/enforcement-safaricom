@@ -14,6 +14,7 @@ import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
 import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
@@ -60,7 +62,7 @@ import com.aw.forcement.sbp.application.BusinessOwner
 import com.aw.forcement.sbp.application.Businesses
 import com.aw.forcement.sbp.applications.Applications
 import com.aw.forcement.sbp.datacollections.CollectionsSBP
-import com.aw.forcement.vet.movement.MovementFees
+import com.aw.forcement.parks.ParkFees
 import com.aw.forcement.vet.slaughter.SlaughterFees
 import com.aw.forcement.vet.vet.VetFees
 import com.google.android.material.navigation.NavigationView
@@ -87,6 +89,9 @@ import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_act
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_approval
 import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_declined
 import kotlinx.android.synthetic.main.bottom_sheet_vet_services.*
+import android.content.res.Resources
+import android.util.DisplayMetrics
+import com.aw.forcement.vet.movement.MovementFees
 
 
 class Home : AppCompatActivity() {
@@ -100,10 +105,34 @@ class Home : AppCompatActivity() {
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
 
+
+
+    fun generateDrawableUrl(drawableName: String): String {
+        val densityDpi = Resources.getSystem().displayMetrics.densityDpi
+
+        val drawableBucket = when {
+            densityDpi <= DisplayMetrics.DENSITY_LOW -> "drawable-ldpi"
+            densityDpi <= DisplayMetrics.DENSITY_MEDIUM -> "drawable-mdpi"
+            densityDpi <= DisplayMetrics.DENSITY_HIGH -> "drawable-hdpi"
+            densityDpi <= DisplayMetrics.DENSITY_XHIGH -> "drawable-xhdpi"
+            densityDpi <= DisplayMetrics.DENSITY_XXHIGH -> "drawable-xxhdpi"
+            else -> "drawable-xxxhdpi"
+        }
+
+        return "https://api.craftcollect.africa/homabay/assets/$drawableBucket/$drawableName"
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.S)
      override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page_home)
          AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
+        // Example usage:
+        val fishUrl = generateDrawableUrl("fish.png")
+       // println(fishUrl)
 
         /* val formatter = SimpleDateFormat("yyyy-MM-dd")
          val date = formatter.format(Date())
@@ -113,6 +142,20 @@ class Home : AppCompatActivity() {
              btn_change_zone
          }
 */
+
+         val bluetoothScanPermission = Manifest.permission.BLUETOOTH_SCAN
+         val requestCodeBluetoothScan = 1 // You can choose any request code
+
+         if (ContextCompat.checkSelfPermission(this, bluetoothScanPermission) != PackageManager.PERMISSION_GRANTED) {
+
+             // Request the permission
+             ActivityCompat.requestPermissions(this,
+                 arrayOf(bluetoothScanPermission),
+                 requestCodeBluetoothScan)
+         } else {
+             // Permission already granted, perform Bluetooth operations
+            // startBluetoothDiscovery()
+         }
 
 
          btn_change_zone.setOnClickListener {  startActivity(Intent(this, SelectZone::class.java)) }
@@ -128,7 +171,13 @@ class Home : AppCompatActivity() {
         val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
         val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
 
-        nameTag.text = getValue(this,"username").toString()[0].toString()+ getValue(this,"username").toString()[1].toString()
+        val username = getValue(this, "username")?.toString()
+
+        if (!username.isNullOrEmpty() && username.length >= 2) {
+            nameTag.text = username[0].toString() + username[1].toString()
+        }
+
+
         tvName.text = "Hello "+getValue(this,"username").toString()
         name.text = getValue(this,"username").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
         tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
@@ -221,6 +270,9 @@ class Home : AppCompatActivity() {
         clamping_module.setOnClickListener {
             startActivity(Intent(this, ClampingModule::class.java))
         }
+         //Fish
+         fish_module.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","FISHCESS")) }
+         park_module.setOnClickListener { startActivity(Intent(this, ParkFees::class.java).putExtra("incomeTypePrefix","FISHCESS")) }
 
         profile.setOnClickListener {  startActivity(Intent(this, Profile::class.java))
             finish()}
@@ -288,7 +340,9 @@ class Home : AppCompatActivity() {
          fl_live_stock_licencing.visibility = View.GONE
          fl_stock_market_fees.setOnClickListener { startActivity(Intent(this, StockMarketFees::class.java))}
          fl_slaughter.setOnClickListener { startActivity(Intent(this, SlaughterFees::class.java)) }
+
          fl_vet_and_health_hub.setOnClickListener { startActivity(Intent(this, VetFees::class.java)) }
+
          fl_live_stock.setOnClickListener { startActivity(Intent(this, MovementFees::class.java)) }
 
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
@@ -756,5 +810,7 @@ class Home : AppCompatActivity() {
         }
 
     }
+
+
 
 }

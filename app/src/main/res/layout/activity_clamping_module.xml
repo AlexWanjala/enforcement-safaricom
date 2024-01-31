@@ -47,7 +47,7 @@ app:layout_constraintRight_toRightOf="parent">
 
         <RadioButton
             android:textSize="10sp"
-            android:id="@+id/radio_collections"
+            android:id="@+id/radio_tobe_clamped"
             android:gravity="center"
             android:fontFamily="@font/montserrat"
             android:layout_weight="1"
@@ -61,7 +61,7 @@ app:layout_constraintRight_toRightOf="parent">
 
         <RadioButton
             android:textSize="10sp"
-            android:id="@+id/radio_inspection"
+            android:id="@+id/radio_tobe_unclamped"
             android:gravity="center"
             android:fontFamily="@font/montserrat"
             android:layout_weight="1"
@@ -75,7 +75,7 @@ app:layout_constraintRight_toRightOf="parent">
 
         <RadioButton
             android:textSize="10sp"
-            android:id="@+id/radio_enforcement"
+            android:id="@+id/radio_clamped"
             android:gravity="center"
             android:fontFamily="@font/montserrat"
             android:layout_weight="1"

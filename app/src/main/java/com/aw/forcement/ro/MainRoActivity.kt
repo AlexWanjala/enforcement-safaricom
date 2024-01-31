@@ -59,7 +59,15 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val name = navigationView.getHeaderView(0).findViewById<TextView>(R.id.name)
         val tv_des = navigationView.getHeaderView(0).findViewById<TextView>(R.id.tv_des)
         //set the text of the nameTag TextView
-        nameTag.text = getValue(this,"username").toString()[0].toString()+ getValue(this,"username").toString()[1].toString()
+
+        val username = getValue(this, "username")?.toString()
+
+        if (!username.isNullOrEmpty() && username.length >= 2) {
+            nameTag.text = username[0].toString() + username[1].toString()
+        }
+
+     
+
         tvName.text = "Hello "+getValue(this,"username").toString()
         name.text = getValue(this,"username").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
         tv_des.text = getValue(this,"category").toString().toLowerCase().split(" ").joinToString(" ") { it.capitalize() }
@@ -81,11 +89,11 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         collectionOverview()
         tv_overview.text ="Here is an Overview for "+ getValue(this,"subCountyName")!!.toLowerCase() +" Sub County"
 
-        radio_active.setOnClickListener {  getUsersBySubCounty("Active") }
-        radio_inactive.setOnClickListener {  getUsersBySubCounty("Inactive") }
-        radio_logged_out.setOnClickListener {  getUsersBySubCounty("Logged Out") }
+        radio_active.setOnClickListener {  getUsersMonitoring("Active") }
+        radio_inactive.setOnClickListener {  getUsersMonitoring("inactive") }
+        radio_logged_out.setOnClickListener {  getUsersMonitoring("dormant") }
 
-        getUsersBySubCounty("Inactive")
+        getUsersMonitoring("inactive")
 
 
 
@@ -211,28 +219,31 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     }
     override fun onResume() {
         try {
-            if(getValue(this,"getUsersBySubCounty").toString().isNotEmpty()){
-                updateUserUI(getValue(this,"getUsersBySubCounty").toString(), getValue(this,"status").toString())
+            if(getValue(this,"getUsersMonitoring").toString().isNotEmpty()){
+                updateUserUI(getValue(this,"getUsersMonitoring").toString(), getValue(this,"status").toString())
             }
         }catch (ex: Exception ){
-            save(this,"getUsersBySubCounty","")
+            save(this,"getUsersMonitoring","")
         }
 
 
         super.onResume()
     }
-    private fun getUsersBySubCounty (status: String){
+    private fun getUsersMonitoring (status: String){
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(
-            "function" to "getUsersBySubCounty",
+            "function" to "getUsersMonitoring",
+            "page" to "1",
+            "rows_per_page" to "20",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
-            "status" to  status,
+            "userStatus" to  status,
             "deviceId" to getDeviceIdNumber(this)
+
         )
         executeRequest(formData, authentication,object : CallBack {
             override fun onSuccess(result: String?) {
                 runOnUiThread {   progress_circular.visibility = View.GONE }
-                save(this@MainRoActivity,"getUsersBySubCounty",result)
+                save(this@MainRoActivity,"getUsersMonitoring",result)
                 save(this@MainRoActivity,"status",status)
                 if (result != null) {
                     updateUserUI(result,status)
@@ -246,6 +257,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
         })
     }
+
     fun updateUserUI(result: String,status: String){
         val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
         runOnUiThread { recyclerView3.adapter = null }
@@ -256,17 +268,18 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     radio_active.text =status+" (${response.data.users.size})"
                 }
 
-                if (status === "Inactive") {
+                if (status === "inactive") {
                     radio_inactive.text =status+" (${response.data.users.size})"
                 }
 
-                if (status === "Logged Out") {
+                if (status === "dormant") {
                     radio_logged_out.text =status+" (${response.data.users.size})"
                 }
                 adapter.notifyDataSetChanged()
                 recyclerView3.layoutManager = LinearLayoutManager(this@MainRoActivity)
                 recyclerView3.adapter = adapter
                 recyclerView3.setHasFixedSize(false)
+
             }
 
         }else{

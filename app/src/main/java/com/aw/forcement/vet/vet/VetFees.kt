@@ -239,6 +239,7 @@ class VetFees : AppCompatActivity() {
                                 edQuantity.addTextChangedListener { text ->
                                     // Retrieve the position for the corresponding spinnerFeeAndCharges
                                     val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+                                    //UPDATE `entries` SET code ='2' WHERE `billNo`='BLL0124114145594'
 
                                     // Check if the position exists in the map
                                     if (position != null) {

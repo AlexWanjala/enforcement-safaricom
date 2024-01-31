@@ -22,6 +22,8 @@ import kotlinx.android.synthetic.main.progressbar.*
 import kotlinx.android.synthetic.main.recycler_view.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
+import java.text.DecimalFormatSymbols
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -179,14 +181,25 @@ class TotalCountyCollection : AppCompatActivity() {
     }
 
     private fun calculateProgress(collected: Int, target: Int): Double {
-        if(target==0){
+        if (target == 0) {
             return 0.0
         }
+
         val progress = (collected.toDouble() / target.toDouble()) * 100
-        val decFormat = DecimalFormat("#,##0.00")
+        val decFormat = DecimalFormat("#,##0.00", DecimalFormatSymbols(Locale.US))
         decFormat.roundingMode = RoundingMode.HALF_UP
-        return decFormat.format(progress).toDouble()
+
+        // Remove grouping separator and parse the formatted string
+        val formattedProgress = decFormat.format(progress)
+        val parsedProgress = try {
+            decFormat.parse(formattedProgress)?.toDouble() ?: 0.0
+        } catch (e: ParseException) {
+            0.0
+        }
+
+        return parsedProgress
     }
+
 
     override fun onResume() {
         try {

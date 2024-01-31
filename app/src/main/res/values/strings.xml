@@ -122,7 +122,7 @@
     <string name="paid_by">Paid By</string>
     <string name="clamp_vehicle">CLAMP VEHICLE</string>
     <string name="clamp_vehicle_">Enter reason for clamping the vehicle.</string>
-    <string name="clamp">CLAMP</string>
+    <string name="clamp">Initiate Clamping</string>
     <string name="close">CLOSE</string>
 
     <string name="cess_details">Cess Details</string>
@@ -214,12 +214,13 @@
     <string name="acc_ref">Ref No.</string>
     <string name="date">Date</string>
     <string name="date_paid">Date paid</string>
-    <string name="last">last checkpoint</string>
+    <string name="last">Zone/ last checkpoint</string>
     <string name="status">Status</string>
     <string name="phone">MPESA Phone Number</string>
     <string name="cess_item">Fees and charges</string>
     <string name="cessable"> Cessable Quantity Range</string>
     <string name="psv">PSV Type</string>
+    <string name="expiry">Expiry</string>
     <string name="total_amount">Total Amount</string>
     <string name="payment_desc">Enter the cutsomer\'s phone number to send the, a payment request for the above bill</string>
     <string name="mpesa_">Mpesa Phone Number</string>
@@ -227,6 +228,7 @@
     <string name="phone_number_hint">Enter phone Number i.e 07..</string>
     <string name="phone_number_hint_2">Enter second phone Number i.e 07..</string>
     <string name="send_payment">SEND PAYMENT REQUEST</string>
+
     <string name="business_information">Business information</string>
     <string name="certificate_of_incorporation">Certificate of incorporation</string>
     <string name="vat_number">VAT Number</string>
@@ -265,6 +267,8 @@
     <string name="print_invoice">Print Invoice</string>
     <string name="toilet">Toilet</string>
     <string name="toilet_des">Charge for toiled fee</string>
+    <string name="fish_cess">Fish Cess</string>
+    <string name="fish_cess_desc">Fishermen are taxed per kilogram on their lake catches.</string>
     <string name="allocated_zone">Allocated Zone,</string>
     <string name="verify">Verify</string>
     <string name="manual_entry">Manual Entry</string>
@@ -290,7 +294,7 @@
     <string name="logins">logins:</string>
     <string name="view_all">View All</string>
     <string name="inactive">Inactive</string>
-    <string name="logged_out">Logged Out</string>
+    <string name="logged_out">Dormant</string>
     <string name="my_account_">My Account</string>
     <string name="transactions">Transactions</string>
     <string name="revenue_agent">Revenue Agents Logs</string>
@@ -479,7 +483,7 @@
     <string name="liquor_">Is Liquor License Applicable to the Business</string>
     <string name="conservancy_">Is Conservancy Fee Applicable</string>
     <string name="clamp_des">Clamp this car</string>
-    <string name="clamp_hint">Enter reason for clamping</string>
+    <string name="clamp_hint">Reason for clamping</string>
     <string name="business_type">Business Type</string>
     <string name="list_of_data">List of Businesses</string>
     <string name="transaction_timeout">Mpesa Transaction Timeout</string>
@@ -517,5 +521,9 @@
     <string name="buyer_id">Buyer\'s ID No.</string>
     <string name="assistant_chief">Assistant Chief</string>
     <string name="Chief">Chief</string>
+    <string name="clamping_message">If the customer doesn\'t pay within 15 minutes after we send them the information, then clamping fees will be applicable.</string>
+    <string name="ring">Market/cattle ring</string>
+    <string name="park">Park Fee</string>
+    <string name="park_des">Pay for entries fee and services</string>
 
 </resources>

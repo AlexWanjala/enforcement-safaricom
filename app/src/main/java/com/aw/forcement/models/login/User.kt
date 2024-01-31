@@ -35,5 +35,7 @@ data class User (
 	@SerializedName("status") val status : String,
 	@SerializedName("target") val target : String,
 	@SerializedName("permission") val permission : String,
+	@SerializedName("code") val code : String,
 
-)
+
+	)

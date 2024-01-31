@@ -25,5 +25,6 @@ data class Transactions (
 	@SerializedName("date") val date : String,
 	@SerializedName("names") val names : String,
 	@SerializedName("verified") val verified : Boolean,
-	@SerializedName("verifiedBy") val verifiedBy : String
+	@SerializedName("verifiedBy") val verifiedBy : String,
+	@SerializedName("code") val code : String,
 )

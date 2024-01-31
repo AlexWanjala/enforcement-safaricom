@@ -56,7 +56,7 @@
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
                 android:textStyle="bold"
-                android:text="@string/slaughter_house"
+                android:text="@string/ring"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

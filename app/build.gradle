@@ -23,8 +23,8 @@ android {
         applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 105
-        versionName "105"
+        versionCode 123
+        versionName "123"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -62,7 +62,7 @@ android {
             dimension "entity"
             applicationIdSuffix ".elgeyo"
             versionNameSuffix "-elgeyo"
-            resValue "string", "app_name", "Elgeyo Revenue"
+            resValue "string", "app_name", "Elgeyo Marakwet"
             buildConfigField "String", 'version_code', '"1.1"'
             resValue "string", "icon_name", "@drawable/county_logo_elgeyo"
             buildConfigField "String", "URL", '"https://api.elgeyomarakwet.go.ke/"'
@@ -75,7 +75,7 @@ android {
             resValue "string", "app_name", "kisumu Revenue"
             buildConfigField "String", 'version_code', '"1.1"'
             resValue "string", "icon_name", "@drawable/county_kisumu"
-            buildConfigField "String", "URL", '"https://api.kisumu.go.ke/"'
+            buildConfigField "String", "URL", '"https://api.revrms.co.ke/"'
 
         }
         nairobi {

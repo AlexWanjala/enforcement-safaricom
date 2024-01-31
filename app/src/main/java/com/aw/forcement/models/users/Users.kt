@@ -1,7 +1,7 @@
 import com.google.gson.annotations.SerializedName
 
 /*
-Copyright (c) 2023 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
+Copyright (c) 2024 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
@@ -13,6 +13,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 
 data class Users (
+
 	@SerializedName("id") val id : Int,
 	@SerializedName("names") val names : String,
 	@SerializedName("gender") val gender : String,
@@ -25,7 +26,7 @@ data class Users (
 	@SerializedName("zone") val zone : String,
 	@SerializedName("subCountyID") val subCountyID : String,
 	@SerializedName("subCountyName") val subCountyName : String,
-	@SerializedName("wardID") val wardID :  String,
+	@SerializedName("wardID") val wardID : String,
 	@SerializedName("wardName") val wardName : String,
 	@SerializedName("lat") val lat : String,
 	@SerializedName("lng") val lng : String,
@@ -34,9 +35,25 @@ data class Users (
 	@SerializedName("status") val status : String,
 	@SerializedName("des") val des : String,
 	@SerializedName("target") val target : String,
-	@SerializedName("idNNumber") val idNNumber : String,
-	@SerializedName("logins") val logins : String,
-	@SerializedName("transactions") val transactions : String,
-	@SerializedName("inspections") val inspections : String,
-	@SerializedName("amount") val amount : String,
+	@SerializedName("permission") val permission : String,
+	@SerializedName("dailyTargets") val dailyTargets : String,
+	@SerializedName("monthlyTargets") val monthlyTargets : String,
+	@SerializedName("financialYearTargets") val financialYearTargets : String,
+	@SerializedName("createdBy") val createdBy : String,
+	@SerializedName("deviceId") val deviceId : String,
+	@SerializedName("login") val login : String,
+	@SerializedName("logTime") val logTime : String,
+	@SerializedName("logoutTime") val logoutTime : String,
+	@SerializedName("IMEI") val iMEI : String,
+	@SerializedName("userStatus") val userStatus : String,
+	@SerializedName("updatedTime") val updatedTime : String,
+	@SerializedName("logCount") val logCount : String,
+	@SerializedName("transactionCount") val transactionCount : String,
+	@SerializedName("inspection") val inspection : String,
+	@SerializedName("inspectionValue") val inspectionValue : String,
+	@SerializedName("performance") val performance : String,
+	@SerializedName("collectionValue") val collectionValue : String,
+	@SerializedName("performanceVerdict") val performanceVerdict : String,
+	@SerializedName("idleMinutes") val idleMinutes : String,
+	@SerializedName("code") val code : String
 )
