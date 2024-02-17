@@ -111,7 +111,7 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 						dialog.dismiss()
 						val formData = listOf(
 							"function" to "updateTransactionStatus",
-							"transaction_code" to  list.transaction_code,
+							"billNo" to  list.account_ref,
 						)
 
 						val handler = Handler(context.mainLooper)

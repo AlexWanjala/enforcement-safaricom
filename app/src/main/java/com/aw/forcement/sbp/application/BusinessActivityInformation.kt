@@ -60,8 +60,8 @@ class BusinessActivityInformation : AppCompatActivity() {
 
 
             } else {
-                save(this,"lat","")
-                save(this,"lng","")
+                save(this,"lat",getValue(this, "latitude").toString())
+                save(this,"lng",getValue(this, "longitude").toString())
 
             }
         }

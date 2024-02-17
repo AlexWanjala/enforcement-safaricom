@@ -87,10 +87,11 @@ interface CallBack {
 fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback: CallBack) {
     var retryNumber = 0
     fun process(){
+
         FuelManager.instance.socketFactory = SSLSocketFactory.getDefault() as SSLSocketFactory
         FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
         Fuel.post(URL+stream, formData)
-            .timeout(1000)
+            .timeout(120000)
             .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
             .responseString {request, response, result ->
                 println("##Request$request")
@@ -103,7 +104,7 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
                 result.failure {
                     Thread.sleep(3000)
                     retryNumber++
-                    if(retryNumber<5){
+                    if(retryNumber<200){
                         process()
                     }else{
 
@@ -137,7 +138,7 @@ fun executePaysolRequest(formData: List<Pair<String, String>>, stream:String, ca
     FuelManager.instance.hostnameVerifier = HostnameVerifier { _, _ -> true }
 
     Fuel.post(paysol, formData)
-        .timeout(0)
+        .timeout(15000)
         .authentication().bearer("MTVlNmJkNDE1NWZiNDBiZTZlZTVmNjMwZDg5ZmNkMTU1NTRiOTM2MDBlY2U2ZmI2YjUwNGE4MWRmOWJjYTFkZA==")
         .responseString { request, response, result ->
             println("##Request$request")

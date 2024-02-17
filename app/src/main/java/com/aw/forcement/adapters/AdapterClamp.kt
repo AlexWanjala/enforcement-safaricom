@@ -1,21 +1,20 @@
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.ParseException
 import android.net.Uri
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
 import com.aw.forcement.others.ReceiptDetails
 import com.aw.forcement.sbp.applications.ApplicationsDetail
-import com.aw.passanger.api.getValue
+import com.aw.passanger.api.*
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -39,6 +38,7 @@ class AdapterClamp(private val context: Context, mList: List<Clamped>) :
 		var tv_street: TextView = itemView.findViewById<View>(R.id.tv_street) as TextView
 		var tv_time: TextView = itemView.findViewById<View>(R.id.tv_time) as TextView
 		var tv_no: TextView = itemView.findViewById<View>(R.id.tv_no) as TextView
+		var btn_tow: TextView = itemView.findViewById<View>(R.id.btnTow) as Button
 
 	}
 
@@ -58,6 +58,50 @@ class AdapterClamp(private val context: Context, mList: List<Clamped>) :
 		}else{
 			holder.layoutView.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
+		}
+
+
+
+		if(list.clampedStatus=="TOWED"){
+			holder.btn_tow.visibility = View.GONE
+		}
+
+		holder.btn_tow.setOnClickListener {
+
+			val builder = AlertDialog.Builder(context)
+			builder.setTitle("Tow "+ list.numberPlate)
+			builder.setMessage("Confirm towing ${list.numberPlate}")
+			builder.setNeutralButton("Tow Now") { dialog, which ->
+				dialog.dismiss()
+				val formData = listOf(
+					"function" to "towVehicle",
+					"id" to  list.id.toString(),
+				)
+
+				val handler = Handler(context.mainLooper)
+
+				executeRequest(formData, parking,object : CallBack {
+					override fun onSuccess(result: String?) {
+
+						handler.post {
+							Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+						}
+					}
+					override fun onFailure(result: String?) {
+
+						handler.post {
+							Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+						}
+
+					}
+
+				})
+			}
+			builder.setNegativeButton(android.R.string.no) { dialog, which ->
+				dialog.dismiss()
+			}
+
+			builder.show()
 		}
 		holder.tv_number_plate.text = list.numberPlate
 		holder.tv_category.text = list.feeDescription

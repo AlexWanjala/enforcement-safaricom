@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement.kisumu",
+  "variantName": "kisumuRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 128,
+      "versionName": "128-kisumu",
+      "outputFile": "app-kisumu-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

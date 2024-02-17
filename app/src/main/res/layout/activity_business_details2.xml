@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sbp.application.BusinessOwner">
+
+
+    <LinearLayout
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:padding="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/new_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="@color/circle_color"
+                    android:textAllCaps="true"
+                    android:text="@string/business_owner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginStart="10sp"
+                    android:layout_gravity="center"
+                    android:background="@color/circle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/full_names"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_full_names"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/id_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_id_no"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/phone_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_phone_number"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_email"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/kra_pin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_kra_pin"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="@color/circle_color"
+                    android:textAllCaps="true"
+                    android:text="@string/business_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginStart="10sp"
+                    android:layout_gravity="center"
+                    android:background="@color/circle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/business_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_name"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/business_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_category"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/business_sub_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_sub_category"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/business_activity"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_activity"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        android:layout_width="150dp"
+                        tools:text="@string/business_name"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/sub_county"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_sub_county"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/ward"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_ward"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/physical_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_physical_address"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#FFFFFF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/plot_no"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_plot_no"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        android:layout_width="150dp"
+                        tools:text="@string/business_name"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+                <FrameLayout
+
+                    android:padding="10dp"
+                    android:background="#F4F4F4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_gravity="left"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="@string/business_ID"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_business_ID"
+                        android:layout_gravity="right"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textSize="10dp"
+                        android:textColor="@color/circle_color"
+                        android:textAllCaps="true"
+                        tools:text="@string/business_name"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:drawableTint="@color/grey"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_fill_primary"
+                android:id="@+id/btn_next"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:text="@string/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:backgroundTint="@color/circle_color"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_outline_white"
+                android:id="@+id/btn_previous"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/circle_color"
+                android:text="@string/previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

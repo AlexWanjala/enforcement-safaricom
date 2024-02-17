@@ -173,7 +173,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
             feesAndCharges.phoneNumber = getValue(this, "phoneNumber").toString()
             feesAndCharges.names = getValue(this, "names").toString()
             feesAndCharges.customerPhoneNumber = edPhone.text.toString()
-            feesAndCharges.description = "Seller: ${feesAndCharges.sellerName}, Seller ID No: ${feesAndCharges.sellerID}, Buyer: ${feesAndCharges.buyerName}, Buyer ID: ${feesAndCharges.buyerID}, Assistant Chief: ${feesAndCharges.assistanceChief}, Chief: ${feesAndCharges.chief}, Location: ${feesAndCharges.location}"
+            feesAndCharges.description = "Seller: ${feesAndCharges.sellerName}, Seller ID No: ${feesAndCharges.sellerID}, Buyer: ${feesAndCharges.buyerName}, Buyer ID: ${feesAndCharges.buyerID}, Assistant Chief: ${feesAndCharges.assistanceChief}, Chief: ${feesAndCharges.chief}, Location: ${feesAndCharges.location}, Purchase Price: ${feesAndCharges.purchasePrice}, Stock Des: ${feesAndCharges.stockDes}"
 
         }
 
@@ -191,7 +191,7 @@ class StockMarketFeesSummary : AppCompatActivity() {
             "Generating bill please wait.."
 
         val formData = listOf(
-            "function" to "generateBill3",
+            "function" to "generateBillQue",
             "billItem" to getJson(),
             "deviceId" to getDeviceIdNumber(this)
         )

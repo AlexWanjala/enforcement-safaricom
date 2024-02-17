@@ -92,6 +92,7 @@ import kotlinx.android.synthetic.main.bottom_sheet_vet_services.*
 import android.content.res.Resources
 import android.util.DisplayMetrics
 import com.aw.forcement.vet.movement.MovementFees
+import kotlinx.android.synthetic.main.buttom_sheet_fire.*
 
 
 class Home : AppCompatActivity() {
@@ -101,6 +102,7 @@ class Home : AppCompatActivity() {
      private lateinit var bottomSheetLayoutFine: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbpDataCollection: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorFire: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorLivestock: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
@@ -188,7 +190,7 @@ class Home : AppCompatActivity() {
             finishAffinity()
         }
 
-         val category = getValue(this,"category")
+        val category = getValue(this,"category")
 
          if(BuildConfig.FLAVOR==="kisumu"){
 
@@ -314,10 +316,17 @@ class Home : AppCompatActivity() {
              save(this,"header","Active Businesses")
              startActivity(Intent(this, DataCollection::class.java))
          }
-
          fl_data_collections.setOnClickListener {
              startActivity(Intent(this, CollectionsSBP::class.java))
          }
+
+
+        //Fire Service
+        fire_module.setOnClickListener { toggleBottomSheetFire() }
+        fl_fire_invoice.setOnClickListener {
+            startActivity(Intent(this, SearchForBusiness::class.java))
+        }
+        fl_pending_invoice.setOnClickListener {  }
 
 
          //Fines and Penaltie
@@ -361,6 +370,7 @@ class Home : AppCompatActivity() {
          bottomSheetBehaviorContact = BottomSheetBehavior.from(bottomSheetLayoutContact)
          bottomSheetBehaviorLivestock = BottomSheetBehavior.from(bottomSheetLayoutVeterinary)
          bottomSheetBehaviorSbpDataCollection = BottomSheetBehavior.from(bottomSheetLayoutDataCollection)
+         bottomSheetBehaviorFire = BottomSheetBehavior.from(bottomSheetFire)
 
 
        // business.setOnClickListener { toggleBottomSheet("business") }
@@ -375,6 +385,7 @@ class Home : AppCompatActivity() {
          closeBottom.setOnClickListener {   bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbpData.setOnClickListener {   bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomFire.setOnClickListener {   bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_COLLAPSED }
         //streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
         // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
@@ -433,6 +444,15 @@ class Home : AppCompatActivity() {
             bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
             bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+    private fun toggleBottomSheetFire(){
+
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
     }

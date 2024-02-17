@@ -976,7 +976,7 @@
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/cow" />
+                                android:src="@drawable/lion" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1001,6 +1001,98 @@
 
 
                         </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20sp"
+                        android:visibility="visible"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:id="@+id/fire_module"
+                            android:layout_width="0dp"
+                            android:layout_height="177dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="10sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_fill_white"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/fire_icon" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/fire_levies"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="140dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/fire_levies_des"
+                                android:textColor="@color/black"
+                                android:textSize="9sp" />
+
+
+                        </LinearLayout>
+
+                      <!--  <LinearLayout
+                            android:id="@+id/park_module"
+                            android:layout_width="0dp"
+                            android:layout_height="177dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="10sp"
+                            android:layout_marginEnd="10sp"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_fill_white"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/lion" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/park"
+                                android:textColor="@color/black"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="140dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:fontFamily="@font/montserrat"
+                                android:text="@string/park_des"
+                                android:textColor="@color/black"
+                                android:textSize="9sp" />
+
+
+                        </LinearLayout>-->
 
 
                     </LinearLayout>
@@ -1034,6 +1126,7 @@
         <include layout="@layout/bottom_sheet_fines_penalties"/>
         <include layout="@layout/bottom_sheet_sbp_data"/>
         <include layout="@layout/bottom_sheet_vet_services"/>
+        <include layout="@layout/buttom_sheet_fire"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

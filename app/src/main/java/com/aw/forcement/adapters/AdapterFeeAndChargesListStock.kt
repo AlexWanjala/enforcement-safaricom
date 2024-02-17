@@ -38,6 +38,8 @@ class AdapterFeeAndChargesListStock(private val context: Context, mList: Mutable
 		var tv_assistant_chief: TextView = itemView.findViewById<View>(R.id.tv_assistant_chief) as TextView
 		var tv_chief: TextView = itemView.findViewById<View>(R.id.tv_chief) as TextView
 		var tv_location: TextView = itemView.findViewById<View>(R.id.tv_location) as TextView
+		var tv_purchase_price: TextView = itemView.findViewById<View>(R.id.tv_purchase_price) as TextView
+		var tv_stock_des: TextView = itemView.findViewById<View>(R.id.tv_stock_des) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -62,10 +64,12 @@ class AdapterFeeAndChargesListStock(private val context: Context, mList: Mutable
 		holder.tv_seller_name.text = list.sellerName
 		holder.tv_seller_id.text = list.sellerID
 		holder.tv_buyer_name.text = list.buyerName
-		holder.tv_seller_id.text = list.buyerID
+		holder.tv_buyer_id.text = list.buyerID
 		holder.tv_assistant_chief.text = list.assistanceChief
 		holder.tv_chief.text = list.chief
 		holder.tv_location.text = list.location
+		holder.tv_purchase_price.text = "KES "+list.purchasePrice
+		holder.tv_stock_des.text = list.stockDes
 
 
 	}

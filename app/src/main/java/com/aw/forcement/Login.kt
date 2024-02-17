@@ -255,6 +255,7 @@ class Login : AppCompatActivity() {
 
     @RequiresApi(34)
     private fun login (){
+        tvMessage.text =""
         val versionCode = BuildConfig.VERSION_CODE
         progress_circular.visibility = View.VISIBLE
         val formData = listOf(

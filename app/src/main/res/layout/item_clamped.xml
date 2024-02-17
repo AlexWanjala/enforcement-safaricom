@@ -105,23 +105,30 @@
 
     <TextView
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="0.6"
         android:textAllCaps="true"
         android:id="@+id/tv_time"
         android:textColor="@color/black"
         android:fontFamily="@font/montserrat"
-        android:textSize="9sp"
+        android:textSize="5sp"
         android:textStyle="bold"
         android:text="3 Min Ago"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <ImageView
-        android:layout_weight="1"
+        android:layout_weight="0.1"
         android:id="@+id/img_call"
         android:src="@drawable/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnTow"
+        android:textSize="10sp"
+        android:text="@string/tow"
+        android:layout_width="60dp"
+        android:layout_height="40dp"/>
 
 
 </LinearLayout>

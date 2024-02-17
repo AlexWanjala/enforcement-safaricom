@@ -525,5 +525,25 @@
     <string name="ring">Market/cattle ring</string>
     <string name="park">Park Fee</string>
     <string name="park_des">Pay for entries fee and services</string>
+    <string name="purchase_price">Purchase Price</string>
+    <string name="stock_des">Stock Description</string>
+    <string name="tow">Tow</string>
+    <string name="towed">Towed</string>
+    <string name="create_fire">Create Fire Certificate Invoice</string>
+    <string name="create_fire_des">For a registered business or an already invoiced business</string>
+    <string name="pending_fire_cert">Pending Fire Cert. Invoices List</string>
+    <string name="pending_fire_cert_des">For a registered business or an already invoiced business</string>
+    <string name="fire_service">Fire Service Levies</string>
+    <string name="select_module">select Module</string>
+    <string name="fire_levies">Fire Service Levies</string>
+    <string name="fire_levies_des"> Streamlined collection to support fire services.</string>
+    <string name="search_for_business">Search For Business</string>
+    <string name="search_for_business_des">Search For Business</string>
+
+    <string name="point_note">Point To Note</string>
+    <string name="point_note_des">Please provide business details to invoice. Only registered or previously invoiced SBP businesses can be Invoiced for fire certificate. Request for either Business ID or SBP invoice number from the applicant.</string>
+    <string name="search_des_business">BusinessName/ Business ID or Invoice Number</string>
+    <string name="business_ID">Business ID</string>
+    <string name="title_activity_fire_safety_risk_assesment">FireSafetyRiskAssesment</string>
 
 </resources>

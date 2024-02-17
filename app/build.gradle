@@ -23,8 +23,8 @@ android {
         applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 123
-        versionName "123"
+        versionCode 136
+        versionName "136"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -88,6 +88,16 @@ android {
             buildConfigField "String", "URL", '"https://api.paysol.co.ke/rms/"'
 
         }
+        uasingishu {
+            dimension "entity"
+            applicationIdSuffix ".uasingishu"
+            versionNameSuffix "-uasingishu"
+            resValue "string", "app_name", "Uasin Ngishu"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://api.paysol.co.ke/v2/"'
+
+        }
     }
     android.variantFilter {
         variant ->
@@ -123,7 +133,6 @@ android {
     namespace 'com.aw.forcement'
 }
 
-
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.10.1'
@@ -150,6 +159,7 @@ dependencies {
     implementation 'com.dinuscxj:circleprogressbar:1.3.6'
     implementation 'com.google.android.gms:play-services-tasks:18.0.2'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
 
 
     //Add android.enableJetifier=true to gradle.properties

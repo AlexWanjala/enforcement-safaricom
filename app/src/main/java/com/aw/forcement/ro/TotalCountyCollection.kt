@@ -3,16 +3,20 @@ package com.aw.forcement.ro
 import Json4Kotlin_Base
 import SubCountyRevAdapter
 import android.app.DatePickerDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
 import com.aw.passanger.api.*
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_main_page.*
 import kotlinx.android.synthetic.main.activity_my_history.*
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_from
 import kotlinx.android.synthetic.main.activity_my_history.tv_date_to
@@ -35,6 +39,7 @@ class TotalCountyCollection : AppCompatActivity() {
     var dateTo =""
     var dateFrom =""
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_total_county_collection)
@@ -122,6 +127,14 @@ class TotalCountyCollection : AppCompatActivity() {
 
     private fun getSubCountiesRevenue (){
          progress_circular.visibility = View.VISIBLE
+       var  subCountyID =""
+        if(BuildConfig.FLAVOR==="meru"){
+            val category = getValue(this,"category")
+            if( category == "REVENUE OFFICER"){
+                subCountyID = getValue(this,"subCountyID").toString()
+            }
+        }
+
         val formData = listOf(
             "function" to "getSubCountiesRevenue",
             "keyword" to "",
@@ -129,7 +142,8 @@ class TotalCountyCollection : AppCompatActivity() {
             "rows_per_page" to "20",
             "dateFrom" to dateFrom,//2023-07-01
             "dateTo" to dateTo,//2023-08-10
-            "deviceId" to getDeviceIdNumber(this)
+            "deviceId" to getDeviceIdNumber(this),
+            "subCountyID" to subCountyID
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {

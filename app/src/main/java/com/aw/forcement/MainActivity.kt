@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private var printing : Printing? = null
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +38,6 @@ class MainActivity : AppCompatActivity() {
              initListeners()
 
     }
-
     private fun initListeners() {
         button_print.setOnClickListener {
 
@@ -193,6 +190,5 @@ class MainActivity : AppCompatActivity() {
                 printDetails()
         }
     }
-
 
 }

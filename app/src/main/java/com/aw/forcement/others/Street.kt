@@ -199,11 +199,12 @@ class Street : AppCompatActivity() {
                             tv_amount.setTextColor(Color.RED)
                             tv_amount.text = "KES "+response.data.parking.billBalance
 
-                            if(response.data.parking.status.equals("CLAMPED")){
+                            if(response.data.parking.status.equals("CLAMPED") || response.data.parking.status.equals("AREAS & PENALTY")){
                                 btnClamp.text = "PAY"
                                 btnClamp.setOnClickListener { showMessageBoxPay(response.data.parking.billBalance,response.data.parking.parkingCode,response.data.payBill.shortCode) }
 
                             }
+
 
                         }else{
 
@@ -877,8 +878,15 @@ class Street : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewFailed as View?
         )
-        messageBoxInstanceFailed = messageBoxBuilder.show()
-        messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
+        if (!isFinishing && !isDestroyed) {
+            messageBoxInstanceFailed = messageBoxBuilder.show()
+        }
+
+
+        // Check if initialized before using
+        if (::messageBoxInstanceFailed.isInitialized) {
+            messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
+        }
 
         if (message.contains("invalid")) {
             (messageBoxViewFailed as View?)!!.tv_title.text = "Wrong PIN"

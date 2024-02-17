@@ -44,7 +44,7 @@ class ParkFees : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movement)
+        setContentView(R.layout.activity_park)
 
         imageClose.setOnClickListener { finish() }
 

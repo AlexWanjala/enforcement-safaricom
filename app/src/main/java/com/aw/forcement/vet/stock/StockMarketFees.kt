@@ -185,6 +185,38 @@ class StockMarketFees : AppCompatActivity() {
                 }
             }
         }
+
+        ed_purchase_price.addTextChangedListener { text ->
+            // Retrieve the position for the corresponding spinnerFeeAndCharges
+            val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+            // Check if the position exists in the map
+            if (position != null) {
+                // Retrieve the FeesAndCharges object associated with the selected spinner
+                val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                // Check if the FeesAndCharges object exists
+                if (selectedFeesAndCharges != null) {
+                    // Update the quantity in the FeesAndCharges object
+                    selectedFeesAndCharges.purchasePrice = text.toString()
+                }
+            }
+        }
+
+        ed_stock_des.addTextChangedListener { text ->
+            // Retrieve the position for the corresponding spinnerFeeAndCharges
+            val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+            // Check if the position exists in the map
+            if (position != null) {
+                // Retrieve the FeesAndCharges object associated with the selected spinner
+                val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                // Check if the FeesAndCharges object exists
+                if (selectedFeesAndCharges != null) {
+                    // Update the quantity in the FeesAndCharges object
+                    selectedFeesAndCharges.stockDes = text.toString()
+                }
+            }
+        }
     }
     private fun addNewServiceLayout(parentLayout: LinearLayout) {
         // Increment the counter when adding a new service layout
@@ -201,6 +233,9 @@ class StockMarketFees : AppCompatActivity() {
         val edAssistantChief = newServiceLayout.findViewById<EditText>(R.id.ed_assistant_chief)
         val edChief = newServiceLayout.findViewById<EditText>(R.id.ed_chief)
         val edLocation = newServiceLayout.findViewById<EditText>(R.id.ed_location)
+        val edPurchasePrice = newServiceLayout.findViewById<EditText>(R.id.ed_purchase_price)
+        val edStockDes = newServiceLayout.findViewById<EditText>(R.id.ed_stock_des)
+
 
         edQuantity.addTextChangedListener { text ->
             // Retrieve the position for the corresponding spinnerFeeAndCharges
@@ -323,6 +358,36 @@ class StockMarketFees : AppCompatActivity() {
                 if (selectedFeesAndCharges != null) {
                     // Update the quantity in the FeesAndCharges object
                     selectedFeesAndCharges.location = text.toString()
+                }
+            }
+        }
+        edPurchasePrice.addTextChangedListener { text ->
+            // Retrieve the position for the corresponding spinnerFeeAndCharges
+            val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+            // Check if the position exists in the map
+            if (position != null) {
+                // Retrieve the FeesAndCharges object associated with the selected spinner
+                val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                // Check if the FeesAndCharges object exists
+                if (selectedFeesAndCharges != null) {
+                    // Update the quantity in the FeesAndCharges object
+                    selectedFeesAndCharges.purchasePrice = text.toString()
+                }
+            }
+        }
+        edStockDes.addTextChangedListener { text ->
+            // Retrieve the position for the corresponding spinnerFeeAndCharges
+            val position = selectedFeeAndPositionPosition[spinnerFeeAndCharges]
+            // Check if the position exists in the map
+            if (position != null) {
+                // Retrieve the FeesAndCharges object associated with the selected spinner
+                val selectedFeesAndCharges = selectedFeeAndCharges[spinnerFeeAndCharges]
+
+                // Check if the FeesAndCharges object exists
+                if (selectedFeesAndCharges != null) {
+                    // Update the quantity in the FeesAndCharges object
+                    selectedFeesAndCharges.stockDes = text.toString()
                 }
             }
         }

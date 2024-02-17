@@ -40,6 +40,11 @@ class ClampingModule : AppCompatActivity() {
             getClamped("")
         }
 
+        radio_towed.setOnClickListener {
+            save(this,"status","TOWED")
+            getClamped("")
+        }
+
 
 
         edSearch.addTextChangedListener(object : TextWatcher {

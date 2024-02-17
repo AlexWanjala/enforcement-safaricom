@@ -49,6 +49,11 @@ class Profile : AppCompatActivity() {
             finish()
         }
 
+        btn_changePassword.setOnClickListener {
+            startActivity(Intent(this,ChangePassword::class.java))
+            finish()
+        }
+
         imageHistory.setOnClickListener {
             startActivity(Intent(this,MyHistory::class.java))
             finish()

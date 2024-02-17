@@ -636,7 +636,11 @@ class StreetParking : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewFailed as View?
         )
-        messageBoxInstanceFailed = messageBoxBuilder.show()
+
+        if (!isFinishing && !isDestroyed) {
+            messageBoxInstanceFailed = messageBoxBuilder.show()
+        }
+
         messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
 
         if (message.contains("invalid")) {

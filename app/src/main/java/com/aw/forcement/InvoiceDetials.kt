@@ -308,7 +308,7 @@ class InvoiceDetials : AppCompatActivity() {
                 // .setNewLinesAfter(1)
                 .build())
 
-        val message2 ="\n\nFor: $description\nBillNo: $billNo\nAmount: KES $amount\nPayBillNo: $payBill\nDate: $humanDate\nPrinted By: $username at $zone\n"
+        val message2 ="\n\nFor: $description\nBillNo: $billNo\nAmount: KES $amount\nDate: $humanDate\nPrinted By: $username at $zone\n"
 
         val qr: Bitmap = QRCode.from(message2)
             .withSize(200, 200).bitmap()

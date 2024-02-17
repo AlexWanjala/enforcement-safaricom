@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sbp.application.BusinessOwner">
+
+
+    <LinearLayout
+        android:id="@+id/mainLinearLayoutLL"
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:padding="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/search_for_business"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+            android:fontFamily="@font/montserrat"
+            android:background="@drawable/bg_fill_disabled"
+            android:layout_marginTop="10dp"
+            android:padding="20dp"
+            android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="@string/point_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/point_note_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <TextView
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/star"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/montserrat"
+                android:textStyle="bold"
+                android:textColor="@color/labels"
+                android:textSize="15sp"
+                android:text="@string/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <EditText
+                android:id="@+id/ed_search"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:padding="15dp"
+                android:hint="@string/search_des_business"
+                android:background="@drawable/rectangle_background"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <include layout="@layout/recycler_view"/>
+
+
+            <Button
+                android:drawableTint="@color/grey"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_fill_primary"
+                android:id="@+id/btn_next"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="60dp"
+                android:text="@string/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:backgroundTint="@color/circle_color"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_outline_white"
+                android:id="@+id/btn_previous"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/circle_color"
+                android:text="@string/previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

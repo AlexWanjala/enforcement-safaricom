@@ -48,5 +48,7 @@ data class FeesAndCharges (
 	@SerializedName("assistanceChief") var assistanceChief: String,
 	@SerializedName("chief") var chief: String,
 	@SerializedName("location") var location: String,
+	@SerializedName("purchasePrice") var purchasePrice: String,
+	@SerializedName("stockDes") var stockDes: String,
 
 )
