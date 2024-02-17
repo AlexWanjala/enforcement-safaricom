@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_service_recommendation"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_item_number_recommendation"
+                android:textAllCaps="true"
+                android:textColor="@color/primay_color"
+                android:layout_gravity="center"
+                android:text="@string/recommendations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginStart="20dp"
+                android:layout_gravity="center"
+                android:background="@color/primay_color"
+                android:layout_width="100dp"
+                android:layout_height="1dp"/>
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="1dp" /> <!-- Add space between the divider and the "Remove" TextView -->
+
+            <TextView
+                android:visibility="gone"
+                android:textSize="10dp"
+                android:textAllCaps="true"
+                android:textColor="@color/red"
+                android:text="@string/remove"
+                android:id="@+id/btn_remove_service_recommendation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <EditText
+        android:id="@+id/ed_additional_recommendation"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:padding="15dp"
+        android:hint="@string/recommendations_add"
+        android:background="@drawable/rectangle_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

@@ -545,5 +545,17 @@
     <string name="search_des_business">BusinessName/ Business ID or Invoice Number</string>
     <string name="business_ID">Business ID</string>
     <string name="title_activity_fire_safety_risk_assesment">FireSafetyRiskAssesment</string>
+    <string name="fire_safety">Fire Safety Risk Assessment</string>
+    <string name="fire_safety_in_place">Fire Safety measures in place</string>
+    <string name="fire_safety_in_place_des">Choose/List fire safety measures implemented by the business/company.</string>
+    <string name="other_measure">Other Measures</string>
+    <string name="other_measure_des">Add other safety measures implemented</string>
+    <string name="additional_measures">Additional measures</string>
+    <string name="fire_recommendations">Fire Safety Recommendations</string>
+    <string name="fire_recommendations_des">Enter any adjustments that this business may need to do for them to be issued with a certificate</string>
+    <string name="recommendations">Recommendations</string>
+    <string name="recommendations_add">Add a recommendation</string>
+    <string name="additional_recom">Additional Recommendation</string>
+
 
 </resources>

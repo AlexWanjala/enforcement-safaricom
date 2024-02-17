@@ -43,7 +43,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".fire.FireSafetyRiskAssesment"
+            android:name=".fire.FireSafetyRiskAssesmentActivity"
             android:exported="false"
             android:label="@string/title_activity_fire_safety_risk_assesment"
             android:theme="@style/Theme.NarokEnforcement.NoActionBar">

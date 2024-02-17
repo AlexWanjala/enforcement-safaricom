@@ -12,5 +12,5 @@
     android:minHeight="48dp"
     android:ellipsize="marquee"
     android:singleLine="true"
-    android:textSize="12dp"
+    android:textSize="10dp"
     android:textColor="@android:color/black" />

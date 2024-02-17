@@ -1,6 +1,7 @@
 package com.aw.forcement.fire
 
 import Json4Kotlin_Base
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -18,8 +19,11 @@ class BusinessDetails : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_business_details2)
+        val businessID = intent.getStringExtra("businessID")
 
         btn_next.setOnClickListener {
+
+            startActivity(Intent(this,FireSafetyRiskAssesmentActivity::class.java).putExtra("businessID",businessID))
 
         }
         btn_previous.setOnClickListener {
@@ -27,7 +31,7 @@ class BusinessDetails : AppCompatActivity() {
         }
 
         closeBottom.setOnClickListener { finish() }
-        val businessID = intent.getStringExtra("businessID")
+
         if (businessID != null) {
             getBusiness(businessID)
         }

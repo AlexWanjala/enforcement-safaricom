@@ -217,6 +217,7 @@ class ParkFees : AppCompatActivity() {
             parentLayout.removeView(serviceLayout)
         }
     }
+
     private fun getIncomeTypes () {
         val formData = listOf(
             "function" to "getIncomeTypes",
