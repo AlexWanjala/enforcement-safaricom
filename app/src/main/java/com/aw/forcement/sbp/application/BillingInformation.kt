@@ -8,6 +8,7 @@ import Json4Kotlin_Base
 import ReceiptDetails
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +23,12 @@ import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_billing_information.*
 import kotlinx.android.synthetic.main.activity_billing_information.btn_previous
+import kotlinx.android.synthetic.main.activity_billing_information.closeBottom
 import kotlinx.android.synthetic.main.activity_billing_information.edPhone
 import kotlinx.android.synthetic.main.activity_billing_information.tvAmount
 import kotlinx.android.synthetic.main.activity_billing_information.tvSendPushDisabled
 import kotlinx.android.synthetic.main.activity_billing_information.tv_message
+import kotlinx.android.synthetic.main.activity_business_information.*
 import kotlinx.android.synthetic.main.message_box.view.*
 import kotlinx.android.synthetic.main.payment_recieved.view.*
 import kotlinx.android.synthetic.main.payment_unsuccesfull.view.*
@@ -52,6 +55,7 @@ class BillingInformation : AppCompatActivity() {
     var payNow =""
     var totalAmount = 0.0
     var billNo =""
+    var penalized = "false"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,6 +106,18 @@ class BillingInformation : AppCompatActivity() {
 
 
         loadSelectedFeeAndCharges()
+
+        checkboxPenalty.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if(isChecked){
+                penalized = "true"
+            }else{
+                penalized = "false"
+            }
+
+
+        }
+
     }
 
      fun loadSelectedFeeAndCharges(){
@@ -252,6 +268,7 @@ class BillingInformation : AppCompatActivity() {
         tv_message.text ="Generating bill please wait.."
         val formData = listOf(
             "function" to "generateBill3",
+            "penalized" to penalized.toString(),
             "billItem" to  Gson().toJson(getBillItem()),
             "payNow" to payNow,
             "customerPhoneNumber" to edPhone.text.toString(),

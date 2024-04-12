@@ -443,6 +443,7 @@
     <string name="decline">Decline Application</string>
     <string name="approve">Approve Application</string>
     <string name="fine_penalties">Fines &amp; Penalties</string>
+    <string name="penalty">Penalty</string>
     <string name="clamping_module">Clamping Modules</string>
     <string name="clamping_module_des">Check and release vehicles using a payment-controlled system</string>
     <string name="fine_penalties_des">Apply this section for penalizing individuals for their offenses.</string>
@@ -556,6 +557,20 @@
     <string name="recommendations">Recommendations</string>
     <string name="recommendations_add">Add a recommendation</string>
     <string name="additional_recom">Additional Recommendation</string>
+    <string name="fire_certificate_billing">Fire Certificate Billing</string>
+    <string name="total_invoice">Total invoicing details</string>
+    <string name="application_details">Application Details</string>
+    <string name="invoice_details">Invoice Details</string>
+    <string name="active_fire_cert">Active Fire Certificate</string>
+    <string name="active_fire_cert_des">Businesses with Paid And Active Fire Certificate</string>
+    <string name="fire_invoices">Fire Invoices</string>
+    <string name="fire_invoices_des">Fire Invoices issueed</string>
+    <string name="reconciliation">MPESA Auto Reconciliation</string>
+    <string name="message_mpesa">MPESA Message</string>
+    <string name="message_mpesa_des">Paste the original MPESA message here to reconcile the payment. </string>
+    <string name="paste">Paste MPESA Message Here</string>
+    <string name="transaction_recon">Transaction Recon</string>
+    <string name="transaction_recon_des">Copy and an Original MPESA message in this section to auto reconcile them.</string>
 
 
 </resources>

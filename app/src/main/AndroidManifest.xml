@@ -13,6 +13,10 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.READ_CLIPBOARD_IN_BACKGROUND"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -36,7 +40,42 @@
         tools:replace="android:theme"
         tools:targetApi="31">
         <activity
-            android:name=".SearchForBusiness"
+            android:name=".transaction.AutoRecon"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".fire.applications.BusinessDetailsApplication"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".fire.TotalInvoicingDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".fire.applications.ApplicationsFire"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".fire.FireCertificateBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".fire.SearchForBusiness"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -53,13 +92,6 @@
         </activity>
         <activity
             android:name=".fire.BusinessDetails"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".fire.SearchForBusiness"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -305,6 +305,14 @@
 
 
 
+            <CheckBox
+                android:id="@+id/checkboxPenalty"
+                android:text="@string/penalty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+
             <RadioGroup
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

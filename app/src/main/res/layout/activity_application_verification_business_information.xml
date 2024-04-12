@@ -189,14 +189,6 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/montserrat"
-            android:textSize="11dp"
-            android:text="Ndhiwa M-Pesa Hub: Your local destination for fast and secure mobile money transactions in Ndhiwa County. Convenience at your fingertips!"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
 
 
         <TextView

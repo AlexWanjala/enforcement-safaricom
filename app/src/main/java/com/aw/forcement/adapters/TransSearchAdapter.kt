@@ -38,6 +38,7 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 		var tv_status: TextView = itemView.findViewById<View>(R.id.tv_status) as TextView
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_date: TextView = itemView.findViewById<View>(R.id.tv_date) as TextView
+		var tvProgress: TextView = itemView.findViewById<View>(R.id.tvProgress) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -99,8 +100,7 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 				.putExtra("amount",list.amount))
 		}
 
-		if(getValue(context,"code")=="2"){
-
+		if(getValue(context,"category") =="SUPER ADMIN" || getValue(context,"category") =="ICT OFFICER" || getValue(context,"category") =="AUDITORS" || getValue(context,"category") =="ACCOUNTANTS"){
 			holder.layoutView.setOnLongClickListener(object : View.OnLongClickListener {
 				override fun onLongClick(p0: View?): Boolean {
 
@@ -115,12 +115,25 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 						)
 
 						val handler = Handler(context.mainLooper)
-
+						holder.tvProgress.text = "Please wait.."
 						executeRequest(formData, biller,object : CallBack {
 							override fun onSuccess(result: String?) {
 
 								handler.post {
-									Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+
+									val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+									if(response.success){
+
+										holder.tvProgress.setTextColor(Color.parseColor("#097d43"))
+										holder.tvProgress.text =  response.message.toString()
+
+									}else{
+
+										holder.tvProgress.setTextColor(Color.RED)
+										holder.tvProgress.text =  response.message.toString()
+									}
+
+
 								}
 							}
 							override fun onFailure(result: String?) {
@@ -143,7 +156,6 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 				}
 
 			})
-
 		}
 
 	}

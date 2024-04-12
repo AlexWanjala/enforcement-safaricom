@@ -42,6 +42,7 @@ class ParkFees : AppCompatActivity() {
         ed_slaughter_house.setText(getValue(this,"zone"))
         super.onResume()
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_park)

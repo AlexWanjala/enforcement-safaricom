@@ -4,16 +4,16 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.aw.forcement.kisumu",
-  "variantName": "kisumuRelease",
+  "applicationId": "com.aw.forcement.uasingishu",
+  "variantName": "uasingishuRelease",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 128,
-      "versionName": "128-kisumu",
-      "outputFile": "app-kisumu-release.apk"
+      "versionCode": 140,
+      "versionName": "140-uasingishu",
+      "outputFile": "app-uasingishu-release.apk"
     }
   ],
   "elementType": "File"

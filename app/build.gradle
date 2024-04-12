@@ -23,8 +23,8 @@ android {
         applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 136
-        versionName "136"
+        versionCode 155
+        versionName "155"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -75,7 +75,7 @@ android {
             resValue "string", "app_name", "kisumu Revenue"
             buildConfigField "String", 'version_code', '"1.1"'
             resValue "string", "icon_name", "@drawable/county_kisumu"
-            buildConfigField "String", "URL", '"https://api.revrms.co.ke/"'
+            buildConfigField "String", "URL", '"https://api.kisumu.go.ke/"'
 
         }
         nairobi {
@@ -205,3 +205,7 @@ dependencies {
 
 // ./sms_retriever_hash_v9.sh --package "com.aw.forcement" --keystore /path/to/your.keystore
 
+
+/*
+win1 = window.open("https://api.craftcollect.africa/meru/biller/index.php?function=testPayments");
+timer1 = setInterval(function(){win1.location.href="https://api.craftcollect.africa/meru/biller/index.php?function=testPayments"},10*60*1000);*/

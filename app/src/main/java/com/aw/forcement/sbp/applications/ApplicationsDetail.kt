@@ -78,8 +78,6 @@ class ApplicationsDetail : AppCompatActivity() {
                         Const.instance.setReceipt(response.data.receipt)
                         Const.instance.setStatuses(response.data.statuses)
 
-                        val latLng = LatLng(response.data.business.lat.toDouble(),response.data.business.lng.toDouble())
-
                         val mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment?
                         mapFragment?.getMapAsync(object : OnMapReadyCallback {
                             override fun onMapReady(googleMap: GoogleMap) {
@@ -92,8 +90,23 @@ class ApplicationsDetail : AppCompatActivity() {
                                         Log.e(ContentValues.TAG, "Style parsing failed.")
                                     }
 
-                                    moveMapCamera(mMap, latLng)
-                                    placeMarkerOnMap(this@ApplicationsDetail,mMap, latLng) }
+
+                                    val latString = response.data.business.lat
+                                    val lngString = response.data.business.lng
+
+                                    if (latString.isNotEmpty() && lngString.isNotEmpty()) {
+                                        val lat = latString.toDouble()
+                                        val lng = lngString.toDouble()
+                                        val latLng = LatLng(lat, lng)
+
+                                        moveMapCamera(mMap, latLng)
+                                        placeMarkerOnMap(this@ApplicationsDetail,mMap, latLng) }
+
+
+                                    }
+
+
+
                             }
 
                         })

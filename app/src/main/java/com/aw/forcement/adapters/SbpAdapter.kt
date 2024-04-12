@@ -31,7 +31,7 @@ class SbpAdapter(private val context: Context, mList: List<Businesses>) :
 	private var mList: List<Businesses> = ArrayList<Businesses>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		var layoutView: FrameLayout = itemView.findViewById<View>(R.id.layoutView) as FrameLayout
+		var layoutView: LinearLayout = itemView.findViewById<View>(R.id.layoutView) as LinearLayout
 		var tv_name: TextView = itemView.findViewById<View>(R.id.tv_name) as TextView
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_status: TextView = itemView.findViewById<View>(R.id.tv_status) as TextView

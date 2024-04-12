@@ -50,4 +50,7 @@ data class Businesses (
 	@SerializedName("conservancy") val conservancy : String,
 	@SerializedName("fireLicence") val fireLicence : String,
 	@SerializedName("liquorLicence") val liquorLicence : String,
+	@SerializedName("billNo") val billNo : String,
+	@SerializedName("printable") val printable : String,
+	@SerializedName("endDate") val endDate : String,
 )

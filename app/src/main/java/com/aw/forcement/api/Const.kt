@@ -17,13 +17,36 @@ class Const public constructor() {
 
     private lateinit var feesAndCharges: List<FeesAndCharges>
 
+    private var selectedFireSafety = mutableListOf<String>()
+    // A method to add a fee and charge to the list
+    fun addFireSafety(fireSafety: String) {
+        if (!selectedFireSafety.contains(fireSafety)) {
+            selectedFireSafety.add(fireSafety)
+        }
+    }
+
+    // A method to remove a fee and charge from the list
+    fun removeFireSafety(fireSafety: String) {
+        selectedFireSafety.remove(fireSafety)
+    }
+
+    // A method to get the list of selected fees and charges
+    fun getSelectedFireSafety(): List<String> {
+        return selectedFireSafety
+    }
+
 
     // A mutable list to store the selected fees and charges
     private var selectedFeesAndCharges = mutableListOf<FeesAndCharges>()
 
+
     // A method to add a fee and charge to the list
     fun addFeeAndCharge(feeAndCharge: FeesAndCharges) {
-        selectedFeesAndCharges.add(feeAndCharge)
+
+        if (!selectedFeesAndCharges.contains(feeAndCharge)) {
+            selectedFeesAndCharges.add(feeAndCharge)
+        }
+
     }
 
     // A method to remove a fee and charge from the list

@@ -34,6 +34,7 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 		var tv_amount: TextView = itemView.findViewById<View>(R.id.tv_amount) as TextView
 		var tv_accountDesc: TextView = itemView.findViewById<View>(R.id.tv_accountDesc) as TextView
 		var tv_quantity: TextView = itemView.findViewById<View>(R.id.tv_quantity) as TextView
+		var tv_customer: TextView = itemView.findViewById<View>(R.id.tv_customer) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -51,6 +52,13 @@ class AdapterFeeAndChargesList(private val context: Context, mList: MutableMap<S
 			holder.layoutView.setBackgroundColor(Color.parseColor("#FFFFFF"))
 
 		}
+
+		if (list.customer.isNullOrEmpty()) {
+			holder.tv_customer.visibility = View.GONE
+		} else {
+			holder.tv_customer.text = list.customer
+		}
+
 
 		val quantity = if (list.quantity.isNullOrEmpty()) "1" else list.quantity
 

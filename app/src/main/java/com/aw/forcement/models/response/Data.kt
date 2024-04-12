@@ -52,5 +52,6 @@ data class Data (
 	@SerializedName("clamped") val clamped : List<Clamped>,
 	@SerializedName("years") val years : List<Years>,
 	@SerializedName("payBill") val payBill : PayBill,
-	@SerializedName("county") val county : County
+	@SerializedName("county") val county : County,
+	@SerializedName("fireSafety") val fireSafety : List<FireSafety>
 )

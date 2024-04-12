@@ -104,24 +104,6 @@
                     android:layout_height="wrap_content"/>
 
                 <LinearLayout
-                    android:padding="10dp"
-                    android:background="@drawable/rectangle_background"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.toptoche.searchablespinnerlibrary.SearchableSpinner
-                        android:layout_marginStart="10sp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
-                        android:elevation="5dp"
-                        android:id="@+id/spinner_category_other"
-                        android:layout_width="match_parent"
-                        android:layout_height="24dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="200dp">

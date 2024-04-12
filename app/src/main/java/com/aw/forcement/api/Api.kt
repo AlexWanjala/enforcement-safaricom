@@ -75,8 +75,10 @@ var parking = "parking/"
 var rent = "rent/"
 var trade = "trade/"
 var biller ="biller/"
+var callback ="biller/callback.php"
 var liquor ="liquor/"
 var authentication ="authentication/"
+var fire ="fire/"
 
 interface CallBack {
     fun onSuccess(result: String?)

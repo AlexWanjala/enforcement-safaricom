@@ -92,6 +92,8 @@ import kotlinx.android.synthetic.main.bottom_sheet_vet_services.*
 import android.content.res.Resources
 import android.util.DisplayMetrics
 import com.aw.forcement.fire.SearchForBusiness
+import com.aw.forcement.fire.applications.ApplicationsFire
+import com.aw.forcement.transaction.AutoRecon
 import com.aw.forcement.vet.movement.MovementFees
 import kotlinx.android.synthetic.main.buttom_sheet_fire.*
 
@@ -232,7 +234,6 @@ class Home : AppCompatActivity() {
                  fl_application_approval.visibility = View.GONE
              }
 
-
          }
 
 
@@ -247,6 +248,8 @@ class Home : AppCompatActivity() {
 
              startActivity(Intent(this, Businesses::class.java))
          }
+
+        imgTest.setOnClickListener {  }
 
         //Street Parking
         streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
@@ -281,7 +284,10 @@ class Home : AppCompatActivity() {
             finish()}
 
          //contact
-         contact.setOnClickListener { toggleBottomSheetContact() }
+         contact.setOnClickListener {
+             getUsersPaginated()
+             toggleBottomSheetContact()
+         }
          livestock_module.setOnClickListener { toggleBottomSheetLivestock() }
 
          //SBP
@@ -327,7 +333,20 @@ class Home : AppCompatActivity() {
         fl_fire_invoice.setOnClickListener {
             startActivity(Intent(this, SearchForBusiness::class.java))
         }
-        fl_pending_invoice.setOnClickListener {  }
+        fl_fire_application_approval.setOnClickListener {
+            startActivity(Intent(this, ApplicationsFire::class.java)
+                .putExtra("keyword","4")
+                .putExtra("header","Pending Approval"))
+        }
+        fl_fire_application_active.setOnClickListener {
+            startActivity(Intent(this, ApplicationsFire::class.java)
+                .putExtra("keyword","5")
+                .putExtra("header","Active Certificate"))
+        }
+
+        fl_fire_invoices.setOnClickListener {
+            startActivity(Intent(this, BillInvoices::class.java))
+        }
 
 
          //Fines and Penaltie
@@ -354,6 +373,9 @@ class Home : AppCompatActivity() {
          fl_vet_and_health_hub.setOnClickListener { startActivity(Intent(this, VetFees::class.java)) }
 
          fl_live_stock.setOnClickListener { startActivity(Intent(this, MovementFees::class.java)) }
+
+        //Recon
+        recon_module.setOnClickListener { startActivity(Intent(this, AutoRecon::class.java)) }
 
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }

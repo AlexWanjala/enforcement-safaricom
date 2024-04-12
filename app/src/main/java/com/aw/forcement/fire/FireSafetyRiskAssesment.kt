@@ -1,6 +1,9 @@
 package com.aw.forcement.fire
+import AdapterFireSafety
 import AdapterOther
+import Const
 import Json4Kotlin_Base
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.biller
-import com.aw.passanger.api.executeRequest
-import com.aw.passanger.api.getDeviceIdNumber
+import com.aw.passanger.api.*
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_fire_safety_risk_assesment.*
 import kotlinx.android.synthetic.main.recycler_view.*
@@ -34,10 +34,14 @@ class FireSafetyRiskAssesmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fire_safety_risk_assesment)
-        tv_business_ID.text ="Business ID: "+ intent.getStringExtra("businessID")
+
+        val businessID = intent.getStringExtra("businessID")
+
+        tv_business_ID.text ="Business ID: ${businessID}"
 
         //Layout service other measures
         val layoutService = findViewById<LinearLayout>(R.id.layout_service)
+        layoutServiceList.add(layoutService)//add the initial layout
         val btnAddService = findViewById<TextView>(R.id.btn_add_service)
         btnAddService.setOnClickListener {
             addNewServiceLayout(layoutService)
@@ -45,12 +49,23 @@ class FireSafetyRiskAssesmentActivity : AppCompatActivity() {
 
         //Layout service Recommendation
         val layoutServiceRecommendation = findViewById<LinearLayout>(R.id.layout_service_recommendation)
+        layoutServiceListRecommendation.add(layoutServiceRecommendation)//add the initial layout
         val btnAddServiceRecommendation = findViewById<TextView>(R.id.btn_add_service_recommendation)
         btnAddServiceRecommendation.setOnClickListener {
             addNewServiceLayoutRecommendation(layoutServiceRecommendation)
         }
 
-        getIncomeTypesOther()
+        btn_next.setOnClickListener {
+            //Get the additional measures and add them to the selected measures
+            retrieveTextFromEdOtherMeasure()
+
+            //Get the additional recommendations and add them to the selected measures
+            retrieveTextFromEdRecommendation()
+            startActivity(Intent(this,FireCertificateBilling::class.java).putExtra("businessID",businessID))
+        }
+        btn_previous.setOnClickListener { finish() }
+
+        getFireMeasures()
     }
 
     ////Other Measures service
@@ -96,6 +111,8 @@ class FireSafetyRiskAssesmentActivity : AppCompatActivity() {
             val edOtherMeasure = layout.findViewById<EditText>(R.id.ed_other_measure)
             val text = edOtherMeasure.text.toString()
             texts.add(text)
+            //add to measures
+            Const.instance.addFireSafety(text)
         }
         return texts
     }
@@ -144,75 +161,27 @@ class FireSafetyRiskAssesmentActivity : AppCompatActivity() {
             val edAdditionalRecommendation = layout.findViewById<EditText>(R.id.ed_additional_recommendation)
             val text = edAdditionalRecommendation.text.toString()
             texts.add(text)
+            //add recommendations to safety
+            Const.instance.addFireSafety("Recommendations: $text")
         }
         return texts
     }
 
     //Other measures
-    private fun getIncomeTypesOther(){
 
+    private lateinit var adapter: AdapterFireSafety
+    private fun getFireMeasures (){
         val formData = listOf(
-            "function" to "getIncomeTypes",
-            "incomeTypePrefix" to "SBP",
-            "keyword" to "Other",
+            "function" to "getFireMeasures",
             "deviceId" to getDeviceIdNumber(this)
         )
-        executeRequest(formData, biller,object : CallBack {
-            override fun onSuccess(result: String?) {
-                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                if(response.success){
-
-                    runOnUiThread {
-
-                        for(data in response.data.incomeTypes){
-                            arrayListOther.add(data.incomeTypeDescription)
-                        }
-
-                        //Spinner
-                        val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayListOther)
-                        adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        spinner_category_other.adapter = adapters
-                        spinner_category_other.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-                            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-
-                                //business_category = response.data.incomeTypes[postion].incomeTypeDescription
-                                spinnerFeeAndChargesOther(response.data.incomeTypes[postion].incomeTypeId)
-
-                            }
-                            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-                            }
-                        }
-                    }
-
-                }else{
-                    runOnUiThread {  Toast.makeText(this@FireSafetyRiskAssesmentActivity,response.message, Toast.LENGTH_LONG).show()}
-
-                }
-
-            }
-            override fun onFailure(result: String?) {
-                runOnUiThread {
-                    Toast.makeText(this@FireSafetyRiskAssesmentActivity,result, Toast.LENGTH_LONG).show()
-                }
-            }
-
-        })
-    }
-    private lateinit var adapter: AdapterOther
-    private fun spinnerFeeAndChargesOther (incomeTypeId: String){
-        val formData = listOf(
-            "function" to "getFeesAndCharges",
-            "incomeTypeId" to incomeTypeId,
-            "deviceId" to getDeviceIdNumber(this)
-        )
-        executeRequest(formData, biller,object : CallBack {
+        executeRequest(formData, fire,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 runOnUiThread {
                     if(response.success){
                         recyclerView.adapter = null
-                        adapter = AdapterOther(this@FireSafetyRiskAssesmentActivity, response.data.feesAndCharges)
+                        adapter = AdapterFireSafety(this@FireSafetyRiskAssesmentActivity, response.data.fireSafety)
                         recyclerView.layoutManager = LinearLayoutManager(this@FireSafetyRiskAssesmentActivity)
                         recyclerView.adapter = adapter
                         recyclerView.setHasFixedSize(false)
