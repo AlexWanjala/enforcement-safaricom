@@ -269,7 +269,7 @@ class TotalInvoicingDetails : AppCompatActivity() {
 
 
                 }else{
-                    runOnUiThread {  Toast.makeText(this@TotalInvoicingDetails,response.message, Toast.LENGTH_LONG).show()}
+                    runOnUiThread { Toast.makeText(this@TotalInvoicingDetails,response.message, Toast.LENGTH_LONG).show()}
 
                 }
 

@@ -377,6 +377,8 @@ class Home : AppCompatActivity() {
         //Recon
         recon_module.setOnClickListener { startActivity(Intent(this, AutoRecon::class.java)) }
 
+        liquor_module.setOnClickListener {  }
+
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
        // imageScan.setOnClickListener { startActivity(Intent(this, ScanOptions::class.java)) }

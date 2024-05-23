@@ -100,63 +100,61 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 				.putExtra("amount",list.amount))
 		}
 
-		if(getValue(context,"category") =="SUPER ADMIN" || getValue(context,"category") =="ICT OFFICER" || getValue(context,"category") =="AUDITORS" || getValue(context,"category") =="ACCOUNTANTS"){
-			holder.layoutView.setOnLongClickListener(object : View.OnLongClickListener {
-				override fun onLongClick(p0: View?): Boolean {
+		holder.layoutView.setOnLongClickListener(object : View.OnLongClickListener {
+			override fun onLongClick(p0: View?): Boolean {
 
-					val builder = AlertDialog.Builder(context)
-					builder.setTitle(list.transaction_code)
-					builder.setMessage("Select the options below")
-					builder.setNeutralButton("Archive") { dialog, which ->
-						dialog.dismiss()
-						val formData = listOf(
-							"function" to "updateTransactionStatus",
-							"billNo" to  list.account_ref,
-						)
+				val builder = AlertDialog.Builder(context)
+				builder.setTitle(list.transaction_code)
+				builder.setMessage("Select the options below")
+				builder.setNeutralButton("Archive") { dialog, which ->
+					dialog.dismiss()
+					val formData = listOf(
+						"function" to "updateTransactionStatus",
+						"billNo" to  list.account_ref,
+					)
 
-						val handler = Handler(context.mainLooper)
-						holder.tvProgress.text = "Please wait.."
-						executeRequest(formData, biller,object : CallBack {
-							override fun onSuccess(result: String?) {
+					val handler = Handler(context.mainLooper)
+					holder.tvProgress.text = "Please wait.."
+					executeRequest(formData, biller,object : CallBack {
+						override fun onSuccess(result: String?) {
 
-								handler.post {
+							handler.post {
 
-									val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-									if(response.success){
+								val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+								if(response.success){
 
-										holder.tvProgress.setTextColor(Color.parseColor("#097d43"))
-										holder.tvProgress.text =  response.message.toString()
+									holder.tvProgress.setTextColor(Color.parseColor("#097d43"))
+									holder.tvProgress.text =  response.message.toString()
 
-									}else{
+								}else{
 
-										holder.tvProgress.setTextColor(Color.RED)
-										holder.tvProgress.text =  response.message.toString()
-									}
-
-
-								}
-							}
-							override fun onFailure(result: String?) {
-
-								handler.post {
-									Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
+									holder.tvProgress.setTextColor(Color.RED)
+									holder.tvProgress.text =  response.message.toString()
 								}
 
+
+							}
+						}
+						override fun onFailure(result: String?) {
+
+							handler.post {
+								Toast.makeText(context, "Success", Toast.LENGTH_LONG).show()
 							}
 
-						})
-					}
-					builder.setNegativeButton(android.R.string.no) { dialog, which ->
-						dialog.dismiss()
-					}
+						}
 
-					builder.show()
-
-					return true
+					})
+				}
+				builder.setNegativeButton(android.R.string.no) { dialog, which ->
+					dialog.dismiss()
 				}
 
-			})
-		}
+				builder.show()
+
+				return true
+			}
+
+		})
 
 	}
 

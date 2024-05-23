@@ -571,6 +571,8 @@
     <string name="paste">Paste MPESA Message Here</string>
     <string name="transaction_recon">Transaction Recon</string>
     <string name="transaction_recon_des">Copy and an Original MPESA message in this section to auto reconcile them.</string>
+    <string name="alcoholic">Alcoholic Drinks Licence</string>
+    <string name="alcoholic_des">For Processing and approval of Alcoholic Beverage License certificates.</string>
 
 
 </resources>
