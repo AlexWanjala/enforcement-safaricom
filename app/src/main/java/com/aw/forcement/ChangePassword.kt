@@ -23,7 +23,6 @@ class ChangePassword : AppCompatActivity() {
         setContentView(R.layout.activity_change_password)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-
         submit.setOnClickListener {
             if(edNewPassword.text.toString()==edPasswordConfirm.text.toString()){
                 changePassword()
@@ -40,7 +39,8 @@ class ChangePassword : AppCompatActivity() {
         val formData = listOf(
             "function" to "changePassword",
             "password" to edNewPassword.text.toString(),
-            "idNo" to  getValue(this,"idNo").toString()
+            "idNo" to  getValue(this,"idNo").toString(),
+            "username" to  getValue(this,"username").toString()
         )
         executeRequest(formData,authentication,object : CallBack {
             override fun onSuccess(result: String?) {

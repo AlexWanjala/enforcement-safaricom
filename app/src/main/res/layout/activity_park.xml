@@ -52,6 +52,7 @@
 
 
             <TextView
+                android:id="@+id/tvZone"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
@@ -94,6 +95,7 @@
 
 
             <TextView
+                android:id="@+id/tvNumberPlateLabel"
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/labels"
                 android:layout_marginTop="15dp"

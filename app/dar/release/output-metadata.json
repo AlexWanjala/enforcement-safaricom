@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement.dar",
+  "variantName": "darRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 175,
+      "versionName": "175-dar",
+      "outputFile": "app-dar-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

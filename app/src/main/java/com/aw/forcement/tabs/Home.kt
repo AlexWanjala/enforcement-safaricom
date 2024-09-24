@@ -91,11 +91,31 @@ import kotlinx.android.synthetic.main.bottom_sheet_sbp_permit.fl_application_dec
 import kotlinx.android.synthetic.main.bottom_sheet_vet_services.*
 import android.content.res.Resources
 import android.util.DisplayMetrics
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import com.aw.forcement.assets.machinery.MachineryBilling
+import com.aw.forcement.assets.stadium.StadiumBilling
+import com.aw.forcement.assets.tractor.TractorBilling
+import com.aw.forcement.billing.Billing
 import com.aw.forcement.fire.SearchForBusiness
 import com.aw.forcement.fire.applications.ApplicationsFire
+import com.aw.forcement.health.medical.ApplicantDetails
+import com.aw.forcement.history.ParkingHistory
+import com.aw.forcement.service.NotificationWorker
 import com.aw.forcement.transaction.AutoRecon
 import com.aw.forcement.vet.movement.MovementFees
+import kotlinx.android.synthetic.main.buttom_sheet_county_asset.*
 import kotlinx.android.synthetic.main.buttom_sheet_fire.*
+import kotlinx.android.synthetic.main.buttom_sheet_fire.closeBottomFire
+import kotlinx.android.synthetic.main.buttom_sheet_fire.fl_fire_invoice
+import kotlinx.android.synthetic.main.buttom_sheet_health.*
+import kotlinx.android.synthetic.main.buttom_sheet_health.closeBottomHealth
+import kotlinx.android.synthetic.main.buttom_sheet_health.fl_food_hygiene
+import kotlinx.android.synthetic.main.buttom_sheet_hygiene.*
+import kotlinx.android.synthetic.main.buttom_sheet_hygiene.closeBottomHygiene
+import kotlinx.android.synthetic.main.buttom_sheet_hygiene.fl_food_hygiene_new_application
+import kotlinx.android.synthetic.main.buttom_sheet_medical.*
+import java.util.concurrent.TimeUnit
 
 
 class Home : AppCompatActivity() {
@@ -106,6 +126,10 @@ class Home : AppCompatActivity() {
      private lateinit var bottomSheetBehaviorSbp: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorSbpDataCollection: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorFire: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorHealth: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorHygiene: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorMedical: BottomSheetBehavior<ConstraintLayout>
+     private lateinit var bottomSheetBehaviorCountyAsset: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorLivestock: BottomSheetBehavior<ConstraintLayout>
      private lateinit var bottomSheetBehaviorContact: BottomSheetBehavior<ConstraintLayout>
      private var locationPermissionGranted = false
@@ -133,6 +157,12 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_page_home)
          AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
+        // Schedule the worker to run every 15 minutes
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(15, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(this).enqueue(workRequest)
 
 
         // Example usage:
@@ -251,6 +281,10 @@ class Home : AppCompatActivity() {
 
         imgTest.setOnClickListener {  }
 
+        bellNotification.setOnClickListener {
+            startActivity(Intent(this, ParkingHistory::class.java))
+        }
+
         //Street Parking
         streetDailyParking.setOnClickListener {  startActivity(Intent(this, StreetParking::class.java)) }
         //Matatu/Bus Park
@@ -266,6 +300,8 @@ class Home : AppCompatActivity() {
         invoices_print.setOnClickListener { toggleBottomSheet("Invoice Searching","INVOICE") }
         //No Plate Verification
         plate_verification.setOnClickListener {  startActivity(Intent(this, Street::class.java)) }
+
+        meteredParking.setOnClickListener {  startActivity(Intent(this, MeteredParking::class.java)) }
         //document_verification
         document_verification.setOnClickListener {  startActivity(Intent(this, ScanClass::class.java)) }
         //history
@@ -275,6 +311,10 @@ class Home : AppCompatActivity() {
         }
         clamping_module.setOnClickListener {
             startActivity(Intent(this, ClampingModule::class.java))
+        }
+
+        billing_module.setOnClickListener {
+            startActivity(Intent(this, Billing::class.java))
         }
          //Fish
          fish_module.setOnClickListener { startActivity(Intent(this, Markets::class.java).putExtra("incomeTypePrefix","FISHCESS")) }
@@ -327,6 +367,31 @@ class Home : AppCompatActivity() {
              startActivity(Intent(this, CollectionsSBP::class.java))
          }
 
+        //Health
+        public_health.setOnClickListener { toggleBottomSheetHealth() }
+        fl_food_hygiene.setOnClickListener {
+            bottomSheetBehaviorHealth.state = BottomSheetBehavior.STATE_COLLAPSED
+            Toast.makeText(this,"dhdh",Toast.LENGTH_LONG).show()
+        }
+
+        //Hygiene
+        fl_food_hygiene.setOnClickListener { toggleBottomSheetHygiene() }
+        fl_food_hygiene_new_application.setOnClickListener {   startActivity(Intent(this, com.aw.forcement.health.hygiene.SearchForBusiness::class.java)) }
+
+
+        //Medical
+        fl_medical.setOnClickListener { toggleBottomSheetMedical() }
+        fl_medical_new_application.setOnClickListener {  startActivity(Intent(this, ApplicantDetails::class.java)) }
+
+
+
+        //County-Asset toggleBottomSheetCountyAsset
+        count_asset_module.setOnClickListener { toggleBottomSheetCountyAsset() }
+        fl_tractor.setOnClickListener {  startActivity(Intent(this, TractorBilling::class.java)) }
+        fl_stadium.setOnClickListener {  startActivity(Intent(this, StadiumBilling::class.java)) }
+        fl_machinery.setOnClickListener {  startActivity(Intent(this, MachineryBilling::class.java)) }
+
+
 
         //Fire Service
         fire_module.setOnClickListener { toggleBottomSheetFire() }
@@ -343,7 +408,6 @@ class Home : AppCompatActivity() {
                 .putExtra("keyword","5")
                 .putExtra("header","Active Certificate"))
         }
-
         fl_fire_invoices.setOnClickListener {
             startActivity(Intent(this, BillInvoices::class.java))
         }
@@ -377,7 +441,8 @@ class Home : AppCompatActivity() {
         //Recon
         recon_module.setOnClickListener { startActivity(Intent(this, AutoRecon::class.java)) }
 
-        liquor_module.setOnClickListener {  }
+       // liquor_module.setOnClickListener {  }
+
 
          //addBusiness.setOnClickListener { startActivity(Intent(this, AddBusiness::class.java)) }
        // imagePay.setOnClickListener { startActivity(Intent(this, CessPayments::class.java).putExtra("incomeTypePrefix","")) }
@@ -396,6 +461,10 @@ class Home : AppCompatActivity() {
          bottomSheetBehaviorLivestock = BottomSheetBehavior.from(bottomSheetLayoutVeterinary)
          bottomSheetBehaviorSbpDataCollection = BottomSheetBehavior.from(bottomSheetLayoutDataCollection)
          bottomSheetBehaviorFire = BottomSheetBehavior.from(bottomSheetFire)
+         bottomSheetBehaviorHealth = BottomSheetBehavior.from(bottomSheetHealth)
+         bottomSheetBehaviorHygiene = BottomSheetBehavior.from(bottomSheetHygiene)
+         bottomSheetBehaviorMedical = BottomSheetBehavior.from(bottomSheetMedical)
+         bottomSheetBehaviorCountyAsset = BottomSheetBehavior.from(bottomCountyAsset)
 
 
        // business.setOnClickListener { toggleBottomSheet("business") }
@@ -411,6 +480,10 @@ class Home : AppCompatActivity() {
          closeBottomSbp.setOnClickListener {   bottomSheetBehaviorSbp.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomSbpData.setOnClickListener {   bottomSheetBehaviorSbpDataCollection.state = BottomSheetBehavior.STATE_COLLAPSED }
          closeBottomFire.setOnClickListener {   bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomHealth.setOnClickListener {   bottomSheetBehaviorHealth.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomHygiene.setOnClickListener {   bottomSheetBehaviorHygiene.state = BottomSheetBehavior.STATE_COLLAPSED }
+         closeBottomMedical.setOnClickListener {   bottomSheetBehaviorMedical.state = BottomSheetBehavior.STATE_COLLAPSED }
+          closeBottomCountyAsset.setOnClickListener {   bottomSheetBehaviorCountyAsset.state = BottomSheetBehavior.STATE_COLLAPSED }
         //streetParking.setOnClickListener { startActivity(Intent(this, Street::class.java)) }
         //imagePaking.setOnClickListener { startActivity(Intent(this, Parking::class.java))  }
         // imagePaking.setOnClickListener { startActivity(Intent(this, CessPaymentsMatatus::class.java))  }
@@ -478,6 +551,42 @@ class Home : AppCompatActivity() {
             bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_COLLAPSED
         } else {
             bottomSheetBehaviorFire.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+    private fun toggleBottomSheetHealth(){
+
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorHealth.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorHealth.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+    private fun toggleBottomSheetHygiene(){
+
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorHygiene.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorHygiene.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+    private fun toggleBottomSheetMedical(){
+
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorMedical.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorMedical.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+
+    }
+    private fun toggleBottomSheetCountyAsset(){
+
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehaviorCountyAsset.state = BottomSheetBehavior.STATE_COLLAPSED
+        } else {
+            bottomSheetBehaviorCountyAsset.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
     }

@@ -125,10 +125,17 @@ class TotalCountyCollection : AppCompatActivity() {
         getSubCountiesRevenue()
     }
 
+    fun cleanResponse(response: String): String {
+        // Define a regex pattern to match PHP tags
+        val regex = Regex("""<\?php\s+echo\(.+\);\s*\?>""")
+        // Replace all occurrences of the pattern with an empty string
+        return response.replace(regex, "")
+    }
+
     private fun getSubCountiesRevenue (){
          progress_circular.visibility = View.VISIBLE
        var  subCountyID =""
-        if(BuildConfig.FLAVOR==="meru"){
+        if(BuildConfig.FLAVOR === "meru"){
             val category = getValue(this,"category")
             if( category == "REVENUE OFFICER"){
                 subCountyID = getValue(this,"subCountyID").toString()
@@ -148,10 +155,12 @@ class TotalCountyCollection : AppCompatActivity() {
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                  runOnUiThread {  progress_circular.visibility = View.GONE }
-                save(this@TotalCountyCollection,"getSubCountiesRevenue",result)
-                if (result != null) {
-                    updateUI(result)
-                }
+
+                 save(this@TotalCountyCollection,"getSubCountiesRevenue",result)
+
+                 if (result != null) {
+                     updateUI(cleanResponse(result))
+                 }
 
 
             }

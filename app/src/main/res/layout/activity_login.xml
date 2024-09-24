@@ -92,7 +92,6 @@
             android:layout_height="wrap_content"/>
 
         <EditText
-
             android:fontFamily="@font/montserrat"
             android:elevation="20dp"
             android:drawablePadding="10dp"
@@ -133,6 +132,12 @@
             android:background="@drawable/bg_outline_white"
             android:layout_width="match_parent"
             android:layout_height="55sp"/>
+
+        <TextView
+            android:textColor="@color/labels"
+            android:text="@string/terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <Button
             android:fontFamily="@font/montserrat"

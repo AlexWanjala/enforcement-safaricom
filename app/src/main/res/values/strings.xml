@@ -48,6 +48,7 @@
     <string name="document_verification">Document Verification</string>
     <string name="document_verification_des">Validate county documents such as receipts, permits, stickers etc</string>
     <string name="violation">Violation Reporting</string>
+    <string name="metered">Metered/off StreetParking</string>
     <string name="history">My History</string>
     <string name="history_">History</string>
     <string name="profile">My Profile</string>
@@ -179,10 +180,8 @@
 
     <string name="start">Start Date</string>
     <string name="end">Expiry Date</string>
-
     <string name="town">Select town</string>
     <string name="reason">Select clamping reason</string>
-
     <string name="bill_no">Bill No</string>
     <string name="bill_total">Bill Total</string>
     <string name="reducing_balance">Reducing Balance</string>
@@ -228,6 +227,7 @@
     <string name="phone_number_hint">Enter phone Number i.e 07..</string>
     <string name="phone_number_hint_2">Enter second phone Number i.e 07..</string>
     <string name="send_payment">SEND PAYMENT REQUEST</string>
+    <string name="cash_payment">CASH PAYMENT</string>
 
     <string name="business_information">Business information</string>
     <string name="certificate_of_incorporation">Certificate of incorporation</string>
@@ -508,7 +508,7 @@
     <string name="slaughter_house">Slaughter House</string>
     <string name="bill_item">Bill item no 1.</string>
     <string name="service">Service</string>
-    <string name="animal_item">Animal/Item</string>
+    <string name="animal_item">Item</string>
     <string name="item_vaccine">Vaccine/Item</string>
     <string name="add_service">ADD A SERVICE</string>
     <string name="remove">Remove item</string>
@@ -534,7 +534,7 @@
     <string name="create_fire_des">For a registered business or an already invoiced business</string>
     <string name="pending_fire_cert">Pending Fire Cert. Invoices List</string>
     <string name="pending_fire_cert_des">For a registered business or an already invoiced business</string>
-    <string name="fire_service">Fire Service Levies</string>
+    <string name="fire_service">Service Levies</string>
     <string name="select_module">select Module</string>
     <string name="fire_levies">Fire Service Levies</string>
     <string name="fire_levies_des"> Streamlined collection to support fire services.</string>
@@ -573,6 +573,82 @@
     <string name="transaction_recon_des">Copy and an Original MPESA message in this section to auto reconcile them.</string>
     <string name="alcoholic">Alcoholic Drinks Licence</string>
     <string name="alcoholic_des">For Processing and approval of Alcoholic Beverage License certificates.</string>
+    <string name="public_health">Public Health</string>
+    <string name="public_health_des">Medical Certificates, food hygiene, food handlers and so on.</string>
+    <string name="hygiene_licence">Food Hygiene Licence</string>
+    <string name="hygiene_licence_des">For charging premises that handle food </string>
+    <string name="public_health_services">Public health services</string>
+    <string name="food_hygiene">Food Hygiene</string>
+    <string name="new_application">New Application</string>
+    <string name="new_application_des">Create an invoice for a new application</string>
+    <string name="hygiene_certificate_billing">Food Hygiene Certificate Billing</string>
+    <string name="observations">Observations/Recommendations</string>
+    <string name="observations_des">Include details to consider during approval especially.</string>
+    <string name="your_observations">Your Observations</string>
+    <string name="check_below">Check Below to Continue</string>
+    <string name="check_below_des">I hereby certify that on this day I have examined and assessed, and that in my opinion, the premises are fit to be licensed, having met the set conditions outlined in the regulations for the issuance of a Food Hygiene Certificate. This includes compliance with all requirements for selling, preparing, packaging, storing, or displaying food as stipulated.</string>
+    <string name="confirm">Confirm</string>
+    <string name="view_food_hygiene">View Food Hygiene License Requirements</string>
+    <string name="food_hygiene_requirements">Food Hygiene License Requirements</string>
+    <string name="food_handler">Certificate Of Medical Examination</string>
+    <string name="food_handler_des">Use this module to issue certificate to an applicant</string>
+    <string name="applicant_bio">Applicant\'s bio Data</string>
+    <string name="applicant_bio_des">Please enter the Applicant\'s ID number. If the applicant is already registered, their details will appear, allowing you to edit or update as needed.</string>
+    <string name="applicants_id">Applicants ID Number</string>
+    <string name="enter_id">Enter ID Number</string>
+    <string name="enter_applicant_names">Applicant\'s Full Names</string>
+    <string name="enter_applicant_names_hint">Enter Applicant\'s Full Names</string>
+    <string name="applicant_phone">Applicant\'s Phone Number</string>
+    <string name="applicant_phone_hint">Enter Applicant\'s Phone Number</string>
+    <string name="job_title">Job Title</string>
+    <string name="job_title_hint">Enter Job Title</string>
+    <string name="applicants_details">Applicants details</string>
+    <string name="medical_assessment">Medical Assessment &amp; Observations</string>
+    <string name="tests_done">Tests done and passed</string>
+    <string name="tests_done_des">Please input the tests completed by the applicant to qualify for the issuance of the medical certificate.</string>
+    <string name="test_done">Test Done</string>
+    <string name="test_done_hint">Enter the Test</string>
+    <string name="additional_tests">Additional tests</string>
+    <string name="observations_">Observations</string>
+    <string name="observations_hints">Your Observations</string>
+    <string name="disclaimer">I hereby certify that I have on this Day examined the applicant and that he/she in my opinion is fit under the food, drugs and chemical substances (Food Hygiene) Regulations to work</string>
+    <string name="medical_certificate_billing">Medical Certificate Billing</string>
+    <string name="count_assets">Hire of County Assets</string>
+    <string name="count_assets_des">Charges applicable for hire of county assets such as tractors, stadiums etc</string>
+    <string name="hire">Hire of county assets</string>
+    <string name="tractor_hire">Tractor Hire Services </string>
+    <string name="tractor_hire_des">Collect fees for services rendered by county tractor</string>
+    <string name="hire_stadium">Hire of Stadium, park &amp; open spaces </string>
+    <string name="hire_stadium_des">Hire of county open spaces such as stadiums and parks</string>
+    <string name="hire_machinery">Hire of Machinery &amp; Equipment</string>
+    <string name="hire_machinery_des">Hire Of Machinery And Equipment\'s</string>
+    <string name="tractor_number_plate">Tractor\'s Number Plate</string>
+    <string name="acres">Acres Serviced</string>
+    <string name="acres_hint">Acres</string>
+    <string name="service_space">Service Space</string>
+    <string name="machine_number">Machine Number</string>
+    <string name="machine_number_hint">Enter Machine Number</string>
+    <string name="park_activities">Park Activity</string>
+    <string name="shortcode">ShortCode</string>
+    <string name="terms">By using our services, you agree to the collection and processing of your data for the purpose of enhancing user experience, in accordance with our privacy policy and applicable regulations.</string>
+    <string name="checking_time">Check in Time</string>
+    <string name="minutes_spent">Time Spent</string>
+    <string name="checked_in_by">Checked in by</string>
+
+    <string name="phone_des">Enter your phone number for verification</string>
+    <string name="get_opt">Get OTP</string>
+    <string name="otp_verification">OTP verification</string>
+    <string name="otp_verification_des">Enter the OTP sent to 0704549859</string>
+    <string name="text_did_not">Didn\'t receive the OTP.</string>
+    <string name="timer">Timer</string>
+    <string name="Verify">Verify &amp; Proceed</string>
+    <string name="billing">Universal Billing</string>
+    <string name="billing_">General Billing for unstructured services</string>
+
+
+
+
+
 
 
 </resources>

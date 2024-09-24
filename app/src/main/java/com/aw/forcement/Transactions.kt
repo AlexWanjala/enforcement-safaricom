@@ -1,7 +1,7 @@
 package com.aw.forcement
 
 import Json4Kotlin_Base
-import TransAdapter
+
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
@@ -113,11 +113,12 @@ class Transactions : AppCompatActivity() {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
                     runOnUiThread {
-                        val adapter = TransAdapter(this@Transactions, response.data.transactions)
+
+                      /*  val adapter = TransAdapter(this@Transactions, response.data.transactions)
                         adapter.notifyDataSetChanged()
                         recyclerView.layoutManager = LinearLayoutManager(this@Transactions)
                         recyclerView.adapter = adapter
-                        recyclerView.setHasFixedSize(false)
+                        recyclerView.setHasFixedSize(false)*/
                     }
 
                 }else{

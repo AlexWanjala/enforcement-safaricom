@@ -42,6 +42,7 @@
     <color name="brown_bg">#FCF8D6AD</color>
     <color name="strip">#F4F4F4</color>
     <color name="yellow_color">#FFF700</color>
-
+    <color name="text_grey">#9C9C9C</color>
+    <color name="bg_greenish">#D3DBDE</color>
 
 </resources>

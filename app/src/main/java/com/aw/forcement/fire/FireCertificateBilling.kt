@@ -166,6 +166,7 @@ class FireCertificateBilling : AppCompatActivity() {
             override fun onSuccess(result: String?) {
                 response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
+
                     runOnUiThread {
                         for(data in response.data.incomeTypes){
                             arrayList.add(data.incomeTypeDescription)
@@ -177,6 +178,7 @@ class FireCertificateBilling : AppCompatActivity() {
                         spinnerIncomeType.adapter = adapters
                         spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
                                 incomeTypeDescription = response.data.incomeTypes[position].incomeTypeDescription
                                 save(this@FireCertificateBilling, "incomeTypeDescription", incomeTypeDescription)
 
@@ -235,6 +237,7 @@ class FireCertificateBilling : AppCompatActivity() {
                         //so that the first one that is not dynamically added can be selected
                         spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+
                                 selectedFeeAndPositionPosition[spinnerFeeAndCharges] = position.toString()
                                 // Store the selected item for the corresponding spinnerFeeAndCharges
                                 selectedFeeAndCharges[spinnerFeeAndCharges] = response.data.feesAndCharges[position]

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+    android:padding="30dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/requirement"
+            android:gravity="bottom"
+            android:textColor="@color/blue_zuku"
+            android:textAllCaps="true"
+            android:text="Structural"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:layout_marginBottom="5dp"
+            android:layout_marginStart="20dp"
+            android:background="@color/blue_zuku"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/requirement_des"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat"
+        android:textColor="@color/text_black"
+        android:text="The layout and space in food preparation areas be adequate to minimise contamination of food.\n\n
+
+The building floor, walls, roof/ceiling be constructed of hard impervious non corrodible material that can be sanitized and be kept in good state of repair
+
+Adequately painted wall and ceiling surfaces"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+

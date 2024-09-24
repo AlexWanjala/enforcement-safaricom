@@ -74,6 +74,7 @@ val paysol = URL + "paysol/index.php"
 var parking = "parking/"
 var rent = "rent/"
 var trade = "trade/"
+var health = "health/"
 var biller ="biller/"
 var callback ="biller/callback.php"
 var liquor ="liquor/"
@@ -104,14 +105,15 @@ fun executeRequest(formData: List<Pair<String, String>>, stream:String, callback
                 }
 
                 result.failure {
-                    Thread.sleep(3000)
+
+                 /*   Thread.sleep(3000)
                     retryNumber++
                     if(retryNumber<200){
                         process()
                     }else{
 
                         callback.onFailure("Network Issue Detected")
-                    }
+                    }*/
 
                 }
 
@@ -279,7 +281,6 @@ fun save(context: Context, key: String?, value: String?) {
     editor.putString(key, value)
     editor.apply()
 }
-
 fun getValue(context: Context, key: String?): String? {
     //if 1st time , register the user
     val prefs = context.getSharedPreferences("com.aw.paysol", Context.MODE_PRIVATE)

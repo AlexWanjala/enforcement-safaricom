@@ -1,5 +1,6 @@
 package com.aw.forcement.transaction
 
+import Json4Kotlin_Base
 import android.Manifest
 import android.content.ClipboardManager
 import android.content.Context
@@ -15,9 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aw.forcement.R
-import com.aw.passanger.api.CallBack
-import com.aw.passanger.api.callback
-import com.aw.passanger.api.executeJsonRequest
+import com.aw.passanger.api.*
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_auto_recon.*
 import org.json.JSONObject
 
@@ -50,7 +50,7 @@ class AutoRecon : AppCompatActivity() {
             }
         })
 
-        // Check for permission to read clipboard
+      /*  // Check for permission to read clipboard
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
             ContextCompat.checkSelfPermission(
                 this,
@@ -65,38 +65,51 @@ class AutoRecon : AppCompatActivity() {
             )
         } else {
             // Permission already granted or not needed
-            readFromClipboard()
+           // readFromClipboard()
         }
-
+*/
         submitMessage.setOnClickListener {
+            Toast.makeText(this,"djdjjd",Toast.LENGTH_LONG).show()
             processPastedMessage(edMpesa.text.toString())
         }
     }
 
         fun reconMessage(jsonString: String){
-        executeJsonRequest(jsonString,callback,object : CallBack {
 
+            val formData = listOf(
+                "function" to "updateTransactionStatus",
+                "jsonString" to  jsonString,
+            )
+
+            executePaysolRequest(formData, paysol,object : CallBack {
             override fun onSuccess(result: String?) {
 
                 runOnUiThread {
-                    edMpesa.setText("")
-                    tvMessage.text = result
+
+                    val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                    if(response.success){
+                        edMpesa.setText("")
+                        tvMessage.text = response.message
+
+                    }else{
+
+                    }
                 }
 
             }
-
             override fun onFailure(result: String?) {
                 runOnUiThread {
                     tvMessage.text = result
                 }
             }
         })
+
     }
 
     override fun onResume() {
         super.onResume()
 
-        // Check for permission to read clipboard
+       /* // Check for permission to read clipboard
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
             ContextCompat.checkSelfPermission(
                 this,
@@ -112,7 +125,7 @@ class AutoRecon : AppCompatActivity() {
         } else {
             // Permission already granted or not needed
             readFromClipboard()
-        }
+        }*/
     }
     private fun readFromClipboard() {
         // Get the clipboard manager
@@ -147,7 +160,6 @@ class AutoRecon : AppCompatActivity() {
         // Define the regular expression pattern to match the sample message structure
         val pattern = "([A-Z0-9]+) Confirmed\\. Ksh([\\d.,]+) sent to ([\\w\\s]+) for account ([\\w\\s]+) on (\\d{1,2}/\\d{1,2}/\\d{2,4} at \\d{1,2}:\\d{2} [AP]M)"
 
-
         // Create a regex object with the defined pattern
         val regex = Regex(pattern)
 
@@ -159,23 +171,27 @@ class AutoRecon : AppCompatActivity() {
             // Extract the groups from the match result
             val (transactionCode, amountSent, recipient, account, dateTime) = matchResult.destructured
 
+            // Extract the county name from the recipient field
+            val countyRegex = Regex("to ([\\w\\s]+) for")
+            val countyMatchResult = countyRegex.find(recipient)
+            val countyName = countyMatchResult?.destructured?.component1()?.trim()
+
             // Set the extracted information into your EditText
             edMpesa.setText(pastedMessage)
 
             // Assuming amountSent is a string representing the amount
             val amountWithoutCommaOrDecimal = amountSent.replace(",", "").split(".")[0]
 
-// Convert the resulting string to an integer
+            // Convert the resulting string to an integer
             val amountInt = amountWithoutCommaOrDecimal.toIntOrNull() ?: 0
 
             // Print or use the extracted information
             println("Transaction Code: $transactionCode")
             println("Amount Sent: $amountInt")
             println("Recipient: $recipient")
+            println("County Name: $countyName") // Print or store countyName variable
             println("Account: $account")
             println("Date and Time: $dateTime")
-
-
 
             // Create a JSON object
             val jsonObject = JSONObject().apply {
@@ -192,7 +208,9 @@ class AutoRecon : AppCompatActivity() {
                 put("message", "PAID")
                 put("url", "")
                 put("receipt_number", transactionCode)
+                put("county_name", recipient) // Add county_name to the JSON object
             }
+
             // Convert the JSON object to a string
             val jsonString = jsonObject.toString()
             reconMessage(jsonString)
@@ -206,6 +224,7 @@ class AutoRecon : AppCompatActivity() {
             println("Pasted message does not match the expected format: $pastedMessage")
         }
     }
+
 
     fun convertDateTime(dateTime: String): String {
         val parts = dateTime.split(" at ")
@@ -246,6 +265,7 @@ class AutoRecon : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission granted, proceed to read from clipboard
                 readFromClipboard()
+
             } else {
                 // Permission denied, handle accordingly
                 // You might want to inform the user that the permission is necessary to proceed

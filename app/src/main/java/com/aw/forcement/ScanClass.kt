@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.aw.forcement.others.Business
 import com.aw.forcement.others.Receipt
+import com.aw.forcement.others.Street
 import com.aw.forcement.others.TransactionsResults
 import com.aw.passanger.api.*
 import com.google.android.gms.vision.CameraSource
@@ -119,7 +120,19 @@ class ScanClass : AppCompatActivity() {
                                 checkBusiness(businessID)
                             }
                         }
-                    }else{
+                    }
+                    else if(scannedValue.contains("Sticker")){
+
+                        val numberPlate = scannedValue.split("~")[0]
+                        runOnUiThread {
+                            cameraSource.stop()
+                            if(boolean){
+                                boolean = false
+                                startActivity(Intent(this@ScanClass, Street::class.java).putExtra("numberPlate",numberPlate))
+                            }
+                        }
+                    }
+                    else{
                         runOnUiThread {
                             cameraSource.stop()
                             if(boolean){

@@ -206,7 +206,9 @@ class ApplicationVerificationBillingInformation : AppCompatActivity() {
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "balanceAmount" to tv_remaining_amount.text.toString().replace("KES","").replace(" ",""),
             "stageStatus" to stageStatus,
-            "deviceId" to getDeviceIdNumber(this)
+            "deviceId" to getDeviceIdNumber(this),
+            "sessionNames" to getValue(this,"username").toString(),
+            "sessionIdNo" to getValue(this,"idNo").toString()
 
         )
         executeRequest(formData, trade,object : CallBack {

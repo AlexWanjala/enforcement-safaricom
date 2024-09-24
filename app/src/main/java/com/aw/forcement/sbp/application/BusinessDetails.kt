@@ -49,7 +49,11 @@ class BusinessDetails : AppCompatActivity() {
         }
         btn_previous.setOnClickListener { finish() }
 
-        getSubCounties()
+        subCountyID = getValue(this,"subCountyID").toString()
+        subCountyName = getValue(this,"subCountyName").toString()
+        ed_subCounty.setText(subCountyName)
+       // getSubCounties()
+        getWards()
         getFloor()
     }
 
@@ -88,7 +92,7 @@ class BusinessDetails : AppCompatActivity() {
         }
     }
 
-    private fun getSubCounties (){
+   /* private fun getSubCounties (){
         val formData = listOf(
             "function" to "getSubCounty",
             "deviceId" to getDeviceIdNumber(this)
@@ -135,7 +139,8 @@ class BusinessDetails : AppCompatActivity() {
             }
 
         })
-    }
+    }*/
+
     private fun getWards (){
         val formData = listOf(
             "function" to "getWards",

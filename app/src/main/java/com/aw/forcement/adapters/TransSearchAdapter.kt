@@ -108,6 +108,7 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 				builder.setMessage("Select the options below")
 				builder.setNeutralButton("Archive") { dialog, which ->
 					dialog.dismiss()
+
 					val formData = listOf(
 						"function" to "updateTransactionStatus",
 						"billNo" to  list.account_ref,
@@ -148,7 +149,6 @@ class TransSearchAdapter(private val context: Context, mList: List<Transactions>
 				builder.setNegativeButton(android.R.string.no) { dialog, which ->
 					dialog.dismiss()
 				}
-
 				builder.show()
 
 				return true

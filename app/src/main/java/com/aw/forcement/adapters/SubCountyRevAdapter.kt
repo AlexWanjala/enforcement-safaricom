@@ -57,7 +57,7 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 		}
 
-		val progress = calculateProgress(list.amountTotal.toDouble(),list.target.toDouble())
+		val progress = 50
 		if (progress>= 100){
 			holder.view_performance.setBackgroundColor(Color.parseColor("#047A10"))//Above Target
 		}

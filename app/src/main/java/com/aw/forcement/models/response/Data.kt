@@ -28,7 +28,6 @@ data class Data (
 	@SerializedName("subCounties") val subCounties : List<SubCounties>,
 	@SerializedName("tradeCategories") val tradeCategories : List<TradeCategories>,
 	@SerializedName("tradeSubCategories") val tradeSubCategories : List<TradeSubCategories>,
-	@SerializedName("user") val user : User,
 	@SerializedName("transaction") val transaction : Transaction,
 	@SerializedName("overview") val overview : List<Overview>,
 	@SerializedName("MyOverview") val myOverview : MyOverview,
@@ -53,5 +52,11 @@ data class Data (
 	@SerializedName("years") val years : List<Years>,
 	@SerializedName("payBill") val payBill : PayBill,
 	@SerializedName("county") val county : County,
-	@SerializedName("fireSafety") val fireSafety : List<FireSafety>
+	@SerializedName("fireSafety") val fireSafety : List<FireSafety>,
+	@SerializedName("Requirements") val requirements : List<Requirements>,
+	@SerializedName("individual") val individual : Individual,
+	@SerializedName("properties") val properties : List<Properties>,
+	@SerializedName("units") val units : List<Units>,
+	@SerializedName("user") val user : User,
+	@SerializedName("category") val category : Category
 )

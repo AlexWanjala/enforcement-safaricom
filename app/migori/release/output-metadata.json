@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement.migori",
+  "variantName": "migoriRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 167,
+      "versionName": "167-migori",
+      "outputFile": "app-migori-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

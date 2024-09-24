@@ -6,8 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
@@ -26,12 +28,12 @@ class HistoryAdapter(private val context: Context, mList: List<Queries>) :
 	private var mList: List<Queries> = ArrayList<Queries>()
 
 	inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-		var layoutView: ConstraintLayout = itemView.findViewById<View>(R.id.layoutView) as ConstraintLayout
-		var tvNameTag_: TextView = itemView.findViewById<View>(R.id.tvNameTag_) as TextView
-		var tvHeader: TextView = itemView.findViewById<View>(R.id.tvHeader) as TextView
-		var tvItem: TextView = itemView.findViewById<View>(R.id.tvItem) as TextView
-		var tvDate: TextView = itemView.findViewById<View>(R.id.tvDate) as TextView
-		var tvStatus_: TextView = itemView.findViewById<View>(R.id.tvStatus_) as TextView
+		var layoutView: LinearLayout = itemView.findViewById<View>(R.id.layoutView) as LinearLayout
+		var tvPhysicalAddress: TextView = itemView.findViewById<View>(R.id.tvPhysicalAddress) as TextView
+		var tvStatus: TextView = itemView.findViewById<View>(R.id.tvStatus) as TextView
+		var tvNumberPlate: TextView = itemView.findViewById<View>(R.id.tvNumberPlate) as TextView
+		var tvNumbering: TextView = itemView.findViewById<View>(R.id.tvNumbering) as TextView
+		var tvTime: TextView = itemView.findViewById<View>(R.id.tvTime) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,27 +45,27 @@ class HistoryAdapter(private val context: Context, mList: List<Queries>) :
 	override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 		val list: Queries = mList[position]
 
-		if(list.whichitem==null){
-			holder.tvNameTag_.text = "#"
-		}else{
-			//holder.tvNameTag_.text = "${list.whichitem[0]}${list.whichitem[1]}"
-		}
-/* "latitude" to getValue(this,"latitude").toString(),
-            "longitude" to getValue(this,"longitude").toString(),*/
+		holder.tvNumberPlate.text = list.whichitem
+		holder.tvPhysicalAddress.text = list.addressString.replace("\n", "")
+		holder.tvStatus.text = list.currentState
+		holder.tvNumbering.text = "${position + 1}."
+		holder.tvTime.text = covertTimeToText(list.dateCreated)
 
-		holder.tvHeader.text = list.queryfor
-		holder.tvItem.text = list.whichitem+" "+ list.addressString
-		holder.tvDate.text = covertTimeToText(list.dateCreated)
-		holder.tvStatus_.text = list.currentState
+		// Set onClickListener to launch Google Maps
 		holder.layoutView.setOnClickListener {
 			val intent = Intent(
 				Intent.ACTION_VIEW,
-				Uri.parse("http://maps.google.com/maps?saddr=${getValue(context,"latitude")},${getValue(context,"longitude")}&daddr=${list.latitude},${list.longitude}")
+				Uri.parse("http://maps.google.com/maps?saddr=${getValue(context, "latitude")},${getValue(context, "longitude")}&daddr=${list.latitude},${list.longitude}")
 			)
 			context.startActivity(intent)
 		}
 
+		// Change layoutView background color if position is even
+		if (position % 2 == 0) {
+			holder.layoutView.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
+		}
 	}
+
 
 	override fun getItemCount(): Int {
 		return mList.size

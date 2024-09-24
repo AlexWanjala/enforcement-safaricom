@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement.kajiado",
+  "variantName": "kajiadoRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 171,
+      "versionName": "171-kajiado",
+      "outputFile": "app-kajiado-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

@@ -1,5 +1,6 @@
 package com.aw.forcement.others
 
+import Const
 import Json4Kotlin_Base
 import android.app.Activity
 import android.app.AlertDialog
@@ -87,7 +88,16 @@ class ReceiptDetails : AppCompatActivity() {
             builder.show()
         }
         print.setOnClickListener {
+
             printReceipt()
+
+         /*  if(Const.instance.getReceiptDetails().printed == "0"){
+               printReceipt()
+           }else{
+               Toast.makeText(this,"Receipt already Printed",Toast.LENGTH_LONG).show()
+           }*/
+
+
         }
         getReceipt()
 
@@ -124,6 +134,7 @@ class ReceiptDetails : AppCompatActivity() {
 
                 if(response.success){
                     runOnUiThread {
+                        Const.instance.setReceiptDetails(response.data.receiptDetails)
                         tv_name.text = response.data.receiptDetails.paidBy
                         tv_phone.text = response.data.receiptDetails.customerPhoneNumber
                         tv_date.text = humanDate(response.data.receiptDetails.dateCreated)
@@ -167,7 +178,6 @@ class ReceiptDetails : AppCompatActivity() {
                                         descriptions +="${array2[0].trimStart().trimEnd()}:             ${array2[1].trimStart().trimEnd()}\n";
 
                                     }
-
 
                                 }
                             } else {
@@ -237,6 +247,22 @@ class ReceiptDetails : AppCompatActivity() {
 
             override fun printingOrderSentSuccessfully() {
                 Toast.makeText(this@ReceiptDetails, "Order sent to printer", Toast.LENGTH_SHORT).show()
+                //update status
+                val formData = listOf(
+                    "function" to "updatePrint",
+                    "receiptNo" to intent.getStringExtra("transaction_code").toString(),
+                )
+                executeRequest(formData, biller,object : CallBack {
+                    override fun onSuccess(result: String?) {
+
+                        Const.instance.getReceiptDetails().printed = "1"
+
+                    }
+
+                    override fun onFailure(result: String?) {
+                    }
+
+                })
             }
 
             override fun connectionFailed(error: String) {

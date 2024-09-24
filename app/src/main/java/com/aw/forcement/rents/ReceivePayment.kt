@@ -1,5 +1,6 @@
 package com.aw.forcement.rents
 
+import Const
 import Json4Kotlin_Base
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -18,6 +19,7 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.BuildConfig
 import com.aw.forcement.R
@@ -68,7 +70,6 @@ class ReceivePayment : AppCompatActivity() {
     lateinit var feeId: String
     private var printing : Printing? = null
 
-
     lateinit var messageBoxView : View
     lateinit var messageBoxInstance: androidx.appcompat.app.AlertDialog
 
@@ -81,10 +82,9 @@ class ReceivePayment : AppCompatActivity() {
     lateinit var messageBoxViewPaid : View
     lateinit var messageBoxInstancePaid: androidx.appcompat.app.AlertDialog // Declare as AlertDialog
 
-
-    lateinit var feeDescription: String
-    lateinit var incomeTypeDescription : String
     var promisedDate =""
+    var propertyID =""
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,6 +110,7 @@ class ReceivePayment : AppCompatActivity() {
             }
         }
         getIncomeTypes()
+        getProperties()
 
         //Bluetooth printer
          if (Printooth.hasPairedPrinter())
@@ -117,7 +118,6 @@ class ReceivePayment : AppCompatActivity() {
          initListeners()
 
     }
-
 
     fun amountDisplay() {
         if (edQuantity.text.isNotEmpty()) {
@@ -129,27 +129,25 @@ class ReceivePayment : AppCompatActivity() {
         }
     }
 
-
-
     private fun generateBill (){
         tv_message.text ="Generating bill please wait.."
-        (messageBoxView as View?)!!.tv_message.text ="Generating bill please wait..$incomeTypeDescription $feeDescription"
+        (messageBoxView as View?)!!.tv_message.text ="Generating bill please wait.."
         showMessageBox()
         val formData = listOf(
             "function" to "generateBill2",
             "feeId" to feeId.toString(),
-            "amount" to (edQuantity.text.toString().toInt() * amount.toString().toInt()).toString(),
-            "customer" to edIDNo.text.toString(),
-            "zone" to getValue(this,"zone").toString(),
-            "subCountyID" to getValue(this,"subCountyID").toString(),
-            "subCountyName" to getValue(this,"subCountyName").toString(),
-            "wardID" to getValue(this,"wardID").toString(),
-            "wardName" to getValue(this,"wardName").toString(),
+            "amount" to edAmount.text.toString(),
+            "customer" to "${Const.instance.getUnits().unitNo}|${Const.instance.getUnits().idNo}|${Const.instance.getUnits().id}", //unitNo | idNo | id
+            "zone" to  Const.instance.getUnits().zone,
+            "subCountyID" to  Const.instance.getUnits().subCountyID,
+            "subCountyName" to  Const.instance.getUnits().subCountyName,
+            "wardID" to  Const.instance.getUnits().wardID,
+            "wardName" to Const.instance.getUnits().wardName,
             "idNo" to getValue(this,"idNo").toString(),
             "phoneNumber" to getValue(this,"phoneNumber").toString(),
             "customerPhoneNumber" to edPhoneNumber.text.toString(),
             "names" to getValue(this,"username").toString(),
-            "description" to edDescription.text.toString(),
+            "description" to "${Const.instance.getUnits().occupants}| ${Const.instance.getUnits().unitNo} | ${Const.instance.getUnits().property}",
             "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
@@ -197,9 +195,9 @@ class ReceivePayment : AppCompatActivity() {
 
         val formData = listOf(
             "function" to "getIncomeTypes",
-            "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString(),
-            "deviceId" to getDeviceIdNumber(this)
-
+            "incomeTypePrefix" to "HSRENT",
+            "deviceId" to getDeviceIdNumber(this),
+            "keyword" to "Housing",
         )
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
@@ -208,18 +206,89 @@ class ReceivePayment : AppCompatActivity() {
 
                     runOnUiThread {
 
-                        for(data in response.data.incomeTypes){
-                            arrayList.add(data.incomeTypeDescription)
+                        getFeesAndCharges(response.data.incomeTypes[0].incomeTypeId)
+
+                    }
+
+                }else{
+                    runOnUiThread {  Toast.makeText(this@ReceivePayment,response.message, Toast.LENGTH_LONG).show()}
+
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+    }
+
+    private fun getFeesAndCharges(incomeTypeId: String){
+        val formData = listOf(
+            "function" to "getFeesAndCharges",
+            "incomeTypeId" to incomeTypeId,
+            "deviceId" to getDeviceIdNumber(this),
+        )
+        executeRequest(formData, biller,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                runOnUiThread {
+
+                    if(response.success){
+                        runOnUiThread {
+
+                           feeId =  response.data.feesAndCharges[0].feeId
+
+                        }
+                    }
+                    else{
+
+                        Toast.makeText(this@ReceivePayment,response.message, Toast.LENGTH_LONG).show() }
+                }
+
+            }
+            override fun onFailure(result: String?) {
+                runOnUiThread {
+                    Toast.makeText(this@ReceivePayment,result, Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
+    }
+
+    private fun getProperties (){
+
+        val formData = listOf(
+            "function" to "getProperties",
+            "incomeTypePrefix" to intent.getStringExtra("incomeTypePrefix").toString(),
+            "deviceId" to getDeviceIdNumber(this),
+            "page" to "1",
+            "rows_per_page" to "10"
+
+        )
+        executeRequest(formData, rent,object : CallBack {
+            override fun onSuccess(result: String?) {
+                val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
+                if(response.success){
+
+                    runOnUiThread {
+
+                        for(data in response.data.properties){
+                            arrayList.add(data.property)
                         }
 
                         //Spinner
                         val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList)
                         adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                        spinnerIncomeType.adapter = adapters
-                        spinnerIncomeType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                        spinnerProperties.adapter = adapters
+                        spinnerProperties.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
-                                spinnerFeeAndCharges(response.data.incomeTypes[postion].incomeTypeId)
-                                incomeTypeDescription = response.data.incomeTypes[postion].incomeTypeDescription
+
+                                getUnits(response.data.properties[postion].propertyID)
+                                propertyID = response.data.properties[postion].propertyID
+
                             }
                             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -241,38 +310,50 @@ class ReceivePayment : AppCompatActivity() {
 
         })
     }
-    private fun spinnerFeeAndCharges (incomeTypeId: String){
+    private fun getUnits(propertyID: String){
         val formData = listOf(
-            "function" to "getFeesAndCharges",
-            "incomeTypeId" to incomeTypeId,
-            "deviceId" to getDeviceIdNumber(this)
+            "function" to "getUnits",
+            "propertyID" to propertyID,
+            "deviceId" to getDeviceIdNumber(this),
+            "page" to "1",
+            "rows_per_page" to "10"
         )
-        executeRequest(formData, biller,object : CallBack {
+        executeRequest(formData, rent,object : CallBack {
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
-                runOnUiThread {  arrayList2.clear()
+                runOnUiThread {
+
+                    arrayList2.clear()
                     val adapters = ArrayAdapter<String>(applicationContext, R.layout.simple_spinner_dropdown_item,arrayList2)
                     adapters.clear()
                     if(response.success){
                         runOnUiThread {
-                            for(data in response.data.feesAndCharges){
-                                arrayList2.add(data.feeDescription)
+                            for(data in response.data.units){
+                                arrayList2.add("${data.property} ${data.unitNo} ${data.occupants}")
                             }
 
                             //Spinner
                             adapters.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
-                            spinnerFeeAndCharges.adapter = adapters
-                            spinnerFeeAndCharges.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                            spinnerUnits.adapter = adapters
+                            spinnerUnits.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, postion: Int, p3: Long) {
                                     //  response.data.feesAndCharges[postion].feeId
-                                    amount = response.data.feesAndCharges[postion].unitFeeAmount
-                                    feeId = response.data.feesAndCharges[postion].feeId
-                                    save(this@ReceivePayment,"description",response.data.feesAndCharges[postion].feeDescription)
+                                    amount = response.data.units[postion].arrears
+                                    Const.instance.setUnits(response.data.units[postion])
+
+
+                                  //  save(this@ReceivePayment,"description",response.data.feesAndCharges[postion].feeDescription)
+
                                     runOnUiThread {
-                                        feeDescription =  response.data.feesAndCharges[postion].feeDescription
-                                        tvUnits.text =  response.data.feesAndCharges[postion].feeDescription
-                                        tvAmount.text ="KES "+amount
+                                        tv_tenant.text = response.data.units[postion].occupants
+                                        tv_rent.text ="KES "+ response.data.units[postion].monthlyRent
+                                        tv_arrears.text ="KES "+ response.data.units[postion].arrears
                                     }
+                                  /*  runOnUiThread {
+                                        feeDescription =  response.data.units[postion].occupants
+                                        tvUnits.text =  response.data.units[postion].unitNo
+                                        tvAmount.text ="KES "+amount
+                                    }*/
                                 }
                                 override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -355,25 +436,27 @@ class ReceivePayment : AppCompatActivity() {
 
                             messageBoxInstance.dismiss()
                             tv_message.text ="Payment Received #${response.data.push.transaction_code} KES ${response.data.push.amount}"
-                            save(this@ReceivePayment,"transaction_code",response.data.push.transaction_code)
+
+                           /* save(this@ReceivePayment,"transaction_code",response.data.push.transaction_code)
                             save(this@ReceivePayment,"amount",response.data.push.amount)
                             save(this@ReceivePayment,"payer_phone",response.data.push.account_from)
                             save(this@ReceivePayment,"ref",response.data.push.ref)
                             save(this@ReceivePayment,"payer_names",response.data.transaction.names)
-                            save(this@ReceivePayment,"date",response.data.transaction.date)
+                            save(this@ReceivePayment,"date",response.data.transaction.date)*/
 
                             tvSendPayment.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
 
                             showMessageBoxPayment(
+
                                 response.data.transaction.transaction_code,
                                 response.data.transaction.names,
                                 response.data.transaction.amount,
-                                "${feeDescription} ${edIDNo.text}",
-                                incomeTypeDescription
+                                "",
+                                ""
                             )
 
-                            getReceipt(response.data.transaction.transaction_code)
+                            getReceipt(response.data.push.transaction_code)
 
 
 
@@ -385,7 +468,7 @@ class ReceivePayment : AppCompatActivity() {
                             tv_message.text ="Waiting for payment.."
                             (messageBoxView as View?)!!.tv_message.text ="Waiting for payment.."
                         }
-                        TimeUnit.SECONDS.sleep(2L)
+                        TimeUnit.SECONDS.sleep(5L)
                         checkPayment(accountReference)
                     }else{
                         runOnUiThread {
@@ -393,6 +476,7 @@ class ReceivePayment : AppCompatActivity() {
                             tv_message.text = response.data.push.message
                             tvSendPayment.visibility = View.VISIBLE
                             tvSendPushDisabled.visibility = View.GONE
+                            showMessageBoxPaymentFail(response.data.push.message )
                         }
                     }
 
@@ -412,8 +496,6 @@ class ReceivePayment : AppCompatActivity() {
 
         })
     }
-
-
     //popups
     private fun showMessageBox(){
         // Check if messageBoxView has a parent
@@ -425,8 +507,12 @@ class ReceivePayment : AppCompatActivity() {
         messageBoxInstance = messageBoxBuilder.show()
     }
 
+    private fun showMessageBoxPayment(transaction: String, payer: String, amount: String, des: String, category: String) {
 
-    private fun showMessageBoxPayment(transaction: String,payer: String,amount: String, des: String,category:String){
+        // Check if the activity is finishing or destroyed
+        if (isFinishing || isDestroyed) {
+            return // Don't show the dialog if the activity is finishing or destroyed
+        }
 
         // Check if messageBoxView has a parent
         if (messageBoxViewPaid.parent != null) {
@@ -434,19 +520,27 @@ class ReceivePayment : AppCompatActivity() {
             (messageBoxViewPaid.parent as ViewGroup).removeView(messageBoxViewPaid)
         }
 
-        val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
-            messageBoxViewPaid as View?
-        )
+        // Create AlertDialog.Builder
+        val messageBoxBuilder = AlertDialog.Builder(this).setView(messageBoxViewPaid as View?)
+
+        // Show the dialog and assign it to messageBoxInstancePaid
         messageBoxInstancePaid = messageBoxBuilder.show()
 
+        // Set text for views in the dialog
         messageBoxViewPaid.tv_transaction.text = transaction
         messageBoxViewPaid.tv_payer.text = payer
         messageBoxViewPaid.tv_amount.text = amount
         messageBoxViewPaid.tv_des.text = des
         messageBoxViewPaid.tv_category.text = category
-        messageBoxViewPaid.okay.setOnClickListener { messageBoxInstancePaid.dismiss() }
 
+        // Set onClickListener for the 'okay' button to dismiss the dialog
+        messageBoxViewPaid.okay.setOnClickListener {
+            messageBoxInstancePaid.dismiss() // Dismiss the dialog if it's not null
+        }
     }
+
+    // Override onDestroy method to dismiss the dialog if it's showing
+
 
     private fun showMessageBoxDate(){
 
@@ -547,7 +641,6 @@ class ReceivePayment : AppCompatActivity() {
         }
 
     }
-
     private fun getReceipt(transaction_code: String){
         val formData = listOf(
             "function" to "getReceipt",
@@ -560,6 +653,7 @@ class ReceivePayment : AppCompatActivity() {
             "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
@@ -640,8 +734,7 @@ class ReceivePayment : AppCompatActivity() {
 
     }
 
-
-    //printer services starts here
+    //Printer services starts here
     @RequiresApi(Build.VERSION_CODES.O)
     fun printReceipt(){
         if (!Printooth.hasPairedPrinter())

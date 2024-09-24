@@ -234,7 +234,7 @@ class MainRoActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val formData = listOf(
             "function" to "getUsersMonitoring",
             "page" to "1",
-            "rows_per_page" to "20",
+            "rows_per_page" to "1000",
             "subCountyID" to  getValue(this,"subCountyID").toString(),
             "userStatus" to  status,
             "deviceId" to getDeviceIdNumber(this)

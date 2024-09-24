@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".sbp.application.BusinessOwner">
+
+
+    <LinearLayout
+        android:layout_gravity="top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:padding="20sp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/applicants_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <ImageView
+                android:id="@+id/closeBottom"
+                android:padding="10dp"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:src="@drawable/close_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <View
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:fontFamily="@font/montserrat"
+                    android:textSize="14sp"
+                    android:textColor="@color/circle_color"
+                    android:textAllCaps="true"
+                    android:text="@string/applicant_bio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_marginStart="10sp"
+                    android:layout_gravity="center"
+                    android:background="@color/circle_color"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:textSize="12sp"
+                    android:textColor="@color/labels"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/applicant_bio_des"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/applicants_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+
+                <FrameLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:inputType="number"
+                        android:layout_gravity="left"
+                        android:id="@+id/ed_id_no"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:padding="15dp"
+                        android:hint="@string/enter_id"
+                        android:background="@drawable/rectangle_background"
+                        android:layout_width="260dp"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:padding="10dp"
+                        android:background="@color/primay_color"
+                        android:layout_gravity="right"
+                        android:src="@drawable/search"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"/>
+
+                </FrameLayout>
+                <TextView
+                    android:textColor="@color/green"
+                    tools:text="Searching...please wait.."
+                    android:id="@+id/tvMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/full_names"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="left"
+                    android:id="@+id/ed_names"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:padding="15dp"
+                    android:hint="@string/enter_applicant_names_hint"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/applicant_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:inputType="phone"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="left"
+                    android:id="@+id/ed_phone"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:padding="15dp"
+                    android:hint="@string/applicant_phone_hint"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/email_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:inputType="textEmailAddress"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="left"
+                    android:id="@+id/ed_email"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:padding="15dp"
+                    android:hint="@string/email_address_hint"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+                <TextView
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/montserrat"
+                    android:text="@string/job_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    android:inputType="textAutoCorrect"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="left"
+                    android:id="@+id/ed_title"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:padding="15dp"
+                    android:hint="@string/job_title_hint"
+                    android:background="@drawable/rectangle_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+
+            </LinearLayout>
+
+
+
+            <Button
+                android:drawableTint="@color/grey"
+                android:backgroundTint="@color/grey"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_fill_primary"
+                android:id="@+id/btn_next"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:text="@string/next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:backgroundTint="@color/circle_color"
+                android:fontFamily="@font/montserrat"
+                android:background="@drawable/bg_outline_white"
+                android:id="@+id/btn_previous"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/circle_color"
+                android:text="@string/previous"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>

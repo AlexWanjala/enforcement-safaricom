@@ -124,7 +124,20 @@
                           android:layout_height="wrap_content"/>
 
 
-                      <LinearLayout
+                      <EditText
+                          android:focusable="false"
+                          android:id="@+id/ed_subCounty"
+                          android:layout_marginTop="5dp"
+                          android:textColor="@color/black"
+                          android:textSize="13sp"
+                          android:padding="15dp"
+                          android:hint="@string/sub_county"
+                          android:background="@drawable/rectangle_background"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"/>
+
+
+                   <!--   <LinearLayout
                           android:padding="10dp"
                           android:background="@drawable/rectangle_background"
                           android:layout_marginTop="10dp"
@@ -141,7 +154,7 @@
                               android:layout_height="24dp" />
 
 
-                      </LinearLayout>
+                      </LinearLayout>-->
                   </LinearLayout>
                   <LinearLayout
                       android:layout_marginStart="10dp"

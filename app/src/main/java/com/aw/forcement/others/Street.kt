@@ -15,8 +15,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.speech.tts.TextToSpeech
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
@@ -38,12 +36,9 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.vision.text.TextBlock
 import com.google.android.gms.vision.text.TextRecognizer
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_street.*
 import kotlinx.android.synthetic.main.clamp.*
-import kotlinx.android.synthetic.main.clamp.spinnerFeeAndCharges
-import kotlinx.android.synthetic.main.clamp.spinnerIncomeType
 import kotlinx.android.synthetic.main.clamp.view.*
 import kotlinx.android.synthetic.main.clamp.view.imageIcon
 import kotlinx.android.synthetic.main.clamp.view.tv_close
@@ -127,6 +122,14 @@ class Street : AppCompatActivity() {
                  }*/
             }
         }
+
+
+        if (intent.hasExtra("numberPlate")) {
+            val numberPlate = intent.getStringExtra("numberPlate")
+            getParking(numberPlate.toString().replace("",""))
+        }
+
+
 
 
         initOCR()

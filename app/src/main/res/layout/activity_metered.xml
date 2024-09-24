@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:scrollbars="vertical"
+    android:background="#F6F6FA"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:visibility="visible"
+            android:id="@+id/cameraView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <TextView
+                android:fontFamily="@font/montserrat"
+                android:textAllCaps="true"
+                android:layout_marginTop="3dp"
+                android:textColor="#FFFF00"
+                android:gravity="center"
+                android:elevation="1dp"
+                android:text="place the plate within the boundaries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/ImageCamera"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="22dp"
+                android:elevation="1dp"
+                android:layout_gravity="center"
+                android:src="@drawable/view_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ImageCamera2"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="22dp"
+                android:elevation="1dp"
+                android:layout_gravity="center"
+                android:src="@drawable/view_point"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.aw.forcement.ocr.camera.CameraSourcePreview
+                android:id="@+id/preview"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+                <com.aw.forcement.ocr.camera.GraphicOverlay
+                    android:elevation="51dp"
+                    android:id="@+id/graphicOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp" >
+                </com.aw.forcement.ocr.camera.GraphicOverlay>
+
+
+            </com.aw.forcement.ocr.camera.CameraSourcePreview>
+
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:padding="20dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/labels"
+                        android:textSize="14sp"
+                        android:text="@string/manual_entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Switch
+                        android:textSize="14dp"
+                        android:layout_gravity="right"
+                        android:checked="true"
+                        android:textStyle="bold"
+                        android:padding="5dp"
+                        android:id="@+id/switchCamera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Camera" />
+                </FrameLayout>
+
+
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:textSize="10sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textColor="@color/black"
+                        android:id="@+id/edPlate"
+                        android:hint="@string/enter_plate"
+                        android:padding="15dp"
+                        android:background="@drawable/rectangle_background"
+                        android:layout_weight="0.7"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:lines="1"
+                        android:singleLine="true"
+                        android:inputType="text"
+                        android:imeOptions="actionNext"/>
+
+                    <TextView
+                        android:clickable="true"
+                        android:elevation="10dp"
+                        android:id="@+id/tvSubmit"
+                        android:layout_marginLeft="16dp"
+                        android:gravity="center"
+                        android:padding="10sp"
+                        android:background="@drawable/bg_fill_primary"
+                        android:textColor="#FFFF"
+                        android:layout_width="71sp"
+                        android:layout_height="45dp"
+                        app:drawableTopCompat="@drawable/search" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/no.plate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/plate"
+                            android:textColor="@android:color/black"
+                            tools:text="KCC 358Y"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/last"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_last"
+                            android:textColor="@android:color/black"
+                            tools:text="homabay town"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/bg"
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:src="@drawable/money"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"/>
+
+                    <LinearLayout
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat"
+                            android:text="@string/for_"
+                            android:textAllCaps="true" />
+
+                        <TextView
+                            android:textSize="10sp"
+                            android:id="@+id/tv_for"
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:textColor="@android:color/black"
+                            tools:text="Homabay town"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/checking_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/date_paid"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/black"
+                            tools:text="11 jan 2023 01:54 PM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginStart="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/minutes_spent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/date_expiry"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/black"
+                            tools:text="11 jan 2023 01:54 PM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:weightSum="2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/compliance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_status"
+                            android:textSize="10dp"
+                            android:textColor="@android:color/holo_green_light"
+                            tools:text="Paid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/bg"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:textSize="10sp"
+                            android:fontFamily="@font/montserrat"
+                            android:textAllCaps="true"
+                            android:text="@string/amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:fontFamily="@font/montserrat"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:id="@+id/tv_amount"
+                            android:textSize="14dp"
+                            android:textColor="@android:color/black"
+                            tools:text="kes 100"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <Button
+                    android:fontFamily="@font/montserrat"
+                    android:background="@drawable/bg_fill_danger"
+                    android:id="@+id/btnClamp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/clamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+
+
+
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

@@ -13,10 +13,8 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <uses-permission android:name="android.permission.READ_CLIPBOARD_IN_BACKGROUND"/>
+    <uses-permission android:name="android.permission.READ_CLIPBOARD_IN_BACKGROUND" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -39,6 +37,104 @@
         android:windowSoftInputMode="adjustResize"
         tools:replace="android:theme"
         tools:targetApi="31">
+
+        <activity
+            android:name=".assets.machinery.TotalInvoicingDetailsMechinery"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+        <activity
+            android:name=".assets.machinery.MachineryBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".assets.stadium.StadiumBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+
+        <activity
+            android:name=".assets.stadium.TotalInvoicingDetailsStadium"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+
+
+        <activity
+            android:name=".assets.tractor.TotalInvoicingDetailsTractor"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".health.medical.ApplicantDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".assets.tractor.TractorBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+
+
+
+        <activity
+            android:name=".health.medical.MedicalAssesment"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".health.medical.MedicalCertificateBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".health.medical.TotalInvoicingDetailsMedical"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".health.hygiene.Requirements"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".transaction.AutoRecon"
             android:exported="false">
@@ -61,6 +157,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".health.hygiene.TotalInvoicingDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".fire.applications.ApplicationsFire"
             android:exported="false">
             <meta-data
@@ -75,7 +178,21 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".health.hygiene.HygieneCertificateBilling"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".fire.SearchForBusiness"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".health.hygiene.SearchForBusiness"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -92,6 +209,13 @@
         </activity>
         <activity
             android:name=".fire.BusinessDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".health.hygiene.BusinessDetails"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -467,6 +591,27 @@
             android:exported="false"
             android:launchMode="singleTop" />
         <activity android:name=".others.Street" />
+
+        <activity
+            android:exported="false"
+            android:launchMode="singleTop"
+             android:name=".others.MeteredParking"/>
+
+        <activity
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:name=".OTP"/>
+
+        <activity
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:name=".billing.Billing"/>
+
+        <activity
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:name=".billing.BillingSummary"/>
+
         <activity
             android:name=".Login"
             android:exported="true"
@@ -479,6 +624,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

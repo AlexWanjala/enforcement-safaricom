@@ -218,11 +218,13 @@ class MovementFees : AppCompatActivity() {
         }
     }
     private fun getIncomeTypes () {
+
         val formData = listOf(
             "function" to "getIncomeTypes",
             "incomeTypePrefix" to "LIVEMVT",
             "deviceId" to getDeviceIdNumber(this)
         )
+
         executeRequest(formData, biller,object : CallBack {
             override fun onSuccess(result: String?) {
                 response = Gson().fromJson(result, Json4Kotlin_Base::class.java)

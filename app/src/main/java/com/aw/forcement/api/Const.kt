@@ -10,14 +10,23 @@ class Const public constructor() {
     private lateinit var originalBusiness: Business
     private lateinit var entries: Entries
 
+    private lateinit var description: String
+
     private lateinit var bill: Bill
     private lateinit var receipt: Receipt
+    private lateinit var receiptDetails: ReceiptDetails
+    private lateinit var individual: Individual
+    private lateinit var units: Units
+
+    private lateinit var category: Category
+
 
     private lateinit var statuses: List<Statuses>
 
     private lateinit var feesAndCharges: List<FeesAndCharges>
 
     private var selectedFireSafety = mutableListOf<String>()
+    private var testsDone = mutableListOf<String>()
     // A method to add a fee and charge to the list
     fun addFireSafety(fireSafety: String) {
         if (!selectedFireSafety.contains(fireSafety)) {
@@ -33,6 +42,18 @@ class Const public constructor() {
     // A method to get the list of selected fees and charges
     fun getSelectedFireSafety(): List<String> {
         return selectedFireSafety
+    }
+
+    fun addTests(tests: String) {
+        if (!testsDone.contains(tests)) {
+            testsDone.add(tests)
+        }
+    }
+    fun removeTests(tests: String) {
+        testsDone.remove(tests)
+    }
+    fun getTests(): List<String> {
+        return testsDone
     }
 
 
@@ -74,6 +95,14 @@ class Const public constructor() {
         return feesAndCharges
     }
 
+    fun setUnits(units: Units) {
+        this.units = units
+    }
+
+    fun getUnits(): Units {
+        return units
+    }
+
     fun setStatuses(statuses: List<Statuses>) {
         this.statuses = statuses
     }
@@ -102,6 +131,14 @@ class Const public constructor() {
     }
 
 
+    fun setDescription(description: String){
+        this.description = description
+    }
+
+    fun getDescription(): String {
+        return description
+    }
+
     fun setEntries(entries: Entries) {
         this.entries = entries
     }
@@ -121,15 +158,36 @@ class Const public constructor() {
         return bill
     }
 
-
     fun setReceipt(receipt: Receipt) {
         this.receipt = receipt
     }
-
-    // A function to get the business object
     fun getReceipt(): Receipt {
         return receipt
     }
+
+    fun setReceiptDetails(receiptDetails: ReceiptDetails) {
+        this.receiptDetails = receiptDetails
+    }
+    fun getReceiptDetails(): ReceiptDetails {
+        return receiptDetails
+    }
+
+
+
+    fun setIndividual(individual: Individual) {
+        this.individual = individual
+    }
+    fun getIndividual(): Individual {
+        return individual
+    }
+
+     fun setCategory(category: Category) {
+        this.category = category
+    }
+    fun getCategory(): Category {
+        return category
+    }
+
 
 
     // A companion object that holds the singleton instance

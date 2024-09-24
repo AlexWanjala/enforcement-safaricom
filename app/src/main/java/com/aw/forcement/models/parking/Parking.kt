@@ -25,5 +25,6 @@ data class Parking (
 	@SerializedName("billBalance") val billBalance : String,
 	@SerializedName("startDate") val startDate : String,
 	@SerializedName("endDate") val endDate : String,
-	@SerializedName("status") val status : String
+	@SerializedName("status") val status : String,
+	@SerializedName("feeID") val feeID : String
 )

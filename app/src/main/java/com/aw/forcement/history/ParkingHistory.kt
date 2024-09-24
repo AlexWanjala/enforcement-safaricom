@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aw.forcement.ChangePassword
 import com.aw.forcement.R
+import com.aw.forcement.SelectZone
 import com.aw.forcement.tabs.Home
 import com.aw.passanger.api.*
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -30,66 +31,6 @@ class ParkingHistory : AppCompatActivity() {
         setContentView(R.layout.activity_parking_history)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-
-           //when floationg acition button is clicked
-            btnDatePicker.setOnClickListener {
-
-            // Initiation date picker with
-            // MaterialDatePicker.Builder.datePicker()
-            // and building it using build()
-            val datePicker = MaterialDatePicker.Builder.dateRangePicker().build()
-            datePicker.show(supportFragmentManager, "DatePicker")
-
-            // Setting up the event for when ok is clicked
-            datePicker.addOnPositiveButtonClickListener {
-              //  Toast.makeText(this, "${datePicker.headerText} is selected", Toast.LENGTH_LONG).show()
-                Toast.makeText(this, "${datePicker.selection.toString()} is selected", Toast.LENGTH_LONG).show()
-                println("##Response${datePicker.headerText} :::: ${datePicker.selection.toString()}")
-                getQueries("",datePicker.headerText)
-            }
-
-            // Setting up the event for when cancelled is clicked
-            datePicker.addOnNegativeButtonClickListener {
-                Toast.makeText(this, "${datePicker.headerText} is cancelled", Toast.LENGTH_LONG).show()
-            }
-
-            // Setting up the event for when back button is pressed
-            datePicker.addOnCancelListener {
-                Toast.makeText(this, "Date Picker Cancelled", Toast.LENGTH_LONG).show()
-            }
-        }
-
-
-        allParking.setOnClickListener {
-            getQueries("","")
-        }
-
-        toNonCompliant.setOnClickListener {
-            getQueries("UNPAID","")
-        }
-
-        clamped.setOnClickListener {
-            getQueries("CLAMPED","")
-        }
-
-        compliant.setOnClickListener {
-            getQueries("PAID","")
-        }
-
-        et_search_bar.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                getQueries(s.toString(),"")
-            }
-
-        })
 
         getQueries("","")
     }
@@ -130,6 +71,12 @@ class ParkingHistory : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
+        startActivity(Intent(this, Home::class.java))
+        super.onBackPressed()
     }
 
 

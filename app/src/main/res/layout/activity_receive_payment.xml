@@ -73,7 +73,7 @@
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:gravity="center"
                     android:elevation="5dp"
-                    android:id="@+id/spinnerIncomeType"
+                    android:id="@+id/spinnerProperties"
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
@@ -100,7 +100,7 @@
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:gravity="center"
                     android:elevation="5dp"
-                    android:id="@+id/spinnerFeeAndCharges"
+                    android:id="@+id/spinnerUnits"
                     android:layout_width="match_parent"
                     android:layout_height="24dp" />
 
@@ -124,6 +124,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/tv_tenant"
                     android:fontFamily="@font/montserrat"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -150,11 +151,12 @@
                     <TextView
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/labels"
-                        android:text="@string/tenant"
+                        android:text="@string/rent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_rent"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"
@@ -181,6 +183,7 @@
                         android:layout_height="wrap_content"/>
 
                     <TextView
+                        android:id="@+id/tv_arrears"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/montserrat"
                         android:textColor="@color/black"

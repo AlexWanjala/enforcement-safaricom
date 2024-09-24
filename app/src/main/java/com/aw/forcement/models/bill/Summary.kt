@@ -14,5 +14,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Summary (
 
-	@SerializedName("count") val count : Int
+	@SerializedName("count") val count : Int,
+	@SerializedName("totalRecords") val totalRecords : String,
+	@SerializedName("totalReceiptAmount") val totalReceiptAmount : String
 )

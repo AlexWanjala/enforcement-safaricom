@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.aw.forcement",
+  "variantName": "kerichoRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 174,
+      "versionName": "174",
+      "outputFile": "app-kericho-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

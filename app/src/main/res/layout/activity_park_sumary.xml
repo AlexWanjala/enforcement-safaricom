@@ -196,7 +196,7 @@
                     <TextView
                         android:fontFamily="@font/montserrat"
                         android:id="@+id/tvUnits"
-                        android:text="@string/livestock_movement"
+                        android:text=""
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

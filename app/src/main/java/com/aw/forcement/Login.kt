@@ -1,6 +1,8 @@
 package com.aw.forcement
 
+import Const
 import Json4Kotlin_Base
+import SelectedRoles
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
@@ -46,7 +48,11 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main_page.*
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 import java.util.*
 
@@ -64,6 +70,8 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         login.setOnClickListener {
 
@@ -252,6 +260,24 @@ class Login : AppCompatActivity() {
         alert.show()
     }
 
+    private fun getDeviceId(context: Context): String {
+        return Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+    }
+
+    @RequiresApi(34)
+    fun isMoreThanSixHoursPassed(context: Context): Boolean {
+        val deviceId = getDeviceId(context)
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val savedTime = sharedPreferences.getLong("saved_time_$deviceId", 0)
+
+        val currentTime = LocalDateTime.now().toEpochSecond(ZoneOffset.UTC)
+        val timeDifference = currentTime - savedTime
+
+        // 6 hours in seconds
+        val sixHoursInSeconds = 6 * 60 * 60
+
+        return timeDifference > sixHoursInSeconds
+    }
 
     @RequiresApi(34)
     private fun login (){
@@ -262,21 +288,25 @@ class Login : AppCompatActivity() {
             "function" to "login",
             "email" to edUsername.text.toString(),
             "password" to edPassword.text.toString(),
-            "latitude" to getValue(this,"latitude").toString(),
-            "longitude" to getValue(this,"longitude").toString(),
-            "country" to getValue(this,"country").toString(),
-            "address" to getValue(this,"address").toString(),
-            "locality" to getValue(this,"locality").toString(),
+            "latitude" to "",
+            "longitude" to "",
+            "country" to "",
+            "address" to "",
+            "locality" to "",
             "versionCode" to versionCode.toString(),
-            "deviceId" to getDeviceIdNumber(this),
+            "deviceId" to "",
            // "IMEI" to emei.text.toString(),
 
         )
         executeRequest(formData, authentication,object : CallBack{
             override fun onSuccess(result: String?) {
                 runOnUiThread {  progress_circular.visibility = View.GONE }
+
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
+
+                    Const.instance.setCategory(response.data.category)
+
                     save(this@Login,"idNo", edUsername.text.toString() )
                     save(this@Login,"email", edUsername.text.toString() )
                     save(this@Login,"pass", edPassword.text.toString() )
@@ -299,7 +329,17 @@ class Login : AppCompatActivity() {
                     save(this@Login,"clampingDuration",response.data.county.clampingDuration)
                     save(this@Login,"code",response.data.user.code)
                    // startActivity(Intent(this@Login, MainRoActivity::class.java))
-                    startActivity(Intent(this@Login, Home::class.java))
+
+                    if (isMoreThanSixHoursPassed(this@Login)) {
+
+                        startActivity(Intent(this@Login, OTP::class.java).putExtra("phoneNumber",response.data.user.phoneNumber))
+
+                    } else {
+
+                        startActivity(Intent(this@Login, Home::class.java))
+                    }
+
+
                 }else if(response.status==2){
                     save(this@Login,"names",response.data.user.names)
                     save(this@Login,"email", edUsername.text.toString() )
@@ -319,6 +359,8 @@ class Login : AppCompatActivity() {
                     save(this@Login,"gender",response.data.user.gender.toString())
                     save(this@Login,"idNo", edUsername.text.toString() )
                     save(this@Login,"clampingDuration",response.data.county.clampingDuration)
+
+                    Const.instance.setCategory(response.data.category)
 
                     runOnUiThread {   tvMessage.text = "" }
                     startActivity(Intent(this@Login,ChangePassword::class.java))
@@ -472,7 +514,6 @@ class Login : AppCompatActivity() {
             }
         }
     }
-
 
 
     @SuppressLint("MissingPermission", "SetTextI18n")

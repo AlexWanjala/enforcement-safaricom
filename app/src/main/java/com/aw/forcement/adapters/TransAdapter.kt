@@ -1,3 +1,4 @@
+/*
 import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
@@ -19,9 +20,11 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 
 
+*/
 /**
  * Created by Alex Boey on 8/1/2016.
- */
+ *//*
+
 class TransAdapter(private val context: Context, mList: List<Transactions>) :
 	RecyclerView.Adapter<TransAdapter.ViewHolder?>() {
 	private var mList: List<Transactions> = ArrayList<Transactions>()
@@ -191,3 +194,4 @@ class TransAdapter(private val context: Context, mList: List<Transactions>) :
 		return builder.toString()
 	}
 }
+*/

@@ -39,5 +39,6 @@ data class BillDetails (
 	@SerializedName("phoneNumber") val phoneNumber : String,
 	@SerializedName("names") val names : String,
 	@SerializedName("customerPhoneNumber") val customerPhoneNumber : String,
-	@SerializedName("category") val category : String
+	@SerializedName("category") val category : String,
+	@SerializedName("printable") val printable : String
 )

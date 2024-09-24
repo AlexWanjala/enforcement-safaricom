@@ -203,7 +203,8 @@ class BillingInformation : AppCompatActivity() {
         val formData = listOf(
             "function" to "registerBusiness",
             "business" to getJsonData(),
-            "deviceId" to getDeviceIdNumber(this)
+            "deviceId" to getDeviceIdNumber(this),
+            "idNo" to getValue(this,"idNo").toString()
 
             )
         executeRequest(formData, trade,object : CallBack {

@@ -3,7 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-android {
+android{
+
+    viewBinding {
+        enabled = true
+    }
     signingConfigs {
         debug {
             storeFile file('/Users/mac/Library/Mobile Documents/com~apple~CloudDocs/KEYSTORE/levetot/MacBookPro')
@@ -23,8 +27,8 @@ android {
         applicationId "com.aw.forcement" 
         minSdk 22
         targetSdk 34
-        versionCode 158
-        versionName "158"
+        versionCode 177
+        versionName "177"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,8 +40,32 @@ android {
     }
     flavorDimensions "entity"
     productFlavors {
+        dar{
+            manifestPlaceholders = [ launchActivityName:"com.aw.forcement.Login"]
+            dimension "entity"
+            applicationIdSuffix ".dar"
+            versionNameSuffix "-dar"
+            resValue "string", "app_name", "Dar es salaam Revenue"
+            resValue "string", "country_code", "+254"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://maegesho.appframetech.com/api/"'
+
+        }
+        kericho {
+            manifestPlaceholders = [ launchActivityName:"com.aw.forcement.Login"]
+            dimension "entity"
+            applicationIdSuffix ""
+            versionNameSuffix ""
+            resValue "string", "app_name", "Kericho Revenue Collector"
+            resValue "string", "country_code", "+254"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://kerichopay.co.ke/api/"'
+
+        }
         homabay {
-            manifestPlaceholders = [ launchActivityName:"com.example.MainActivity"]
+            manifestPlaceholders = [ launchActivityName:"com.aw.forcement.Login"]
             dimension "entity"
             applicationIdSuffix ""
             versionNameSuffix ""
@@ -55,7 +83,8 @@ android {
             resValue "string", "app_name", "Meru Revenue Collector"
             buildConfigField "String", 'version_code', '"1.1"'
             resValue "string", "icon_name", "@drawable/county_meru"
-            buildConfigField "String", "URL", '"https://api.craftcollect.africa/meru/"'
+             buildConfigField "String", "URL", '"https://api.craftcollect.africa/meru/"'
+         /*   buildConfigField "String", "URL", '"https://rcmsuat.craftsilicon.com/apimeru/"'*/
 
         }
         elgeyo {
@@ -98,6 +127,27 @@ android {
             buildConfigField "String", "URL", '"https://api.paysol.co.ke/v2/"'
 
         }
+        kajiado {
+            dimension "entity"
+            applicationIdSuffix ".kajiado"
+            versionNameSuffix "-kajiado"
+            resValue "string", "app_name", "Kajiado"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://kajiadoservices.co.ke/api/"'
+
+        }
+        migori {
+            dimension "entity"
+            applicationIdSuffix ".migori"
+            versionNameSuffix "-migori"
+            resValue "string", "app_name", "Migori"
+            buildConfigField "String", 'version_code', '"1.1"'
+            resValue "string", "icon_name", "@drawable/county_logo"
+            buildConfigField "String", "URL", '"https://migori.revrms.co.ke/api/"'
+
+        }
+
     }
     android.variantFilter {
         variant ->
@@ -131,6 +181,7 @@ android {
         }
     }
     namespace 'com.aw.forcement'
+
 }
 
 dependencies {
@@ -193,6 +244,11 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.3.1'
     implementation 'joda-time:joda-time:2.10.10'
    // implementation 'androidx.multidex:multidex:2.0.1'
+
+    // WorkManager dependency
+    implementation "androidx.work:work-runtime-ktx:2.9.1"
+    // Notification dependency
+    implementation "androidx.core:core-ktx:1.13.1"
 
 
 }

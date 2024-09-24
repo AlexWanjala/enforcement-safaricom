@@ -217,7 +217,6 @@ class BusinessDetailsApplication : AppCompatActivity() {
 
                     }
 
-
                 }
                 else{
                     runOnUiThread {

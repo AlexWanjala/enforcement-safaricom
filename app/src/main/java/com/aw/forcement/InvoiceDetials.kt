@@ -84,7 +84,10 @@ class InvoiceDetials : AppCompatActivity() {
 
             builder.show()
         }*/
-        print.setOnClickListener { printReceipt() }
+        print.setOnClickListener {
+
+            printReceipt()
+        }
         getBill()
 
         //Bluetooth printer
@@ -120,6 +123,12 @@ class InvoiceDetials : AppCompatActivity() {
 
                 if(response.success){
                     runOnUiThread {
+
+                        if(response.data.billDetails.printable == "false"){
+                            print.visibility = View.GONE
+                        }else{
+                            print.visibility = View.VISIBLE
+                        }
                         tv_incomeTypeDescription.text = response.data.billDetails.incomeTypeDescription
                         tv_phone.text = response.data.billDetails.customerPhoneNumber
                         tv_date.text = humanDate(response.data.billDetails.dateCreated)
