@@ -18,7 +18,7 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true" />
+        android:required="true"/>
 
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE" />
 
@@ -37,7 +37,53 @@
         android:windowSoftInputMode="adjustResize"
         tools:replace="android:theme"
         tools:targetApi="31">
+        <activity
+            android:name=".landrate.LandrateDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
+
+        <activity
+            android:name=".landrate.Landrate"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+
+        <activity android:name=".sbp.renew.Applications"/>
+        <activity android:name=".sbp.renew.ApplicationsDetail"/>
+        <activity android:name=".sbp.renew.ApplicationVerificationOwner"/>
+       <activity android:name=".sbp.renew.ApplicationVerificationBusinessDetails"/>
+        <activity android:name=".sbp.renew.ApplicationVerificationBusinessActivityInformation"/>
+        <activity android:name=".sbp.renew.ApplicationVerificationBillingInformation"/>
+
+
+        <activity
+            android:name=".plotrent.PlotDetails"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".plotrent.PlotRent"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".assets.machinery.TotalInvoicingDetailsMechinery"
             android:exported="false">
@@ -45,8 +91,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
         <activity
             android:name=".assets.machinery.MachineryBilling"
             android:exported="false">
@@ -54,7 +98,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".assets.stadium.StadiumBilling"
             android:exported="false">
@@ -62,9 +105,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
         <activity
             android:name=".assets.stadium.TotalInvoicingDetailsStadium"
             android:exported="false">
@@ -72,10 +112,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
-
         <activity
             android:name=".assets.tractor.TotalInvoicingDetailsTractor"
             android:exported="false">
@@ -83,7 +119,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".health.medical.ApplicantDetails"
             android:exported="false">
@@ -91,7 +126,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".assets.tractor.TractorBilling"
             android:exported="false">
@@ -99,11 +133,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
-
-
-
-
         <activity
             android:name=".health.medical.MedicalAssesment"
             android:exported="false">
@@ -111,7 +140,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".health.medical.MedicalCertificateBilling"
             android:exported="false">
@@ -119,7 +147,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".health.medical.TotalInvoicingDetailsMedical"
             android:exported="false">
@@ -127,7 +154,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".health.hygiene.Requirements"
             android:exported="false">
@@ -559,6 +585,10 @@
             android:exported="false"
             android:launchMode="singleTop" />
         <activity
+            android:name=".plotrent.ReceivePayment"
+            android:exported="false"
+            android:launchMode="singleTop" />
+        <activity
             android:name=".history.ParkingHistory"
             android:exported="false"
             android:launchMode="singleTop" />
@@ -591,27 +621,22 @@
             android:exported="false"
             android:launchMode="singleTop" />
         <activity android:name=".others.Street" />
-
         <activity
+            android:name=".others.MeteredParking"
             android:exported="false"
-            android:launchMode="singleTop"
-             android:name=".others.MeteredParking"/>
-
+            android:launchMode="singleTop" />
         <activity
+            android:name=".OTP"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:name=".OTP"/>
-
+            android:launchMode="singleTop" />
         <activity
+            android:name=".billing.Billing"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:name=".billing.Billing"/>
-
+            android:launchMode="singleTop" />
         <activity
+            android:name=".billing.BillingSummary"
             android:exported="false"
-            android:launchMode="singleTop"
-            android:name=".billing.BillingSummary"/>
-
+            android:launchMode="singleTop" />
         <activity
             android:name=".Login"
             android:exported="true"
@@ -624,7 +649,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

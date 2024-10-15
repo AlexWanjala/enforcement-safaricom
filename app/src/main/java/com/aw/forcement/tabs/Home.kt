@@ -101,6 +101,8 @@ import com.aw.forcement.fire.SearchForBusiness
 import com.aw.forcement.fire.applications.ApplicationsFire
 import com.aw.forcement.health.medical.ApplicantDetails
 import com.aw.forcement.history.ParkingHistory
+import com.aw.forcement.landrate.Landrate
+import com.aw.forcement.plotrent.PlotRent
 import com.aw.forcement.service.NotificationWorker
 import com.aw.forcement.transaction.AutoRecon
 import com.aw.forcement.vet.movement.MovementFees
@@ -363,6 +365,10 @@ class Home : AppCompatActivity() {
              save(this,"header","Active Businesses")
              startActivity(Intent(this, DataCollection::class.java))
          }
+        fl_sbp_new.setOnClickListener {
+            save(this,"header","Active Businesses")
+            startActivity(Intent(this, com.aw.forcement.sbp.renew.Applications::class.java).putExtra("keyword","true"))
+        }
          fl_data_collections.setOnClickListener {
              startActivity(Intent(this, CollectionsSBP::class.java))
          }
@@ -371,7 +377,7 @@ class Home : AppCompatActivity() {
         public_health.setOnClickListener { toggleBottomSheetHealth() }
         fl_food_hygiene.setOnClickListener {
             bottomSheetBehaviorHealth.state = BottomSheetBehavior.STATE_COLLAPSED
-            Toast.makeText(this,"dhdh",Toast.LENGTH_LONG).show()
+           // Toast.makeText(this,"dhdh",Toast.LENGTH_LONG).show()
         }
 
         //Hygiene
@@ -428,6 +434,8 @@ class Home : AppCompatActivity() {
          fl_receive_payment.setOnClickListener {  startActivity(Intent(this, ReceivePayment::class.java)) }
          fl_promised_payments.setOnClickListener {  startActivity(Intent(this, PromisedPayments::class.java)) }
          fl_rentals_register.setOnClickListener {  startActivity(Intent(this, TenancyRegister::class.java)) }
+         fl_plot_rent.setOnClickListener {  startActivity(Intent(this, PlotRent::class.java)) }
+         fl_land_rate.setOnClickListener {  startActivity(Intent(this, Landrate::class.java)) }
 
          //Vet & Livestock Services
          fl_live_stock_licencing.visibility = View.GONE

@@ -73,6 +73,8 @@ val paysol = URL + "paysol/index.php"
 
 var parking = "parking/"
 var rent = "rent/"
+var plotrent = "plotrent/"
+var landrate = "landrate/"
 var trade = "trade/"
 var health = "health/"
 var biller ="biller/"

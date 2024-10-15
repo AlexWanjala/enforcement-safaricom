@@ -18,6 +18,10 @@ class Const public constructor() {
     private lateinit var individual: Individual
     private lateinit var units: Units
 
+    private lateinit var plot: Plot
+
+    private lateinit var property: Properties
+
     private lateinit var category: Category
 
 
@@ -70,6 +74,11 @@ class Const public constructor() {
 
     }
 
+    fun clearFeesAndCharges() {
+        selectedFeesAndCharges.clear() // Replace feesAndChargesList with your actual list variable
+    }
+
+
     // A method to remove a fee and charge from the list
     fun removeFeeAndCharge(feeAndCharge: FeesAndCharges) {
         selectedFeesAndCharges.remove(feeAndCharge)
@@ -102,6 +111,17 @@ class Const public constructor() {
     fun getUnits(): Units {
         return units
     }
+
+    fun setPlot(plot: Plot) {
+        this.plot = plot
+    }
+
+    fun getPlot(): Plot {
+        return plot
+    }
+
+
+
 
     fun setStatuses(statuses: List<Statuses>) {
         this.statuses = statuses
@@ -165,14 +185,19 @@ class Const public constructor() {
         return receipt
     }
 
+    fun setProperty(property: Properties) {
+        this.property = property
+    }
+    fun getProperty(): Properties {
+        return property
+    }
+
     fun setReceiptDetails(receiptDetails: ReceiptDetails) {
         this.receiptDetails = receiptDetails
     }
     fun getReceiptDetails(): ReceiptDetails {
         return receiptDetails
     }
-
-
 
     fun setIndividual(individual: Individual) {
         this.individual = individual

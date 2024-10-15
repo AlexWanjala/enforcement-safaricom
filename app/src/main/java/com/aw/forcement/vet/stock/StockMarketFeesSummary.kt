@@ -256,7 +256,10 @@ class StockMarketFeesSummary : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewPaid as View?
         )
-        messageBoxInstancePaid = messageBoxBuilder.show()
+        if (!isFinishing && !isDestroyed) {
+            messageBoxInstancePaid = messageBoxBuilder.show()
+        }
+
         messageBoxInstancePaid.setCanceledOnTouchOutside(false)
 
         messageBoxViewPaid.tv_transaction.text = transaction
@@ -279,7 +282,10 @@ class StockMarketFeesSummary : AppCompatActivity() {
         val messageBoxBuilder = androidx.appcompat.app.AlertDialog.Builder(this).setView(
             messageBoxViewFailed as View?
         )
-        messageBoxInstanceFailed = messageBoxBuilder.show()
+        if (!isFinishing && !isDestroyed) {
+            messageBoxInstanceFailed = messageBoxBuilder.show()
+        }
+
         messageBoxInstanceFailed.setCanceledOnTouchOutside(false)
 
         if (message.contains("invalid")) {

@@ -94,11 +94,16 @@
     <string name="box_">3692 Kakamega</string>
     <string name="plot">Plot NO.</string>
     <string name="plot_">BL300/398</string>
+    <string name="owner_details">Owner Details</string>
+    <string name="plot_details">Plot Details</string>
     <string name="physical_address">Physical address</string>
     <string name="physical_address_">Park Hill next to Maisha Market</string>
     <string name="certificate_status">Certificate Status</string>
     <string name="active">Active</string>
     <string name="gps">GPS Coordinates</string>
+    <string name="plot_size">Plot Size</string>
+    <string name="annual_rate">Annual Rate</string>
+    <string name="out_standing">Outstanding Bal</string>
 
     <string name="parking_details">Parking Details</string>
     <string name="parking_details_">Car plate No KAD 125P</string>
@@ -341,6 +346,9 @@
     <string name="deputy_director">To be done by Deputy Director of that sub county(LO)</string>
     <string name="initiate">Initiate An Application</string>
     <string name="initiate_des">Option for starting registration of a new Business</string>
+    <string name="initiate_renew">Initiate Renew Application</string>
+    <string name="renewal_billing">Renewal Billing Information</string>
+    <string name="initiate_des_renew">Option for starting renewal of aBusiness</string>
     <string name="application_validation">Application Validation</string>
     <string name="application_validation_des">Compare application details against what\'s available at premises</string>
     <string name="application_inspection">Application Inspection</string>
@@ -352,8 +360,13 @@
     <string name="active_business">List of Active Businesses</string>
     <string name="active_business_des">View all businesses</string>
     <string name="application_verification">Application Verification</string>
-    <string name="rents">Rents</string>
-    <string name="rents_des">Efficient tenant payment request and tracking.</string>
+    <string name="rents">Rates(Land &amp; Plot)</string>
+    <string name="land_rate">Land Rates</string>
+    <string name="lr_number">LR NO</string>
+    <string name="land_rate_des">Collect Rates For Lands Using Their LR NO</string>
+    <string name="plot_rent">Plot Rent</string>
+    <string name="plot_rent_des">Collect Payment For Plots</string>
+    <string name="rents_des">Efficient Rates payment request and tracking.</string>
     <string name="sbp_permits">SBP Permits</string>
     <string name="sbp_permits_des">Efficient tenant payment request and tracking.</string>
     <string name="new_business">New Business Application</string>
@@ -412,6 +425,7 @@
     <string name="business_description_optional">Business description</string>
     <string name="enter_premises_size">Enter premises Size</string>
     <string name="billing_information">Billing Information</string>
+    <string name="billing_information_prev">Previous Billing Information</string>
     <string name="business_category">Business category</string>
     <string name="business_sub_category">Business sub Category</string>
     <string name="owner_des">Owner\'s ID</string>
@@ -466,6 +480,8 @@
     <string name="rent_arrears">Rent arrears</string>
     <string name="county_rental_des">Select any of the following options to continue</string>
     <string name="receive_payment">Receive payment</string>
+    <string name="house_rent">House/Stall Rents</string>
+    <string name="house_rent_des">Collect House Rent/ stalls</string>
     <string name="receive_payment_des">Receive payment from Tenant</string>
     <string name="promise_payments">Promised Payments</string>
     <string name="promise_payments_des">View Tenants who have promised to make payment</string>
@@ -644,11 +660,9 @@
     <string name="Verify">Verify &amp; Proceed</string>
     <string name="billing">Universal Billing</string>
     <string name="billing_">General Billing for unstructured services</string>
-
-
-
-
-
+    <string name="password_recovery">Password Recovery</string>
+    <string name="password_recovery_des">Provide us with the following details to enable password recovery for your account</string>
+    <string name="generate_password">Generate Password</string>
 
 
 </resources>

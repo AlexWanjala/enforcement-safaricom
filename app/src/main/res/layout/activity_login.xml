@@ -150,20 +150,11 @@
             android:layout_height="wrap_content"/>
 
 
-        <TextView
-            android:id="@+id/emei"
-            android:fontFamily="@font/montserrat"
-            android:textAllCaps="true"
-            android:textStyle="bold"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/blue_zuku"
-            tools:text="EMEI: 202020202"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
 
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/forgotPassword"
             android:layout_gravity="center"
             android:layout_marginTop="20sp"
             android:orientation="horizontal"
@@ -173,7 +164,7 @@
             <TextView
                 android:fontFamily="@font/montserrat"
                 android:textColor="@color/text_color"
-                tools:text="@string/forgot"
+                android:text="@string/forgot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

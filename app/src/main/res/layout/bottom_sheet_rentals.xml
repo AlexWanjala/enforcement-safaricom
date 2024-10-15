@@ -48,7 +48,7 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="bold"
-                    android:text="@string/fine_penalties"
+                    android:text="@string/rents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -96,7 +96,7 @@
 
                 <ImageView
                     android:layout_gravity="left"
-                    android:src="@drawable/money_dollar"
+                    android:src="@drawable/rent"
                     android:layout_width="30sp"
                     android:layout_height="wrap_content"/>
 
@@ -112,7 +112,7 @@
                         android:fontFamily="@font/montserrat"
                         android:textStyle="bold"
                         android:textColor="@color/circle_color"
-                        android:text="@string/receive_payment"
+                        android:text="@string/house_rent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -121,7 +121,7 @@
                         android:textColor="@color/grey_des"
                         android:textSize="9sp"
                         android:fontFamily="@font/montserrat"
-                        android:text="@string/receive_payment_des"
+                        android:text="@string/house_rent_des"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -137,6 +137,112 @@
 
 
             </FrameLayout>
+
+            <FrameLayout
+                android:layout_marginTop="25sp"
+                android:id="@+id/fl_plot_rent"
+                android:background="@drawable/rectangle_background_blue"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_gravity="left"
+                    android:src="@drawable/plot"
+                    android:layout_width="30sp"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginStart="25sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/circle_color"
+                        android:text="@string/plot_rent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textColor="@color/grey_des"
+                        android:textSize="9sp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/plot_rent_des"
+                        android:layout_width="250sp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/arrow_right_direction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_marginTop="25sp"
+                android:id="@+id/fl_land_rate"
+                android:background="@drawable/rectangle_background_blue"
+                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:layout_gravity="left"
+                    android:src="@drawable/land_property"
+                    android:layout_width="30sp"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginStart="25sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="13sp"
+                        android:fontFamily="@font/montserrat"
+                        android:textStyle="bold"
+                        android:textColor="@color/circle_color"
+                        android:text="@string/land_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textColor="@color/grey_des"
+                        android:textSize="9sp"
+                        android:fontFamily="@font/montserrat"
+                        android:text="@string/land_rate_des"
+                        android:layout_width="250sp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:layout_gravity="right"
+                    android:src="@drawable/arrow_right_direction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </FrameLayout>
+
 
 
             <FrameLayout

@@ -41,5 +41,6 @@ data class County (
 	@SerializedName("smsservice") val smsservice : String,
 	@SerializedName("rabbitmq") val rabbitmq : String,
 	@SerializedName("clampingDuration") val clampingDuration : String,
-	@SerializedName("rabbitQue") val rabbitQue : Boolean
+	@SerializedName("rabbitQue") val rabbitQue : Boolean,
+	@SerializedName("loginOTP") val loginOTP : String
 )

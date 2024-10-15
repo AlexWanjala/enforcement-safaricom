@@ -69,7 +69,6 @@ class AutoRecon : AppCompatActivity() {
         }
 */
         submitMessage.setOnClickListener {
-            Toast.makeText(this,"djdjjd",Toast.LENGTH_LONG).show()
             processPastedMessage(edMpesa.text.toString())
         }
     }
@@ -92,7 +91,7 @@ class AutoRecon : AppCompatActivity() {
                         tvMessage.text = response.message
 
                     }else{
-
+                        tvMessage.text = response.message
                     }
                 }
 

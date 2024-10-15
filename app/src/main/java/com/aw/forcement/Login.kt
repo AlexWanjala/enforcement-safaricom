@@ -35,6 +35,7 @@ import android.location.Location
 import android.os.AsyncTask
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import com.aw.forcement.api.TextToSpeechUtil
@@ -71,6 +72,7 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         login.setOnClickListener {
@@ -110,6 +112,11 @@ class Login : AppCompatActivity() {
 
        // initBroadCast()
 
+        forgotPassword.setOnClickListener {
+            startActivity(Intent(this,ForgotPassword::class.java))
+
+        }
+
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         updateApp()
 
@@ -139,7 +146,6 @@ class Login : AppCompatActivity() {
             // Note: This may return null on devices where the IMEI is not available.
             val imeiResult = imei ?: "IMEI not available"
             // Handle the IMEI result as needed, e.g., display it, use it in your app, etc.
-            emei.text = imeiResult
         } else {
             // Permission not granted, request it from the user
             requestPermissions(arrayOf(android.Manifest.permission.READ_PHONE_STATE), PERMISSION_REQUEST_READ_PHONE_STATE)
@@ -330,14 +336,20 @@ class Login : AppCompatActivity() {
                     save(this@Login,"code",response.data.user.code)
                    // startActivity(Intent(this@Login, MainRoActivity::class.java))
 
-                    if (isMoreThanSixHoursPassed(this@Login)) {
+                    if( response.data.county.loginOTP == "true"){
+                        if (isMoreThanSixHoursPassed(this@Login)) {
 
-                        startActivity(Intent(this@Login, OTP::class.java).putExtra("phoneNumber",response.data.user.phoneNumber))
+                            startActivity(Intent(this@Login, OTP::class.java).putExtra("phoneNumber",response.data.user.phoneNumber))
 
-                    } else {
+                        } else {
 
+                            startActivity(Intent(this@Login, Home::class.java))
+                        }
+
+                    }else{
                         startActivity(Intent(this@Login, Home::class.java))
                     }
+
 
 
                 }else if(response.status==2){

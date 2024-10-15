@@ -32,6 +32,7 @@ class MyHistoryAdapter(private val context: Context, mList: List<MyHistory>) :
 		var tvHeader: TextView = itemView.findViewById<View>(R.id.tv_header) as TextView
 		var tvItem: TextView = itemView.findViewById<View>(R.id.tv_item) as TextView
 		var tvDate: TextView = itemView.findViewById<View>(R.id.tv_date) as TextView
+		var title: TextView = itemView.findViewById<View>(R.id.title) as TextView
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,7 +45,14 @@ class MyHistoryAdapter(private val context: Context, mList: List<MyHistory>) :
 		val list: MyHistory = mList[position]
 
 
-		holder.tvAmout.text ="KES " + list.amount.toString();
+		if(list.amount == "0"){
+			holder.tvAmout.visibility = View.GONE
+			holder.title.visibility = View.GONE
+		}else{
+			holder.tvAmout.text ="KES " + list.amount.toString();
+		}
+
+
 		holder.tvHeader.text = list.title
 		holder.tvItem.text  = list.description
 		holder.tvDate.text = covertTimeToText(list.time)

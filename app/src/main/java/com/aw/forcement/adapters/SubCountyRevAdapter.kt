@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.aw.forcement.R
 import com.aw.passanger.api.getValue
+import java.lang.Math.round
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -57,7 +58,13 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 
 		}
 
-		val progress = 50
+		// Example usage
+		val dailyTarget = list.target.toDouble() // Assuming list.target is a Double
+		val amountTotal = list.amountTotal.toDouble() // Assuming list.amountTotal is a Double
+
+		val progress = calculateProgressPercentage(dailyTarget, amountTotal)
+
+
 		if (progress>= 100){
 			holder.view_performance.setBackgroundColor(Color.parseColor("#047A10"))//Above Target
 		}
@@ -97,6 +104,15 @@ class SubCountyRevAdapter(private val context: Context, mList: List<SubCountiesR
 		holder.tv_amount.text = "KES "+ formatNumber(list.amountTotal.toInt())
 
 	}
+
+	fun calculateProgressPercentage(dailyTarget: Double, amountTotal: Double): Int {
+		return if (dailyTarget > 0) {
+			round((amountTotal / dailyTarget) * 100).toInt() // Round to nearest whole number and convert to Int
+		} else {
+			0 // Avoid division by zero; return 0% if the target is 0
+		}
+	}
+
 
 	private fun isEven(number: Int): Boolean {
 		return number % 2 ==0

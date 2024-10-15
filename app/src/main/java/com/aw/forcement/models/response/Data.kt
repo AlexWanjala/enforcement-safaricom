@@ -58,5 +58,9 @@ data class Data (
 	@SerializedName("properties") val properties : List<Properties>,
 	@SerializedName("units") val units : List<Units>,
 	@SerializedName("user") val user : User,
-	@SerializedName("category") val category : Category
+	@SerializedName("category") val category : Category,
+	@SerializedName("plots") val plots : List<Plots>,
+	@SerializedName("count") val count : Count,
+	@SerializedName("plot") val plot : Plot,
+	@SerializedName("property") val property : Properties,
 )

@@ -537,6 +537,7 @@ class BillingSummary : AppCompatActivity() {
             "deviceId" to getDeviceIdNumber(this)
         )
         executeRequest(formData, biller,object : CallBack {
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun onSuccess(result: String?) {
                 val response = Gson().fromJson(result, Json4Kotlin_Base::class.java)
                 if(response.success){
@@ -549,6 +550,7 @@ class BillingSummary : AppCompatActivity() {
 
                             val  customer = receiptInfo.customer
                             val  des = receiptInfo.description
+                            descriptions +="Identifier: $customer"
 
                             item +="${receiptInfo.feeDescription}:   ${receiptInfo.receiptAmount}\n";
 
